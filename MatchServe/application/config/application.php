@@ -53,7 +53,7 @@ return array(
 	|
 	*/
 
-	'key' => 'Thisisacompletelyrandomsecretey',
+	'key' => 'asdasdasdasdasdasdaOMGSECRETKEY123'
 
 	/*
 	|--------------------------------------------------------------------------
