@@ -53,7 +53,7 @@ return array(
 	|
 	*/
 
-	'key' => 'hellothereGeorgeisaweird1234'
+	'key' => 'hellothereGeorgeisnotwierd12'
 
 	/*
 	|--------------------------------------------------------------------------
