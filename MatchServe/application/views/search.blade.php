@@ -6,6 +6,8 @@
         <title>Match and Serve - Search</title>
         <meta name="viewport" content="width=device-width">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+        <script src="js/search.js" type="text/javascript"></script>
+        
         {{ HTML::style('laravel/css/style.css') }}
         
         <style>
@@ -69,36 +71,6 @@
                 background: white;
             }
         </style>
-        
-        <script>
-            function showZipCode() {
-                $('#zip-code').show('fast');
-                $('#zip-code-show-link').html("hide zip code");
-                $('#zip-code-show-link').attr("href","javascript:hideZipCode()");
-            }
-            
-            function hideZipCode() {
-                $('#zip-code').hide('fast');
-                $('#zip-code-show-link').html("change zip code");
-                $('#zip-code-show-link').attr("href","javascript:showZipCode()");
-            }
-            
-            function validateSearchFields() {
-                showSearchSpecifiers();
-            }
-            
-            function showSearchSpecifiers() {
-                $('#search-specifiers-container').show('slow');
-            }
-            
-            function focusedText(item) {
-                item.style.color = "#000";
-            }
-            
-            function blurText(item) {
-                item.style.color = "#888";
-            }
-        </script>
     </head>
     <body>
         <div id="wrapper">
