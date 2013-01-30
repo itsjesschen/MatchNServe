@@ -34,7 +34,12 @@
 
 Route::get('/', function()
 {
-	return View::make('search');
+	return View::make('home/index');
+});
+
+Route::get('/search', function()
+{
+	return View::make('search');	
 });
 
 /*
