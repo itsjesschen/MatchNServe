@@ -34,5 +34,10 @@ class Home_Controller extends Base_Controller {
 	{
 		return View::make('home.index');
 	}
+	
+	public function action_search() {
+		return View::make('search')
+			->with('name', '');
+	}
 
 }

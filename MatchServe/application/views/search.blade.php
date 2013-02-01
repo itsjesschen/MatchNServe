@@ -6,7 +6,7 @@
         <title>Match and Serve - Search</title>
         <meta name="viewport" content="width=device-width">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
-        <script src="js/search.js" type="text/javascript"></script>
+        <?php echo Asset::scripts(); ?>
         
         {{ HTML::style('laravel/css/style.css') }}
         
@@ -31,8 +31,11 @@
             }
             
             #search-specifiers-container {
-                display: none;
                 text-align: center;
+                position: absolute;
+                display: block;
+                width: 100%;
+                z-index: 1;
             }
             
             #search-specifiers-container ul {
@@ -57,6 +60,7 @@
                 font-family: "century gothic";
                 padding-top: 5px;
                 padding-bottom: 5px;
+                -webkit-transition: 1s all ease-out;
             }
             
             #search-content {
@@ -83,12 +87,13 @@
             <br>
             <div id="search-specifiers-container">
                 <ul>
-                    <li>DISTANCE</li>
+                    <li onmouseover="distanceHover(this)" onmouseout="distanceOff(this)">DISTANCE</li>
                     <li>SKILLS</li>
                     <li>CAUSES</li>
                     <li>AVAILABILITY</li>
                 </ul>
             </div>
+            <br><br>
             <div id="search-content">
                 <div id="filters-row">a</div>
                 <div id="search-results">a</div>

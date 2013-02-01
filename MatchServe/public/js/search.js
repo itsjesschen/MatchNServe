@@ -25,3 +25,16 @@ function focusedText(item) {
 function blurText(item) {
     item.style.color = "#888";
 }
+
+function validateSearchFields() {
+    window.location = "http://localhost/MatchServe/MatchServe/public/search/query/";
+}
+
+function distanceHover(x) {
+    x.style.height = '200px';
+    $(x).append();
+}
+
+function distanceOff(x) {
+    x.style.height = "auto";
+}
