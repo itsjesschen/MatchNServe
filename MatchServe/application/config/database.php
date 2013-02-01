@@ -66,11 +66,11 @@ return array(
 			'database' => 'application',
 			'prefix'   => '',
 		),
-
+		
 		'mysql' => array(
 			'driver'   => 'mysql',
-			'host'     => '127.0.0.1',
-			'database' => 'database',
+			'host'     => 'localhost',
+			'database' => 'matchserve',
 			'username' => 'root',
 			'password' => '',
 			'charset'  => 'utf8',
