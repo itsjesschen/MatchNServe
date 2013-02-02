@@ -32,11 +32,10 @@
 |
 */
 
-Route::controller('search');
 
 Route::get('/', function()
 {
-	return View::make('home/index');
+	return View::make('home');
 });
 
 Route::controller('search');

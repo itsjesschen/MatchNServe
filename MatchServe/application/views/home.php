@@ -7,11 +7,11 @@
 </head>
 
 <body>
-<?php include("header.php"); ?>
+<?php include("elements/header.php"); ?>
 
 <p>Here is the specific content of this page....</p>
 
-<?php include("footer.php"); ?>
+<?php include("elements/footer.php"); ?>
 </body>
 
 </html>
