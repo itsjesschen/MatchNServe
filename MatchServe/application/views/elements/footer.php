@@ -13,8 +13,6 @@
     </style>
 </head>
 
-
-
 <body>
 	<div class="footer">
 	<div class="navbar navbar-inverse">
