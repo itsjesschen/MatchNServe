@@ -1,0 +1,69 @@
+/*RegistrationModule START*/
+.prompt {
+	font-style:italic;
+	color:gray;
+	margin-bottom:10px;
+}
+
+.formElementSpacing {
+	margin-top:6px;
+}
+
+.rightBox {
+	float:left; 
+	height:110px;
+	margin-left:40px;
+	padding-left:20px;
+	border-left:2px solid gray;
+}
+
+.orDiv {
+	float:left;
+	margin-left:30px; 
+	width:200px;
+	padding-top:20px;
+	height:40px;
+}
+
+.bottomRightDiv {
+	float:left;
+	margin-left:40px; 
+	border-left:2px solid gray;
+	height:120px;
+}
+/*RegistrationModule END*/
+
+/*HeaderForVolunteer HeaderForOrg START*/
+.banner {
+	height:40px; 
+	width:1000px;
+	background-color:gray;
+	color:white;
+	border-style:solid;
+	border-color:black;
+	border-width:5px;
+}
+
+.links {
+	color:white; 
+	text-decoration:none;
+}
+
+.linksWithWordSpacing {
+	color:white; 
+	text-decoration:none;
+	word-spacing:0px;
+}
+
+.bannerForFooter {
+	height:30px;
+	font-size:12px;
+	word-spacing:10px;
+	width:1000px;
+	background-color:gray;
+	color:white;
+	border-style:solid;
+	border-color:black;
+	border-width:5px;
+}
+/*HeaderForVolunteer HeaderForOrg END*/
