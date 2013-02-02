@@ -23,11 +23,13 @@ class Database {
 	public static function addUser(){
 	}
 
-
 	/**********************************GETTERS**************************************/
 	public static function getAdmin($OrgID, $UserID){
 	}
-	public static function getCauses($CauseID, $Description){
+	public static function getCauses(){
+		$query =  DB::table('causes')->get();
+		// ->only('Description');
+		return $query;
 	}
 	public static function getOrganization($OrgID, $Name){
 	}
@@ -47,13 +49,14 @@ class Database {
 	public static function getProjectTime(){
 	}
 	public static function getSkills(){
+		$query =  DB::table('skills')->get();
+		// ->only('Description');
+		return $query;
 	}
 	public static function getTimeSlot(){
 	}
 	public static function getUserProject(){
 	}
 	public static function getUser(){
-	}
-	public static function getAdmin($pagelink){
 	}
 }
