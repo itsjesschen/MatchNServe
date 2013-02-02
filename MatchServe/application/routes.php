@@ -37,6 +37,9 @@ Route::get('/', function()
 	return View::make('home/index');
 });
 
+Route::controller('search');
+Route::controller('home');
+
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers
@@ -109,9 +112,6 @@ Route::filter('auth', function()
 {
 	if (Auth::guest()) return Redirect::to('login');
 });
-
-Route::controller('search');
-Route::controller('home');
 
 /* -----------------------------------------------
  * Assets
