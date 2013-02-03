@@ -31,7 +31,25 @@ function blurText(item) {
 }
 
 function validateSearchFields() {
-
+    //TODO Validate
+    $.ajax({//populate causes
+        type:"GET",
+        url:"search/initoptions",
+        async: true,
+        data:{
+            table : "causes"
+        }
+    }).done(function(html){
+        console.log(html);
+        var obj = jQuery.parseJSON(html);
+        $searchcol = $("#search-specifiers-container").find('li').slice(2,3); //chooses skills column
+        console.log($searchcol);
+        $searchcol.append("<br>");
+        for(var i= 0; i < obj.length; i++){
+            // console.log(obj[i].description);
+            $searchcol.append("<input type='checkbox' name='vehicle' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+        }
+    });
     //window.location = "http://localhost/MatchServe/MatchServe/public/search/query/";
 }
 

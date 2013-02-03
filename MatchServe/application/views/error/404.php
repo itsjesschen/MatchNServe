@@ -90,6 +90,13 @@
 			color:#2972A3;
 		}
 
+		.errortext{
+			position:absolute;
+			padding:20px;
+		}
+		img{
+			padding-left:150px;
+		}
 		a:hover
 		{
 			color:#72ADD4;
@@ -97,9 +104,14 @@
 	</style>
 </head>
 <body>
-	<div class="wrapper">
+	<h1 class = "errortext">Error:404 (Not Found)<br><br>Where do you you think<br> you're going baby? </h1>
+	<span><img src="http://th01.deviantart.net/fs70/PRE/i/2012/239/e/7/carly_rae_jepsen_png__by_forsaken_resources-d5cl8vq.png"></span>
+
+<!-- 	<div class="wrapper">
 		<div class="error-spacer"></div>
 		<div role="main" class="main">
+
+			
 			<?php $messages = array('We need a map.', 'I think we\'re lost.', 'We took a wrong turn.'); ?>
 
 			<h1><?php echo $messages[mt_rand(0, 2)]; ?></h1>
@@ -120,6 +132,6 @@
 				Perhaps you would like to go to our <?php echo HTML::link('/', 'home page'); ?>?
 			</p>
 		</div>
-	</div>
+	</div> -->
 </body>
 </html>
