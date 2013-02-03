@@ -7,9 +7,57 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
-
+body{
+	width:1000px;
+	height:700px;
+	margin: 0 auto;
+}
+.header{
+	width:1000px;
+	height:30px;
+	background-color:#000000;
+	margin:0;
+	padding:0;
+}
+.dashboard{
+	float:left;
+	width:1000px;
+	height:90px;
+	background-color:#090;
+	margin-top:30px;
+	margin:0;
+	padding:0;
+}
+.subDashboard{
+	width:1000px;
+	height:40px;
+	background-color:#ccc;
+	margin-top:120px;
+	margin:0;
+	padding:0;
+}
+.workspace{
+	width:1000px;
+	height:510px;
+	background-color:#CCC;
+	margin-top:160px;
+	margin:0;
+	padding:0;
+}
 .footer{
+	width:1000px;
+	height:30px;
+	background-color:#000;
 	margin-top:670px;
+	margin:0;
+	padding:0;
+}
+.inputZip{
+	margin-top:22px;
+	margin-left:20px;
+	color:#CCCCCC;
+	width:600px;
+	position:absolute;
 }
 
 article,
@@ -4385,8 +4433,16 @@ input[type="submit"].btn.btn-mini {
 }
 
 .navbar-form {
-  margin-bottom: 0;
-  *zoom: 1;
+	text-align:right;
+	width:600px;
+	float:right;
+	padding-top:30px;
+	margin-right:30px;
+}
+.navbar-form .zipCodeField{
+	margin:0;
+	padding:0;
+	height:30px;
 }
 
 .navbar-form:before,
@@ -4411,7 +4467,6 @@ input[type="submit"].btn.btn-mini {
 .navbar-form select,
 .navbar-form .btn {
   display: inline-block;
-  margin-bottom: 0;
 }
 
 .navbar-form input[type="image"],

@@ -5,8 +5,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>HeaderPage</title>
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-    
+	<?php echo HTML::style('css/bootstrap.css'); ?> 
+
     <style type="text/css">
     </style>
 </head>
@@ -16,7 +16,7 @@
 		<div class="navbar navbar-inverse">
   			<div class="navbar-inner">
         	<a href="#" class="brand">
-        		<img src="images/Title.png"/>
+        		<img src="img/Title.png"/>
       		</a>
     		<div class="navheader">
             	<ul class="nav">
