@@ -89,12 +89,26 @@
             <div id="search-specifiers-container">
                 <ul>
                     <li onmouseover="distanceHover(this)" onmouseout="distanceOff(this)">DISTANCE
-                        <label>Maximum distance:</label>
-                        <div id="distance-slider"></div>
+                        <form>
+                        <input type="radio" name="distance" value="1"> &lt 1 mile<br>
+                        <input type="radio" name="distance" value="3"> &lt 3 miles<br>
+                        <input type="radio" name="distance" value="5"> &lt 5 miles<br>
+                        <input type="radio" name="distance" value="10">&lt 10 miles<br>
+                        <input type="radio" name="distance" value="100">all distances
+                        </form>
                     </li>
                     <li>SKILLS</li>
                     <li>CAUSES</li>
-                    <li>AVAILABILITY</li>
+                    <li>AVAILABILITY
+                        <p>Weekday</p>
+                        <input type='checkbox' name='time' value="1">Mornings<br>
+                        <input type='checkbox' name='time' value="2">Afternoons<br>
+                        <input type='checkbox' name='time' value="3">Evenings<br>
+                        <p>Weekend</p>
+                        <input type='checkbox' name='time' value="4">Mornings<br>
+                        <input type='checkbox' name='time' value="5">Afternoons<br>
+                        <input type='checkbox' name='time' value="6">Evenings
+                    </li>
                 </ul>
             </div>
             <br><br>
