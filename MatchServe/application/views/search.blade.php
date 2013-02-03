@@ -6,6 +6,7 @@
         <title>Match and Serve - Search</title>
         <meta name="viewport" content="width=device-width">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+        <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
         <?php echo Asset::scripts(); ?>
         
         {{ HTML::style('laravel/css/style.css') }}
@@ -87,7 +88,10 @@
             <br>
             <div id="search-specifiers-container">
                 <ul>
-                    <li onmouseover="distanceHover(this)" onmouseout="distanceOff(this)">DISTANCE</li>
+                    <li onmouseover="distanceHover(this)" onmouseout="distanceOff(this)">DISTANCE
+                        <label>Maximum distance:</label>
+                        <div id="distance-slider"></div>
+                    </li>
                     <li>SKILLS</li>
                     <li>CAUSES</li>
                     <li>AVAILABILITY</li>
