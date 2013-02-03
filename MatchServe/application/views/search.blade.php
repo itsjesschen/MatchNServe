@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
         <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+        <script src="http://malsup.github.com/jquery.form.js"></script> 
         <?php echo Asset::scripts(); ?>
         
         {{ HTML::style('laravel/css/style.css') }}
@@ -79,38 +80,42 @@
     </head>
     <body>
         <div id="wrapper">
+            <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
             <div id="search-container">
                 <input id="search-query" type="text" value="search for" onfocus="focusedText(this)" onblur="blurText(this)" />
                 <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
                 <input id="zip-code" type="text" value="zip code" onfocus="focusedText(this)" onblur="blurText(this)" />
-                <input type="button" value="Search" onclick="validateSearchFields()"/>
+                <input type="submit" value="Search"/>
+<!--                 <input type="submit" value="Search" onclick="validateSearchFields()"/> -->
             </div>
             <br>
             <div id="search-specifiers-container">
                 <ul>
-                    <li onmouseover="distanceHover(this)" onmouseout="distanceOff(this)">DISTANCE
-                        <form>
-                        <input type="radio" name="distance" value="1"> &lt 1 mile<br>
-                        <input type="radio" name="distance" value="3"> &lt 3 miles<br>
-                        <input type="radio" name="distance" value="5"> &lt 5 miles<br>
-                        <input type="radio" name="distance" value="10">&lt 10 miles<br>
-                        <input type="radio" name="distance" value="100">all distances
-                        </form>
+                    <form>
+                    <li class="search-category" onmouseover="distanceHover(this)" onmouseout="distanceOff(this)">DISTANCE<br>
+                            <input type="radio" name="distance" value="1"> &lt 1 mile<br>
+                            <input type="radio" name="distance" value="3"> &lt 3 miles<br>
+                            <input type="radio" name="distance" value="5"> &lt 5 miles<br>
+                            <input type="radio" name="distance" value="10">&lt 10 miles<br>
+                            <input type="radio" name="distance" value="all">all distances
                     </li>
-                    <li>SKILLS</li>
-                    <li>CAUSES</li>
-                    <li>AVAILABILITY
+                    <li class="search-category" >SKILLS</li>
+                    <li class="search-category" >CAUSES</li>
+                    <li class="search-category" >AVAILABILITY
                         <p>Weekday</p>
-                        <input type='checkbox' name='time' value="1">Mornings<br>
-                        <input type='checkbox' name='time' value="2">Afternoons<br>
-                        <input type='checkbox' name='time' value="3">Evenings<br>
+                            <input type='checkbox' name='time[]' value="weekday-m">Mornings<br>
+                            <input type='checkbox' name='time[]' value="weekday-a">Afternoons<br>
+                            <input type='checkbox' name='time[]' value="weekday-e">Evenings<br>
                         <p>Weekend</p>
-                        <input type='checkbox' name='time' value="4">Mornings<br>
-                        <input type='checkbox' name='time' value="5">Afternoons<br>
-                        <input type='checkbox' name='time' value="6">Evenings
+                            <input type='checkbox' name='time[]' value="weekend-m">Mornings<br>
+                            <input type='checkbox' name='time[]' value="weekend-a">Afternoons<br>
+                            <input type='checkbox' name='time[]' value="weekend-e">Evenings
+                        </ul>
                     </li>
+
                 </ul>
             </div>
+            </form>
             <br><br>
             <div id="search-content">
                 <div id="filters-row">a</div>
