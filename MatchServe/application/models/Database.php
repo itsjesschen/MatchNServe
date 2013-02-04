@@ -35,15 +35,21 @@ class Database {
 	}
 	public static function getOrgProject($OrgID, $ProjectID){
 	}
-	public static function getProjects($arguments){
+	public static function getProjects($queryString, $arguments){
+		
+			//'SELECT * FROM projects WHERE Name LIKE '%'.$queryString.'%'
+		// Build the inital query for name matching
 		$query =  DB::table('projects')
-    	->where('id', '=', $id)
-	    ->or_where(function($query)
-	    {
-	        $query->where('Skills', '=', $skills);
-	        $query->where('Date', '=', $date);
-	    })
-    	->get();
+		->where('Name', 'LIKE', '%'.$queryString.'%');
+		
+		if($arguments) {
+			foreach($arguments as $i => $value) {
+				$query->where($i, '=', $value);
+			}
+		}
+		
+		$query->get();
+		
 		return $query;
 	}
 	public static function getProjectTime(){
