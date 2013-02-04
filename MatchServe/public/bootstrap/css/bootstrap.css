@@ -10,7 +10,9 @@
 body{
 	width:1000px;
 	height:700px;
-	margin: 0 auto;
+	margin: 0;
+  padding:0;
+  text-align:center;
 }
 #myCarousel{
   padding:0;
