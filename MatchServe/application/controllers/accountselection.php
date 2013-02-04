@@ -10,13 +10,13 @@ or die("Could not find database: " . mysql_error());
 			$text = "<html>";
 			$text = $text . "<style type='text/css'>";
 			$text = $text . ".button {";
-			$text = $text . "background-color:grey;padding:15px;padding-right:20px;padding-left:20px;";
+			$text = $text . "background-color:rgb(204,204,204);color:rgb(119,119,119);padding:15px;padding-right:20px;padding-left:20px;";
 			$text = $text . "}";
 			$text = $text . "</style>";
 			$text = $text . "<form id='myform' action='http://www.matchandserve.com' method='post'>";
 			$text = $text . "<table cellspacing='10px'>";
 			$count = 0;
-			$text = $text . "<tr><td class='button' onclick=\"clicked('personal')\" align='center'>Personal Account</td></tr>";
+			$text = $text . "<tr><td class='button' onclick=\"clicked('personal')\" align='center'>PERSONAL ACCOUNT</td></tr>";
 			while($row = mysql_fetch_assoc($results)) 
 			{
 				$name = $row['Name'];
