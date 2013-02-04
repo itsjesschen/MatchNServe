@@ -20,7 +20,7 @@
       		</a>
     		<div class="navheader">
             	<ul class="nav">
-      				<li><a href="<?php echo URL::to('login/registerorsignin') ?>">Login/Register</a></li>
+      				<li><a href="<?php echo URL::to('login') ?>">Login/Register</a></li>
     			</ul>
         	</div>
   		</div>

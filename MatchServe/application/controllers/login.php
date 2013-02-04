@@ -2,7 +2,7 @@
 
 class Login_Controller extends Base_Controller{
 
-	function action_registerorsignin(){
+	function action_index(){
 		return View::make('login');
 	}
 

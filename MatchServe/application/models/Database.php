@@ -36,11 +36,9 @@ class Database {
 	public static function getOrgProject($OrgID, $ProjectID){
 	}
 	public static function getProjects($queryString, $arguments){
-		
 		// Build the inital query for name matching
 		$query =  DB::table('projects')
 		->where('Name', 'LIKE', '%'.$queryString.'%');
-		
 		// Add any filter additions as necessary
 		$timesQuery = NULL;
 		if($arguments) {
@@ -96,7 +94,6 @@ class Database {
 		}
 		
 		$query->get();
-		
 		return $query;
 	}
 	public static function getProjectTime($times) {
