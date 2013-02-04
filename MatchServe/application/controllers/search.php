@@ -47,3 +47,4 @@ class Search_Controller extends Base_Controller{
 	}
 
 }
+?>
