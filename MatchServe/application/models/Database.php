@@ -37,12 +37,39 @@ class Database {
 	}
 	public static function getProjects($queryString, $arguments){
 		
-			//'SELECT * FROM projects WHERE Name LIKE '%'.$queryString.'%'
 		// Build the inital query for name matching
 		$query =  DB::table('projects')
 		->where('Name', 'LIKE', '%'.$queryString.'%');
 		
+		// Add any filter additions as necessary
+		$timesQuery = NULL;
 		if($arguments) {
+			// First, we need to remove the times thing
+			if($arguments['time'] != NULL) {
+				$times = $arguments['time'];
+				
+				switch($times) {
+					case 'Mornings':
+					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
+					      ->join('timeslot', 'Time', '<=', 12);
+					break;
+				case 'Afternoons':
+					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
+					      ->join('timeslot', function($join) {
+							$join->on('Time', '<=', 17);
+							$join->and_on('Time', '>', 12);
+					      });
+					break;
+				case 'Evenings':
+					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
+					      ->join('timeslot', function($join) {
+							$join->on('Time', '<=', 24);
+							$join->and_on('Time', '>', 17);
+					      });
+					break;
+				}
+			}
+			
 			foreach($arguments as $i => $value) {
 				$query->where($i, '=', $value);
 			}
@@ -52,7 +79,24 @@ class Database {
 		
 		return $query;
 	}
-	public static function getProjectTime(){
+	public static function getProjectTime($times) {
+		$query = DB::table('timeslot');
+		
+		switch($times) {
+			case 'Mornings':
+				$query->where('Time', '<=', 12);
+				break;
+			case 'Afternoons':
+				$query->where('Time', '<=', 17)
+				      ->where('Time', '>', 12);
+				break;
+			case 'Evenings':
+				$query->where('Time', '<=', 24)
+				      ->where('Time', '>', 17);
+				break;
+		}
+		
+		return $query->get();
 	}
 	public static function getSkills(){
 		$query =  DB::table('skills')->get();
