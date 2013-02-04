@@ -79,9 +79,9 @@
         <div id="wrapper">
             <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
             <div id="search-container">
-                <input id="search-query" type="text" value="search for" onfocus="focusedText(this)" onblur="blurText(this)" />
+                <input id="search-query" type="text" name="searchterm" value="search for" onfocus="focusedText(this)" onblur="blurText(this)" />
                 <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
-                <input id="zip-code" type="text" value="zip code" onfocus="focusedText(this)" onblur="blurText(this)" />
+                <input id="zip-code" type="text" name="zipcode" value="zip code" onfocus="focusedText(this)" onblur="blurText(this)" />
                 <input type="submit" value="Search"/>
 <!--                 <input type="submit" value="Search" onclick="validateSearchFields()"/> -->
             </div>
