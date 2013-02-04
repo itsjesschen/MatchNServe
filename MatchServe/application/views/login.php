@@ -46,6 +46,10 @@ color:grey;
 .formElementSpacing
 {
 	margin-top:6px;
+	background-color:rgb(204,204,204);
+	border: none;
+	padding:7px;
+	width:200px;
 }
 .rightBox
 {
@@ -93,7 +97,7 @@ Please fill out the form below to get started
 </tr>
 <tr><td><div class="prompt" id="bottomText" style="font-size:14px;">Don't have an account yet? Create an account <a href="javascript:newUser()" style="font-size:14px;color:grey">here</a></div>
 <tr><td id="forgotPassword" class="prompt" style="font-size:14px;">Forgot your password? Click <a href="javascript:forgotPassword()" style="font-size:14px;color:gray;"> here</a></td></tr>
-<tr><td><input type="submit" class="button" id="submit" name="submit" value="LOGIN" style="background-color:rgb(27,199,0);color:white;font-weight:bold;padding:10px;"/></td></tr>
+<tr><td><input type="submit" class="button" id="submit" name="submit" value="LOGIN" style="background-color:rgb(27,199,0);color:white;font-weight:bold;padding:10px;border:none;cursor: pointer;"/></td></tr>
 </table>
 </form>
 </div>
