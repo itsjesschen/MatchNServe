@@ -20,8 +20,7 @@
       		</a>
     		<div class="navheader">
             	<ul class="nav">
-      				<li><a href="#">Settings</a></li>
-      				<li><a href="#">Login/Register</a></li>
+      				<li><a href="login.php">Login/Register</a></li>
     			</ul>
         	</div>
   		</div>

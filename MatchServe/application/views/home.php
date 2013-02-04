@@ -5,6 +5,7 @@
 <title>Match & Serve | Matching great volunteers with great organizations</title>
 <?php echo HTML::style('css/bootstrap.css'); ?> 
 <?php echo HTML::style('css/bootstrap-responsive.css'); ?> 
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script type="text/javascript"></script>
 
@@ -13,7 +14,6 @@
     $('#myCarousel').carousel();
   });
 </script>
-
 </head>
 
 <body>
@@ -22,7 +22,7 @@
 </div>
 
 <div class="dashboard">
-	<h3 class="inputZip">Type in your zip code to get started</h3>
+	<div class="inputZip"><img src="img/TypeZip.png"/></div>
 		<form class="navbar-form">
   			<input type="text" value="  zip code" class="zipCodeField" onclick="value= ''">
   			<button type="submit" class="btn">Submit</button>
@@ -56,19 +56,19 @@
         	<div class="span4">
           		<img class="img-circle" data-src="holder.js/140x140">
           			<h2>Volunteers</h2>
-          				<p>Find out how Match & Serve can help you find the coolest projects out there that fitst your skills and requirements</p>
+          				<p>Find projects that fit your skills</p>
           				<p><a class="btn" href="#">View details &raquo;</a></p>
         	</div><!-- /.span4 -->
         	<div class="span4">
           		<img class="img-circle" data-src="holder.js/140x140">
           			<h2>Karma Points</h2>
-          			<p>Because after all, the good you do DOES come back to you</p>
+          			<p>The good you do DOES come back to you</p>
           			<p><a class="btn" href="#">View details &raquo;</a></p>
         	</div><!-- /.span4 -->
         	<div class="span4">
           		<img class="img-circle" data-src="holder.js/140x140">
           			<h2>Organizations</h2>
-          			<p>Learn how you can get AND maintain relationship with the right volunteers for all your projects</p>
+          			<p>Get the right volunteers for the job</p>
           			<p><a class="btn" href="#">View details &raquo;</a></p>
         	</div><!-- /.span4 -->
         </div>
