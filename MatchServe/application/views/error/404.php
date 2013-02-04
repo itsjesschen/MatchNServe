@@ -104,7 +104,7 @@
 	</style>
 </head>
 <body>
-	<h1 class = "errortext">Error:404 (Not Found)<br><br>Where do you you think<br> you're going baby? </h1>
+	<h1 class = "errortext">Error:404 (Not Found)<br><br>Where do you think<br> you're going baby? </h1>
 	<span><img src="http://th01.deviantart.net/fs70/PRE/i/2012/239/e/7/carly_rae_jepsen_png__by_forsaken_resources-d5cl8vq.png"></span>
 
 <!-- 	<div class="wrapper">

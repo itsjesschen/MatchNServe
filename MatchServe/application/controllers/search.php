@@ -1,7 +1,5 @@
 <?php
 
-/* This provides all of the business logic of the search page */
-
 class Search_Controller extends Base_Controller{
 	
 	public function action_index(){
@@ -49,5 +47,4 @@ class Search_Controller extends Base_Controller{
 	}
 
 }
-
 ?>

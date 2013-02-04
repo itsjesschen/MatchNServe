@@ -40,7 +40,7 @@ Route::get('/', function()
 
 Route::controller('search');
 Route::controller('home');
-
+Route::controller('login');
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers

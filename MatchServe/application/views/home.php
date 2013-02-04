@@ -25,7 +25,7 @@
 	<div class="inputZip"><img src="img/TypeZip.png"/></div>
 		<form class="navbar-form">
   			<input type="text" value="  zip code" class="zipCodeField" onclick="value= ''">
-  			<button type="submit" class="btn">Submit</button>
+  			<button type="submit" class="btn" >Submit</button>
 		</form>
 </div>
 
