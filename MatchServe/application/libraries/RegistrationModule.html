@@ -1,0 +1,77 @@
+<html>
+<title> Registration </title>
+<body>
+<style type="text/css">
+.prompt 
+{
+	font-style:italic;
+	color:gray;
+	margin-bottom:10px;
+}
+.formElementSpacing
+{
+	margin-top:6px;
+}
+.rightBox
+{
+	float:left; 
+	height:110px;
+	margin-left:40px;
+	padding-left:20px;
+	border-left:2px solid gray;
+}
+.orDiv
+{
+	float:left;
+	margin-left:30px; 
+	width:200px;
+	padding-top:20px;
+	height:40px;
+}
+
+.bottomRightDiv
+{
+	float:left;
+	margin-left:40px; 
+	border-left:2px solid gray;
+	height:120px;
+}
+</style>
+<div style = "width:520px">
+<div name = "leftBox" style = "float:left;">
+<div class = "prompt">
+Please fill out the form below to get started
+</div>
+<form name="myForm" action="" method="get" style = "color:gray;">
+EMAIL
+<br/>
+<input type="text" class = "formElementSpacing" name="name">
+<br/>
+USERNAME
+<br/>
+<input type="text" class = "formElementSpacing" name="email">
+<br/>
+PASSWORD
+<br/>
+<input type="password" class = "formElementSpacing" name="password1">
+<br/>
+RETYPE PASSWORD
+<br/>
+<input type ="password" class = "formElementSpacing" name = "password2">
+<Submit" onclick="return validateForm(this.form);" class="button"></td></tr>
+</form>
+<p> Already have an account? Login <a style = "color:gray;" href = " "> here <a/> </p>
+<p style = "margin-left:100px"> <a href = " "> REGISTER BUTTON </a> </p>
+</div>
+<div name = "rightBox" class ="rightBox">
+<!--RIGHT DIV #1--!>
+</div>
+<div name = "Or" class = "orDiv">
+Or &nbsp &nbsp &nbsp &nbsp <a href = " "> FB LOGO </a> <!--RIGHT DIV #2--!>
+</div>
+<div class = "bottomRightDiv" >
+<!--RIGHT DIV #3--!>
+</div>
+</div>
+</body>
+</html>
