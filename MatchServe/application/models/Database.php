@@ -49,24 +49,44 @@ class Database {
 				$times = $arguments['time'];
 				
 				switch($times) {
-					case 'Mornings':
+				case 'day-mornings':
 					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
 					      ->join('timeslot', 'Time', '<=', 12);
 					break;
-				case 'Afternoons':
+				case 'day-afternoons':
 					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
 					      ->join('timeslot', function($join) {
 							$join->on('Time', '<=', 17);
 							$join->and_on('Time', '>', 12);
 					      });
 					break;
-				case 'Evenings':
+				case 'day-evenings':
 					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
 					      ->join('timeslot', function($join) {
 							$join->on('Time', '<=', 24);
 							$join->and_on('Time', '>', 17);
 					      });
 					break;
+
+				//added
+				// case 'end-mornings':
+				// 	$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
+				// 	      ->join('timeslot', 'Time', '<=', 12);
+				// 	break;
+				// case 'end-afternoons':
+				// 	$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
+				// 	      ->join('timeslot', function($join) {
+				// 			$join->on('Time', '<=', 17);
+				// 			$join->and_on('Time', '>', 12);
+				// 	      });
+				// 	break;
+				// case 'end-evenings':
+				// 	$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
+				// 	      ->join('timeslot', function($join) {
+				// 			$join->on('Time', '<=', 24);
+				// 			$join->and_on('Time', '>', 17);
+				// 	      });
+				// 	break;
 				}
 			}
 			

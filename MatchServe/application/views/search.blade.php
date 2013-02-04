@@ -5,13 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Match and Serve - Search</title>
         <meta name="viewport" content="width=device-width">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
         <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
         <script src="http://malsup.github.com/jquery.form.js"></script> 
-        <?php echo Asset::scripts(); ?>
-        
+        <?php echo Asset::scripts(); ?>     
         {{ HTML::style('laravel/css/style.css') }}
-        
         <style>
             body {
                 margin: 0;
@@ -103,13 +100,13 @@
                     <li class="search-category" >CAUSES</li>
                     <li class="search-category" >AVAILABILITY
                         <p>Weekday</p>
-                            <input type='checkbox' name='time[]' value="weekday-m">Mornings<br>
-                            <input type='checkbox' name='time[]' value="weekday-a">Afternoons<br>
-                            <input type='checkbox' name='time[]' value="weekday-e">Evenings<br>
+                            <input type='checkbox' name='time[]' value="day-mornings">Mornings<br>
+                            <input type='checkbox' name='time[]' value="day-afternoons">Afternoons<br>
+                            <input type='checkbox' name='time[]' value="day-evenings">Evenings<br>
                         <p>Weekend</p>
-                            <input type='checkbox' name='time[]' value="weekend-m">Mornings<br>
-                            <input type='checkbox' name='time[]' value="weekend-a">Afternoons<br>
-                            <input type='checkbox' name='time[]' value="weekend-e">Evenings
+                            <input type='checkbox' name='time[]' value="end-mornings">Mornings<br>
+                            <input type='checkbox' name='time[]' value="end-afternoons">Afternoons<br>
+                            <input type='checkbox' name='time[]' value="end-evenings">Evenings
                         </ul>
                     </li>
 

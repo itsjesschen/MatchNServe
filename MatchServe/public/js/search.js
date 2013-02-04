@@ -114,7 +114,8 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
 
     var options = { 
         url: 'search/getprojects', 
-        success: function(html) { 
+        success: function(html) {
+            $filtersrow = $("filters-row").html();
             // console.log(html);
         } 
     };

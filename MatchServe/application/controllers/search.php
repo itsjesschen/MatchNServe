@@ -24,22 +24,30 @@ class Search_Controller extends Base_Controller{
 	}
 
 	public function action_getprojects(){
-
+		$arguments = array();
 		 if( isset($_GET['distance']) ){
 		 	$distance = $_GET['distance'];
+		 	$arguments['Location'] = $distance;
 		 }
 		 if( isset($_GET['skill']) ){
-		 	$skills = $_GET['skill'];
+		 	$arguments['Skills'] = $_GET['skill'];
 		 }
 		 if( isset($_GET['cause']) ){
- 			$causes = $_GET['cause'];
+ 			$arguments['Cause'] = $_GET['cause'];
 		 }
 		 if( isset($_GET['time']) ){
-			$availability = $_GET['time'];
+			$arguments['Time'] = $_GET['time'];
 		 }
+		 dd($arguments);
+		 // $arguments = array(
+		 // 	'Location' => $distance,
+		 // 	'Skills' => $skills,
+		 // 	'Cause' => $causes,
+		 // 	'Time' => $availability
+		 // );
 		 //DATABASE CALL that goes to models/Database.php
-		 // $data = Database::getProjects();
-
+		 $data = Database::getProjects(null, $arguments);
+		 dd($data);
 		 //DEBUGGING PHP for laravel, it might come in handy
 		// dd($var_to_debug);
 
