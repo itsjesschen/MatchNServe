@@ -32,7 +32,7 @@ class Home_Controller extends Base_Controller {
 
 	public function action_index()
 	{
-		return View::make('home.index');
+		return View::make('home');
 	}
 	
 	public function action_search() {
@@ -41,3 +41,4 @@ class Home_Controller extends Base_Controller {
 	}
 
 }
+?>

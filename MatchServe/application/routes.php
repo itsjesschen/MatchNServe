@@ -32,10 +32,14 @@
 |
 */
 
+
 Route::get('/', function()
 {
-	return View::make('home/index');
+	return View::make('home');
 });
+
+Route::controller('search');
+Route::controller('home');
 
 /*
 |--------------------------------------------------------------------------
@@ -109,9 +113,6 @@ Route::filter('auth', function()
 {
 	if (Auth::guest()) return Redirect::to('login');
 });
-
-Route::controller('search');
-Route::controller('home');
 
 /* -----------------------------------------------
  * Assets
