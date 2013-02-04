@@ -12,6 +12,21 @@ body{
 	height:700px;
 	margin: 0 auto;
 }
+#myCarousel{
+  padding:0;
+  margin:0;
+}
+#myCarousel .item{
+  background-color:#FFF;
+  width:1000px;
+  height:300px;
+}
+#myCarousel carousel-control{
+  margin-top: 200px;
+}
+.blurbAtTheBottom{
+  margin-top:25px;
+}
 .header{
 	width:1000px;
 	height:30px;
@@ -23,32 +38,30 @@ body{
 	float:left;
 	width:1000px;
 	height:90px;
-	background-color:#090;
+	background-color:#CC9900;
 	margin-top:30px;
 	margin:0;
 	padding:0;
 }
 .subDashboard{
+  float:left;
 	width:1000px;
 	height:40px;
 	background-color:#ccc;
-	margin-top:120px;
-	margin:0;
-	padding:0;
 }
 .workspace{
+  float:left;
 	width:1000px;
 	height:510px;
 	background-color:#CCC;
-	margin-top:160px;
 	margin:0;
 	padding:0;
 }
 .footer{
+  float:left;
 	width:1000px;
 	height:30px;
 	background-color:#000;
-	margin-top:670px;
 	margin:0;
 	padding:0;
 }
@@ -58,6 +71,9 @@ body{
 	color:#CCCCCC;
 	width:600px;
 	position:absolute;
+  text-transform:uppercase;
+  font-family:Segoe UI Light;
+  font-size: 30px;
 }
 
 article,

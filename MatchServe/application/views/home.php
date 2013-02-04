@@ -4,7 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Match & Serve | Matching great volunteers with great organizations</title>
 <?php echo HTML::style('css/bootstrap.css'); ?> 
+<?php echo HTML::style('css/bootstrap-responsive.css'); ?> 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript"></script>
+
+<script>
+  $(document).ready(function(){
+    $('#myCarousel').carousel();
+  });
+</script>
 
 </head>
 
@@ -25,8 +33,26 @@
 </div>
 
 <div class="workspace">
+  <div id="myCarousel" class="carousel slide">
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+      <div class="active item">
+        <img src="img/SaveLives.png"/>
+      </div>
+      <div class="item">
+        <img src="img/ChangeCommunity.png"/>
+      </div>
+      <div class="item">
+        <img src="img/ChangeWorld.png"/>
+      </div>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div>
 	<div class="container marketing">
       	<div class="row">
+        <div class="blurbAtTheBottom">
         	<div class="span4">
           		<img class="img-circle" data-src="holder.js/140x140">
           			<h2>Volunteers</h2>
@@ -45,6 +71,7 @@
           			<p>Learn how you can get AND maintain relationship with the right volunteers for all your projects</p>
           			<p><a class="btn" href="#">View details &raquo;</a></p>
         	</div><!-- /.span4 -->
+        </div>
       	</div><!-- /.row -->
 	</div><!-- container marketing-->
 </div>
@@ -53,5 +80,4 @@
 <?php echo render('elements.footer'); ?>
 </div>
 </body>
-
 </html>
