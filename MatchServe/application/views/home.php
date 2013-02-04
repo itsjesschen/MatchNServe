@@ -3,11 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Match & Serve | Matching great volunteers with great organizations</title>
-<?php echo HTML::style('css/bootstrap.css'); ?> 
-<?php echo HTML::style('css/bootstrap-responsive.css'); ?> 
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<?php echo HTML::style('bootstrap/css/bootstrap.css'); ?> 
+<?php echo HTML::style('bootstrap/css/bootstrap-responsive.css'); ?> 
+<?php echo Asset::scripts();?>
 
 <script>
   $(document).ready(function(){

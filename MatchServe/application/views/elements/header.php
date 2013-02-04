@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>HeaderPage</title>
-	<?php echo HTML::style('css/bootstrap.css'); ?> 
+	<?php echo HTML::style('bootstrap/css/bootstrap.css'); ?> 
 
     <style type="text/css">
     </style>

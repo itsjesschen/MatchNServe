@@ -120,3 +120,4 @@ Route::filter('auth', function()
  */
 
  Asset::add('search', 'js/search.js');
+ Asset::add('bootstrap', 'bootstrap/js/bootstrap.js');
