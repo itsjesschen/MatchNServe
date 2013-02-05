@@ -1,9 +1,8 @@
  /*CSS FOR THE LOGIN PAGE*/
 .prompt 
 {
-  font-style:italic;
   color:gray;
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 .formElementSpacing
 {
@@ -13,38 +12,39 @@
   padding:7px;
   width:200px;
 }
-.rightBox
-{
-  float:left; 
-  height:110px;
-  margin-left:40px;
-  padding-left:20px;
-  border-left:2px solid gray;
-}
-.orDiv
-{
+.infoBoxLeft{
+  width:450px;
+  height:510px;
   float:left;
-  margin-left:30px; 
-  width:200px;
-  padding-top:20px;
-  height:40px;
+  margin-top:50px;
 }
-
-.bottomRightDiv
-{
+.infoBoxMiddle{
+  width:100px;
+  height:510px;
   float:left;
-  margin-left:40px; 
-  border-left:2px solid gray;
-  height:120px;
+  text-align:center;
+  margin-top:-20px;
 }
+.infoBoxRight{
+  width:450px;
+  height:510px;
+  float:right;
+  margin-top:225px;
+}
+.stuffInside{
+  margin-left:100px;
 
+}
 /*CSS FOR THE HOME PAGE*/
 body{
 	width:1000px;
+  margin:0 auto;
 	height:700px;
-	margin: 0;
-  padding:0;
-  text-align:center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
 }
 #myCarousel{
   padding:0;
@@ -319,15 +319,6 @@ textarea {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: #333333;
-  background-color: #ffffff;
 }
 
 a {

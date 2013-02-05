@@ -55,79 +55,65 @@
 		</div>
 
 		<div class="workspace">
-			<div name = "leftBox" style = "float:left;">
-				<div class = "prompt">Please fill out the form below to get started
-				</div>
+			<div name="leftBox" class="infoBoxLeft">
+				<div class="stuffInside">
+				<div class = "prompt">Please fill out the form below to get started</div>
 				<form action="../controllers/login.php" style="color:gray" method="post">
 					<table>
-						<!--
-						<tr><td width="270">
-						</tr></td>
-					-->
-						<table style="color:grey">
-							<tr id="name">
-								<td>USERNAME
-								</td>
-							</tr>
-							<tr id="name">
-								<td><input type="text" class="formElementSpacing" name="userName">
-								</td>
-							</tr>
-							<tr id="password">
-								<td>PASSWORD: 
-								</td>
-							</tr>
-							<tr id="passwordInput">
-								<td><input type="password" class="formElementSpacing" name="password">
-								</td>
-							</tr>
-						</table style="color:grey;">
-					<!--</td></tr>-->
+						<tr id="name">
+							<td>USERNAME
+							</td>
+						</tr>
+						<tr id="name">
+							<td><input type="text" class="formElementSpacing" name="userName">
+							</td>
+						</tr>
+						<tr id="password">
+							<td>PASSWORD: 
+							</td>
+						</tr>
+						<tr id="passwordInput">
+							<td><input type="password" class="formElementSpacing" name="password">
+							</td>
+						</tr>
+					</table>
+					<table  id="newUser" style="visibility: hidden">
+						<tr><td>RE-TYPE PASSWORD:</td></tr>
 						<tr><td>
-							<table  id="newUser" style="visibility: hidden;color:grey;">
-								<tr><td>RE-TYPE PASSWORD:
-								</td></tr>
-								
-								<tr><td>
-									<input type="password" class="formElementSpacing" name="newPassword">
-								</td></tr>
-						
-								<tr><td>EMAIL ADDRESS: 
-								</td></tr>
-								
-								<tr><td>
-									<input type="text" class="formElementSpacing" name="newEmail">
-								</td></tr>
-							</table>
+							<input type="password" class="formElementSpacing" name="newPassword">
 						</td></tr>
-							
+						<tr><td>EMAIL ADDRESS:</td></tr>
 						<tr><td>
-							<div class="prompt" id="bottomText" style="font-size:14px;">Don't have an account yet? Create an account 
-								<a href="javascript:newUser()" style="font-size:14px;color:grey">here
-								</a>
-							</div>
+							<input type="text" class="formElementSpacing" name="newEmail">
+						</td></tr>
+					</table>
+					
+					<table>	
+						<div class="prompt" id="bottomText" style="font-size:14px;">Don't have an account yet? Create an account 
+							<a href="javascript:newUser()" style="font-size:14px;color:grey">here</a>
+						</div>
 								
-							<tr><td id="forgotPassword" class="prompt" style="font-size:14px;">Forgot your password? Click 
-								<a href="javascript:forgotPassword()" style="font-size:14px;color:gray;"> here
-								</a>
-							</td></tr>
+						<tr><td id="forgotPassword" class="prompt" style="font-size:14px;">Forgot your password? Click 
+							<a href="javascript:forgotPassword()" style="font-size:14px;color:gray;"> here</a>
+						</td></tr>
 								
-							<tr><td>
-								<input type="submit" class="button" id="submit" name="submit" value="LOGIN" style="background-color:rgb(27,199,0);color:white;font-weight:bold;padding:10px;border:none;cursor: pointer;"/>
-							</td></tr>
+						<tr><td>
+							<input type="submit" class="button" id="submit" name="submit" value="LOGIN" style="background-color:rgb(27,199,0);color:white;font-weight:bold;padding:10px;border:none;cursor: pointer;"/>
 						</td></tr>
 					</table>
 				</form>
+				</div>
+			</div>
+
+			<div class="infoBoxMiddle">
+				<img src='img/orDivider.png'/></a>
 			</div>
 			
-			<div name = "rightBox" class ="rightBox">
-			</div>
-			
-			<div name = "Or" class = "orDiv">Or<a style="padding-left:20px" href="../controllers/facebooklogin.php">
-				<img src='img/login-facebook.png'/></a>
-			</div>
-			
-			<div class = "bottomRightDiv" >
+			<div name = "rightBox" class="infoBoxRight">	
+				<div class="stuffInside">		
+				<a style="padding-left:20px" href="../controllers/facebooklogin.php">
+					<img src='img/login-facebook.png'/></a>
+				</div>
 			</div>
 		</div>
 
