@@ -90,7 +90,8 @@
         <div class="header">
         <?php echo render('elements.header'); ?>
         </div>
-        <div id="wrapper">
+
+        <div class="dashboard">
             <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
             <div id="search-container">
                 <input id="search-query" type="text" name="searchterm" value="search for" onfocus="focusedText(this)" onblur="blurText(this)" />
@@ -99,7 +100,11 @@
                 <input type="submit" value="Search"/>
 <!--                 <input type="submit" value="Search" onclick="validateSearchFields()"/> -->
             </div>
-            <br>
+            </form>
+        </div>
+
+        <div class="subDashboard">
+            <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
             <div id="search-specifiers-container">
                 <!-- <a class="search-category btn dropdown-toggle" data-toggle="dropdown" onmouseover="distanceHover(this)" onmouseout="distanceOff(this)">DISTANCE<br> -->
                 <ul class="nav nav-pills">
@@ -144,12 +149,15 @@
                 </ul>
             </div>
             </form>
-            <br><br>
-            <div id="search-content">
+        </div>
+
+        <div class="workspace">
+               <div id="search-content">
                 <div id="filters-row">a</div>
                 <div id="search-results">a</div>
             </div>
         </div>
+
     <div class="footer">
         <?php echo render('elements.footer'); ?>
     </div>
