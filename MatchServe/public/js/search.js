@@ -59,7 +59,7 @@ function search(){
     }).done(function(html){
         console.log(html);
         var obj = jQuery.parseJSON(html);
-        $searchcol = $("#search-specifiers-container").find('li.search-category').slice(2,3); //chooses skills column
+        $searchcol = $("#search-specifiers-container").find('a.search-category').slice(2,3); //chooses skills column
         console.log($searchcol);
         $searchcol.append("<br>");
         for(var i= 0; i < obj.length; i++){
@@ -89,19 +89,14 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
-        $searchcol = $("#search-specifiers-container").find('li.search-category').slice(1,2); //chooses skills column
+        $searchcol = $("#search-specifiers-container").find('a.search-category').slice(1,2); //chooses skills column
         $options = $("<ul class = 'dropdown-menu'>");
-       $options.insertAfter($searchcol);
-        // $searchcol.append("<ul class = 'dropdown-menu'>");
+        $options.insertAfter($searchcol);
         for(var i= 0; i < obj.length; i++){
-             $options.append("<input type='checkbox' name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+             $options.append("<input type='checkbox' name='skill[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
             // $("<input type='checkbox' name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>").insertAfter($searchcol);
         }
-         $options.append("</ul>");
-        $searchcol.append("<br>");
-        for(var i= 0; i < obj.length; i++){
-            $searchcol.append("<input type='checkbox' name='skill[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
-        }
+        $options.append("</ul>");
     });
 
     $.ajax({//populate causes
@@ -113,17 +108,13 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
-        $searchcol = $("#search-specifiers-container").find('li.search-category').slice(2,3); //chooses skills column
-        // $searchcol.append("<br>");
+        $searchcol = $("#search-specifiers-container").find('a.search-category').slice(2,3); //chooses skills column
         $options = $("<ul class = 'dropdown-menu'>");
-       $options.insertAfter($searchcol);
-        // $searchcol.append("<ul class = 'dropdown-menu'>");
+        $options.insertAfter($searchcol);
         for(var i= 0; i < obj.length; i++){
              $options.append("<input type='checkbox' name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
-            // $("<input type='checkbox' name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>").insertAfter($searchcol);
         }
          $options.append("</ul>");
-                // $("</ul>").insertAfter($searchcol);
     });
 
     var options = { 

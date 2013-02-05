@@ -16,7 +16,10 @@
                 margin: 0;
                 padding: 0;
             }
-            
+            #wrapper, #form{
+                width:100%;
+                height:auto;
+            }
             #search-container {
                 text-align: center;
             }
@@ -28,46 +31,37 @@
             
             #zip-code {
                 display: none;
-                color: #888;
+            }
+            #search-content{
+                height:100px;
+            }
+            #wrapper{
+                text-align:center;
+                left:50%;
+                position:absolute;
+                width:1000px;
+                min-height:700px;
+                margin-left:-500px;
+                overflow:hidden;
+                padding:10px 0;
             }
             
-            #search-specifiers-container {
-                text-align: center;
+            #search-specifiers-container{
+                left:50%;
+                margin-left:-400px;
                 position: absolute;
-                display: block;
-                width: 100%;
-                z-index: 1;
+                z-index:1;
             }
-            
-            #search-specifiers-container ul {
-/*                width: 100%;*/
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                -webkit-padding-start: 0;
-                -webkit-margin-before: 0;
-                -webkit-margin-after: 0;
-            }
+            #search-specifiers-container li, .dropdown-menu{
+                width:200px;
+            }   
+
             #search-specifiers-container .caret{
                 border-top-color: rgb(181,0,0);
                 border-bottom-color: rgb(181,0,0);
             }
-
-            #search-specifiers-container li {
-                display: inline-block;
-                min-width: 20%;
-                margin: 0;
-                padding: 0;
-/*                color: rgb(181,0,0);
-                font-size: 1.5em;
-                font-family: "century gothic";
-                padding-top: 5px;
-                padding-bottom: 5px;
-                -webkit-transition: 1s all ease-out;*/
-            }
             .search-category{
                 display:inline-block;
-                float:left;
                 border:none;
                 color: rgb(181,0,0);
                 font-size: 1.5em;
@@ -91,6 +85,9 @@
         </style>
     </head>
     <body>
+        <div class="header">
+        <?php echo render('elements.header'); ?>
+        </div>
         <div id="wrapper">
             <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
             <div id="search-container">
@@ -104,10 +101,10 @@
             <div id="search-specifiers-container">
                 <!-- <a class="search-category btn dropdown-toggle" data-toggle="dropdown" onmouseover="distanceHover(this)" onmouseout="distanceOff(this)">DISTANCE<br> -->
                 <ul class="nav nav-pills">
-                    <div class="dropdown">
-                        <li class="search-category dropdown-toggle" data-toggle="dropdown" >DISTANCE
+                    <li class="dropdown">
+                        <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">DISTANCE
                             <span class="caret"></span>
-                        </li>
+                        </a>
                         <ul class = "dropdown-menu">
                             <input type="radio" name="distance" value="1"> &lt 1 mile<br>
                             <input type="radio" name="distance" value="3"> &lt 3 miles<br>
@@ -115,21 +112,22 @@
                             <input type="radio" name="distance" value="10">&lt 10 miles<br>
                             <input type="radio" name="distance" value="all">all distances
                         </ul>
-                    </div>
-                    <div class="dropdown">
-                        <li class="search-category dropdown-toggle" data-toggle="dropdown" >SKILLS
+                    </li>
+                    <!-- </div> -->
+                    <li class="dropdown">
+                        <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">SKILLS
                             <span class="caret"></span>
-                        </li>
-                    </div>
-                    <div class="dropdown">
-                        <li class="search-category dropdown-toggle" data-toggle="dropdown" >CAUSES
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">CAUSES
                             <span class="caret"></span>
-                        </li>
-                    </div>
-                    <div class="dropdown">
-                        <li class="search-category dropdown-toggle" data-toggle="dropdown" >AVAILABILITY
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">AVAILABILITY
                             <span class="caret"></span>
-                        </li>
+                        </a>
                         <ul class = "dropdown-menu">
                             <p>Weekday</p>
                                 <input type='checkbox' name='time[]' value="day-mornings">Mornings<br>
@@ -140,7 +138,7 @@
                                 <input type='checkbox' name='time[]' value="end-afternoons">Afternoons<br>
                                 <input type='checkbox' name='time[]' value="end-evenings">Evenings
                         </ul>
-                    </div>
+                    </li><!--end of dropdown-->
                 </ul>
             </div>
             </form>
@@ -150,5 +148,8 @@
                 <div id="search-results">a</div>
             </div>
         </div>
+    <div class="footer">
+        <?php echo render('elements.footer'); ?>
+    </div>
     </body>
 </html>
