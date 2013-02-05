@@ -52,10 +52,13 @@
                 position: absolute;
                 z-index:1;
             }
+            #search-specifiers-container a, a:visited{
+                color: rgb(181,0,0);
+                text-decoration:none;
+            }
             #search-specifiers-container li, .dropdown-menu{
                 width:200px;
             }   
-
             #search-specifiers-container .caret{
                 border-top-color: rgb(181,0,0);
                 border-bottom-color: rgb(181,0,0);
@@ -63,7 +66,6 @@
             .search-category{
                 display:inline-block;
                 border:none;
-                color: rgb(181,0,0);
                 font-size: 1.5em;
                 font-family: "century gothic";
                 padding-top: 5px;
