@@ -58,7 +58,7 @@
 			<div name="leftBox" class="infoBoxLeft">
 				<div class="stuffInside">
 				<div class = "prompt">Please fill out the form below to get started</div>
-				<form action="../controllers/login.php" style="color:gray" method="post">
+				<form action="<?php echo URL::to('login/login') ?>" style="color:gray" method="POST">
 					<table>
 						<tr id="name">
 							<td>USERNAME
@@ -111,7 +111,7 @@
 			
 			<div name = "rightBox" class="infoBoxRight">	
 				<div class="stuffInside">		
-				<a style="padding-left:20px" href="../controllers/facebooklogin.php">
+				<a style="padding-left:20px" href="<?php echo URL::to('login/facebook') ?>">
 					<img src='img/login-facebook.png'/></a>
 				</div>
 			</div>

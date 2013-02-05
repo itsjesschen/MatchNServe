@@ -21,6 +21,7 @@ class Database {
 	public static function addUserProject(){
 	}
 	public static function addUser(){
+		
 	}
 
 	/**********************************GETTERS**************************************/
