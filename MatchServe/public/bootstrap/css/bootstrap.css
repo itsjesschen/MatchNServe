@@ -1,12 +1,44 @@
-/*!
- * Bootstrap v2.2.2
- *
- * Copyright 2012 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world @twitter by @mdo and @fat.
- */
+ /*CSS FOR THE LOGIN PAGE*/
+.prompt 
+{
+  font-style:italic;
+  color:gray;
+  margin-bottom:10px;
+}
+.formElementSpacing
+{
+  margin-top:6px;
+  background-color:rgb(204,204,204);
+  border: none;
+  padding:7px;
+  width:200px;
+}
+.rightBox
+{
+  float:left; 
+  height:110px;
+  margin-left:40px;
+  padding-left:20px;
+  border-left:2px solid gray;
+}
+.orDiv
+{
+  float:left;
+  margin-left:30px; 
+  width:200px;
+  padding-top:20px;
+  height:40px;
+}
+
+.bottomRightDiv
+{
+  float:left;
+  margin-left:40px; 
+  border-left:2px solid gray;
+  height:120px;
+}
+
+/*CSS FOR THE HOME PAGE*/
 body{
 	width:1000px;
 	height:700px;
@@ -75,6 +107,7 @@ body{
 	position:absolute;
 }
 
+/*CSS FOR THE BOOTSTRAP STUFF*/
 article,
 aside,
 details,
