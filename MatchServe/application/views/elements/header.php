@@ -4,7 +4,7 @@
 <!-- header containing all the bootstrap calls -->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>HeaderPage</title>
+	<title></title>
   <?php echo Asset::container('bootstrap')->styles();?>
 </head>
 

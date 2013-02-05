@@ -1,3 +1,27 @@
+ #search-specifiers-container{
+  width:1000px;
+  height:40px;
+  padding:0;
+  float:left;
+ }
+ #searchFilters{
+  padding:5px;
+  margin:5px;
+ }
+ .dropdownTitle{
+  margin-top:5px;
+  font-size: 14px;
+ }
+ #zip-code-show-link{
+  color:#FFF;
+ }
+ #search-container{
+  margin-top:19px;
+ }
+ #search-query, 
+ #zip-code{
+    margin-top:10px;
+ }
  /*CSS FOR THE LOGIN PAGE*/
 .prompt 
 {
@@ -72,7 +96,7 @@ body{
 	float:left;
 	width:1000px;
 	height:90px;
-	background-color:#CC9900;
+	background-color:#A30000;
 	margin-top:30px;
 	margin:0;
 	padding:0;
@@ -1895,7 +1919,6 @@ input.search-query {
   padding-left: 14px;
   padding-left: 4px \9;
   /* IE7-8 doesn't have border-radius, so don't indent the padding */
-
   margin-bottom: 0;
   -webkit-border-radius: 15px;
      -moz-border-radius: 15px;
