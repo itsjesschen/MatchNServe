@@ -39,11 +39,11 @@
                             <span class="caret"></span>
                         </a>
                         <ul class = "dropdown-menu">
-                            <input type="radio" id="searchFilters" name="distance" value="1"> &lt 1 mile<br>
-                            <input type="radio" id="searchFilters" name="distance" value="3"> &lt 3 miles<br>
-                            <input type="radio" id="searchFilters" name="distance" value="5"> &lt 5 miles<br>
-                            <input type="radio" id="searchFilters" name="distance" value="10">&lt 10 miles<br>
-                            <input type="radio" id="searchFilters" name="distance" value="all">all distances
+                            <input type="radio" class="searchFilters" name="distance" value="1"> &lt 1 mile<br>
+                            <input type="radio" class="searchFilters" name="distance" value="3"> &lt 3 miles<br>
+                            <input type="radio" class="searchFilters" name="distance" value="5"> &lt 5 miles<br>
+                            <input type="radio" class="searchFilters" name="distance" value="10">&lt 10 miles<br>
+                            <input type="radio" class="searchFilters" name="distance" value="all">all distances
                         </ul>
                     </li>
                     <!-- </div> -->
@@ -62,14 +62,14 @@
                             <span class="caret"></span>
                         </a>
                         <ul class = "dropdown-menu">
-                            <p class="dropdownTitle" id="searchFilters"><strong>WEEKDAYS</strong></p>
-                                <input type='checkbox' id="searchFilters" name='time[]' value="day-mornings">   Mornings<br>
-                                <input type='checkbox' id="searchFilters" name='time[]' value="day-afternoons">   Afternoons<br>
-                                <input type='checkbox' id="searchFilters" name='time[]' value="day-evenings">   Evenings<br>
-                            <p class="dropdownTitle" id="searchFilters"><strong>WEEKENDS</strong></p>
-                                <input type='checkbox' id="searchFilters" name='time[]' value="end-mornings">   Mornings<br>
-                                <input type='checkbox' id="searchFilters" name='time[]' value="end-afternoons">   Afternoons<br>
-                                <input type='checkbox' id="searchFilters" name='time[]' value="end-evenings">   Evenings
+                            <p class="dropdownTitle" class="searchFilters"><strong>WEEKDAYS</strong></p>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="day-mornings">   Mornings<br>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="day-afternoons">   Afternoons<br>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="day-evenings">   Evenings<br>
+                            <p class="dropdownTitle" class="searchFilters"><strong>WEEKENDS</strong></p>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="end-mornings">   Mornings<br>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="end-afternoons">   Afternoons<br>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="end-evenings">   Evenings
                         </ul>
                     </li><!--end of dropdown-->
                 </ul>

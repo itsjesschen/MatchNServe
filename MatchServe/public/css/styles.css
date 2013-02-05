@@ -64,7 +64,7 @@ body {
     font-family: "century gothic";
     padding-top: 5px;
     padding-bottom: 5px;
-    -webkit-transition: 1s all ease-out;
+/*    -webkit-transition: 1s all ease-out;*/
 }
 
 #search-content {

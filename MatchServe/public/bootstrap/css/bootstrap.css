@@ -4,7 +4,7 @@
   padding:0;
   float:left;
  }
- #searchFilters{
+ #search-specifiers-container .searchFilters{
   padding:5px;
   margin:5px;
  }

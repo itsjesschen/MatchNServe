@@ -64,7 +64,7 @@ function search(){
         $searchcol.append("<br>");
         for(var i= 0; i < obj.length; i++){
             // console.log(obj[i].description);
-            $searchcol.append("<input type='checkbox' name='vehicle' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+            $searchcol.append("<input type='checkbox' class='searchFilters' name='vehicle' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
         }
     });
     //window.location = "http://localhost/MatchServe/MatchServe/public/search/query/";
@@ -93,7 +93,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         $options = $("<ul class = 'dropdown-menu'>");
         $options.insertAfter($searchcol);
         for(var i= 0; i < obj.length; i++){
-             $options.append("<input type='checkbox' name='skill[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+             $options.append("<input type='checkbox' class='searchFilters'  name='skill[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
             // $("<input type='checkbox' name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>").insertAfter($searchcol);
         }
         $options.append("</ul>");
@@ -112,7 +112,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         $options = $("<ul class = 'dropdown-menu'>");
         $options.insertAfter($searchcol);
         for(var i= 0; i < obj.length; i++){
-             $options.append("<input type='checkbox' name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+             $options.append("<input type='checkbox' class='searchFilters'  name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
         }
          $options.append("</ul>");
     });
