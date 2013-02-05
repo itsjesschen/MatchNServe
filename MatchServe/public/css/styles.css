@@ -41,9 +41,7 @@ body {
 }
 
 #search-specifiers-container{
-    left:50%;
-    margin-left:-400px;
-    position: absolute;
+    margin-left:100px;
     z-index:1;
 }
 

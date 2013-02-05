@@ -10,11 +10,6 @@
         <?php echo Asset::styles();?>
 
         <!--SCRIPT TO INITIALIZE THE DOC-->
-        <script>
-        $(document).ready(function(){
-            
-        });
-        </script>
     </head>
 
     <body>
