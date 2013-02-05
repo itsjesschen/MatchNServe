@@ -5,10 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>HeaderPage</title>
-	<?php echo HTML::style('bootstrap/css/bootstrap.css'); ?> 
-
-    <style type="text/css">
-    </style>
+  <?php echo Asset::container('bootstrap')->styles();?>
 </head>
 
 <body>
@@ -18,7 +15,7 @@
         	<a href="#" class="brand">
         		<img src="img/Title.png"/>
       		</a>
-    		<div class="navheader">
+    		  <div class="navheader">
             	<ul class="nav">
       				<li><a href="<?php echo URL::to('login') ?>">Login/Register</a></li>
     			</ul>

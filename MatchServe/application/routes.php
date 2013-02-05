@@ -119,6 +119,13 @@ Route::filter('auth', function()
  * -----------------------------------------------
  */
 
+//.css
+ Asset::container('bootstrap')->add('bootstrapResponsiveCSS', 'bootstrap/css/bootstrap-responsive.css');
+ Asset::container('bootstrap')->add('bootstrapCSS', 'bootstrap/css/bootstrap.css');
+ Asset::add('styles','css/styles.css');
+ Asset::add('reset', 'css/reset.css');
+
+//.js
  Asset::add('jquery.min', 'js/jquery.min.js');
- Asset::add('search', 'js/search.js');
- Asset::add('bootstrap', 'bootstrap/js/bootstrap.js');
+ Asset::container('search')->add('search', 'js/search.js');
+ Asset::add('bootstrap', 'bootstrap/js/bootstrap.js', 'jquery.min');

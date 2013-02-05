@@ -3,9 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Match & Serve | Information for Volunteers</title>
-<?php echo HTML::style('css/reset.css');?>
-<?php echo HTML::style('css/styles.css');?>
-<?php echo HTML::style('css/boostrap.css');?>
+
+<?php echo Asset::styles();?>
+<?php echo Asset::container('bootstrap')->styles();?>
 
 </head>
 

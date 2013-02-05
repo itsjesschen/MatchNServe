@@ -5,8 +5,7 @@
 <title>Match & Serve | Matching great volunteers with great organizations</title>
 
 <!--SUPER IMPORTANT: MAKE SURE TO COPY AND PASTE THIS IN EVERY HEADER SO ALL THE INCLUDES CAN TAKE EFFECT IN THE PAGE-->
-<?php echo HTML::style('bootstrap/css/bootstrap.css'); ?> 
-<?php echo HTML::style('bootstrap/css/bootstrap-responsive.css'); ?> 
+<?php echo Asset::container('bootstrap')->styles();?>
 <?php echo Asset::scripts();?>
 
 <!--SCRIPT TO INITIALIZE THE CAROUSEL-->

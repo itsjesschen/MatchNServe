@@ -5,14 +5,8 @@
 		<title>Match & Serve | Login/Registration Page</title>
 
 		<!--SUPER IMPORTANT: MAKE SURE TO COPY AND PASTE THIS IN EVERY HEADER SO ALL THE INCLUDES CAN TAKE EFFECT IN THE PAGE-->
-		<?php echo HTML::style('bootstrap/css/bootstrap.css'); ?> 
-		<?php echo HTML::style('bootstrap/css/bootstrap-responsive.css'); ?> 
+		<?php echo Asset::container('bootstrap')->styles();?>
 		<?php echo Asset::scripts();?>
-
-		<script>
-  		$(document).ready(function(){
-  		});
-		</script>
 
 		<!--FORM SCRIPT-->
 		<script language="javascript">

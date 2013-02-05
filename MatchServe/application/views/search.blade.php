@@ -5,86 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Match and Serve - Search</title>
         <meta name="viewport" content="width=device-width">
-        <?php echo Asset::scripts(); ?>   
-        <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-        <script src="http://malsup.github.com/jquery.form.js"></script> 
-        <?php echo HTML::style('bootstrap/css/bootstrap.css'); ?> 
-        <?php echo HTML::style('bootstrap/css/bootstrap-responsive.css'); ?> 
-        {{ HTML::style('laravel/css/style.css') }}
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-            #wrapper, #form{
-                width:100%;
-                height:auto;
-            }
-            #search-container {
-                text-align: center;
-            }
-        
-            #search-query {
-                width: 20%;
-                color: #888;
-            }
-            
-            #zip-code {
-                display: none;
-            }
-            #search-content{
-                height:100px;
-            }
-            #wrapper{
-                text-align:center;
-                left:50%;
-                position:absolute;
-                width:1000px;
-                min-height:700px;
-                margin-left:-500px;
-                overflow:hidden;
-                padding:10px 0;
-            }
-            
-            #search-specifiers-container{
-                left:50%;
-                margin-left:-400px;
-                position: absolute;
-                z-index:1;
-            }
-            #search-specifiers-container a, a:visited{
-                color: rgb(181,0,0);
-                text-decoration:none;
-            }
-            #search-specifiers-container li, .dropdown-menu{
-                width:200px;
-            }   
-            #search-specifiers-container .caret{
-                border-top-color: rgb(181,0,0);
-                border-bottom-color: rgb(181,0,0);
-            }
-            .search-category{
-                display:inline-block;
-                border:none;
-                font-size: 1.5em;
-                font-family: "century gothic";
-                padding-top: 5px;
-                padding-bottom: 5px;
-                -webkit-transition: 1s all ease-out;
-            }
-            
-            #search-content {
-                background: rgb(224,224,224);
-                border: 1px solid black;
-                padding: 15px;
-            }
-            
-            #search-results {
-                border: 1px solid black;
-                padding: 10px;
-                background: white;
-            }
-        </style>
+        <?php echo Asset::container('search')->scripts(); ?>   
+        <?php echo Asset::scripts();?>
+        <?php echo Asset::styles();?>
     </head>
     <body>
         <div class="header">
