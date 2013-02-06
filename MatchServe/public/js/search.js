@@ -1,6 +1,11 @@
 window.onload = populateSearchOptions;
 
-
+//code which allows the dropdown to remain open when selecting sub items from it
+function preventDropdownToggle() {
+  $('.dropdown-menu').click(function (e) {
+    e.stopPropagation();
+  });
+}
 
 function showZipCode() {
     $('#zip-code').show('fast');
@@ -97,6 +102,8 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
             // $("<input type='checkbox' name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>").insertAfter($searchcol);
         }
         $options.append("</ul>");
+        //since the request is done asynchronously, we need to recall this function, which binds the clicks to the sub items
+        preventDropdownToggle();
     });
 
     $.ajax({//populate causes
@@ -115,6 +122,8 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
              $options.append("<input type='checkbox' class='searchFilters'  name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
         }
          $options.append("</ul>");
+         //since the request is done asynchronously, we need to recall this function, which binds the clicks to the sub items
+         preventDropdownToggle();
     });
 
     var options = { 

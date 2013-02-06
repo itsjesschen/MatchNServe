@@ -29,7 +29,6 @@
                 </div>
             </form>
         </div>
-
         <div class="subDashboard">
             <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
             <div id="search-specifiers-container">
@@ -87,5 +86,5 @@
     <div class="footer">
         <?php echo render('elements.footer'); ?>
     </div>
-    </body>
+</body>
 </html>
