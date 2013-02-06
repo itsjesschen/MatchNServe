@@ -70,6 +70,7 @@ class Database {
 				}
 			}
 			
+			// Now we take care of all the reugularly formatted filters
 			foreach($arguments as $i => $value) {
 				$query->where($i, '=', $value);
 			}
