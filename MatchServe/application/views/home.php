@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Match & Serve | Matching great volunteers with great organizations</title>
-<?php echo HTML::style('css/bootstrap.css'); ?> 
-<?php echo HTML::style('css/bootstrap-responsive.css'); ?> 
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script type="text/javascript"></script>
+<!--SUPER IMPORTANT: MAKE SURE TO COPY AND PASTE THIS IN EVERY HEADER SO ALL THE INCLUDES CAN TAKE EFFECT IN THE PAGE-->
+<?php echo Asset::container('bootstrap')->styles();?>
+<?php echo Asset::scripts();?>
 
+<!--SCRIPT TO INITIALIZE THE CAROUSEL-->
 <script>
   $(document).ready(function(){
     $('#myCarousel').carousel();
@@ -16,16 +16,18 @@
 </script>
 </head>
 
+<!--BEGINNING OF BODY-->
 <body>
+
 <div class="header">
 <?php echo render('elements.header'); ?>
 </div>
 
 <div class="dashboard">
 	<div class="inputZip"><img src="img/TypeZip.png"/></div>
-		<form class="navbar-form">
-  			<input type="text" value="  zip code" class="zipCodeField" onclick="value= ''">
-  			<button type="submit" class="btn" >Submit</button>
+		<form class="navbar-form" action="<?php echo URL::to('search') ?>" method="get">
+  			<input type="text" value="  zip code" class="zipCodeField" onclick="value= ''" name="search-term">
+  		  <input type="submit" value="Submit" class="btn">
 		</form>
 </div>
 

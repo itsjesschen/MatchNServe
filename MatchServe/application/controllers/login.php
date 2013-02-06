@@ -2,25 +2,33 @@
 
 class Login_Controller extends Base_Controller{
 
-	function action_registerorsignin(){
+	function action_index(){
 		return View::make('login');
 	}
-
-}
 
 function generateRandomString($length = 8) {    
     return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 }
-$dbLocalhost = mysql_connect("localhost", "root", "")
-or die("Could not connect: " . mysql_error());
-mysql_select_db("matchserve", $dbLocalhost)
-or die("Could not find database: " . mysql_error());
+
+function action_facebook(){
+	facebookLogin::login();
+	return View::make('search');
+}
+
+function action_login(){
+
+// 	$dbLocalhost = mysql_connect("localhost", "root", "")
+// or die("Could not connect: " . mysql_error());
+// mysql_select_db("matchserve", $dbLocalhost)
+// or die("Could not find database: " . mysql_error());
 
     if (isset($_POST['submit']))
 	{
 		$userName = $_POST['userName'];
 		$password = $_POST['password'];
 		$newPassword = $_POST['newPassword'];
+
+		
 		if ($userName != null && $userName !="" && ($newPassword == null || $newPassword ==""))
 		{
 			if ($password != null && $password !="") 
@@ -109,5 +117,8 @@ or die("Could not find database: " . mysql_error());
 			echo "Username already exists.";
 			}
 		}
-    }
+	}
+}
+}
+
 ?>

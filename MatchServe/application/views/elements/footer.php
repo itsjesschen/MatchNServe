@@ -4,13 +4,8 @@
 <!-- header containing all the bootstrap calls -->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>FooterPage</title>
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-    
-    <style type="text/css">
-
-	  
-    </style>
+	<title></title>
+  <?php echo Asset::container('bootstrap')->styles();?>
 </head>
 
 <body>

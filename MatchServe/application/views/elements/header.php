@@ -4,23 +4,20 @@
 <!-- header containing all the bootstrap calls -->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>HeaderPage</title>
-	<?php echo HTML::style('css/bootstrap.css'); ?> 
-
-    <style type="text/css">
-    </style>
+	<title></title>
+  <?php echo Asset::container('bootstrap')->styles();?>
 </head>
 
 <body>
 	<div class="header">
 		<div class="navbar navbar-inverse">
   			<div class="navbar-inner">
-        	<a href="#" class="brand">
+        	<a href="<?php echo URL::to('home')?>" class="brand">
         		<img src="img/Title.png"/>
       		</a>
-    		<div class="navheader">
+    		  <div class="navheader">
             	<ul class="nav">
-      				<li><a href="<?php echo URL::to('login/registerorsignin') ?>">Login/Register</a></li>
+      				<li><a href="<?php echo URL::to('login') ?>">Login/Register</a></li>
     			</ul>
         	</div>
   		</div>

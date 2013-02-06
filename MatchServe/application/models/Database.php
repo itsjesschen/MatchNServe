@@ -21,6 +21,7 @@ class Database {
 	public static function addUserProject(){
 	}
 	public static function addUser(){
+		
 	}
 
 	/**********************************GETTERS**************************************/
@@ -36,11 +37,9 @@ class Database {
 	public static function getOrgProject($OrgID, $ProjectID){
 	}
 	public static function getProjects($queryString, $arguments){
-		
 		// Build the inital query for name matching
 		$query =  DB::table('projects')
 		->where('Name', 'LIKE', '%'.$queryString.'%');
-		
 		// Add any filter additions as necessary
 		$timesQuery = NULL;
 		if($arguments) {
@@ -49,24 +48,44 @@ class Database {
 				$times = $arguments['time'];
 				
 				switch($times) {
-					case 'Mornings':
+				case 'day-mornings':
 					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
 					      ->join('timeslot', 'Time', '<=', 12);
 					break;
-				case 'Afternoons':
+				case 'day-afternoons':
 					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
 					      ->join('timeslot', function($join) {
 							$join->on('Time', '<=', 17);
 							$join->and_on('Time', '>', 12);
 					      });
 					break;
-				case 'Evenings':
+				case 'day-evenings':
 					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
 					      ->join('timeslot', function($join) {
 							$join->on('Time', '<=', 24);
 							$join->and_on('Time', '>', 17);
 					      });
 					break;
+
+				//added
+				// case 'end-mornings':
+				// 	$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
+				// 	      ->join('timeslot', 'Time', '<=', 12);
+				// 	break;
+				// case 'end-afternoons':
+				// 	$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
+				// 	      ->join('timeslot', function($join) {
+				// 			$join->on('Time', '<=', 17);
+				// 			$join->and_on('Time', '>', 12);
+				// 	      });
+				// 	break;
+				// case 'end-evenings':
+				// 	$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
+				// 	      ->join('timeslot', function($join) {
+				// 			$join->on('Time', '<=', 24);
+				// 			$join->and_on('Time', '>', 17);
+				// 	      });
+				// 	break;
 				}
 			}
 			
@@ -77,7 +96,6 @@ class Database {
 		}
 		
 		$query->get();
-		
 		return $query;
 	}
 	public static function getProjectTime($times) {

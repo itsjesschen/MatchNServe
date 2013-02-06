@@ -1,6 +1,11 @@
 window.onload = populateSearchOptions;
 
-
+//code which allows the dropdown to remain open when selecting sub items from it
+function preventDropdownToggle() {
+  $('.dropdown-menu').click(function (e) {
+    e.stopPropagation();
+  });
+}
 
 function showZipCode() {
     $('#zip-code').show('fast');
@@ -59,12 +64,12 @@ function search(){
     }).done(function(html){
         console.log(html);
         var obj = jQuery.parseJSON(html);
-        $searchcol = $("#search-specifiers-container").find('li.search-category').slice(2,3); //chooses skills column
+        $searchcol = $("#search-specifiers-container").find('a.search-category').slice(2,3); //chooses skills column
         console.log($searchcol);
         $searchcol.append("<br>");
         for(var i= 0; i < obj.length; i++){
             // console.log(obj[i].description);
-            $searchcol.append("<input type='checkbox' name='vehicle' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+            $searchcol.append("<input type='checkbox' class='searchFilters' name='vehicle' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
         }
     });
     //window.location = "http://localhost/MatchServe/MatchServe/public/search/query/";
@@ -89,11 +94,16 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
-        $searchcol = $("#search-specifiers-container").find('li.search-category').slice(1,2); //chooses skills column
-        $searchcol.append("<br>");
+        $searchcol = $("#search-specifiers-container").find('a.search-category').slice(1,2); //chooses skills column
+        $options = $("<ul class = 'dropdown-menu'>");
+        $options.insertAfter($searchcol);
         for(var i= 0; i < obj.length; i++){
-            $searchcol.append("<input type='checkbox' name='skill[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+             $options.append("<input type='checkbox' class='searchFilters'  name='skill[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+            // $("<input type='checkbox' name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>").insertAfter($searchcol);
         }
+        $options.append("</ul>");
+        //since the request is done asynchronously, we need to recall this function, which binds the clicks to the sub items
+        preventDropdownToggle();
     });
 
     $.ajax({//populate causes
@@ -105,16 +115,21 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
-        $searchcol = $("#search-specifiers-container").find('li.search-category').slice(2,3); //chooses skills column
-        $searchcol.append("<br>");
+        $searchcol = $("#search-specifiers-container").find('a.search-category').slice(2,3); //chooses skills column
+        $options = $("<ul class = 'dropdown-menu'>");
+        $options.insertAfter($searchcol);
         for(var i= 0; i < obj.length; i++){
-            $searchcol.append("<input type='checkbox' name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+             $options.append("<input type='checkbox' class='searchFilters'  name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
         }
+         $options.append("</ul>");
+         //since the request is done asynchronously, we need to recall this function, which binds the clicks to the sub items
+         preventDropdownToggle();
     });
 
     var options = { 
         url: 'search/getprojects', 
-        success: function(html) { 
+        success: function(html) {
+            $filtersrow = $("filters-row").html();
             // console.log(html);
         } 
     };

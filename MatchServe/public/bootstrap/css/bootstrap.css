@@ -1,18 +1,74 @@
-/*!
- * Bootstrap v2.2.2
- *
- * Copyright 2012 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world @twitter by @mdo and @fat.
- */
+ #search-specifiers-container{
+  width:1000px;
+  height:40px;
+  padding:0;
+  float:left;
+ }
+ #search-specifiers-container .searchFilters{
+  padding:5px;
+  margin:5px;
+ }
+ .dropdownTitle{
+  margin-top:5px;
+  font-size: 14px;
+ }
+ #zip-code-show-link{
+  color:#FFF;
+ }
+ #search-container{
+  margin-top:19px;
+ }
+ #search-query, 
+ #zip-code{
+    margin-top:10px;
+ }
+ /*CSS FOR THE LOGIN PAGE*/
+.prompt 
+{
+  color:gray;
+  margin-bottom:12px;
+}
+.formElementSpacing
+{
+  margin-top:6px;
+  background-color:rgb(204,204,204);
+  border: none;
+  padding:7px;
+  width:200px;
+}
+.infoBoxLeft{
+  width:450px;
+  height:510px;
+  float:left;
+  margin-top:50px;
+}
+.infoBoxMiddle{
+  width:100px;
+  height:510px;
+  float:left;
+  text-align:center;
+  margin-top:-20px;
+}
+.infoBoxRight{
+  width:450px;
+  height:510px;
+  float:right;
+  margin-top:225px;
+}
+.stuffInside{
+  margin-left:100px;
+
+}
+/*CSS FOR THE HOME PAGE*/
 body{
 	width:1000px;
+  margin:0 auto;
 	height:700px;
-	margin: 0;
-  padding:0;
-  text-align:center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
 }
 #myCarousel{
   padding:0;
@@ -40,7 +96,7 @@ body{
 	float:left;
 	width:1000px;
 	height:90px;
-	background-color:#CC9900;
+	background-color:#A30000;
 	margin-top:30px;
 	margin:0;
 	padding:0;
@@ -75,6 +131,7 @@ body{
 	position:absolute;
 }
 
+/*CSS FOR THE BOOTSTRAP STUFF*/
 article,
 aside,
 details,
@@ -286,15 +343,6 @@ textarea {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: #333333;
-  background-color: #ffffff;
 }
 
 a {
@@ -1871,7 +1919,6 @@ input.search-query {
   padding-left: 14px;
   padding-left: 4px \9;
   /* IE7-8 doesn't have border-radius, so don't indent the padding */
-
   margin-bottom: 0;
   -webkit-border-radius: 15px;
      -moz-border-radius: 15px;
