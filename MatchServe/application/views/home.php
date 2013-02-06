@@ -25,9 +25,9 @@
 
 <div class="dashboard">
 	<div class="inputZip"><img src="img/TypeZip.png"/></div>
-		<form class="navbar-form">
-  			<input type="text" value="  zip code" class="zipCodeField" onclick="value= ''">
-  			<button type="submit" class="btn" >Submit</button>
+		<form class="navbar-form" action="<?php echo URL::to('search') ?>" method="get">
+  			<input type="text" value="  zip code" class="zipCodeField" onclick="value= ''" name="search-term">
+  		  <input type="submit" value="Submit" class="btn">
 		</form>
 </div>
 

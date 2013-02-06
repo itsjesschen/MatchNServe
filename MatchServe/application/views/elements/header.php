@@ -12,7 +12,7 @@
 	<div class="header">
 		<div class="navbar navbar-inverse">
   			<div class="navbar-inner">
-        	<a href="#" class="brand">
+        	<a href="<?php echo URL::to('home')?>" class="brand">
         		<img src="img/Title.png"/>
       		</a>
     		  <div class="navheader">

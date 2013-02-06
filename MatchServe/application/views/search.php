@@ -4,9 +4,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="utf-8">
         <title>Match and Serve - Search</title>
         <meta name="viewport" content="width=device-width">
-        <?php echo Asset::container('search')->scripts(); ?>   
+                <?php echo Asset::scripts();?>
+        <?php echo Asset::container('search')->scripts();?>
         <?php echo Asset::container('bootstrap')->styles();?>
-        <?php echo Asset::scripts();?>
         <?php echo Asset::styles();?>
 
         <!--SCRIPT TO INITIALIZE THE DOC-->
@@ -21,7 +21,7 @@
             <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
                 <div id="search-container">
                     <form class="navbar-form">
-                        <input id="search-query" type="text" name="searchterm" class="zipCodeField" value="search for" onclick="value= ''" onfocus="focusedText(this)" onblur="blurText(this)"/>
+                        <input id="search-query" type="text" name="searchterm" class="zipCodeField" value="<?php if($search_term != null){echo $search_term;} else {echo "search for";}?>" onclick="value= ''" onfocus="focusedText(this)" onblur="blurText(this)"/>
                         <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
                         <input id="zip-code" type="text" name="zipcode" value="zip code" onfocus="focusedText(this)" onblur="blurText(this)" />
                         <button type="submit" class="btn" >Search</button>

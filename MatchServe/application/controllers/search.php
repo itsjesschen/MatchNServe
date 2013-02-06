@@ -4,7 +4,14 @@ class Search_Controller extends Base_Controller{
 	
 	public function action_index(){
 
-		return View::make('search');
+		$search_term = Input::get('search-term');
+		$search_term = urlencode($search_term);
+
+		$data = array(
+			'search_term' => $search_term
+		);
+
+		return View::make('search', $data);
 	}
 	public function action_initoptions(){
 		//query database and return a list of skills/causes
