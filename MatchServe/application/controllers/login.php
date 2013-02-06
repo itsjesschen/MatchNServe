@@ -6,21 +6,16 @@ class Login_Controller extends Base_Controller{
 		return View::make('login');
 	}
 
-function generateRandomString($length = 8) {    
+/* function generateRandomString($length) {    
     return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-}
-
-function action_facebook(){
-	facebookLogin::login();
-	return View::make('search');
-}
+} */
 
 function action_login(){
 
-// 	$dbLocalhost = mysql_connect("localhost", "root", "")
-// or die("Could not connect: " . mysql_error());
-// mysql_select_db("matchserve", $dbLocalhost)
-// or die("Could not find database: " . mysql_error());
+ 	$dbLocalhost = mysql_connect("localhost", "root", "")
+ or die("Could not connect: " . mysql_error());
+ mysql_select_db("matchserve", $dbLocalhost)
+ or die("Could not find database: " . mysql_error());
 
     if (isset($_POST['submit']))
 	{
@@ -28,7 +23,6 @@ function action_login(){
 		$password = $_POST['password'];
 		$newPassword = $_POST['newPassword'];
 
-		
 		if ($userName != null && $userName !="" && ($newPassword == null || $newPassword ==""))
 		{
 			if ($password != null && $password !="") 
@@ -41,25 +35,26 @@ function action_login(){
 						if ($_POST['password'] == $row['Password'])
 						{
 						//	cookie::put('name', '$userName', 7200);
-							echo "Successful Login";
+							/* echo "Successful Login";
 							echo "<html>";
-							echo "<form id='myform' action='accountselection.php' method='post'>";
+							echo "<form id='myform' action='<?php return Redirect::to('accountselection/accountselection'); ?>' method='post'>";
 							echo "<input type='hidden' name='userName' value='$userName' />";
 							echo "</form>";
 							echo "<script type='text/javascript'>";
 							echo "document.getElementById('myform').submit();";
 							echo "</script>";
-							echo "</html>";
+							echo "</html>"; */
+							return Redirect::to_action('accountselection/accountselection')->with('userName', $userName);
 						}
 						else
 						{
-							echo "Incorrect password! <a href='../views/login.php'>Forgot Password</a>";
+							echo "Incorrect password!";
 							$count = 2;
 						}
 					  }
-					  if($count <= 1)
+					  if($count <= 0)
 					  {
-						echo "Your record does not exist. <a href='../views/login.php'>Try again</a>";
+						echo "Your record does not exist.";
 					  }
 			}
 			else 
@@ -70,7 +65,7 @@ function action_login(){
 				while($row = mysql_fetch_array($result))
 				{
 					$count++;
-					$temp=generateRandomString();
+					$temp=substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 8);
 					$email = $row['Email'];
 					// The message
 					$message = "Dear $userName,\nYour new password is $temp. Please login with the new credentials.\nThank you.";
@@ -84,7 +79,7 @@ function action_login(){
 				}
 				 if($count <= 0)
 			     {
-					echo "Your record does not exist. <a href='../views/login.php'>Try again</a>";
+					echo "Your record does not exist.";
 				 }
 			}
 		}
@@ -106,7 +101,7 @@ function action_login(){
 					$result = mysql_query($sql, $dbLocalhost)
 					or die("Problem writing to table: " . mysql_error());
 					echo "Successfully created new user";
-					header('Location: http://www.matchandserve.com');
+					return Redirect::home();
 				}
 				else
 				{
