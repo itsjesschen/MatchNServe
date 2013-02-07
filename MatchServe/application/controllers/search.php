@@ -56,7 +56,8 @@ class Search_Controller extends Base_Controller{
 			 }
 		 //DATABASE CALL that goes to models/Database.php
 		 $data = Database::getProjects($searchterm, $arguments);
-		 dd($data);		
+		 $data = json_encode($data);
+		 return $data;	
 	}
 
 }

@@ -16,8 +16,8 @@
         height:75px;
     }
     #causeImage{
-        width:100%;
-        height:100%;
+/*        width:100%;
+        height:100%;*/
     }
     .rightHandSideStuff{
         float:left;
@@ -29,6 +29,9 @@
         float:left;
         width:75px;
         height:75px;
+    }
+    .search-item{
+        list-style:none;
     }
     .projectPosition{
         float:left;
@@ -83,7 +86,7 @@
     #signUpButton{
         margin-top:2px;
     }
-    #reqsMsg{
+    .reqsMsg{
         font-size: 8px;
         color:red;
     }
@@ -197,108 +200,7 @@
             <div id="filters-row">
             </div>
             <div id="search-results">
-                <div class="accordion" id="accordion2">
-                    <div class="accordion-group">
-                        <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                                <!--RODRIGO: creating the card, comprised of the main parts of the search results-->
-                                <div class="leftHandSideStuff">
-                                    <div class="iconCause">
-                                        <img id="causeImage" src="img/icon.JPG"/>
-                                    </div>
-                                    <div class="projectPosition">
-                                        <span>Puppy Feeder</span>
-                                    </div>
-                                    <div class="projectOrg">
-                                        <span>Feed a Puppy Foundation</span>
-                                    </div>
-                                    <div class="projectHeadline">
-                                        <span>Seeking motivated puppy lovers to help us feed the puppies</span>
-                                    </div>
-                                    <div class="requirementsWarning">
-                                        <span id="reqsMsg">This project contains requirements</span>
-                                    </div>
-                                </div>
-                                <div class="rightHandSideStuff">
-                                    <div class="importantDetails">
-                                        <div class="projectDistance">
-                                            <span><i class="icon-road"></i>0.5 miles</span>
-                                        </div>
-                                        <div class="projectTime">
-                                            <span><i class="icon-time"></i>10:00am - 5:00pm</span>
-                                        </div>
-                                        <div class="projectDate">
-                                            <span><i class="icon-calendar"></i>Sat, April 8 2013 - Mon, April 10 2013</span>
-                                        </div>
-                                        <button class="btn btn-success" type="button" id="signUpButton">Sign Up</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="accordion-body collapse">
-                            <div class="accordion-inner">
-                                <div class="projectDescriptionTitle">
-                                    Project Description
-                                </div>
-                                <div class="projectDescription">
-                                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                                </div>
-                                <div class="additionalInfoBox">
-                                    <div class="projectLocation">
-                                        <p>1200 Pennsylvania Ave SE, Washington, District of Columbia, 20003</p>
-                                    </div>
-                                    <div class="projectContact">
-                                        <p>Anita Singh</p>
-                                    </div>
-                                    <div class="projectSkills">
-                                        <p>Web Development</p>
-                                    </div>
-                                    <div class="projectCause">
-                                        <p>Technology and Science</p>
-                                    </div>
-                                    <div class="projectReqs">
-                                        <p>Driver's License Needed</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-group">
-                        <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                                <!--RODRIGO: creating the card, comprised of the main parts of the search results-->
-                                <div class="leftHandSideStuff">
-                                    <div class="iconCause">
-                                    </div>
-                                    <div class="projectName">
-                                    </div>
-                                    <div class="projectPosition">
-                                    </div>
-                                    <div class="projectHeadline">
-                                    </div>
-                                    <div class="requirementsWarning">
-                                    </div>
-                                </div>
-                                <div class="rightHandSideStuff">
-                                    <div class="importantDetails">
-                                        <div class="projectDistance">
-                                        </div>
-                                        <div class="projectTime">
-                                        </div>
-                                        <div class="projectDate">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="accordion-body collapse">
-                            <div class="accordion-inner">
-                                Anim pariatur cliche...
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
