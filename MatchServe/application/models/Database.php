@@ -36,65 +36,25 @@ class Database {
 	}
 	public static function getOrgProject($OrgID, $ProjectID){
 	}
-	public static function getProjects($queryString, $arguments){
+	public static function getProjects($searchterm, $arguments){
 		// Build the inital query for name matching
-		$query =  DB::table('projects')
-		->where('Name', 'LIKE', '%'.$queryString.'%');
-		// Add any filter additions as necessary
-		$timesQuery = NULL;
-		if($arguments) {
-			// First, we need to remove the times thing
-			if($arguments['time'] != NULL) {
-				$times = $arguments['time'];
-				
-				switch($times) {
-				case 'day-mornings':
-					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
-					      ->join('timeslot', 'Time', '<=', 12);
-					break;
-				case 'day-afternoons':
-					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
-					      ->join('timeslot', function($join) {
-							$join->on('Time', '<=', 17);
-							$join->and_on('Time', '>', 12);
-					      });
-					break;
-				case 'day-evenings':
-					$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
-					      ->join('timeslot', function($join) {
-							$join->on('Time', '<=', 24);
-							$join->and_on('Time', '>', 17);
-					      });
-					break;
-
-				//added
-				// case 'end-mornings':
-				// 	$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
-				// 	      ->join('timeslot', 'Time', '<=', 12);
-				// 	break;
-				// case 'end-afternoons':
-				// 	$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
-				// 	      ->join('timeslot', function($join) {
-				// 			$join->on('Time', '<=', 17);
-				// 			$join->and_on('Time', '>', 12);
-				// 	      });
-				// 	break;
-				// case 'end-evenings':
-				// 	$query->join('projecttime', 'projecttime.ProjectID', '=', 'projects.ProjectID')
-				// 	      ->join('timeslot', function($join) {
-				// 			$join->on('Time', '<=', 24);
-				// 			$join->and_on('Time', '>', 17);
-				// 	      });
-				// 	break;
-				}
-			}
-			
-			foreach($arguments as $i => $value) {
-				$query->where($i, '=', $value);
-			}
-		}
-		
-		$query->get();
+	// 	$temp = '%'.$queryString.'%';
+	// 	$dbLocalhost = mysql_connect("localhost", "root", "")
+ // or die("Could not connect: " . mysql_error());
+ // mysql_select_db("matchserve", $dbLocalhost)
+ // or die("Could not find database: " . mysql_error());
+ // $result = mysql_query("SELECT * FROM projects", $dbLocalhost);
+	// 				$count = 0;
+	// 				while($row = mysql_fetch_array($result))
+	// 				  {
+	// 				  $query[$count] = $result['ProjectID'];
+	// 				  $count++;
+	// 				  }
+	// 				  print_r($query);
+		$query =  DB::table('projects')->where('Name', 'LIKE','%'.$searchterm.'%')
+		->or_where('Details','LIKE','%'.$searchterm.'%')->get();
+		//echo 'SELECT * FROM `projects` WHERE `Name` = '$queryString'';
+		//$query = DB::query('SELECT * FROM `projects` WHERE `Name` = '.$queryString);
 		return $query;
 	}
 	public static function getProjectTime($times) {
@@ -114,7 +74,7 @@ class Database {
 				break;
 		}
 		
-		return $query->get();
+		return $query;
 	}
 	public static function getSkills(){
 		$query =  DB::table('skills')->get();
