@@ -36,25 +36,26 @@ class Database {
 	}
 	public static function getOrgProject($OrgID, $ProjectID){
 	}
-	public static function getProjects($searchterm, $arguments){
+	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
-	// 	$temp = '%'.$queryString.'%';
-	// 	$dbLocalhost = mysql_connect("localhost", "root", "")
- // or die("Could not connect: " . mysql_error());
- // mysql_select_db("matchserve", $dbLocalhost)
- // or die("Could not find database: " . mysql_error());
- // $result = mysql_query("SELECT * FROM projects", $dbLocalhost);
-	// 				$count = 0;
-	// 				while($row = mysql_fetch_array($result))
-	// 				  {
-	// 				  $query[$count] = $result['ProjectID'];
-	// 				  $count++;
-	// 				  }
-	// 				  print_r($query);
+		if ($zipcode!=null){
+/* 		    $query = DB::table('projects')
+			->where('Location', '=', $zipcode)
+			->where(function($query1)
+			{
+			$query1->where('Name', 'LIKE','%'.$searchterm.'%');
+			$query1->or_where('Details','LIKE','%'.$searchterm.'%');
+			})
+			->get();
+			
+ */ 		$query = DB::table('projects')
+			->where('Location', '=', $zipcode)
+			->where('Name', 'LIKE','%'.$searchterm.'%')
+			->get();
+ 		} else {
 		$query =  DB::table('projects')->where('Name', 'LIKE','%'.$searchterm.'%')
 		->or_where('Details','LIKE','%'.$searchterm.'%')->get();
-		//echo 'SELECT * FROM `projects` WHERE `Name` = '$queryString'';
-		//$query = DB::query('SELECT * FROM `projects` WHERE `Name` = '.$queryString);
+		}
 		return $query;
 	}
 	public static function getProjectTime($times) {

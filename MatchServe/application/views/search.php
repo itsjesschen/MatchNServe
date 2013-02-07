@@ -140,9 +140,9 @@
         <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
             <div id="search-container">
                 <form class="navbar-form">
-                    <input id="search-query" type="text" name="searchterm" class="zipCodeField" value="<?php if($search_term != null){echo $search_term;} else {echo "search for";}?>" onclick="value= ''" onfocus="focusedText(this)" onblur="blurText(this)"/>
+                    <input id="search-query" type="text" name="searchterm" class="zipCodeField" value="search for" onclick="value= ''" onfocus="focusedText(this)" onblur="blurText(this)"/>
                     <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
-                    <input id="zip-code" type="text" name="zipcode" value="zip code" onfocus="focusedText(this)" onblur="blurText(this)" />
+                    <input id="zip-code" type="text" name="zipcode" value="<?php if($zip_code != null){echo $zip_code;} else {echo "zip code";}?>" onfocus="focusedText(this)" onblur="blurText(this)" />
                     <button type="submit" class="btn" >Search</button>
                 </form>
             </div>

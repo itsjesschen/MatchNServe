@@ -8,7 +8,7 @@ class Search_Controller extends Base_Controller{
 		$search_term = urlencode($search_term);
 
 		$data = array(
-			'search_term' => $search_term
+			'zip_code' => $search_term
 		);
 
 		return View::make('search', $data);
@@ -33,14 +33,15 @@ class Search_Controller extends Base_Controller{
 	public function action_getprojects(){
 		$arguments = array();
 		$searchterm = null;
+		$zipcode = null;
 		 if( isset($_GET['searchterm']) && ("search for" != $_GET['searchterm'])){
 		  	$searchterm = $_GET['searchterm'];
 		  }
 
 		//assumes number for zipcode
-		// if( isset($_GET['zipcode']) && ("zip code" != $_GET['zipcode']) ) {
-		//  	$searchterm = $_GET['zipcode'];
-		// }
+		 if( isset($_GET['zipcode']) && ("zip code" != $_GET['zipcode']) ) {
+		  	$zipcode = $_GET['zipcode'];
+		 }
 			 if( isset($_GET['distance']) ){
 			 	$distance = $_GET['distance'];
 			 	$arguments['Location'] = $distance;
@@ -55,7 +56,7 @@ class Search_Controller extends Base_Controller{
 				$arguments['Time'] = $_GET['time'];
 			 }
 		 //DATABASE CALL that goes to models/Database.php
-		 $data = Database::getProjects($searchterm, $arguments);
+		 $data = Database::getProjects($searchterm, $zipcode, $arguments);
 		 $data = json_encode($data);
 		 return $data;	
 	}
