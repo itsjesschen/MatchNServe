@@ -87,6 +87,44 @@
         font-size: 8px;
         color:red;
     }
+    .projectDescription{
+        display: inline-block;
+        width:460px;
+        height:200px;
+        overflow: auto;
+    }
+    .projectDescriptionTitle{
+        height:20px;
+        width:460px;
+        font-size:20px;
+    }
+    .additionalInfoBox{
+        display: inline-block;
+        float:right;
+        width:475px;
+        height:220px;
+        margin-top:-20px;
+        margin-right:5px;
+        padding:0;
+    }
+    .projectLocation{
+        width:475px;
+        height:35px;
+        margin-left:10px;
+    }
+    .projectContact{
+        width:475px;
+        height:35px;
+        margin-left:10px;
+    }
+    .projectSkills,
+    .projectCause,
+    .projectReqs{
+        width:475px;
+        height:50px;
+        margin-left:10px;
+    }
+
     </style>
 </head>
 
@@ -199,23 +237,29 @@
                         </div>
                         <div id="collapseOne" class="accordion-body collapse">
                             <div class="accordion-inner">
+                                <div class="projectDescriptionTitle">
+                                    Project Description
+                                </div>
                                 <div class="projectDescription">
+                                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
                                 </div>
-                                <div class="projectLocation">
+                                <div class="additionalInfoBox">
+                                    <div class="projectLocation">
+                                        <p>1200 Pennsylvania Ave SE, Washington, District of Columbia, 20003</p>
+                                    </div>
+                                    <div class="projectContact">
+                                        <p>Anita Singh</p>
+                                    </div>
+                                    <div class="projectSkills">
+                                        <p>Web Development</p>
+                                    </div>
+                                    <div class="projectCause">
+                                        <p>Technology and Science</p>
+                                    </div>
+                                    <div class="projectReqs">
+                                        <p>Driver's License Needed</p>
+                                    </div>
                                 </div>
-                                <div class="projectContact">
-                                </div>
-                                <div class="projectTimeDetails">
-                                </div>
-                                <div class="projectSkills">
-                                </div>
-                                <div class="projectCause">
-                                </div>
-                                <div class="projectReqs">
-                                </div>
-                                <div class="shareProject">
-                                </div>
-
                             </div>
                         </div>
                     </div>
