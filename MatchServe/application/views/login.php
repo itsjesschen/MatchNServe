@@ -8,6 +8,7 @@
 		<?php echo Asset::container('bootstrap')->styles();?>
 		<?php echo Asset::scripts();?>
 
+		<!--for V2, make sure to implement these functions in classes... getElementById takes up a lot of memory-->
 		<!--FORM SCRIPT-->
 		<script language="javascript">
 			function returningUser(){
