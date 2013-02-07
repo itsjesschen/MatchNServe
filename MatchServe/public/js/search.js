@@ -133,14 +133,19 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         var obj = jQuery.parseJSON(html);
         console.log(obj);
         $searchcol = $("#search-results");
-        $searchcol.append("<ul class = 'search-result-list'>");
+
+        if(obj.length == 0){
+        $searchcol.html("Sorry, no search results. Please try another term :)");
+            return;
+        }        
+        $searchcol.html("<ul class = 'search-result-list'>");
         for(var i= 0; i < obj.length; i++){
 
         $searchcol.append("<li class='search-item'>\
-            <div class='accordion' id='accordion2'>\
+            <div class='accordion' id='accordion" +obj[i].projectid+"'>\
                 <div class='accordion-group'>\
                     <div class='accordion-heading'>\
-                        <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion2' href='#collapseOne'>\
+                        <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion" +obj[i].projectid+"' href='#collapse" +obj[i].projectid+"'>\
                             <div class='leftHandSideStuff'>\
                                 <img class='causeImage iconCause' src='img/icon.JPG'/> \
                                 <span class='projectPosition'>" +obj[i].name +"</span> \
@@ -156,7 +161,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
                             </div> \
                         </a> \
                     </div> \
-                    <div id='collapseOne' class='accordion-body collapse'> \
+                    <div id='collapse" +obj[i].projectid+"' class='accordion-body collapse'> \
                         <div class='accordion-inner'> \
                             <p class='projectDescriptionTitle'></p> \
                             <p class='projectDescription'>"+ obj[i].details+"</p> \
