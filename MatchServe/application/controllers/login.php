@@ -34,7 +34,7 @@ function action_login(){
 					  $count++;
 						if ($_POST['password'] == $row['Password'])
 						{
-						//	cookie::put('name', '$userName', 7200);
+							Cookie::put('name', '$userName', 7200);
 							/* echo "Successful Login";
 							echo "<html>";
 							echo "<form id='myform' action='<?php return Redirect::to('accountselection/accountselection'); ?>' method='post'>";
