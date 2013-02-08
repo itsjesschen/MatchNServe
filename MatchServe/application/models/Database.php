@@ -38,26 +38,33 @@ class Database {
 	}
 	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
-
+		$query = DB::table('projects');
 		if ($zipcode!=null){
-/* 		    $query = DB::table('projects')
-			->where('Location', '=', $zipcode)
-			->where(function($query1)
-			{
-			$query1->where('Name', 'LIKE','%'.$searchterm.'%');
-			$query1->or_where('Details','LIKE','%'.$searchterm.'%');
-			})
-			->get();
-			
- */ 		$query = DB::table('projects')
-			->where('Location', '=', $zipcode)
-			->where('Name', 'LIKE','%'.$searchterm.'%')
-			->or_where('Details','LIKE','%'.$searchterm.'%')
-			->get();
- 		} else {
-		$query =  DB::table('projects')->where('Name', 'LIKE','%'.$searchterm.'%')
-		->or_where('Details','LIKE','%'.$searchterm.'%')->get();
-		}
+			$query = $query->where('Location', '=', $zipcode);
+ 		}
+ 		if($arguments){
+ 			 if( isset($arguments['Location']) ){
+
+			 }
+			 if( isset($arguments['Skills']) ){
+			 }
+			 if( isset($arguments['Cause']) ){
+			 	// dd($arguments['Cause']);
+			 }
+			 if( isset($arguments['Time'] ) ){
+			 	// dd($arguments['Time']);
+			 }
+ 			// dd($arguments);
+ 		}
+ 		if ($searchterm!=null){
+			$query = $query->where('Name', 'LIKE','%'.$searchterm.'%')
+			->or_where('Details','LIKE','%'.$searchterm.'%');
+ 		}
+		// $query = $query->where('Name', 'LIKE','%'.$searchterm.'%')
+		$query = $query->get();
+		
+
+
 		return $query;
 	}
 	public static function getProjectTime($times) {
