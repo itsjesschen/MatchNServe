@@ -4,131 +4,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="utf-8">
     <title>Match and Serve - Search</title>
     <meta name="viewport" content="width=device-width">
-    <?php echo Asset::scripts();?>
-    <?php echo Asset::container('search')->scripts();?>
+    <?php echo Asset::container('search')->scripts(); ?>   
     <?php echo Asset::container('bootstrap')->styles();?>
+    <?php echo Asset::scripts();?>
     <?php echo Asset::styles();?>
 
-    <style>
-    .leftHandSideStuff{
-        float:left;
-        width:700px;
-        height:75px;
-    }
-    #causeImage{
-/*        width:100%;
-        height:100%;*/
-    }
-    .rightHandSideStuff{
-        float:left;
-        width:250px;
-        height:75px;
-        margin-top:-8px;
-    }
-    .iconCause{
-        float:left;
-        width:75px;
-        height:75px;
-    }
-    .search-item{
-        list-style:none;
-    }
-    .projectPosition{
-        float:left;
-        width:600px;
-        height:30px;
-        font-size: 25px;
-        margin-left:10px;
-        padding:0;
-        text-transform: uppercase;
-        color:#111111;
-    }
-    .projectOrg{
-        float:left;
-        width:600px;
-        height:20px;
-        font-size:14px;
-        font-style: italic;
-        margin-top:-8px;
-        margin-left:10px;
-        padding:0;
-        color:#111111;
-
-    }
-    .projectHeadline{
-        float:left;
-        width:600px;
-        height:15px;
-        font-size: 10px;
-        margin-top:-4px;
-        margin-left:10px;
-        color:#111111;
-
-    }
-    .requirementsWarning{
-        float:left;
-        width:600px;
-        height:10px;
-        margin-left:10px;
-        margin-top:1px;
-        color:#111111;
-
-    }
-    .projectDistance,
-    .projectTime,
-    .projectDate{
-        height:15px;
-        font-size: 12px;
-        margin:2px;
-        color:#111111;
-
-    }
-    #signUpButton{
-        margin-top:2px;
-    }
-    .reqsMsg{
-        font-size: 8px;
-        color:red;
-    }
-    .projectDescription{
-        display: inline-block;
-        width:460px;
-        height:200px;
-        overflow: auto;
-    }
-    .projectDescriptionTitle{
-        height:20px;
-        width:460px;
-        font-size:20px;
-    }
-    .additionalInfoBox{
-        display: inline-block;
-        float:right;
-        width:475px;
-        height:220px;
-        margin-top:-20px;
-        margin-right:5px;
-        padding:0;
-    }
-    .projectLocation{
-        width:475px;
-        height:35px;
-        margin-left:10px;
-    }
-    .projectContact{
-        width:475px;
-        height:35px;
-        margin-left:10px;
-    }
-    .projectSkills,
-    .projectCause,
-    .projectReqs{
-        width:475px;
-        height:50px;
-        margin-left:10px;
-    }
-
-    </style>
+    <!--SCRIPT TO INITIALIZE THE DOC-->
+    <script>
+    $(document).ready(function(){
+        $('#myCollapsible').collapse({
+          toggle: false
+      })
+    });
+    </script>
 </head>
 
 <body>
@@ -139,13 +27,18 @@
     <div class="dashboard">
         <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
             <div id="search-container">
+                <form class="navbar-form">
                     <input id="search-query" type="text" name="searchterm" class="zipCodeField" value="search for" onclick="value= ''" onfocus="focusedText(this)" onblur="blurText(this)"/>
                     <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
-                    <input id="zip-code" type="text" name="zipcode" value="<?php if($zip_code != null){echo $zip_code;} else {echo "zip code";}?>" onfocus="focusedText(this)" onblur="blurText(this)" />
+                    <input id="zip-code" type="text" name="zipcode" value="zip code" onfocus="focusedText(this)" onblur="blurText(this)" />
                     <button type="submit" class="btn" >Search</button>
+                </form>
             </div>
+        </form>
     </div>
+
     <div class="subDashboard">
+        <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
             <div id="search-specifiers-container">
                 <ul class="nav nav-pills">
                     <li class="dropdown">
@@ -196,7 +89,34 @@
             <div id="filters-row">
             </div>
             <div id="search-results">
-                
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                <!--RODRIGO: creating the card, comprised of the main parts of the search results-->
+                                <div id="causeColor">
+                                    hello
+                                </div>
+                                <div id="locationIcon">
+                                </div>
+                                <div id="projectName">
+                                    Hello
+                                </div>
+                                <div id="projectPosition">
+                                    Hello
+                                </div>
+                                <div id="importantDetails">
+                                    Yeehah
+                                </div>
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                Anim pariatur cliche...
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -68,9 +68,9 @@ body {
 }
 
 #search-content {
-    background: rgb(224,224,224);
-    border: 1px solid black;
-    padding: 15px;
+    width:1000px;
+    height:510px;
+    margin:0 auto;
 }
 
 #search-results {

@@ -8,6 +8,7 @@
 		<?php echo Asset::container('bootstrap')->styles();?>
 		<?php echo Asset::scripts();?>
 
+		<!--for V2, make sure to implement these functions in classes... getElementById takes up a lot of memory-->
 		<!--FORM SCRIPT-->
 		<script language="javascript">
 			function returningUser(){
@@ -35,6 +36,31 @@
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' style='color:grey'>here</a>";
 			}
 		</script>
+		<style>
+		form {
+		color:gray;
+		}
+		#newUser {
+		visibility: hidden;
+		}
+		#bottomLinks {
+		font-size:14px;
+		}
+		.link{
+		color:grey;
+		font-weight:bold;
+		text-decoration:underline;
+		}
+		#submit
+		{
+			color:white;
+			font-weight:bold;
+			padding:10px;
+			border:none;
+			cursor: pointer;
+			background-color:#1BC700;
+		}
+		</style>
 	</head>
 
 	<body>
@@ -52,7 +78,7 @@
 			<div name="leftBox" class="infoBoxLeft">
 				<div class="stuffInside">
 				<div class = "prompt">Please fill out the form below to get started</div>
-				<form action="<?php echo URL::to('login/login')?>" style="color:gray" method="POST">
+				<form action="<?php echo URL::to('login/login')?>" method="POST">
 					<table>
 						<tr id="name">
 							<td>USERNAME
@@ -71,7 +97,7 @@
 							</td>
 						</tr>
 					</table>
-					<table  id="newUser" style="visibility: hidden">
+					<table  id="newUser" >
 						<tr><td>RE-TYPE PASSWORD:</td></tr>
 						<tr><td>
 							<input type="password" class="formElementSpacing" name="newPassword">
@@ -82,17 +108,17 @@
 						</td></tr>
 					</table>
 					
-					<table>	
-						<div class="prompt" id="bottomText" style="font-size:14px;">Don't have an account yet? Create an account 
-							<a href="javascript:newUser()" style="font-size:14px;color:grey">here</a>
+					<table id="bottomLinks">	
+						<div class="prompt" id="bottomText" >Don't have an account yet? Create an account 
+							<a class="link" href="javascript:newUser()" >here</a>
 						</div>
 								
-						<tr><td id="forgotPassword" class="prompt" style="font-size:14px;">Forgot your password? Click 
-							<a href="javascript:forgotPassword()" style="font-size:14px;color:gray;"> here</a>
+						<tr><td id="forgotPassword" class="prompt">Forgot your password? Click 
+							<a class="link" href="javascript:forgotPassword()"> here</a>
 						</td></tr>
 								
 						<tr><td>
-							<input type="submit" class="button" id="submit" name="submit" value="LOGIN" style="background-color:rgb(27,199,0);color:white;font-weight:bold;padding:10px;border:none;cursor: pointer;"/>
+							<input type="submit" class="button" id="submit" name="submit" value="LOGIN" />
 						</td></tr>
 					</table>
 				</form>

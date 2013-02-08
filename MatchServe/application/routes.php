@@ -130,4 +130,5 @@ Route::filter('auth', function()
 //.js
  Asset::add('jquery.min', 'js/jquery.min.js');
  Asset::container('search')->add('search', 'js/search.js');
+ Asset::container('search')->add('searchajax','js/jquery.form.js','jquery.min');
  Asset::add('bootstrap', 'bootstrap/js/bootstrap.js', 'jquery.min');

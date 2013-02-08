@@ -119,7 +119,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         $options = $("<ul class = 'dropdown-menu'>");
         $options.insertAfter($searchcol);
         for(var i= 0; i < obj.length; i++){
-             $options.append("<input type='checkbox' class='searchFilters'  name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+             $options.append("<input type='checkbox' class='searchFilters'  name='cause[]' value=" +obj[i].causeid+ ">"+obj[i].description+"<br>");
         }
          $options.append("</ul>");
          //since the request is done asynchronously, we need to recall this function, which binds the clicks to the sub items
@@ -129,7 +129,58 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
     var options = { 
         url: 'search/getprojects', 
         success: function(html) {
-            $filtersrow = $("filters-row").html();
+        console.log(html);
+        var obj = jQuery.parseJSON(html);
+        console.log(obj);
+        $searchcol = $("#search-results");
+
+        if(obj.length == 0){
+        $searchcol.html("Sorry, no search results. Please try another term :)");
+            return;
+        }        
+        $searchcol.html("<ul class = 'search-result-list'>");
+        for(var i= 0; i < obj.length; i++){
+
+        $searchcol.append("<li class='search-item'>\
+            <div class='accordion' id='accordion" +obj[i].projectid+"'>\
+                <div class='accordion-group'>\
+                    <div class='accordion-heading'>\
+                        <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion" +obj[i].projectid+"' href='#collapse" +obj[i].projectid+"'>\
+                            <div class='leftHandSideStuff'>\
+                                <img class='causeImage iconCause' src='img/icon.JPG'/> \
+                                <span class='projectPosition'>" +obj[i].name +"</span> \
+                                <span class='projectOrg'>" +obj[i].cause +"</span> \
+                                <span class='projectHeadline'>" +obj[i].headline +"</span> \
+                                <span class='reqsMsg requirementsWarning'>This project contains requirements</span> \
+                            </div> \
+                            <div class='rightHandSideStuff'> \
+                                <p class='projectDistance'><i class='icon-road'></i>" +obj[i].location+ "</p> \
+                                <p class='projectTime'><i class='icon-time'></i>"+obj[i].date+"</p> \
+                                <p class='projectDate'><i class='icon-calendar'></i>"+obj[i].date+"</p> \
+                                <button class='btn btn-success' type='button' id='signUpButton'>Sign Up</button> \
+                            </div> \
+                        </a> \
+                    </div> \
+                    <div id='collapse" +obj[i].projectid+"' class='accordion-body collapse'> \
+                        <div class='accordion-inner'> \
+                            <p class='projectDescriptionTitle'></p> \
+                            <p class='projectDescription'>"+ obj[i].details+"</p> \
+                            <div class='additionalInfoBox'> \
+                                <p class='projectLocation'>1200 Pennsylvania Ave SE, Washington, District of Columbia, 20003</p> \
+                                <p class='projectContact'>Anita Singh</p> \
+                                <p class='projectSkills'>"+obj[i].skills+"</p> \
+                                <p class='projectCause'>" +obj[i].cause+"</p> \
+                                <p class='projectReqs'>Drivers License Needed</p> \
+                            </div> \
+                        </div> \
+                    </div> \
+                </div>    \
+            </div> \
+            </li>");
+
+        }
+        $searchcol.append("</ul>");
+          // $filtersrow = $("filters-row").html();
             // console.log(html);
         } 
     };

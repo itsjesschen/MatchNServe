@@ -8,7 +8,7 @@ class Search_Controller extends Base_Controller{
 		$search_term = urlencode($search_term);
 
 		$data = array(
-			'search_term' => $search_term
+			'zip_code' => $search_term
 		);
 
 		return View::make('search', $data);
@@ -33,30 +33,33 @@ class Search_Controller extends Base_Controller{
 	public function action_getprojects(){
 		$arguments = array();
 		$searchterm = null;
-		// if( isset($_GET['searchterm']) && ("search for" != $_GET['searchterm'])){
-		//  	$searchterm = $_GET['searchterm'];
-		//  }
+		$zipcode = null;
+		 if( isset($_GET['searchterm']) && ("search for" != $_GET['searchterm'])){
+		  	$searchterm = $_GET['searchterm'];
+		  }
 
 		//assumes number for zipcode
-		// if( isset($_GET['zipcode']) && ("zip code" != $_GET['zipcode']) ) {
-		//  	$searchterm = $_GET['zipcode'];
-		// }
-		 if( isset($_GET['distance']) ){
-		 	$distance = $_GET['distance'];
-		 	$arguments['Location'] = $distance;
+		 if( isset($_GET['zipcode']) && ("zip code" != $_GET['zipcode']) ) {
+		  	$zipcode = $_GET['zipcode'];
 		 }
-		 if( isset($_GET['skill']) ){
-		 	$arguments['Skills'] = $_GET['skill'];
-		 }
-		 if( isset($_GET['cause']) ){
- 			$arguments['Cause'] = $_GET['cause'];
-		 }
-		 if( isset($_GET['time']) ){
-			$arguments['Time'] = $_GET['time'];
-		 }	
+			 if( isset($_GET['distance']) ){
+			 	$distance = $_GET['distance'];
+			 	$arguments['Location'] = $distance;
+			 }
+			 if( isset($_GET['skill']) ){
+			 	$arguments['Skills'] = $_GET['skill'];
+			 }
+			 if( isset($_GET['cause']) ){
+	 			$arguments['Cause'] = $_GET['cause'];
+			 }
+			 if( isset($_GET['time']) ){
+				$arguments['Time'] = $_GET['time'];
+			 }
+			dd($arguments);
 		 //DATABASE CALL that goes to models/Database.php
-		 $data = Database::getProjects($searchterm, $arguments);
-		 dd($data);		
+		 $data = Database::getProjects($searchterm, $zipcode, $arguments);
+		 $data = json_encode($data);
+		 //return $data;	
 	}
 
 }
