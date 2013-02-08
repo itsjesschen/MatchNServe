@@ -119,7 +119,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         $options = $("<ul class = 'dropdown-menu'>");
         $options.insertAfter($searchcol);
         for(var i= 0; i < obj.length; i++){
-             $options.append("<input type='checkbox' class='searchFilters'  name='cause[]' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
+             $options.append("<input type='checkbox' class='searchFilters'  name='cause[]' value=" +obj[i].causeid+ ">"+obj[i].description+"<br>");
         }
          $options.append("</ul>");
          //since the request is done asynchronously, we need to recall this function, which binds the clicks to the sub items
@@ -129,7 +129,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
     var options = { 
         url: 'search/getprojects', 
         success: function(html) {
-            console.log(html);
+        console.log(html);
         var obj = jQuery.parseJSON(html);
         console.log(obj);
         $searchcol = $("#search-results");
@@ -179,7 +179,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
             </li>");
 
         }
-                $searchcol.append("</ul>");
+        $searchcol.append("</ul>");
           // $filtersrow = $("filters-row").html();
             // console.log(html);
         } 

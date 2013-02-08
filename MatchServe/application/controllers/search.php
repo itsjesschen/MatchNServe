@@ -55,10 +55,11 @@ class Search_Controller extends Base_Controller{
 			 if( isset($_GET['time']) ){
 				$arguments['Time'] = $_GET['time'];
 			 }
+			dd($arguments);
 		 //DATABASE CALL that goes to models/Database.php
 		 $data = Database::getProjects($searchterm, $zipcode, $arguments);
 		 $data = json_encode($data);
-		 return $data;	
+		 //return $data;	
 	}
 
 }

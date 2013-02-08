@@ -38,6 +38,7 @@ class Database {
 	}
 	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
+
 		if ($zipcode!=null){
 /* 		    $query = DB::table('projects')
 			->where('Location', '=', $zipcode)
@@ -51,6 +52,7 @@ class Database {
  */ 		$query = DB::table('projects')
 			->where('Location', '=', $zipcode)
 			->where('Name', 'LIKE','%'.$searchterm.'%')
+			->or_where('Details','LIKE','%'.$searchterm.'%')
 			->get();
  		} else {
 		$query =  DB::table('projects')->where('Name', 'LIKE','%'.$searchterm.'%')
