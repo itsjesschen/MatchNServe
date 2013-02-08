@@ -54,7 +54,7 @@ class Database {
 				$query->where($i, '=', $value);
 			}
  */ 		$query = DB::table('projects')
-			->where('Location', '=', $zipcode)
+			->where('Location', 'LIKE', '%'.intval($zipcode/100).'%')
 			->where('Name', 'LIKE','%'.$searchterm.'%')
 			->or_where('Details','LIKE','%'.$searchterm.'%')
 			->get();
