@@ -176,14 +176,13 @@
                             <span class="caret"></span>
                         </a>
                         <ul class = "dropdown-menu">
-                            <p class="dropdownTitle" class="searchFilters"><strong>WEEKDAYS</strong></p>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="day-mornings">   Mornings<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="day-afternoons">   Afternoons<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="day-evenings">   Evenings<br>
-                            <p class="dropdownTitle" class="searchFilters"><strong>WEEKENDS</strong></p>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="end-mornings">   Mornings<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="end-afternoons">   Afternoons<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="end-evenings">   Evenings
+                            <input type='checkbox' class="searchFilters" name='time[]' value="day-mornings">   Monday<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="day-afternoons">   Tuesday<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="day-evenings">   Wednesday<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="end-mornings">   Thursday<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="end-afternoons">   Friday<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="end-mornings">   Saturday<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="end-afternoons">   Sunday<br>
                         </ul>
                     </li><!--end of dropdown-->
                 </ul>
