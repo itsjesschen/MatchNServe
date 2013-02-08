@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2013 at 12:17 AM
+-- Generation Time: Feb 09, 2013 at 12:36 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `ProjectID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
   `Details` varchar(2000) NOT NULL,
-  `Location` int(5) NOT NULL COMMENT 'The postcode of where the project will be',
+  `Location` char(5) NOT NULL COMMENT 'The postcode of where the project will be',
   `Date` date NOT NULL COMMENT 'Time the project starts',
   `Spots` int(4) NOT NULL COMMENT 'Number of open spots for the project',
   `Admin` varchar(100) NOT NULL,
@@ -235,19 +235,19 @@ CREATE TABLE IF NOT EXISTS `projects` (
 --
 
 INSERT INTO `projects` (`ProjectID`, `Name`, `Details`, `Location`, `Date`, `Spots`, `Admin`, `Status`, `Requirements`, `Headline`, `Image`) VALUES
-(1, 'Feed A Puppy', 'Feed a puppy at the Quad', 90089, '2013-02-06', 10, '', 'Open', '', 'Cat lovers need not apply!', ''),
-(2, 'Walk a dog', 'Help busy students walk their dogs', 90089, '2013-02-07', 5, '', 'Open', '', '', ''),
-(3, 'Build a hut', 'Build a hut to house chickens!', 90089, '2013-02-06', 20, '', 'Open', '', '', ''),
-(4, 'Note typer', 'Help an overworked student type out notes', 90089, '2013-02-06', 1, '', 'Open', '', '', ''),
-(5, 'Plant trees', 'Put some greens on USC soil.', 90089, '2013-02-06', 40, '', 'Open', '', '', ''),
-(6, 'Clean beach', 'Help clean a make belief beach at USC', 90089, '2013-02-06', 100, '', 'Open', '', '', ''),
-(7, 'Babysitters', 'Babysit babies. Simple as that. Pedos need not apply', 90210, '2013-02-06', 1, '', 'Open', '', '', ''),
-(8, 'Ushers', 'Help funnel students orderly into Bovard for some free event', 90089, '2013-02-09', 20, '', 'Open', '', 'Help make this event run as smoothly as possible!', ''),
-(9, 'Website design', 'Rich USC students offering money to do their project', 90089, '2013-02-06', 2, '', 'Open', '', 'Creativity meets work...Joy...', ''),
-(10, 'Database maintainer', 'More rich USC students offering money to do their homework!', 90089, '2013-02-05', 10, '', 'Open', '', '', ''),
-(11, 'Plumbing', 'Help plug the holes in pipes', 90009, '2013-02-08', 10, '', 'Open', '', '', ''),
-(12, 'Volunteer information session', 'Share your experiences of volunteering at our events with others!', 90089, '2013-02-05', 5, '', 'Open', '', '', ''),
-(13, 'Self defense experts', 'Have self-defense skills? Share them!', 90007, '2013-02-05', 1, '', 'Open', '', '', '');
+(1, 'Feed A Puppy', 'Feed a puppy at the Quad', '90089', '2013-02-06', 10, '', 'Open', '', 'Cat lovers need not apply!', ''),
+(2, 'Walk a dog', 'Help busy students walk their dogs', '02673', '2013-02-07', 5, '', 'Open', '', '', ''),
+(3, 'Build a hut', 'Build a hut to house chickens!', '02601', '2013-02-06', 20, '', 'Open', '', '', ''),
+(4, 'Note typer', 'Help an overworked student type out notes', '98052', '2013-02-06', 1, '', 'Open', '', '', ''),
+(5, 'Plant trees', 'Put some greens on USC soil.', '91214', '2013-02-06', 40, '', 'Open', '', '', ''),
+(6, 'Clean beach', 'Help clean a make belief beach at USC', '90007', '2013-02-06', 100, '', 'Open', '', '', ''),
+(7, 'Babysitters', 'Babysit babies. Simple as that. Pedos need not apply', '90210', '2013-02-06', 1, '', 'Open', '', '', ''),
+(8, 'Ushers', 'Help funnel students orderly into Bovard for some free event', '91030', '2013-02-09', 20, '', 'Open', '', 'Help make this event run as smoothly as possible!', ''),
+(9, 'Website design', 'Rich USC students offering money to do their project', '91066', '2013-02-06', 2, '', 'Open', '', 'Creativity meets work...Joy...', ''),
+(10, 'Database maintainer', 'More rich USC students offering money to do their homework!', '90815', '2013-02-05', 10, '', 'Open', '', '', ''),
+(11, 'Plumbing', 'Help plug the holes in pipes', '90734', '2013-02-08', 10, '', 'Open', '', '', ''),
+(12, 'Volunteer information session', 'Share your experiences of volunteering at our events with others!', '91201', '2013-02-05', 5, '', 'Open', '', '', ''),
+(13, 'Self defense experts', 'Have self-defense skills? Share them!', '91125', '2013-02-05', 1, '', 'Open', '', '', '');
 
 -- --------------------------------------------------------
 
