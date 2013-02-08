@@ -44,7 +44,6 @@ class Database {
  		}
  		if($arguments){
  			 if( isset($arguments['Location']) ){
-
 			 }
 			 if( isset($arguments['Skills']) ){
 			 }

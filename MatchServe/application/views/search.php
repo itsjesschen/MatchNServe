@@ -135,61 +135,61 @@
     <div class="header">
         <?php echo render('elements.header'); ?>
     </div>
-
-    <div class="dashboard">
-        <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
+    <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
+        <div class="dashboard">
             <div id="search-container">
                 <input id="search-query" type="text" name="searchterm" class="zipCodeField" value="search for" onclick="value= ''" onfocus="focusedText(this)" onblur="blurText(this)"/>
                 <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
-                <input id="zip-code" type="text" name="zipcode" value="<?php if($zip_code != null){echo $zip_code;} else {echo "zip code";}?>" onfocus="focusedText(this)" onblur="blurText(this)" />
-                <button type="submit" class="btn" >Search</button>
+                <input id="zip-code" type="text" name="zipcode" value="<?php if($zip_code != null){echo $zip_code;} 
+                    else {echo "zip code";}?>" onfocus="focusedText(this)" onblur="blurText(this)" />
+                <button type="submit" id="SearchBttn" class="btn" >Search</button>
             </div>
-    </div>
-    <div class="subDashboard">
-            <div id="search-specifiers-container">
-                <ul class="nav nav-pills">
-                    <li class="dropdown">
-                        <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">DISTANCE
-                            <span class="caret"></span>
-                        </a>
-                        <ul class = "dropdown-menu">
-                            <input type="radio" class="searchFilters" name="distance" value="1"> &lt 1 mile<br>
-                            <input type="radio" class="searchFilters" name="distance" value="3"> &lt 3 miles<br>
-                            <input type="radio" class="searchFilters" name="distance" value="5"> &lt 5 miles<br>
-                            <input type="radio" class="searchFilters" name="distance" value="10">&lt 10 miles<br>
-                            <input type="radio" class="searchFilters" name="distance" value="all">all distances
-                        </ul>
-                    </li>
-                    <!-- </div> -->
-                    <li class="dropdown">
-                        <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">SKILLS
-                            <span class="caret"></span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">CAUSES
-                            <span class="caret"></span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">AVAILABILITY
-                            <span class="caret"></span>
-                        </a>
-                        <ul class = "dropdown-menu">
-                            <input type='checkbox' class="searchFilters" name='time[]' value="day-mornings">   Monday<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="day-afternoons">   Tuesday<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="day-evenings">   Wednesday<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="end-mornings">   Thursday<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="end-afternoons">   Friday<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="end-mornings">   Saturday<br>
-                            <input type='checkbox' class="searchFilters" name='time[]' value="end-afternoons">   Sunday<br>
-                        </ul>
-                    </li><!--end of dropdown-->
-                </ul>
-            </div>
-        </form>
-    </div>
-
+        </div>
+        <div class="subDashboard">
+                <div id="search-specifiers-container">
+                    <ul class="nav nav-pills">
+                        <li class="dropdown">
+                            <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">DISTANCE
+                                <span class="caret"></span>
+                            </a>
+                            <ul class = "dropdown-menu">
+                                <input type="radio" class="searchFilters" name="distance" value="1"> &lt 1 mile<br>
+                                <input type="radio" class="searchFilters" name="distance" value="3"> &lt 3 miles<br>
+                                <input type="radio" class="searchFilters" name="distance" value="5"> &lt 5 miles<br>
+                                <input type="radio" class="searchFilters" name="distance" value="10">&lt 10 miles<br>
+                                <input type="radio" class="searchFilters" name="distance" value="all">all distances
+                            </ul>
+                        </li>
+                        <!-- </div> -->
+                        <li class="dropdown">
+                            <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">SKILLS
+                                <span class="caret"></span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">CAUSES
+                                <span class="caret"></span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">AVAILABILITY
+                                <span class="caret"></span>
+                            </a>
+                            <ul class = "dropdown-menu">
+                                <p class="dropdownTitle" class="searchFilters"><strong>WEEKDAYS</strong></p>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="day-mornings">   Mornings<br>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="day-afternoons">   Afternoons<br>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="day-evenings">   Evenings<br>
+                                <p class="dropdownTitle" class="searchFilters"><strong>WEEKENDS</strong></p>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="end-mornings">   Mornings<br>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="end-afternoons">   Afternoons<br>
+                                <input type='checkbox' class="searchFilters" name='time[]' value="end-evenings">   Evenings
+                            </ul>
+                        </li><!--end of dropdown-->
+                    </ul>
+                </div>
+        </div>
+    </form>
     <div class="workspace">
         <div id="search-content">
             <div id="filters-row">
