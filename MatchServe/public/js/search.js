@@ -131,7 +131,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
                                 </div> \
                                 <div class='rightHandSideStuff'> \
                                     <p class='projectDistance'><i class='icon-road'></i>" +obj[i].location+ "</p> \
-                                    <p class='projectTime'><i class='icon-time'></i>"+obj[i].date+"</p> \
+                                    <p class='projectTime'><i class='icon-time'></i>"+obj[i].time+"</p> \
                                     <p class='projectDate'><i class='icon-calendar'></i>"+obj[i].date+"</p> \
                                     <button class='btn btn-success' type='button' class='signUpButton'>Sign Up</button> \
                                 </div> \
