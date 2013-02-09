@@ -39,8 +39,17 @@ class Database {
 	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
 		$query = DB::table('projects');
+		$query = $query->join('causes', 'projects.Cause', '=', 'causes.CauseID');
+		$query = $query->join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID');
+		$query = $query->join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID');
+		$query = $query->join('projectskill', 'projects.ProjectID', '=', 'projectskill.ProjectID');
+		$query = $query->join('skills', 'projectskill.Skill', '=', 'skills.Skill');
+		//$query = $query->join('projecttime', 'projects.ProjectID', '=', 'projecttime.ProjectID');
+		//$query = $query->join('timeslot', 'projecttime.TS_IDs', '=', 'timeslot.TS_ID');
+		//$query = $query->join('pgfjoin', 'projects.ProjectID', '=', 'pgfjoin.ProjectID');
+		//$query = $query->join('projectgoodfor', 'pgfjoin.pgfID', '=', 'projectgoodfor.pgfID');
 		if ($zipcode!=null){
-			$query = $query->where('Location', '=', $zipcode);
+			$query = $query->where('projects.Location', '=', $zipcode);
  		}
  		if($arguments){
  			 if( isset($arguments['Location']) ){
@@ -56,14 +65,14 @@ class Database {
  			// dd($arguments);
  		}
  		if ($searchterm!=null){
-			$query = $query->where('Name', 'LIKE','%'.$searchterm.'%')
-			->or_where('Details','LIKE','%'.$searchterm.'%');
+			$query = $query->where('projects.Name', 'LIKE','%'.$searchterm.'%')
+			->or_where('projects.Details','LIKE','%'.$searchterm.'%');
  		}
-		// $query = $query->where('Name', 'LIKE','%'.$searchterm.'%')
-		$query = $query->get();
-		
-
-
+		//$query = $query->where('projects.Status', '=', 'Open');
+		//$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline'));
+		$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline', 'causes.Description as Cause', 'organizations.Name as Organization', 'skills.Description as Skills'));
+		//$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline', 'causes.Description as Cause', 'organizations.Name as Organization', 'skills.Description as Skills', 'timeslot.Time as Time', 'timeslot.Day as Day', 'projectgoodfor.Description as ProjectGoodFor'));
+		//$query = $query->get();
 		return $query;
 	}
 	public static function getProjectTime($times) {
