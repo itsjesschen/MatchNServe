@@ -39,12 +39,11 @@ body {
     overflow:hidden;
     padding:10px 0;
 }
-
 #search-specifiers-container{
     margin-left:100px;
     z-index:1;
+    color:#EEEEEE;
 }
-
 #search-specifiers-container a, a:visited{
     color: rgb(181,0,0);
     text-decoration:none;
@@ -71,11 +70,13 @@ body {
     width:1000px;
     height:510px;
     margin:0 auto;
+    background-color:#FFFFFF;
 }
 
 #search-results {
     height:400px;
     overflow:auto;
+    background-color:#FFFFFF;
 }
 
 /*search.php END*/

@@ -54,21 +54,6 @@ function search(){
     $time ={
 
     }
-
-    $.ajax({//populate causes
-        type:"GET",
-        url:"search/findprojects",
-        data:{
-            table : "causes"
-        }
-    }).done(function(html){
-        var obj = jQuery.parseJSON(html);
-        $searchcol = $("#search-specifiers-container").find('a.search-category').slice(2,3); //chooses skills column
-        $searchcol.append("<br>");
-        for(var i= 0; i < obj.length; i++){
-            $searchcol.append("<input type='checkbox' class='searchFilters' name='vehicle' value=" +obj[i].description+ ">"+obj[i].description+"<br>");
-        }
-    });
     //window.location = "http://localhost/MatchServe/MatchServe/public/search/query/";
 }
 
@@ -148,7 +133,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
                                     <p class='projectDistance'><i class='icon-road'></i>" +obj[i].location+ "</p> \
                                     <p class='projectTime'><i class='icon-time'></i>"+obj[i].date+"</p> \
                                     <p class='projectDate'><i class='icon-calendar'></i>"+obj[i].date+"</p> \
-                                    <button class='btn btn-success' type='button' id='signUpButton'>Sign Up</button> \
+                                    <button class='btn btn-success' type='button' class='signUpButton'>Sign Up</button> \
                                 </div> \
                             </a> \
                         </div> \

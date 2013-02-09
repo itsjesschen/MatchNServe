@@ -4,202 +4,295 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="utf-8">
     <title>Match and Serve - Search</title>
     <meta name="viewport" content="width=device-width">
+    <?php echo Asset::container('bootstrap')->styles();?>
     <?php echo Asset::scripts();?>
     <?php echo Asset::container('search')->scripts();?>
-    <?php echo Asset::container('bootstrap')->styles();?>
-    <?php echo Asset::styles();?>
+    <?php echo Asset::styles();?> 
 
     <style>
-    .leftHandSideStuff{
-        float:left;
-        width:700px;
-        height:75px;
-    }
-    #causeImage{
-/*        width:100%;
-        height:100%;*/
-    }
-    .rightHandSideStuff{
-        float:left;
-        width:250px;
-        height:75px;
-        margin-top:-8px;
-    }
-    .iconCause{
-        float:left;
-        width:75px;
-        height:75px;
-    }
-    .search-item{
-        list-style:none;
-    }
-    .projectPosition{
-        float:left;
-        width:600px;
-        height:30px;
-        font-size: 25px;
-        margin-left:10px;
-        padding:0;
-        text-transform: uppercase;
-        color:#111111;
-    }
-    .projectOrg{
-        float:left;
-        width:600px;
-        height:20px;
-        font-size:14px;
-        font-style: italic;
-        margin-top:-8px;
-        margin-left:10px;
-        padding:0;
-        color:#111111;
+    /*If adding css, please designate which file it belongs to by wrapping it in a comment block*/
 
-    }
-    .projectHeadline{
-        float:left;
-        width:600px;
-        height:15px;
-        font-size: 10px;
-        margin-top:-4px;
-        margin-left:10px;
-        color:#111111;
+/*search.php START*/
 
-    }
-    .requirementsWarning{
-        float:left;
-        width:600px;
-        height:10px;
-        margin-left:10px;
-        margin-top:1px;
-        color:#111111;
+body {
+    margin: 0;
+    padding: 0;
+}
 
-    }
-    .projectDistance,
-    .projectTime,
-    .projectDate{
-        height:15px;
-        font-size: 12px;
-        margin:2px;
-        color:#111111;
+#wrapper{
+    width:100%;
+    height:auto;
+    text-align:center;
+    left:50%;
+    position:absolute;
+    width:1000px;
+    min-height:700px;
+    margin-left:-500px;
+    overflow:hidden;
+    padding:10px 0;
+}
 
-    }
-    #signUpButton{
-        margin-top:2px;
-    }
-    .reqsMsg{
-        font-size: 8px;
-        color:red;
-    }
-    .projectDescription{
-        display: inline-block;
-        width:460px;
-        height:200px;
-        overflow: auto;
-    }
-    .projectDescriptionTitle{
-        height:20px;
-        width:460px;
-        font-size:20px;
-    }
-    .additionalInfoBox{
-        display: inline-block;
-        float:right;
-        width:475px;
-        height:220px;
-        margin-top:-20px;
-        margin-right:5px;
-        padding:0;
-    }
-    .projectLocation{
-        width:475px;
-        height:35px;
-        margin-left:10px;
-    }
-    .projectContact{
-        width:475px;
-        height:35px;
-        margin-left:10px;
-    }
-    .projectSkills,
-    .projectCause,
-    .projectReqs{
-        width:475px;
-        height:50px;
-        margin-left:10px;
-    }
+#search-container {
+    text-align: center;
+/*    margin-top:19px;*/
+}
 
-    </style>
+#search-query {
+    width: 20%;
+    color: #888;
+}
+
+#zip-code {
+    display: none;
+}
+#zip-code-show-link{
+    color:#111111;
+}
+#search-query, 
+    #zip-code{
+    margin-top:10px;
+}
+#search-content{
+    height:100px;
+}
+#search-specifiers-container{
+    margin-left:100px;
+    z-index:1;
+    color:#EEEEEE;
+/*    border-bottom:1px solid #EEEEEE;*/
+}
+#search-specifiers-container a, a:visited{
+    color: rgb(181,0,0);
+    text-decoration:none;
+}
+#search-specifiers-container li, .dropdown-menu{
+    width:200px;
+}   
+#search-specifiers-container .caret{
+    border-top-color: rgb(181,0,0);
+    border-bottom-color: rgb(181,0,0);
+}
+#search-container{
+/*    margin:-35px 0 auto -10px;*/
+    background-color:#F5A9A9;
+    height:45px;
+}
+#filters-row{
+    border-bottom:1px solid #EEEEEE;
+    height:20px;
+}
+.search-category{
+    display:inline-block;
+    border:none;
+    font-size: 1.5em;
+    font-family: "century gothic";
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#search-content {
+    width:1000px;
+    height:510px;
+    margin:0 auto;
+    background-color:#FFFFFF;
+}
+
+#search-results {
+    height:400px;
+    overflow:auto;
+    background-color:#FFFFFF;
+}
+#searchForm .subDashboard{
+    float:left;
+    width:1000px;
+    height:40px;
+    background-color:transparent;
+}
+#search-specifiers-container{
+    width:1000px;
+    height:40px;
+    padding:5px;
+    float:left;
+}
+#search-specifiers-container .searchFilters{
+    padding:5px;
+    margin:5px;
+}
+.dropdown-menu{
+    color:#111111;
+}
+.signUpButton{
+    margin-top:2px;
+}
+.leftHandSideStuff{
+    float:left;
+    width:60%;
+    height:75px;
+}
+.rightHandSideStuff{
+    float:left;
+    width:250px;
+    height:75px;
+    margin-top:-8px;
+}
+.iconCause{
+    float:left;
+    width:75px;
+    height:75px;
+}
+.projectPosition{
+    float:left;
+    width:inherit;
+    height:30px;
+    font-size: 25px;
+    margin-left:10px;
+    padding:0;
+    text-transform: uppercase;
+    color:#111111;
+}
+.projectOrg{
+    float:left;
+    width:75%;
+    height:20px;
+    font-size:14px;
+    font-style: italic;
+    margin-top:-8px;
+    margin-left:10px;
+    padding:0;
+    color:#111111;
+}
+.projectHeadline{
+    float:left;
+    width:75%;
+    height:15px;
+    font-size: 10px;
+    margin-top:-4px;
+    margin-left:10px;
+    color:#111111;
+}
+.requirementsWarning{
+    float:left;
+    width:75%;
+    height:10px;
+    margin-left:10px;
+    margin-top:1px;
+    color:#111111;
+}
+.projectDistance,
+.projectTime,
+.projectDate{
+    height:15px;
+    font-size: 12px;
+    margin:2px;
+    color:#111111;
+}
+
+.reqsMsg{
+    font-size: 8px;
+    color:red;
+}
+.projectDescription{
+    display: inline-block;
+    width:45%;
+    height:200px;
+    overflow: auto;
+}
+.projectDescriptionTitle{
+    height:20px;
+    width:45%;
+    font-size:20px;
+}
+.additionalInfoBox{
+    display: inline-block;
+    float:right;
+    width:45%;
+    height:220px;
+    margin-top:-20px;
+    margin-right:5px;
+    padding:0;
+}
+.projectLocation, .projectContact{
+    width:475px;
+    height:35px;
+    margin-left:10px;
+}
+.projectSkills,
+.projectCause,
+.projectReqs{
+    width:475px;
+    height:50px;
+    margin-left:10px;
+}
+
+.dropdownTitle{
+    margin-top:5px;
+    font-size: 14px;
+}
+</style>
+
 </head>
 
 <body>
     <div class="header">
         <?php echo render('elements.header'); ?>
     </div>
-    <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get">
-        <div class="dashboard">
-            <div id="search-container">
-                <input id="search-query" type="text" name="searchterm" class="zipCodeField" value="search for" onclick="value= ''" onfocus="focusedText(this)" onblur="blurText(this)"/>
-                <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
-                <input id="zip-code" type="text" name="zipcode" value="<?php if($zip_code != null){echo $zip_code;} 
-                    else {echo "zip code";}?>" onfocus="focusedText(this)" onblur="blurText(this)" />
-                <button type="submit" id="SearchBttn" class="btn" >Search</button>
-            </div>
+    <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get"> 
+        <div id="search-container" class="dashboard">
+            <input id="search-query" type="text" name="searchterm" value="search for" onclick="value= ''" onfocus="focusedText(this)" onblur="blurText(this)"/>
+            <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
+            <input id="zip-code" type="text" name="zipcode" value="<?php if($zip_code != null){echo $zip_code;} 
+                else {echo "zip code";}?>" onfocus="focusedText(this)" onblur="blurText(this)" />
+            <button type="submit" id="SearchBttn" class="btn" >Search</button>
         </div>
-        <div class="subDashboard">
-                <div id="search-specifiers-container">
-                    <ul class="nav nav-pills">
-                        <li class="dropdown">
-                            <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">DISTANCE
-                                <span class="caret"></span>
-                            </a>
-                            <ul class = "dropdown-menu">
-                                <input type="radio" class="searchFilters" name="distance" value="1"> &lt 1 mile<br>
-                                <input type="radio" class="searchFilters" name="distance" value="3"> &lt 3 miles<br>
-                                <input type="radio" class="searchFilters" name="distance" value="5"> &lt 5 miles<br>
-                                <input type="radio" class="searchFilters" name="distance" value="10">&lt 10 miles<br>
-                                <input type="radio" class="searchFilters" name="distance" value="all">all distances
-                            </ul>
-                        </li>
-                        <!-- </div> -->
-                        <li class="dropdown">
-                            <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">SKILLS
-                                <span class="caret"></span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">CAUSES
-                                <span class="caret"></span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">AVAILABILITY
-                                <span class="caret"></span>
-                            </a>
-                            <ul class = "dropdown-menu">
-                                <p class="dropdownTitle" class="searchFilters"><strong>WEEKDAYS</strong></p>
-                                <input type='checkbox' class="searchFilters" name='time[]' value="day-mornings">   Mornings<br>
-                                <input type='checkbox' class="searchFilters" name='time[]' value="day-afternoons">   Afternoons<br>
-                                <input type='checkbox' class="searchFilters" name='time[]' value="day-evenings">   Evenings<br>
-                                <p class="dropdownTitle" class="searchFilters"><strong>WEEKENDS</strong></p>
-                                <input type='checkbox' class="searchFilters" name='time[]' value="end-mornings">   Mornings<br>
-                                <input type='checkbox' class="searchFilters" name='time[]' value="end-afternoons">   Afternoons<br>
-                                <input type='checkbox' class="searchFilters" name='time[]' value="end-evenings">   Evenings
-                            </ul>
-                        </li><!--end of dropdown-->
+        <div id="search-specifiers-container">
+            <ul class="nav nav-pills">
+                <li class="dropdown">
+                    <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#"> DISTANCE
+                        <span class="caret"></span>
+                    </a>
+                    <ul class = "dropdown-menu">
+                        <input type="radio" class="searchFilters" name="distance" value="1"> &lt 1 mile<br>
+                        <input type="radio" class="searchFilters" name="distance" value="3"> &lt 3 miles<br>
+                        <input type="radio" class="searchFilters" name="distance" value="5"> &lt 5 miles<br>
+                        <input type="radio" class="searchFilters" name="distance" value="10">&lt 10 miles<br>
+                        <input type="radio" class="searchFilters" name="distance" value="all">all distances
                     </ul>
-                </div>
+                </li>
+                <li class="dropdown">
+                    <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">SKILLS
+                        <span class="caret"></span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">CAUSES
+                        <span class="caret"></span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">AVAILABILITY
+                        <span class="caret"></span>
+                    </a>
+                    <ul class = "dropdown-menu">
+                        <p class="dropdownTitle" class="searchFilters"><strong>WEEKDAYS</strong></p>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="day-mornings">   Mornings<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="day-afternoons">   Afternoons<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="day-evenings">   Evenings<br>
+                        <p class="dropdownTitle" class="searchFilters"><strong>WEEKENDS</strong></p>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="end-mornings">   Mornings<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="end-afternoons">   Afternoons<br>
+                            <input type='checkbox' class="searchFilters" name='time[]' value="end-evenings">   Evenings
+                    </ul>
+                </li><!--end of dropdown-->
+            </ul>
         </div>
     </form>
-    <div class="workspace">
-        <div id="search-content">
+        <div id="search-content" class="workspace">
             <div id="filters-row">
+                <p>(Filters...to be added if time allowed)</p>
             </div>
-            <div id="search-results">
-                
+            <div id="search-results">    
             </div>
         </div>
-    </div>
-
     <div class="footer">
         <?php echo render('elements.footer'); ?>
     </div>

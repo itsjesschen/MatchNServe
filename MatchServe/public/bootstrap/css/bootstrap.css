@@ -1,27 +1,3 @@
- #search-specifiers-container{
-  width:1000px;
-  height:40px;
-  padding:0;
-  float:left;
- }
- #search-specifiers-container .searchFilters{
-  padding:5px;
-  margin:5px;
- }
- .dropdownTitle{
-  margin-top:5px;
-  font-size: 14px;
- }
- #zip-code-show-link{
-  color:#FFF;
- }
- #search-container{
-  margin-top:19px;
- }
- #search-query, 
- #zip-code{
-    margin-top:10px;
- }
  /*CSS FOR THE LOGIN PAGE*/
 .prompt 
 {
