@@ -34,6 +34,16 @@
 
         #search-container {
             text-align: center;
+            margin-left: 30px;
+            position:absolute;
+            margin-top:-35px;
+            padding:3px 0 10px;
+            background-color:transparent;
+            height:40px;
+          /*V1 original, don't delete
+            margin-top:-35px;
+            background-color:#F5A9A9;
+            height:45px;*/
         /*    margin-top:19px;*/
         }
 
@@ -46,7 +56,7 @@
             display: none;
         }
         #zip-code-show-link{
-            color:#111111;
+            color:#FFFFFF;
         }
         #search-query, 
             #zip-code{
@@ -56,9 +66,14 @@
             height:100px;
         }
         #search-specifiers-container{
-            margin-left:100px;
+            margin:10px 0 0 100px;
             z-index:1;
             color:#EEEEEE;
+            width:1000px;
+            height:40px;
+            padding:5px;
+            float:left;
+        }
         /*    border-bottom:1px solid #EEEEEE;*/
         }
         #search-specifiers-container a, a:visited{
@@ -71,11 +86,6 @@
         #search-specifiers-container .caret{
             border-top-color: rgb(181,0,0);
             border-bottom-color: rgb(181,0,0);
-        }
-        #search-container{
-        /*    margin:-35px 0 auto -10px;*/
-            background-color:#F5A9A9;
-            height:45px;
         }
         #filters-row{
             border-bottom:1px solid #EEEEEE;
@@ -108,15 +118,19 @@
             height:40px;
             background-color:transparent;
         }
-        #search-specifiers-container{
-            width:1000px;
-            height:40px;
-            padding:5px;
-            float:left;
-        }
+
         #search-specifiers-container .searchFilters{
             padding:5px;
             margin:5px;
+        }
+
+/*        #searchForm{
+            background-color: #111111;
+            height:15px;
+        }*/
+        .header .navbar-inverse .navbar-innner{
+            background-color: #333333;
+            height:20px;
         }
         .dropdown-menu{
             color:#111111;
@@ -250,10 +264,10 @@
     <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get"> 
         <div id="search-container" class="dashboard">
             <input id="search-query" type="text" name="searchterm" value="search for" onclick="value= ''" onfocus="focusedText(this)" onblur="blurText(this)"/>
-            <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
             <input id="zip-code" type="text" name="zipcode" value="<?php if($zip_code != null){echo $zip_code;} 
                 else {echo "zip code";}?>" onfocus="focusedText(this)" onblur="blurText(this)" />
             <button type="submit" id="SearchBttn" class="btn" >Search</button>
+             <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
         </div>
         <div id="search-specifiers-container">
             <ul class="nav nav-pills">
