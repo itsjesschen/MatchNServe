@@ -118,10 +118,10 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
             for(var i= 0; i < obj.length; i++){
 
             $searchcol.append("<li class='search-item'>\
-                <div class='accordion' id='accordion" +obj[i].projectid+"'>\
+                <div class='accordion' id='accordion" +i+"'>\
                     <div class='accordion-group'>\
                         <div class='accordion-heading'>\
-                            <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion" +obj[i].projectid+"' href='#collapse" +obj[i].projectid+"'>\
+                            <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion" +i+"' href='#collapse" +i+"'>\
                                 <div class='leftHandSideStuff'>\
                                     <img class='causeImage iconCause' src='img/icon.JPG'/> \
                                     <span class='projectPosition'>" +obj[i].name +"</span> \
@@ -137,7 +137,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
                                 </div> \
                             </a> \
                         </div> \
-                        <div id='collapse" +obj[i].projectid+"' class='accordion-body collapse'> \
+                        <div id='collapse" +i+"' class='accordion-body collapse'> \
                             <div class='accordion-inner'> \
                                 <p class='projectDescriptionTitle'></p> \
                                 <p class='projectDescription'>"+ obj[i].details+"</p> \
