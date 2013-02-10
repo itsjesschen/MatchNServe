@@ -17,7 +17,7 @@
 				document.getElementById('passwordInput').style.visibility = "visible";
 				document.getElementById('submit').value = "LOGIN";
 				document.getElementById('forgotPassword').style.visibility = "visible";
-				document.getElementById('bottomText').innerHTML = "Don't have an account yet? Create an account <a href='javascript:newUser()' style='font-size:14px;color:grey'>here</a>";
+				document.getElementById('bottomText').innerHTML = "Don't have an account yet? Create an account <a href='javascript:newUser()' class='link'>here</a>";
 			}
 			function newUser(){
 				document.getElementById('newUser').style.visibility = "visible";
@@ -25,7 +25,7 @@
 				document.getElementById('passwordInput').style.visibility = "visible";
 				document.getElementById('submit').value = "REGISTER";
 				document.getElementById('forgotPassword').style.visibility = "hidden";
-				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' style='color:grey'>here</a>";
+				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
 			}
 			function forgotPassword(){
 				document.getElementById('newUser').style.visibility = "hidden";
@@ -33,7 +33,7 @@
 				document.getElementById('passwordInput').style.visibility = "hidden";
 				document.getElementById('submit').value = "SUBMIT";
 				document.getElementById('forgotPassword').style.visibility = "hidden";
-				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' style='color:grey'>here</a>";
+				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
 			}
 		</script>
 		<style>
