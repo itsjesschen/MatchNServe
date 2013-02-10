@@ -12,223 +12,234 @@
     <style>
     /*If adding css, please designate which file it belongs to by wrapping it in a comment block*/
 
-/*search.php START*/
+        /*search.php START*/
 
-body {
-    margin: 0;
-    padding: 0;
-}
+        body {
+            margin: 0;
+            padding: 0;
+        }
 
-#wrapper{
-    width:100%;
-    height:auto;
-    text-align:center;
-    left:50%;
-    position:absolute;
-    width:1000px;
-    min-height:700px;
-    margin-left:-500px;
-    overflow:hidden;
-    padding:10px 0;
-}
+        #wrapper{
+            width:100%;
+            height:auto;
+            text-align:center;
+            left:50%;
+            position:absolute;
+            width:1000px;
+            min-height:700px;
+            margin-left:-500px;
+            overflow:hidden;
+            padding:10px 0;
+        }
 
-#search-container {
-    text-align: center;
-/*    margin-top:19px;*/
-}
+        #search-container {
+            text-align: center;
+        /*    margin-top:19px;*/
+        }
 
-#search-query {
-    width: 20%;
-    color: #888;
-}
+        #search-query {
+            width: 20%;
+            color: #888;
+        }
 
-#zip-code {
-    display: none;
-}
-#zip-code-show-link{
-    color:#111111;
-}
-#search-query, 
-    #zip-code{
-    margin-top:10px;
-}
-#search-content{
-    height:100px;
-}
-#search-specifiers-container{
-    margin-left:100px;
-    z-index:1;
-    color:#EEEEEE;
-/*    border-bottom:1px solid #EEEEEE;*/
-}
-#search-specifiers-container a, a:visited{
-    color: rgb(181,0,0);
-    text-decoration:none;
-}
-#search-specifiers-container li, .dropdown-menu{
-    width:200px;
-}   
-#search-specifiers-container .caret{
-    border-top-color: rgb(181,0,0);
-    border-bottom-color: rgb(181,0,0);
-}
-#search-container{
-/*    margin:-35px 0 auto -10px;*/
-    background-color:#F5A9A9;
-    height:45px;
-}
-#filters-row{
-    border-bottom:1px solid #EEEEEE;
-    height:20px;
-}
-.search-category{
-    display:inline-block;
-    border:none;
-    font-size: 1.5em;
-    font-family: "century gothic";
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
+        #zip-code {
+            display: none;
+        }
+        #zip-code-show-link{
+            color:#111111;
+        }
+        #search-query, 
+            #zip-code{
+            margin-top:10px;
+        }
+        #search-content{
+            height:100px;
+        }
+        #search-specifiers-container{
+            margin-left:100px;
+            z-index:1;
+            color:#EEEEEE;
+        /*    border-bottom:1px solid #EEEEEE;*/
+        }
+        #search-specifiers-container a, a:visited{
+            color: rgb(181,0,0);
+            text-decoration:none;
+        }
+        #search-specifiers-container li, .dropdown-menu{
+            width:200px;
+        }   
+        #search-specifiers-container .caret{
+            border-top-color: rgb(181,0,0);
+            border-bottom-color: rgb(181,0,0);
+        }
+        #search-container{
+        /*    margin:-35px 0 auto -10px;*/
+            background-color:#F5A9A9;
+            height:45px;
+        }
+        #filters-row{
+            border-bottom:1px solid #EEEEEE;
+            height:20px;
+        }
+        .search-category{
+            display:inline-block;
+            border:none;
+            font-size: 1.5em;
+            font-family: "century gothic";
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
 
-#search-content {
-    width:1000px;
-    height:510px;
-    margin:0 auto;
-    background-color:#FFFFFF;
-}
+        #search-content {
+            width:1000px;
+            height:510px;
+            margin:0 auto;
+            background-color:#FFFFFF;
+        }
 
-#search-results {
-    height:400px;
-    overflow:auto;
-    background-color:#FFFFFF;
-}
-#searchForm .subDashboard{
-    float:left;
-    width:1000px;
-    height:40px;
-    background-color:transparent;
-}
-#search-specifiers-container{
-    width:1000px;
-    height:40px;
-    padding:5px;
-    float:left;
-}
-#search-specifiers-container .searchFilters{
-    padding:5px;
-    margin:5px;
-}
-.dropdown-menu{
-    color:#111111;
-}
-.signUpButton{
-    margin-top:2px;
-}
-.leftHandSideStuff{
-    float:left;
-    width:60%;
-    height:75px;
-}
-.rightHandSideStuff{
-    float:left;
-    width:250px;
-    height:75px;
-    margin-top:-8px;
-}
-.iconCause{
-    float:left;
-    width:75px;
-    height:75px;
-}
-.projectPosition{
-    float:left;
-    width:inherit;
-    height:30px;
-    font-size: 25px;
-    margin-left:10px;
-    padding:0;
-    text-transform: uppercase;
-    color:#111111;
-}
-.projectOrg{
-    float:left;
-    width:75%;
-    height:20px;
-    font-size:14px;
-    font-style: italic;
-    margin-top:-8px;
-    margin-left:10px;
-    padding:0;
-    color:#111111;
-}
-.projectHeadline{
-    float:left;
-    width:75%;
-    height:15px;
-    font-size: 10px;
-    margin-top:-4px;
-    margin-left:10px;
-    color:#111111;
-}
-.requirementsWarning{
-    float:left;
-    width:75%;
-    height:10px;
-    margin-left:10px;
-    margin-top:1px;
-    color:#111111;
-}
-.projectDistance,
-.projectTime,
-.projectDate{
-    height:15px;
-    font-size: 12px;
-    margin:2px;
-    color:#111111;
-}
+        #search-results {
+            height:490px;
+            overflow:auto;
+            background-color:#FFFFFF;
+        }
+        #searchForm .subDashboard{
+            float:left;
+            width:1000px;
+            height:40px;
+            background-color:transparent;
+        }
+        #search-specifiers-container{
+            width:1000px;
+            height:40px;
+            padding:5px;
+            float:left;
+        }
+        #search-specifiers-container .searchFilters{
+            padding:5px;
+            margin:5px;
+        }
+        .dropdown-menu{
+            color:#111111;
+        }
+        .signUpButton{
+            margin-top:2px;
+        }
+        .leftHandSideStuff{
+            float:left;
+            width:60%;
+            height:75px;
+        }
+        .rightHandSideStuff{
+            float:left;
+            width:250px;
+            height:75px;
+            margin-top:-8px;
+        }
+        .iconCause{
+            float:left;
+            width:75px;
+            height:75px;
+        }
+        .projectPosition{
+            float:left;
+            width:inherit;
+            height:30px;
+            font-size: 25px;
+            margin-left:10px;
+            padding:0;
+            text-transform: uppercase;
+            color:#111111;
+        }
+        .projectOrg{
+            float:left;
+            width:75%;
+            height:20px;
+            font-size:14px;
+            font-style: italic;
+            margin-top:-8px;
+            margin-left:10px;
+            padding:0;
+            color:#111111;
+        }
+        .projectHeadline{
+            float:left;
+            width:75%;
+            height:15px;
+            font-size: 10px;
+            margin-top:-4px;
+            margin-left:10px;
+            color:#111111;
+        }
+        .requirementsWarning{
+            float:left;
+            width:75%;
+            height:10px;
+            margin-left:10px;
+            margin-top:1px;
+            color:#111111;
+        }
+        .projectDistance,
+        .projectTime,
+        .projectDate{
+            height:15px;
+            font-size: 12px;
+            margin:2px;
+            color:#111111;
+        }
 
-.reqsMsg{
-    font-size: 8px;
-    color:red;
-}
-.projectDescription{
-    display: inline-block;
-    width:45%;
-    height:200px;
-    overflow: auto;
-}
-.projectDescriptionTitle{
-    height:20px;
-    width:45%;
-    font-size:20px;
-}
-.additionalInfoBox{
-    display: inline-block;
-    float:right;
-    width:45%;
-    height:220px;
-    margin-top:-20px;
-    margin-right:5px;
-    padding:0;
-}
-.projectLocation, .projectContact{
-    width:475px;
-    height:35px;
-    margin-left:10px;
-}
-.projectSkills,
-.projectCause,
-.projectReqs{
-    width:475px;
-    height:50px;
-    margin-left:10px;
-}
+        .reqsMsg{
+            font-size: 8px;
+            color:red;
+        }
+        .projectDescription{
+            display: inline-block;
+            width:45%;
+            height:200px;
+            overflow: auto;
+        }
+        .projectDescriptionTitle{
+            height:20px;
+            width:45%;
+            font-size:20px;
+        }
+        .additionalInfoBox{
+            display: inline-block;
+            float:right;
+            width:45%;
+            height:220px;
+            margin-top:-20px;
+            margin-right:5px;
+            padding:0;
+        }
+        .projectLocation, .projectContact{
+            width:475px;
+            height:35px;
+            margin-left:10px;
+        }
+        .projectSkills,
+        .projectCause,
+        .projectReqs{
+            width:475px;
+            height:50px;
+            margin-left:10px;
+        }
 
-.dropdownTitle{
-    margin-top:5px;
-    font-size: 14px;
-}
-</style>
+        .dropdownTitle{
+            margin-top:5px;
+            font-size: 14px;
+        }
+    </style>
+
+    <?php if($zip_code != null){
+        echo 
+            "<script>
+                $(document).ready(function(){
+                    showZipCode();
+                    populateSearchOptions();
+                });
+            </script>"
+        ;
+    }?>
 
 </head>
 
