@@ -14,6 +14,8 @@ body {
 
 #search-container {
     text-align: center;
+    width:500px;
+    margin:0 auto;
 }
 
 #search-query {

@@ -33,8 +33,9 @@
         }
 
         #search-container {
+            width:500px;
             text-align: center;
-            margin-left: 30px;
+            margin-left: 40px;
             position:absolute;
             margin-top:-35px;
             padding:3px 0 10px;
@@ -48,14 +49,20 @@
         }
 
         #search-query {
-            width: 20%;
+            width: 30%;
             color: #888;
         }
 
         #zip-code {
             display: none;
+            width: 25%;
+
+        }
+        #SearchBttn{
+            width:20%;
         }
         #zip-code-show-link{
+            width:20%;
             color:#FFFFFF;
         }
         #search-query, 
@@ -66,7 +73,8 @@
             height:100px;
         }
         #search-specifiers-container{
-            margin:10px 0 0 100px;
+            margin-left:-155px;
+            margin-top:15px;
             z-index:1;
             color:#EEEEEE;
             width:1000px;
@@ -124,10 +132,14 @@
             margin:5px;
         }
 
-/*        #searchForm{
-            background-color: #111111;
-            height:15px;
-        }*/
+        #searchForm{
+            margin:0;
+            margin-top:-15px;
+            margin-left:250px;
+            padding:0;
+            height:10px;
+            width:1000px;
+        }
         .header .navbar-inverse .navbar-innner{
             background-color: #333333;
             height:20px;
