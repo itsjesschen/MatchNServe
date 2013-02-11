@@ -98,11 +98,12 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
          preventDropdownToggle();
     });
 
-    var populateData = function(formData, jqForm, options){
+
+var populateData = function(formData, jqForm, options){
         // console.log(formData);
             return true;
-    }
-    var options = { 
+}
+var options = { 
         url: 'search/getprojects', 
         beforeSubmit: populateData,
         success: function(html) {
@@ -156,8 +157,14 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
                 }
                 $searchcol.append("</ul>");
             } 
-    };
+};
 
     $('#searchForm').ajaxForm(options); 
     //will validate later
+}
+
+function searchFieldDisplay(item){
+    if(item.value == "zip code" || item.value =="search for"){
+        item.value = "";
+    }
 }
