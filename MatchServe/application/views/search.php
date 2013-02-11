@@ -263,11 +263,12 @@
     </div>
     <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get"> 
         <div id="search-container" class="dashboard">
-            <input id="search-query" type="text" name="searchterm" value="search for" onclick="searchFieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"/>
+            <input id="search-query" type="text" maxlength="30"name="searchterm" value="search for" defaultValue = "search for" onclick="searchFieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"/>
             <input id="zip-code" type="text" name="zipcode" 
                    value="<?php if($zip_code != null){echo $zip_code;} else {echo "zip code";}?>" 
                    onclick="searchFieldDisplay(this)" 
-                   onfocus="focusedText(this)" onblur="blurText(this)" />
+                   onfocus="focusedText(this)" maxlength="5" defaultValue = "zip code" onblur="blurText(this)" />
+
             <button type="submit" id="SearchBttn" class="btn" >Search</button>
              <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
         </div>
