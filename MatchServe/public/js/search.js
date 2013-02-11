@@ -143,13 +143,18 @@ var options = {
                         </div> \
                         <div id='collapse" +i+"' class='accordion-body collapse'> \
                             <div class='accordion-inner'> \
-                                <p class='projectDescriptionTitle'></p> \
+                                <p class='projectDescriptionTitle'>PROJECT DESCRIPTION</p> \
                                 <p class='projectDescription'>"+ obj[i].details+"</p> \
                                 <div class='additionalInfoBox'> \
+                                    <p class='accordionTitle'>ADDRESS</p> \
                                     <p class='projectLocation'>1200 Pennsylvania Ave SE, Washington, District of Columbia, 20003</p> \
+                                    <p class='accordionTitle'>POSTED BY</p> \
                                     <p class='projectContact'>Anita Singh</p> \
+                                    <p class='accordionTitle'>SKILLS NEEDED</p> \
                                     <p class='projectSkills'>"+obj[i].skills+"</p> \
+                                    <p class='accordionTitle'>ASSOCIATED CAUSES</p> \
                                     <p class='projectCause'>" +obj[i].cause+"</p> \
+                                    <p class='accordionTitle'>REQUIREMENTS NEEDED</p> \
                                     <p class='projectReqs'>Drivers License Needed</p> \
                                 </div> \
                             </div> \

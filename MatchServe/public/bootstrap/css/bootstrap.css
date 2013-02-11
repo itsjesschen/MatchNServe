@@ -5942,7 +5942,7 @@ a.badge:hover {
 }
 
 .accordion {
-  width:975px;
+  width:960px;
   margin:0 auto;
 }
 
@@ -5954,6 +5954,7 @@ a.badge:hover {
 .accordion-heading {
   border-bottom: 0;
   height:90px;
+  background-color: #cccccc;
 }
 
 .accordion-heading .accordion-toggle {
@@ -5969,7 +5970,7 @@ a.badge:hover {
 
 .accordion-inner {
   padding: 9px 15px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #eeeeee;
   height: 225px
 }
 

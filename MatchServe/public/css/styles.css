@@ -72,11 +72,11 @@ body {
     width:1000px;
     height:510px;
     margin:0 auto;
-    background-color:#FFFFFF;
 }
 
 #search-results {
     height:400px;
+    width:1000px;
     overflow:auto;
     background-color:#FFFFFF;
 }
