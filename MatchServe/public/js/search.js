@@ -33,6 +33,9 @@ function focusedText(item) {
             
 function blurText(item) {
     item.style.color = "#888";
+    if(item.value == ""){
+        item.value = item.defaultValue;
+    }
 }
 
 function validateSearchFields() {
@@ -164,7 +167,7 @@ var options = {
 }
 
 function searchFieldDisplay(item){
-    if(item.value == "zip code" || item.value =="search for"){
+    if(item.value == item.defaultValue ){//} || item.value =="search for"){
         item.value = "";
     }
 }
