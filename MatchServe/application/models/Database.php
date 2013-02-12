@@ -38,7 +38,35 @@ class Database {
 	}
 	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
-		$query = DB::table('projects');
+		$sep = "', '";
+		$temp = '%'.$searchterm.'%';
+		$temp = '\''.$temp.'\'';
+		if ($zipcode != null) 
+		{
+			$query = DB::query('SELECT projects.Name as Name, projects.Details as Details, projects.Location as Location, projects.Date as Date, 
+			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
+			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
+			group_concat(DISTINCT timeslot.Time SEPARATOR '.$sep.') as Time, group_concat(DISTINCT timeslot.Day SEPARATOR '.$sep.') as Day, 
+			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, projectcause, causes, orgproject,
+			organizations, projectskill, skills, projecttime, timeslot, pgfjoin, projectgoodfor WHERE projects.ProjectID=projectcause.ProjectID and 
+			projectcause.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
+			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=projecttime.ProjectID and 
+			projecttime.TS_ID=timeslot.TS_ID and projects.ProjectID=pgfjoin.ProjectID and pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE 
+			'.$temp.' or projects.Details LIKE '.$temp.') and projects.Location = '.$zipcode.' GROUP BY projects.ProjectID');
+		} else
+		{
+			$query = DB::query('SELECT projects.Name as Name, projects.Details as Details, projects.Location as Location, projects.Date as Date, 
+			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
+			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
+			group_concat(DISTINCT timeslot.Time SEPARATOR '.$sep.') as Time, group_concat(DISTINCT timeslot.Day SEPARATOR '.$sep.') as Day, 
+			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, projectcause, causes, orgproject,
+			organizations, projectskill, skills, projecttime, timeslot, pgfjoin, projectgoodfor WHERE projects.ProjectID=projectcause.ProjectID and 
+			projectcause.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
+			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=projecttime.ProjectID and 
+			projecttime.TS_ID=timeslot.TS_ID and projects.ProjectID=pgfjoin.ProjectID and pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE 
+			'.$temp.' or projects.Details LIKE '.$temp.') GROUP BY projects.ProjectID');
+		}
+		/*$query = DB::table('projects');
 		$query = $query->join('projectcause', 'projects.ProjectID', '=', 'projectcause.ProjectID');
 		$query = $query->join('causes', 'projectcause.CauseID', '=', 'causes.CauseID');
 		$query = $query->join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID');
@@ -73,7 +101,8 @@ class Database {
 		//$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline'));
 		//$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline', 'causes.Description as Cause', 'organizations.Name as Organization', 'skills.Description as Skills'));
 		$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline', 'causes.Description as Cause', 'organizations.Name as Organization', 'skills.Description as Skills', 'timeslot.Time as Time', 'timeslot.Day as Day', 'projectgoodfor.Description as ProjectGoodFor'));
-		//$query = $query->get();
+		//$query = $query->get();*/
+		
 		return $query;
 	}
 	public static function getProjectTime($times) {
