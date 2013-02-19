@@ -146,6 +146,9 @@
         height:10px;
         width:1000px;
     }
+    a.badge:hover {
+        background-color:rgb(181,0,0);
+    }
     .header .navbar-inverse .navbar-innner{
         background-color: #333333;
         height:20px;
@@ -273,6 +276,7 @@
         margin-top:5px;
         font-size: 14px;
     }
+
     </style>
 
     <?php if($zip_code != null){
@@ -299,7 +303,6 @@
             value="<?php if($zip_code != null){echo $zip_code;} else {echo "zip code";}?>" 
             onclick="searchFieldDisplay(this)" 
             onfocus="focusedText(this)" maxlength="5" defaultValue = "zip code" onblur="blurText(this)" />
-
             <button type="submit" id="SearchBttn" class="btn" >Search</button>
             <a id="zip-code-show-link" href="javascript:showZipCode()">change zip code</a>
         </div>
@@ -321,11 +324,15 @@
                     <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">SKILLS
                         <span class="caret"></span>
                     </a>
+                    <ul class = "dropdown-menu">
+                    </ul>
                 </li>
                 <li class="dropdown">
                     <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">CAUSES
                         <span class="caret"></span>
                     </a>
+                    <ul class = "dropdown-menu">
+                    </ul>
                 </li>
                 <li class="dropdown">
                     <a class="search-category dropdown-toggle" data-toggle="dropdown" href="#">AVAILABILITY
@@ -347,7 +354,9 @@
     </form>
     <div id="search-content" class="workspace">
         <div id="filters-row">
-            <p>(Filters...to be added if time allowed)</p>
+            <ul class = "filterlist">
+<!--             <p>(Filters...to be added if time allowed)</p> -->
+            </ul>
         </div>
         <div id="search-results">    
         </div>
