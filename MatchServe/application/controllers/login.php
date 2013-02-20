@@ -18,6 +18,8 @@ function action_login(){
 		$userName = $_POST['userName'];
 		$password = $_POST['password'];
 		$newPassword = $_POST['newPassword'];
+		$emailExp = '/^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-Z0-9]{2,4}$/';
+		$email = "";
 
 		if ($userName != null && $userName !="" && ($newPassword == null || $newPassword ==""))
 		{
@@ -80,6 +82,11 @@ function action_login(){
 				 }
 			}
 		}
+		else if(!preg_match($emailExp, $email, $m))
+		{
+			echo "Invalid Email<br/>";
+		}
+
 		else if ($newPassword!=null && $newPassword !="")
 		{
 			$email = $_POST['newEmail'];
