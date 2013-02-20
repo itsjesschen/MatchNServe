@@ -17,7 +17,19 @@
       		</a>
     		  <div class="navheader">
             	<ul class="nav">
-      				<li><a href="<?php echo URL::to('login') ?>">Login/Register</a></li>
+      				<li>
+      				<?php
+      					$name = Cookie::get('name');
+      					if(isset($name))
+      					{
+      						echo "<a href = " .URL::to('logout/logout'). "> Logout </a>";
+      					}
+      					else
+      					{
+      						echo "<a href = " .URL::to('login'). "> Login/Register </a>";
+      					}
+      				?>
+      				</li>
     			</ul>
         	</div>
   		</div>

@@ -6,10 +6,6 @@ class Login_Controller extends Base_Controller{
 		return View::make('login');
 	}
 
-/* function generateRandomString($length) {    
-    return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-} */
-
 function action_login(){
 
  	$dbLocalhost = mysql_connect("localhost", "root", "")
@@ -22,6 +18,8 @@ function action_login(){
 		$userName = $_POST['userName'];
 		$password = $_POST['password'];
 		$newPassword = $_POST['newPassword'];
+		$emailExp = '/^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-Z0-9]{2,4}$/';
+		$newEmail = $_POST['newEmail'];
 
 		if ($userName != null && $userName !="" && ($newPassword == null || $newPassword ==""))
 		{
@@ -32,7 +30,8 @@ function action_login(){
 					while($row = mysql_fetch_array($result))
 					  {
 					  $count++;
-						if ($_POST['password'] == $row['Password'])
+					  $encryptPassword = md5($password);
+						if ($encryptPassword == $row['Password'])
 						{
 							Cookie::put('name', '$userName', 7200);
 							/* echo "Successful Login";
@@ -74,7 +73,7 @@ function action_login(){
 					$message = wordwrap($message, 70);
 
 					// Send
-					mail('$email', 'Forgot Password', $message);
+					mail('$email', 'Match and Serve: Forgot Password', $message);
 					echo "Email sent";
 				}
 				 if($count <= 0)
@@ -83,6 +82,11 @@ function action_login(){
 				 }
 			}
 		}
+		else if(!preg_match($emailExp, $newEmail, $m))
+		{
+			echo "Invalid Email<br/>";
+		}
+
 		else if ($newPassword!=null && $newPassword !="")
 		{
 			$email = $_POST['newEmail'];
@@ -97,9 +101,11 @@ function action_login(){
 			{
 				if ($password == $newPassword)
 				{
-					$sql="insert into users(Name, Email, Password) values('$userName','$email','$newPassword')";
+					$encryptPassword = md5($newPassword);
+					$sql="insert into users(Name, Email, Password) values('$userName','$email','$encryptPassword')";
 					$result = mysql_query($sql, $dbLocalhost)
 					or die("Problem writing to table: " . mysql_error());
+					Cookie::put('name', '$userName', 7200);
 					echo "Successfully created new user";
 					return Redirect::home();
 				}
