@@ -37,7 +37,7 @@
         text-align: center;
         margin-left: 40px;
         position:absolute;
-        margin-top:-35px;
+        margin-top:-42px;
         padding:3px 0 10px;
         background-color:transparent;
         height:40px;
@@ -355,7 +355,7 @@
     <div id="search-content" class="workspace">
         <div id="filters-row">
             <ul class = "filterlist">
-<!--             <p>(Filters...to be added if time allowed)</p> -->
+                <!--             <p>(Filters...to be added if time allowed)</p> -->
             </ul>
         </div>
         <div id="search-results">    
