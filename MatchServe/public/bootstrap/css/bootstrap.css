@@ -39,7 +39,7 @@
 body{
 	width:1000px;
   margin:0 auto;
-	height:700px;
+	height:730px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
@@ -63,8 +63,7 @@ body{
 }
 .header{
 	width:1000px;
-	height:45px;
-	background-color:#000000;
+	height:60px;
 	margin:0;
 	padding:0;
 }
@@ -73,14 +72,14 @@ body{
 	width:1000px;
 	height:90px;
 	background-color:#A30000;
-	margin-top:50px;
+	margin-top:60px;
 	margin:0;
 	padding:0;
 }
 .subDashboard{
   float:left;
 	width:1000px;
-	height:40px;
+	height:25px;
 	background-color:#ccc;
 }
 .workspace{
@@ -4061,6 +4060,8 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs,
 .nav-pills {
   *zoom: 1;
+  height:90px;
+
 }
 
 .nav-tabs:before,
@@ -4077,17 +4078,31 @@ input[type="submit"].btn.btn-mini {
   clear: both;
 }
 
-.nav-tabs > li,
 .nav-pills > li {
   float: left;
 }
 
-.nav-tabs > li > a,
+.nav-tabs > li{
+  float: left;
+  height:90px;
+}
+
+.nav-tabs > li > a{
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: 2px;
+  line-height: 14px;
+  text-align: center;
+  height:90px;
+  width:90px;
+}
+
 .nav-pills > li > a {
   padding-right: 12px;
   padding-left: 12px;
   margin-right: 2px;
   line-height: 14px;
+  text-align: center;
 }
 
 .nav-tabs {
@@ -4102,22 +4117,22 @@ input[type="submit"].btn.btn-mini {
   padding-top: 8px;
   padding-bottom: 8px;
   line-height: 20px;
+  color:#ffffff;
   border: 1px solid transparent;
-  -webkit-border-radius: 4px 4px 0 0;
-     -moz-border-radius: 4px 4px 0 0;
-          border-radius: 4px 4px 0 0;
 }
 
 .nav-tabs > li > a:hover {
-  border-color: #eeeeee #eeeeee #dddddd;
+  border-color: #FF9900 #FF9900 #FF9900;
+  color:#555555;
+  background-color: #FF9900;
 }
 
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover {
   color: #555555;
   cursor: default;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: #cccccc;
+  border: 1px solid #cccccc;
   border-bottom-color: transparent;
 }
 
@@ -4381,14 +4396,11 @@ input[type="submit"].btn.btn-mini {
 
 .navbar {
   *position: relative;
-  *z-index: 2;
-  width:1000px;
-  height:45px;
   overflow: visible;
 }
 
 .navbar-inner {
-  height:45px;
+  height: 60px;
   background-color: #fafafa;
   background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
@@ -4429,14 +4441,14 @@ input[type="submit"].btn.btn-mini {
   width:300px;
   float: left;
   margin:0;
-  margin-top:7px;
+  margin-top:13px;
   margin-left:5px;
 }
 
 .navbar .navheader{
 	float:right;
   margin:0;
-  margin-top:7px;
+  margin-top:12px;
   padding:0;
   text-align:right;
 }
