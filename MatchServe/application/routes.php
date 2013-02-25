@@ -45,6 +45,7 @@ Route::controller('facebooklogin');
 Route::controller('accountselection');
 Route::controller('logout');
 Route::controller('dashboard');
+Route::controller('projectcreation');
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers
@@ -133,4 +134,5 @@ Route::filter('auth', function()
  Asset::add('jquery.min', 'js/jquery.min.js');
  Asset::container('search')->add('search', 'js/search.js');
  Asset::container('search')->add('searchajax','js/jquery.form.js','jquery.min');
+ Asset::container('projectcreation')->add('projectcreation', 'js/projectcreation.js');
  Asset::add('bootstrap', 'bootstrap/js/bootstrap.js', 'jquery.min');

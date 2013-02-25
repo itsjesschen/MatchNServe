@@ -25,7 +25,9 @@ class Database {
 	}
 
 	/**********************************GETTERS**************************************/
-	public static function getAdmin($OrgID, $UserID){
+	public static function getAdmin($OrgID){
+		$query = DB::table('users')->get();
+		return $query;
 	}
 	public static function getCauses(){
 		$query =  DB::table('causes')->get();
