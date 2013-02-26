@@ -44,12 +44,12 @@
 	<?php echo '<p> Hello. You are using:</p>';
 	echo $_SERVER['HTTP_USER_AGENT']; ?>
 -->
-
+	<div class="dashboard"></div>
+	<div class="subDashboard"></div>
 	</br>
 	<form action="projectcreation/test" method="get">
 
         <div id="projectcreation-specifiers-container">
-
 	 		<input id="projectName" type="text" width="100" name="projectName" value="Give your project a name" defaultValue = "Give your project a name" onclick="searchFieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"/>
             </br></br>
 	 		<input id="projectHeadline" type="text" width="100" name="projectHeadline" value="What's the jist?" defaultValue = "What's the jist?" onclick="searchFieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"/>
