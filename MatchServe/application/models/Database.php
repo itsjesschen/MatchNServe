@@ -26,7 +26,10 @@ class Database {
 
 	/**********************************GETTERS**************************************/
 	public static function getAdmin($OrgID){
-		$query = DB::table('users')->get();
+		$query = DB::table('admins')
+			->join('users', 'admins.UserID', '=', 'users.UserID')
+			->where('OrganizationID', '=', $OrgID)
+			->get();
 		return $query;
 	}
 	public static function getCauses(){

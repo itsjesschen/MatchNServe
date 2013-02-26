@@ -129,10 +129,13 @@ Route::filter('auth', function()
  Asset::container('bootstrap')->add('bootstrapCSS', 'bootstrap/css/bootstrap.css');
  Asset::add('styles','css/styles.css');
  Asset::add('reset', 'css/reset.css');
+ Asset::add('jqueryUI', 'css/jquery-ui.css');
 
 //.js
  Asset::add('jquery.min', 'js/jquery.min.js');
  Asset::container('search')->add('search', 'js/search.js');
  Asset::container('search')->add('searchajax','js/jquery.form.js','jquery.min');
  Asset::container('projectcreation')->add('projectcreation', 'js/projectcreation.js');
+ Asset::container('datepicker')->add('jquery-ui-1', 'js/jquery-ui-1.10.1.custom.min.js');
+ Asset::container('datepicker')->add('datepicker', 'js/jquery.ui.datepicker.min.js');
  Asset::add('bootstrap', 'bootstrap/js/bootstrap.js', 'jquery.min');
