@@ -42,13 +42,7 @@
       <div class="tab-pane active" id="upcoming">
         <!--this separates the workspace into left and right. The left will contain 
         the projects in a rectangle, and when pressed more information will appear on the right hand side -->
-        <div class="projectList">
-          <ul class="nav nav-tabs nav-stacked">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Home</a></li>
-          </ul>          
+        <div class="projectList">        
         </div>
         <div class="projectInfo">
         </div>
@@ -56,6 +50,7 @@
       <div class="tab-pane" id="previous">
       </div>
       <div class="tab-pane" id="new">
+        <?php echo render('projectcreation'); ?>
       </div>
       <div class="tab-pane" id="draft">
       </div>
