@@ -44,8 +44,9 @@ Route::controller('login');
 Route::controller('facebooklogin');
 Route::controller('accountselection');
 Route::controller('logout');
-Route::controller('dashboard');
+Route::controller('dashboardorg');
 Route::controller('projectcreation');
+Route::controller('upcomingprojectsorg');
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers

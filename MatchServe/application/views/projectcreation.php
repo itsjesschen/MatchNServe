@@ -10,7 +10,7 @@
 	<?php echo Asset::container('datepicker')->scripts();?>
 	<?php echo Asset::container('timepicker')->scripts();?>
 	<?php echo Asset::styles();?> 
-
+	<title></title>
 
 	<style type="text/css">
 	.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
