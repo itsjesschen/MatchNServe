@@ -41,6 +41,10 @@ class Database {
 	}
 	public static function getOrgProject($OrgID, $ProjectID){
 	}
+	public static function getPGF(){
+		$query =  DB::table('projectgoodfor')->get();
+		return $query;
+	}
 	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
 		$sep = "', '";

@@ -133,9 +133,10 @@ Route::filter('auth', function()
 
 //.js
  Asset::add('jquery.min', 'js/jquery.min.js');
+ Asset::add('jquery-ui-1.10.1.min', 'js/jquery-ui-1.10.1.custom.min.js');
  Asset::container('search')->add('search', 'js/search.js');
  Asset::container('search')->add('searchajax','js/jquery.form.js','jquery.min');
  Asset::container('projectcreation')->add('projectcreation', 'js/projectcreation.js');
- Asset::container('datepicker')->add('jquery-ui-1', 'js/jquery-ui-1.10.1.custom.min.js');
  Asset::container('datepicker')->add('datepicker', 'js/jquery.ui.datepicker.min.js');
+ Asset::container('timepicker')->add('timepicker', 'js/timepicker.js');
  Asset::add('bootstrap', 'bootstrap/js/bootstrap.js', 'jquery.min');
