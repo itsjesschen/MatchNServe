@@ -33,7 +33,7 @@ function action_login(){
 					  $encryptPassword = md5($password);
 						if ($encryptPassword == $row['Password'])
 						{
-							Cookie::put('name', '$userName', 7200);
+							Cookie::put('name', $userName, 7200);
 							/* echo "Successful Login";
 							echo "<html>";
 							echo "<form id='myform' action='<?php return Redirect::to('accountselection/accountselection'); ?>' method='post'>";

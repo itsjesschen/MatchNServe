@@ -9,7 +9,7 @@
 	<?php echo Asset::container('projectcreation')->scripts();?>
 	<?php echo Asset::container('datepicker')->scripts();?>
 	<?php echo Asset::styles();?> 
-
+	<title></title>
 
 	<style type="text/css">
 

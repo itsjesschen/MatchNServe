@@ -3,36 +3,50 @@
 
 <!-- header containing all the bootstrap calls -->
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
   <?php echo Asset::container('bootstrap')->styles();?>
+  
 </head>
 
 <body>
-	<div class="header">
-		<div class="navbar navbar-inverse">
-  			<div class="navbar-inner">
-        	<a href="<?php echo URL::to('home')?>" class="brand">
-        		<img src="img/Title.png"/>
-      		</a>
-    		  <div class="navheader">
-            	<ul class="nav">
-      				<li>
-      				<?php
-      					$name = Cookie::get('name');
-      					if(isset($name))
-      					{
-      						echo "<a href = " .URL::to('logout/logout'). "> Logout </a>";
-      					}
-      					else
-      					{
-      						echo "<a href = " .URL::to('login'). "> Login/Register </a>";
-      					}
-      				?>
-      				</li>
-    			</ul>
-        	</div>
-  		</div>
-	</div>
+  <div class="header">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+          <a href="<?php echo URL::to('home')?>" class="brand">
+            <img src="img/Title.png"/>
+          </a>
+          <div class="navheader">
+              <ul class="nav">
+              
+              <?php
+                $name = Cookie::get('name');
+                if(isset($name))
+                {
+
+                    echo "<li class='dropdown'>
+  <a class='dropdown-toggle' data-toggle='dropdown' href='#'>" .$name. "<span class='caret'> </span></a>
+  <ul class='dropdown-menu' role= 'menu' aria-labelledby= 'dLabel'>
+                          <li> <a href = '#'> My Profile </a> </li>
+                          <li> <a href = '#'> Karma Points </a> </li>
+                          <li> <a href = '#'>History </a> </li>
+                          <li> <a href = '#'>Settings </a> </li>
+                          <li> <a href = '#'>Accounts </a> </li>
+                          <li> <a href = " . URL::to('logout/logout'). ">Logout </a> </li>
+                          </ul>
+                          </div>
+      
+                          ";
+                }
+                else
+                {
+                  echo "<li> <a href = " .URL::to('login'). "> Login/Register </a>";
+                }
+              ?>
+            </li> 
+          </ul>
+          </div>
+      </div>
+  </div>
 </body>
 </html>
