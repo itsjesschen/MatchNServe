@@ -11,6 +11,26 @@ function preventDropdownToggle() {
   });
 }
 
+
+$(function() {
+    //ADDS IN DATEPICKER
+    $( "#projectDate" ).datepicker();
+  });
+
+function searchFieldDisplay(item){
+    if(item.value == item.defaultValue ){//} || item.value =="search for"){
+        item.value = "";
+    }
+}
+
+function focusedText(item) {
+    item.style.color = "#000";
+}
+            
+function blurText(item) {
+    item.style.color = "#888";
+}
+
 function populateAdmin(){ //gets all the admins from db and lists them based on the required orgID [TODO: HOW TO INCLUDE ORGID?]
     $.ajax({//populate admins
         type:"GET",
@@ -20,13 +40,11 @@ function populateAdmin(){ //gets all the admins from db and lists them based on 
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
-        console.log(obj);
         $options = $("#projectcreation-specifiers-container").find('select'); 
         for(var i= 0; i < obj.length; i++){
-             $options.append("<option name='admin[]' value='" +obj[i].name + "''>"+obj[i].name +"</option>");
+             $options.append("<option name='admin[]' value=" + obj[i].name + ">" + obj[i].name + "</option>");
         }
-        
-        // $options.insertAfter($searchcol);
+
         preventDropdownToggle();
     });
 

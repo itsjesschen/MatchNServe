@@ -12,8 +12,7 @@ class ProjectCreation_Controller extends Base_Controller {
 		$table = $_GET['table'];
 		if ($table === "admins")
 		{
-			 $data = Database::getAdmin(1);
-			 dd($data);
+			 $data = Database::getAdmin("1"); //TODO, use cookie to find out what the orgID is
 			 $data = json_encode($data);
 			 return $data;
 		}
