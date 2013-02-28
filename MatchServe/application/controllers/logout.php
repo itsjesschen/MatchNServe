@@ -5,6 +5,7 @@ function action_index(){
 	}
 function action_logout()
 {
+	Cookie::forget('account');
 	Cookie::forget('name');
 	echo "Cookie nom nom";
 	return Redirect::to_action('home');

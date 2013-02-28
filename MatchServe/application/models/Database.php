@@ -133,6 +133,26 @@ class Database {
 		
 		return $query;
 	}
+	
+	public static function getSettings($username, $account) {
+		$name = '\''.$username.'\'';
+		if ($account == 'personal' || $account == null) {
+			$query = DB::query('SELECT * FROM users WHERE Name = '.$name);
+			//print_r($query);
+		}
+		else {
+		$temp = '\'\'';
+		//$name = '\''.$username.'\'';
+		$organization = '\''.$account.'\'';
+		$query = DB::query('SELECT users.Name as Name, users.Email as Email, users.Password as Password FROM users WHERE users.Name = '.$name.'
+		UNION
+		SELECT users.Name as adminName, '.$temp.', '.$temp.' FROM users, organizations, admins
+		WHERE organizations.Name = '.$organization.' and users.UserID = admins.UserID and admins.OrganizationID = organizations.OrganizationID');
+		}
+		//print_r($query);
+		return $query;
+	}
+	
 	public static function getSkills(){
 		$query =  DB::table('skills')->get();
 		// ->only('Description');
@@ -143,5 +163,29 @@ class Database {
 	public static function getUserProject(){
 	}
 	public static function getUser(){
+	}
+	
+	public static function removeAdmin($account, $admin) {
+		$account = '\''.$account.'\'';
+		$admin = '\''.$admin.'\'';
+		echo "GETS HERE Account: ".$account." Admin: ".$admin;
+		DB::query('DELETE FROM admins WHERE UserID IN (SELECT UserID FROM users WHERE users.Name = '.$admin.') AND OrganizationID IN (SELECT 
+		OrganizationID FROM organizations WHERE organizations.Name = '.$account.')');
+	}
+	
+	public static function setSettings($name, $newname, $newpassword, $newemail) {
+		$name = '\''.$name.'\'';
+		if ($newpassword != null) {
+			$newpassword = '\''.$newpassword.'\'';
+			DB::query('UPDATE users SET Password='.$newpassword.' WHERE Name='.$name);
+		}
+		if ($newemail != null) {
+			$newemail = '\''.$newemail.'\'';
+			DB::query('UPDATE users SET Email='.$newemail.'	WHERE Name='.$name);
+		}
+		if ($newname != null) {
+			$newname = '\''.$newname.'\'';
+			DB::query('UPDATE users SET Name='.$newname.' WHERE Name='.$name);
+		}
 	}
 }

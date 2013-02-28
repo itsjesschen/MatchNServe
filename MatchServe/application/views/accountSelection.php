@@ -45,7 +45,7 @@
 		<tr><td><div class="triangle-obtuse" style='-moz-border-radius:60px;border-radius:60px;width:300px;font-size:30px;color:white;background-color:rgb(119,119,119);padding:25px;font-style:italic;'>We found multiple accounts under your name. Which one would you like to use?</br>
 		<div style='font-size:15px;padding-top:10px;'>You can change these accounts later on. Just pick one for now.</div></div>
 		</td><td></td><td></td><td>
-		<form id='myform' action="<?php echo URL::to('home')?>" method='post'>
+		<form id='myform' action=<?php echo URL::to('accountselection/accountselected'); ?> method='get'>
 			<table cellspacing='10px'>
 				<tr><td class='button' onclick="clicked('personal')" align='center'>PERSONAL ACCOUNT</td></tr>
 				<?php 
