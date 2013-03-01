@@ -3,7 +3,6 @@
 class Settings_Controller extends Base_Controller{
 
 	public function action_index(){
-		//return View::make('settings');
 		$name = Cookie::get('name');
 		$account = Cookie::get('account');
 		$data = Database::getSettings($name, $account);
@@ -12,21 +11,18 @@ class Settings_Controller extends Base_Controller{
 		return View::make('settings')->with('data', $data);
 	}
 
-	/*public function action_getsettings(){
-		$name = Cookie::get('name');
-		$account = Cookie::get('account');
-		$data = Database::getSettings($name, $account);
-		$data = json_encode($data);
-		return Redirect::to_action('settings')->with('data', $data);
-	}*/
-	
 	public function action_savesettings(){
 		$remove = $_POST['remove'];
 		if ($remove == "true")
 		{
 			$admin = $_POST['admin'];
 			return Redirect::to_action('settings/removeadmin')->with('admin', $admin);
-		} else 
+		} else if ($remove == "add")
+		{
+			$admin = $_POST['admin'];
+			return Redirect::to_action('settings/addadmin')->with('admin', $admin);
+		}
+		else
 		{
 			$name = Cookie::get('name');
 			$newname = null;
@@ -52,6 +48,13 @@ class Settings_Controller extends Base_Controller{
 		$account = Cookie::get('account');
 		$admin = Session::get('admin');
 		Database::removeAdmin($account, $admin);
+		return Redirect::to_action('settings');
+	}
+	
+	public function action_addadmin() {
+		$account = Cookie::get('account');
+		$admin = Session::get('admin');
+		Database::addAdmin($account, $admin);
 		return Redirect::to_action('settings');
 	}
 }

@@ -124,10 +124,21 @@
 			}
 			
 			function remove(name){
- 			document.getElementById('admin').value = name;
-			document.getElementById('remove').value = "true";
-			alert("Are you sure you want to remove: " + name);
-			document.getElementById('settingsForm').submit();
+				document.getElementById('admin').value = name;
+				document.getElementById('remove').value = "true";
+				alert("Are you sure you want to remove: " + name);
+				document.getElementById('settingsForm').submit();
+			}
+			
+			function addadmin() {
+				document.getElementById('admintoadd').style.visibility = "visible";
+				document.getElementById('add').style.visibility = "visible";
+			}
+			
+			function add() {
+				document.getElementById('remove').value = "add";
+				document.getElementById('admin').value = document.getElementById('admintoadd').value;
+				document.getElementById('settingsForm').submit();
 			}
 		</script>
 	
@@ -167,48 +178,11 @@
 						}
 					}
 					?>		
+					<tr><td><a class='link' href='javascript:void(0)' onclick="addadmin()">Add Administrator</a></td></tr>
+					<tr id='add' style='visibility:hidden'><td>Enter the username of the administrator to add:</td><td><input type='text' id='admintoadd'></td><td><a class='link' href='javascript:add()'>Add</a></td></tr>
 					<tr><td><input type='hidden' name='admin' id='admin' value=''/></td></tr>
 					<tr><td><input type='hidden' name='remove' id='remove' value='false'/></td></tr>
-				</table>
-				
+				</table>	
     </form>
-	
-    <div id="settings-content" class="workspace">
-        <div id="settings-results"> 
-			<!-- <h1>Personal Account Settings</h1>
-			<table>
-				 <?php 
-					/* $data = Session::get('data');
-					$data = json_decode($data);
-					$account = Cookie::get('account');
-					$i = 0;
-					if (is_array($data))
-					{
-						foreach($data as $obj) {
-							$name = $obj->name;
-							switch($i) {
-							case 0:
-								$password = $obj->password;
-								$email = $obj->email;
-								echo "<tr><td>Username</td><td id='username'>".$name."</td><td><a class='link' id='usernameLink' href='javascript:edit('username')'>Edit</a></td></tr>";
-								echo "<tr><td>Email</td><td id='email'>".$email."</td><td><a class='link' id='emailLink' href='javascript:edit('email')'>Edit</a></td></tr>";
-								echo "<tr><td>Password</td><td id='password'></td><td><a class='link' id='passwordLink' href='javascript:edit('password')'>Edit</a></td></tr>";
-								echo "</table>";
-								break;
-							case 1:
-								echo "<h1>".$account ." Account Settings</h1>";
-								echo "<table><tr><td>Administrators</td><td>".$name."</td><td><a class='link' href='javascript:remove('".$name."')'>Remove</a></td></tr>";
-								break;
-							default:
-								echo "<tr><td></td><td>".$name."</td><td><a class='link' href='javascript:remove('".$name."')'>Remove</a></td></tr>";
-								break;
-							}
-							$i++;
-						}
-					} */
-					?>		 
-				</table>		 -->		
-        </div>
-    </div>
 </body>
 </html>

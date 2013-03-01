@@ -2,7 +2,28 @@
 
 class Database {
 	/**********************************ADDERS**************************************/
-	public static function addAdmin($OrgID, $UserID){
+	public static function addAdmin($org, $user){
+		$user = '\''.$user.'\'';
+		$org = '\''.$org.'\'';
+		$userid = null;
+		$orgid = null;
+		$query = DB::query('SELECT UserID as userid FROM users WHERE Name = '.$user);
+		foreach($query as $obj) {
+			$userid = $obj->userid;
+		}
+		$query = DB::query('SELECT OrganizationID as orgid FROM organizations WHERE Name = '.$org);
+		foreach($query as $obj) {
+			$orgid = $obj->orgid;
+		}
+		if ($userid != null && $orgid!=null) {
+			$userid = '\''.$userid.'\'';
+			$orgid = '\''.$orgid.'\'';
+			DB::query('INSERT INTO admins VALUES ('.$orgid.', '.$userid.')');
+		}
+		else {
+			echo "Username not found";
+		}
+		//echo "UserID: ".$userid ." OrgID: ".$orgid; 
 	}
 	public static function addCauses($CauseID, $Description){
 	}
@@ -41,10 +62,6 @@ class Database {
 	}
 	public static function getOrgProject($OrgID, $ProjectID){
 	}
-	public static function getPGF(){
-		$query =  DB::table('projectgoodfor')->get();
-		return $query;
-	}
 	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
 		$sep = "', '";
@@ -75,42 +92,6 @@ class Database {
 			projecttime.TS_ID=timeslot.TS_ID and projects.ProjectID=pgfjoin.ProjectID and pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE 
 			'.$temp.' or projects.Details LIKE '.$temp.') GROUP BY projects.ProjectID');
 		}
-		/*$query = DB::table('projects');
-		$query = $query->join('projectcause', 'projects.ProjectID', '=', 'projectcause.ProjectID');
-		$query = $query->join('causes', 'projectcause.CauseID', '=', 'causes.CauseID');
-		$query = $query->join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID');
-		$query = $query->join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID');
-		$query = $query->join('projectskill', 'projects.ProjectID', '=', 'projectskill.ProjectID');
-		$query = $query->join('skills', 'projectskill.SkillID', '=', 'skills.SkillID');
-		$query = $query->join('projecttime', 'projects.ProjectID', '=', 'projecttime.ProjectID');
-		$query = $query->join('timeslot', 'projecttime.TS_ID', '=', 'timeslot.TS_ID');
-		$query = $query->join('pgfjoin', 'projects.ProjectID', '=', 'pgfjoin.ProjectID');
-		$query = $query->join('projectgoodfor', 'pgfjoin.PGF_ID', '=', 'projectgoodfor.PGF_ID');
-		if ($zipcode!=null){
-			$query = $query->where('projects.Location', '=', $zipcode);
- 		}
- 		if($arguments){
- 			 if( isset($arguments['Location']) ){
-			 }
-			 if( isset($arguments['Skills']) ){
-			 }
-			 if( isset($arguments['Cause']) ){
-			 	// dd($arguments['Cause']);
-			 }
-			 if( isset($arguments['Time'] ) ){
-			 	// dd($arguments['Time']);
-			 }
- 			// dd($arguments);
- 		}
- 		if ($searchterm!=null){
-			$query = $query->where('projects.Name', 'LIKE','%'.$searchterm.'%')
-			->or_where('projects.Details','LIKE','%'.$searchterm.'%');
- 		}
-		//$query = $query->where('projects.Status', '=', 'Open');
-		//$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline'));
-		//$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline', 'causes.Description as Cause', 'organizations.Name as Organization', 'skills.Description as Skills'));
-		$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline', 'causes.Description as Cause', 'organizations.Name as Organization', 'skills.Description as Skills', 'timeslot.Time as Time', 'timeslot.Day as Day', 'projectgoodfor.Description as ProjectGoodFor'));
-		//$query = $query->get();*/
 		
 		return $query;
 	}
@@ -130,7 +111,6 @@ class Database {
 				      ->where('Time', '>', 17);
 				break;
 		}
-		
 		return $query;
 	}
 	
