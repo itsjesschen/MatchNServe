@@ -31,6 +31,7 @@ class Accountselection_Controller extends Base_Controller{
 			else
 			{
 				Cookie::put('account', 'personal', 7200);
+				//change to dashboardvolunteer once page is created
 				return Redirect::home();
 			}
 		}
@@ -39,7 +40,13 @@ class Accountselection_Controller extends Base_Controller{
 	public function action_accountselected(){
 		$account = $_GET['account'];
 		Cookie::put('account', $account, 7200);
-		return Redirect::home();
+		if ($account == 'personal')
+		{
+			//change to dashboardvolunteer once page is created
+			return Redirect::home();
+		} else {
+			return Redirect::to('dashboardorg');
+		}
 	}
 }
 ?>
