@@ -31,21 +31,6 @@ class Database {
 	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
-	public static function addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status){
-		$id = DB::table('projects')
-			->insert_get_id(array(
-				'projects.Name' = $name,
-				'projects.Details' = $details,
-				'projects.Location' = $location,
-				'projects.StartTime' = $startTime,
-				'projects.EndTime' = $endTIme,
-				'projects.Spots' = $spots,
-				'projects.Admin' = $admin,
-				'projects.Status' = $status,
-				'projects.Requirements' = $requirements,
-				'projects.Headline' = $headline,
-			));
-	}
 	public static function addProjectTime(){
 	}
 	public static function addSkills(){
@@ -74,6 +59,10 @@ class Database {
 	public static function getOrganization($OrgID, $Name){
 	}
 	public static function getOrgProject($OrgID, $ProjectID){
+	}
+	public static function getPGF(){
+		$query =  DB::table('projectgoodfor')->get();
+		return $query;
 	}
 	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
