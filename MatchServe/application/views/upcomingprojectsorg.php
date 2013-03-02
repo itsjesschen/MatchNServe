@@ -30,7 +30,7 @@
 	}
 	.infosection{
 		float:left;
-		width:140px;
+		width:175px;
 		height:80px;
 		margin:5px;
 		margin-left:0px;
@@ -52,6 +52,25 @@
 		margin:0px;
 		padding:0px;
 	}
+	#orgname{
+		font-size: 9px;
+		padding-left:5px;
+		margin-top: -5px;
+	}
+	#projecttitle{
+		margin-top:3px;
+		padding-left: 5px;
+		text-transform: uppercase;
+	}
+	#timeline{
+		padding-left: 5px;
+	}
+	#progressbar{
+		margin-top:3px;
+		margin-left:5px;
+		margin-right:5px;
+		height:15px;
+	}
 	</style>
 
 </head>
@@ -66,10 +85,16 @@
 					<div id="date">25</div>
 				</div>
 				<div class="infosection">
+					<div id="projecttitle">Web Developer</div>
+					<div id="orgname">Downtown Women's Center</div>
+					<div id="timeline">10:00am - 2:00pm</div>
+					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
 				</div>
 			</li>
 			<li>
 				<div class="calendar">
+					<div id="month">APR</div>
+					<div id="date">8</div>
 				</div>
 				<div class="infosection">
 				</div>
