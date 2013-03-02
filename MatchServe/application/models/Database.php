@@ -31,8 +31,6 @@ class Database {
 	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
-	public static function addProjects(){
-	}
 	public static function addProjectTime(){
 	}
 	public static function addSkills(){
@@ -61,6 +59,10 @@ class Database {
 	public static function getOrganization($OrgID, $Name){
 	}
 	public static function getOrgProject($OrgID, $ProjectID){
+	}
+	public static function getPGF(){
+		$query =  DB::table('projectgoodfor')->get();
+		return $query;
 	}
 	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
