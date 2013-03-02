@@ -7,7 +7,7 @@ new sql. This makes sure that everyone is on the same footing when it comes to d
 
 
 
----------------- LAST UPDATE 2/7/2013 ----------------
+---------------- LAST UPDATE 3/1/2013 ----------------
 
 Admins
 
@@ -32,11 +32,17 @@ Contains all the types of causes that a project can belong to
 
 ###########################################################
 
-Organizations (incomplete as of 2/7/2013)
+Organizations 
 
 Attributes
 OrganizationID refers to the id of the org
 Name refers to the name of the org
+CauseID references the CauseID from causes table
+Address refers to the street address of the org
+Zipcode refers to the zipcode of the org
+Phone refers to the phone number of the org
+Website refers to the URL of the org's website
+Mission refers to the mission statement of the org
 
 Use
 Contains all the information regarding a specific organization
@@ -55,6 +61,28 @@ a specific project.
 
 ###########################################################
 
+PGFJoin
+
+Attributes
+ProjectID refers to a specific project
+PGF_ID refers to a specific projectGoodFor value.
+
+Use
+Ties a project to a specific group of people that its good for.
+
+###########################################################
+
+ProjectGoodFor
+
+Attributes
+PGF_ID refers to a specific projectgoodfor value
+Description refers to what the project is good for
+
+Use
+The reference table for PGFJoin table.
+
+###########################################################
+
 Projects
 
 Attributes
@@ -62,13 +90,14 @@ ProjectID refers to a specific project
 Name refers to the name of the project
 Details contains more information about the porject (aka description)
 Location refers to the zipcode of the project (eg 90007)
-Date refers to the FIRST instance of the project start date and time
+StartTime refers to the date and time the project starts (if its full day, leave time at midnight)
+EndTime refers to the date and time the project ends (if its full day, leave time at midnight)
 Spots refers to the number of users that can sign up 
-Admin refers to the user who created the project
-Cause refers to the type of project it is
-Status refers to whether or not the project is still open or closed
+Admin refers to the user who created the project (it references the UserID from users table)
+Status refers to whether or not the project is still open or closed or if its a draft.
 Requirements refers to any specific requirements that the org needs (its a string!)
 Headline refers to a short sentence or two that the org wants to put. (string)
+Image refers to the directory location where the image is located.
 
 Use
 Contains all the information pertaining to a specific project
@@ -83,20 +112,7 @@ SkillID refers to a specific skill
 
 Use
 Lists the skills that a project needs. Find all projects that match a skill or all the
-skills that a project needs.
-
-###########################################################
-
-ProjectTime
-
-Attributes
-ProjectID refers to a specific project
-TS_ID refers to a specific 30 minute timeslot
-
-Uses
-Matches a project with a specific timeslot!! One timeslot per row. 
-- Eventhough this table will grow very large, it is MUCH more efficient to have the 
-  calculations kept on the db than doing it on the site backend. 
+skills that a project needs. 
 
 ###########################################################
 
@@ -108,18 +124,6 @@ Description refers to what a skill actually is
 
 Uses
 Lists all the available predetermined skills that the site supports.
-
-###########################################################
-
-Timeslot
-
-Attributes
-TS_ID refers to a specific 30 minute timeslot
-Day refers to the day of the timeslot
-Time refers to the beginning to the 30 minute timeslot
-
-Uses
-Acts as a hashtable for all 30 minute timeslots in a week.
 
 ###########################################################
 
@@ -141,7 +145,9 @@ Users
 
 Attributes
 UserID refers to a specific user
-Name refers to the name of the user
+FirstName refers to the user's first name
+LastName refers to the user's last name
+Name refers to the username of the user
 Email refers to the user's email
 Password refers to the user's password
 Phone refers to the user's phone number. Keep in digits only (eg 2139992244)

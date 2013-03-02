@@ -31,7 +31,20 @@ class Database {
 	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
-	public static function addProjects(){
+	public static function addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status){
+		$id = DB::table('projects')
+			->insert_get_id(array(
+				'projects.Name' = $name,
+				'projects.Details' = $details,
+				'projects.Location' = $location,
+				'projects.StartTime' = $startTime,
+				'projects.EndTime' = $endTIme,
+				'projects.Spots' = $spots,
+				'projects.Admin' = $admin,
+				'projects.Status' = $status,
+				'projects.Requirements' = $requirements,
+				'projects.Headline' = $headline,
+			));
 	}
 	public static function addProjectTime(){
 	}
