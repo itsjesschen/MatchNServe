@@ -33,7 +33,9 @@
 
   <div class="subDashboard">
   </div>
-
+  <!--
+  The important thing here is knowing that each tab calls a different page
+  -->
   <div class="workspace">
     <div class="tab-content">
       <div class="tab-pane active" id="upcoming">

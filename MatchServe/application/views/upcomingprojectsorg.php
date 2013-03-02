@@ -43,7 +43,7 @@
 	}
 	#projectlist{
 		height:500px;
-		width:250px;
+		width:275px;
 		margin:0px;
 		padding:0px;
 		overflow: auto;
@@ -93,13 +93,83 @@
 			</li>
 			<li>
 				<div class="calendar">
-					<div id="month">APR</div>
-					<div id="date">8</div>
+					<div id="month">MAR</div>
+					<div id="date">25</div>
 				</div>
 				<div class="infosection">
+					<div id="projecttitle">Web Developer</div>
+					<div id="orgname">Downtown Women's Center</div>
+					<div id="timeline">10:00am - 2:00pm</div>
+					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
+				</div>
+			</li>
+			<li>
+				<div class="calendar">
+					<div id="month">MAR</div>
+					<div id="date">25</div>
+				</div>
+				<div class="infosection">
+					<div id="projecttitle">Web Developer</div>
+					<div id="orgname">Downtown Women's Center</div>
+					<div id="timeline">10:00am - 2:00pm</div>
+					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
+				</div>
+			</li>
+			<li>
+				<div class="calendar">
+					<div id="month">MAR</div>
+					<div id="date">25</div>
+				</div>
+				<div class="infosection">
+					<div id="projecttitle">Web Developer</div>
+					<div id="orgname">Downtown Women's Center</div>
+					<div id="timeline">10:00am - 2:00pm</div>
+					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
+				</div>
+			</li>
+			<li>
+				<div class="calendar">
+					<div id="month">MAR</div>
+					<div id="date">25</div>
+				</div>
+				<div class="infosection">
+					<div id="projecttitle">Web Developer</div>
+					<div id="orgname">Downtown Women's Center</div>
+					<div id="timeline">10:00am - 2:00pm</div>
+					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
+				</div>
+			</li>
+			<li>
+				<div class="calendar">
+					<div id="month">MAR</div>
+					<div id="date">25</div>
+				</div>
+				<div class="infosection">
+					<div id="projecttitle">Web Developer</div>
+					<div id="orgname">Downtown Women's Center</div>
+					<div id="timeline">10:00am - 2:00pm</div>
+					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
+				</div>
+			</li>
+			<li>
+				<div class="calendar">
+					<div id="month">MAR</div>
+					<div id="date">25</div>
+				</div>
+				<div class="infosection">
+					<div id="projecttitle">Web Developer</div>
+					<div id="orgname">Downtown Women's Center</div>
+					<div id="timeline">10:00am - 2:00pm</div>
+					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
 				</div>
 			</li>
 		</ul>
+		<div class="tabbable tabs-left">
+			<ul class="nav nav-tabs">
+			</ul>
+			<div class="tab-content">
+			</div>
+		</div>
 	</div>
 
 </body>
