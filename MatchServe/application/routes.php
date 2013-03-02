@@ -126,10 +126,10 @@ Route::filter('auth', function()
  */
 
 //.css
+ // Asset::add('reset', 'css/reset.css');
  Asset::container('bootstrap')->add('bootstrapResponsiveCSS', 'bootstrap/css/bootstrap-responsive.css');
  Asset::container('bootstrap')->add('bootstrapCSS', 'bootstrap/css/bootstrap.css');
  Asset::add('styles','css/styles.css');
- Asset::add('reset', 'css/reset.css');
  Asset::add('jqueryUI', 'css/jquery-ui.css');
 
 //.js

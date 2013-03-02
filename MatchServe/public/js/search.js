@@ -178,31 +178,58 @@ function initSearch(){
             return true;
     }
     var options = { 
-            url: 'search/getprojects', 
-            beforeSubmit: populateData,
-            success: function(html) {
-                // console.log(html);
-                var obj = jQuery.parseJSON(html);
-                $searchcol = $("#search-results");
-
-                if(obj.length == 0){
+        url: 'search/getprojects', 
+        beforeSubmit: populateData,
+        success: function(html) {
+            // console.log(html);
+            var obj = jQuery.parseJSON(html);
+            $searchcol = $("#search-results");
+            if(obj.length == 0){
                 $searchcol.html("Sorry, no search results. Please try another term :)");
-                    return;
-                }        
-                $searchcol.html("<ul class = 'search-result-list'>");
-                for(var i= 0; i < obj.length; i++){
+                return;
+            }       
+            var myOptions = {
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var Emap = document.createElement("div");
+            Emap.setAttribute("id","map");
+            $searchcol.append(Emap);
 
-                $searchcol.append("<li class='search-item'>\
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+            var searchlist = document.createElement("ul");
+            searchlist.className = "search-result-list";
+            $searchcol.append(searchlist);
+            // $searchcol.append("<ul class = 'search-result-list'>");
+            for(var i= 0; i < obj.length; i++){
+                // var searchTerm = $('#search-term').val();
+                var geocoder = new google.maps.Geocoder();
+                var param1 = {
+                    'address': obj[i].location
+                };
+                                
+                geocoder.geocode(param1, function(results, status) {
+                    var latlng = results[0].geometry.location;
+                    map.setCenter(latlng);
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        animation: google.maps.Animation.DROP,
+                    });    
+                marker.setMap(map);
+                    
+                    //put the coordinates in the input text boxes at the bottom of the page
+                });
+                searchlist.innerHTML += "<li class='search-item'>\
                     <div class='accordion' id='accordion" +i+"'>\
                         <div class='accordion-group'>\
                             <div class='accordion-heading'>\
                                 <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion" +i+"' href='#collapse" +i+"'>\
+                                    <img class='causeImage iconCause' src='img/icon.JPG'/> \
                                     <div class='leftHandSideStuff'>\
-                                        <img class='causeImage iconCause' src='img/icon.JPG'/> \
-                                        <span class='projectPosition'>" +obj[i].name +"</span> \
-                                        <span class='projectOrg'>" +obj[i].cause +"</span> \
-                                        <span class='projectHeadline'>" +obj[i].headline +"</span> \
-                                        <span class='reqsMsg requirementsWarning'>This project contains requirements</span> \
+                                        <p class='projectPosition'>" +obj[i].name +"</p> \
+                                        <p class='projectOrg'>" +obj[i].cause +"</p> \
+                                        <p class='projectHeadline'>" +obj[i].headline +"</p> \
+                                        <p class='reqsMsg requirementsWarning'>This project contains requirements</p> \
                                     </div> \
                                     <div class='rightHandSideStuff'> \
                                         <p class='projectDistance'><i class='icon-road'></i>" +obj[i].location+ "</p> \
@@ -214,8 +241,9 @@ function initSearch(){
                             </div> \
                             <div id='collapse" +i+"' class='accordion-body collapse'> \
                                 <div class='accordion-inner'> \
-                                    <p class='projectDescriptionTitle'>PROJECT DESCRIPTION</p> \
-                                    <p class='projectDescription'>"+ obj[i].details+"</p> \
+                                    <p class='projectDescription'>\
+                                        <span class='projectDescriptionTitle'>PROJECT DESCRIPTION</span><br> \
+                                        "+ obj[i].details+" </p> \
                                     <div class='additionalInfoBox'> \
                                         <p class='accordionTitle'>ADDRESS</p> \
                                         <p class='projectLocation'>1200 Pennsylvania Ave SE, Washington, District of Columbia, 20003</p> \
@@ -232,10 +260,10 @@ function initSearch(){
                             </div> \
                         </div>    \
                     </div> \
-                    </li>");
-                    }
-                    $searchcol.append("</ul>");
-                } 
+                </li>";
+            }
+            // $searchcol.append("</ul>");
+        } 
     };
 
     $('#searchForm').ajaxForm(options); 
@@ -247,3 +275,41 @@ function searchFieldDisplay(item){
         item.value = "";
     }
 }
+
+// function initMap() {
+//     var points = {
+//         vegas: [36.05178307933835, -115.17840751953122]
+//     };
+        
+//     var myOptions = {
+//         zoom: 6,
+//         center: new google.maps.LatLng(points["vegas"][0], points["vegas"][1]),
+//         mapTypeId: google.maps.MapTypeId.ROADMAP
+//     };
+
+//     var map = new google.maps.Map(document.getElementById("map"), myOptions);
+// }
+    
+//     $('#search').click(function() {
+//         var searchTerm = $('#search-term').val();
+//         var geocoder = new google.maps.Geocoder();
+//         var param1 = {
+//             'address': searchTerm
+//         };
+                
+//         geocoder.geocode(param1, function(results, status) {
+//             var latlng = results[0].geometry.location;
+//             map.setCenter(latlng);
+            
+//             var marker = new google.maps.Marker({
+//                 position: results[0].geometry.location
+//             });
+            
+//             marker.setMap(map);
+            
+//             //put the coordinates in the input text boxes at the bottom of the page
+//             $('#lat').val(latlng.lat());
+//             $('#lng').val(latlng.lng());
+//         });
+//     });        
+// };

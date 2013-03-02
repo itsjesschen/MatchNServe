@@ -1,7 +1,7 @@
 /*If adding css, please designate which file it belongs to by wrapping it in a comment block*/
 
 /*search.php START*/
-
+/*
 body {
     margin: 0;
     padding: 0;
@@ -54,32 +54,4 @@ body {
 #search-specifiers-container li, .dropdown-menu{
     width:200px;
 }   
-#search-specifiers-container .caret{
-    border-top-color: rgb(181,0,0);
-    border-bottom-color: rgb(181,0,0);
-}
-.search-category{
-    display:inline-block;
-    border:none;
-    font-size: 1.5em;
-    font-family: "century gothic";
-    padding-top: 5px;
-    padding-bottom: 5px;
-/*    -webkit-transition: 1s all ease-out;*/
-}
-
-#search-content {
-    width:1000px;
-    height:510px;
-    margin:0 auto;
-}
-
-#search-results {
-    height:400px;
-    width:1000px;
-    overflow:auto;
-    background-color:#FFFFFF;
-}
-
-/*search.php END*/
-
+*/

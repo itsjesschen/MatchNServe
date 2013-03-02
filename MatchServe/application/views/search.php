@@ -46,43 +46,54 @@
             background-color:#F5A9A9;
             height:45px;*/
             /*    margin-top:19px;*/
-        }
-
-        #search-query {
-            width: 30%;
-            color: #888;
-        }
-
-        #zip-code {
-            display: none;
-            width: 25%;
-
-        }
-        #SearchBttn{
-            width:20%;
-        }
-        #zip-code-show-link{
-            width:20%;
-            color:#FFFFFF;
-        }
-        #search-query, 
-        #zip-code{
-            margin-top:10px;
-        }
-        #search-content{
-            height:100px;
-        }
-        #search-specifiers-container{
-            margin-left:-155px;
-            margin-top:15px;
-            z-index:1;
-            color:#EEEEEE;
-            width:1000px;
-            height:40px;
-            padding:5px;
-            float:left;
-        }
-        /*    border-bottom:1px solid #EEEEEE;*/
+    }
+    /*HEADER*/
+    #search-query {
+        width: 30%;
+        color: #888;
+    }
+    #zip-code {
+        display: none;
+        width: 25%;
+    }
+    #SearchBttn{
+        width:20%;
+    }
+    #zip-code-show-link{
+        width:20%;
+        color:#FFFFFF;
+    }
+    #search-query, 
+    #zip-code{
+        margin-top:10px;
+    }
+    /* END HEADER*/
+    /*RESULTS*/
+    #search-specifiers-container{
+        margin-left:-155px;
+        margin-top:15px;
+        z-index:1;
+        color:#EEEEEE;
+        width:1000px;
+        height:40px;
+        padding:5px;
+        float:left;
+    }
+    #filters-row{
+        border-bottom:1px solid #EEEEEE;
+        height:20px;
+    }
+    /*    border-bottom:1px solid #EEEEEE;*/
+    #map{ 
+        height: 300px;
+        width:300px;
+        float:right;
+        margin: 0 10px;
+        display:inline-block;
+    }
+    .search-result-list{
+        width:570px;
+        margin:10px;
     }
     #search-specifiers-container a, a:visited{
         color: rgb(181,0,0);
@@ -95,10 +106,7 @@
         border-top-color: rgb(181,0,0);
         border-bottom-color: rgb(181,0,0);
     }
-    #filters-row{
-        border-bottom:1px solid #EEEEEE;
-        height:20px;
-    }
+
     .search-category{
         display:inline-block;
         border:none;
@@ -110,21 +118,17 @@
 
     #search-content {
         width:1000px;
-        height:510px;
         margin:0 auto;
         background-color:#FFFFFF;
     }
 
-    #search-results {
-        height:490px;
-        width:1000px;
-        overflow:auto;
+    #search-results li{
+        width:570px;
         background-color:#FFFFFF;
     }
-
-    #search-results li{
-        width:965px;
-        background-color:#FFFFFF;
+    div p {
+        margin:0;
+        padding:0;
     }
     #searchForm .subDashboard{
         float:left;
@@ -160,15 +164,18 @@
         margin-top:2px;
     }
     .leftHandSideStuff{
+        position:relative;
         float:left;
-        width:60%;
+        width:320px;
         height:75px;
     }
     .rightHandSideStuff{
-        float:left;
-        width:250px;
+        position:relative;
+        float:right;
+        overflow:none;
+        width:150px;
         height:75px;
-        margin-top:-8px;
+/*        margin-top:-8px;*/
     }
     .iconCause{
         float:left;
@@ -176,9 +183,6 @@
         height:75px;
     }
     .projectPosition{
-        float:left;
-        width:inherit;
-        height:30px;
         font-size: 25px;
         margin-left:10px;
         padding:0;
@@ -186,71 +190,64 @@
         color:#111111;
     }
     .projectOrg{
-        float:left;
-        width:75%;
-        height:20px;
         font-size:14px;
         font-style: italic;
-        margin-top:-8px;
         margin-left:10px;
         padding:0;
         color:#111111;
     }
     .projectHeadline{
-        float:left;
-        width:75%;
-        height:15px;
         font-size: 10px;
-        margin-top:-4px;
         margin-left:10px;
         color:#111111;
     }
     .requirementsWarning{
-        float:left;
-        width:75%;
-        height:10px;
         margin-left:10px;
-        margin-top:1px;
         color:#111111;
+    }
+    .rightHandSideStuff i{
+        vertical-align:middle;
     }
     .projectDistance,
     .projectTime,
     .projectDate{
-        height:15px;
-        font-size: 12px;
-        margin:2px;
+        font-size: .8em;
+        line-height:1.4em;
         color:#111111;
+    }
+    #search-results .accordion
+    {
+        width:580px;/*remove when bootstrap is fixed*/
+    }
+    #search-results .accordion-toggle{
+        width:560px;/*remove when bootstrap is fixed*/
     }
 
     .reqsMsg{
+        position:absolute;
+        bottom:0;
         font-size: 8px;
         color:red;
     }
     .projectDescription{
-        display: inline-block;
-        width:425px;
-        height:200px;
-        margin-left:-12px;
+        height:100%;
+        width:50%;
+        display:inline-block;
         overflow: auto;
         background-color: #eeeeee;
+        margin-left:-15px;
     }
     .projectDescriptionTitle{
+        width:100%;
         height:18px;
-        width:425px;
-        font-size:14px;
+        font-size:.9em;
         font-color:#111111;
         background-color: #cccccc;
-        margin-left:-12px;
-        margin-top:3px;
     }
     .additionalInfoBox{
         display: inline-block;
         float:right;
-        width:425px;
-        height:220px;
-        margin-top:-20px;
-        margin-right:5px;
-        margin-left:-20px;
+        width:50%;
         padding:0;
     }
     .projectLocation, 
@@ -258,16 +255,8 @@
     .projectSkills,
     .projectCause,
     .projectReqs{
-        width:475px;
-        height:28px;
-        margin-left:-60px;
-        margin-top:-10px;
     }
     .accordionTitle{
-        margin-top:-7px;
-        height:18px;
-        width:450px;
-        margin-left:-60px;
         font-size:14px;
         font-color:#111111;
         background-color: #cccccc;
@@ -355,10 +344,11 @@
     <div id="search-content" class="workspace">
         <div id="filters-row">
             <ul class = "filterlist">
+
                 <!--             <p>(Filters...to be added if time allowed)</p> -->
             </ul>
         </div>
-        <div id="search-results">    
+        <div id="search-results">        
         </div>
     </div>
     <div class="footer">
@@ -366,3 +356,6 @@
     </div>
 </body>
 </html>
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHjf2qKi514z9BBaY5ubhMqTMsMsPa07c&sensor=false">
+</script>
