@@ -111,14 +111,18 @@ class ProjectCreation_Controller extends Base_Controller
 	  		$location = $_GET['projectLocation'];
 	  	}
 	  	//get the max number of volunteers 
-	  	if( isset($_GET['projectVolunteerNumber']) && (is_int($_GET['projectVolunteerNumber'])) && ("How many volunteers are needed?" != $_GET['projectVolunteerNumber']))
+	  	if( isset($_GET['projectVolunteerNumber']) && ("How many volunteers are needed?" != $_GET['projectVolunteerNumber']))
 	    {
-	  		$spots = $_GET['projectVolunteerNumber'];
+	  		$temp = (int)$_GET['projectVolunteerNumber'];
+	  		if(is_int($temp))
+	  		{
+	  			$spots = $temp;
+	  		}
 	  	}
 	  	//get the admin responsible for this project
-	  	if( isset($_GET['projectAdminSelector']))
+	  	if( isset($_GET['admin']))
 	    {
-	  		$admin = $_GET['projectAdminSelector'];
+	  		$admin = $_GET['admin'];
 	  	}
 	  	//get the start and ending times
 	  	if( isset($_GET['projectStartTime']) && ("Start Time" != $_GET['projectStartTime']))
@@ -147,9 +151,8 @@ class ProjectCreation_Controller extends Base_Controller
 
 		
 		 //DATABASE CALL that goes to models/Database.php
-		 $data = Database::addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status );
-		 $data = json_encode($data);
-		  return $data;	
+		 $success = Database::addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status );
+		 echo $success;
 	}
 
 }

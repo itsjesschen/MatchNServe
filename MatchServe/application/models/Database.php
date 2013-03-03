@@ -31,6 +31,39 @@ class Database {
 	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
+	public static function addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status){
+		//insert new project
+		$newProjectID = DB::table('projects')->insert_get_id(array(
+				'Name' => $name,
+				'Details' => $details,
+				'Location' => $location,
+				'StartTime' => $startTime,
+				'EndTime' => $endTime,
+				'Spots' => $spots,
+				'Admin' => $admin,
+				'Status' => $status,
+				'Requirements' => $requirements,
+				'Headline' => $headline
+			));
+		//insert skills associated with that project
+		foreach($skills as $newSkill)
+		{
+			DB::table('projectskill')->insert(array(
+					'ProjectID' => $newProjectID,
+					'SkillID' => $newSkill
+			    ));
+		}
+		//insert pgfs
+		foreach($pgfs as $newPGF)
+		{
+			DB::table('pgfjoin')->insert(array(
+					'ProjectID' => $newProjectID,
+					'PGF_ID' => $newPGF
+			    ));
+		}
+
+		return $newProjectID;
+	}
 	public static function addProjectTime(){
 	}
 	public static function addSkills(){

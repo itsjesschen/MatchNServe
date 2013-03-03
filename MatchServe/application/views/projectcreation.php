@@ -53,18 +53,22 @@
 			<p> LOCATION: 	
 				<input id="projectLocationONLINE" type="radio" name="projectLocation" value="1"> ONLINE
 				<input id="projectLocationONSITE" type="radio" name="projectLocation" value="2"> ONSITE
-				<input id="projectLocationOTHER" type="radio" name="projectLocation" value="3"> OTHER 
 			</p>
 
 	 		<input id="projectLocationOtherAddress" type="text" name="projectLocationOther" value="If other, please give address." defaultValue = "If other, please give address." onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 	 		</br></br>
 	 		<input id="projectVolunteerNumber" type="text" name="projectVolunteerNumber" value="How many volunteers are needed?" defaultValue = "How many volunteers are needed?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
             </br></br>
-            <div id="project-creation-admin-dropdown">
-			<select class="projectAdminSelector">
-					<option disabled> Primary Contact </option>
-				</select>
-				</br></br>
+
+			<div id="project-creation-admin-dropdown">
+			<li class="dropdown">
+                <a class="projectAdminSelector dropdown-toggle" data-toggle="dropdown" href="#">Primary Contact 
+                    <span class="caret"></span>
+                </a>
+                <ul class = "dropdown-menu">
+                </ul>
+            </li>
+			</br></br>
 			</div>
 
 			<input id="projectStartTime" type="text" name="projectStartTime" value="Start Time" defaultValue = "Start Time" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
