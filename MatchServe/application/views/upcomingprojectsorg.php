@@ -49,6 +49,7 @@
 		overflow: auto;
 	}
 	.container{
+		float:left;
 		margin:0px;
 		padding:0px;
 	}
@@ -70,6 +71,9 @@
 		margin-left:5px;
 		margin-right:5px;
 		height:15px;
+	}
+	#rightsideinfo{
+		float: right;
 	}
 	</style>
 
@@ -164,10 +168,18 @@
 				</div>
 			</li>
 		</ul>
-		<div class="tabbable tabs-left">
+		<div class="tabbable tabs-left" id="rightsideinfo">
 			<ul class="nav nav-tabs">
+				<li class="active"><a href="#upcoming" data-toggle="tab">Upcoming</a></li>
+				<li><a href="#previous" data-toggle="tab">Previous</a></li>
+				<li><a href="#new" data-toggle="tab">New</a></li>
+				<li><a href="#draft" data-toggle="tab">Draft</a></li>
 			</ul>
 			<div class="tab-content">
+				<div class="tab-pane active" id="upcoming">hello</div>
+				<div class="tab-pane" id="previous">hi</div>
+				<div class="tab-pane" id="new">h</div>
+				<div class="tab-pane" id="draft">y</div>
 			</div>
 		</div>
 	</div>
