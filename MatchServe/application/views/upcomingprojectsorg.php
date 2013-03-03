@@ -36,10 +36,12 @@
 		margin-left:0px;
 		background-color: #777777;
 	}
+
 	#projectlist li{
 		clear:both;
 		margin:0;
 		padding:0;
+		list-style: none;
 	}
 	#projectlist{
 		height:500px;
@@ -47,11 +49,13 @@
 		margin:0px;
 		padding:0px;
 		overflow: auto;
+		float:left;
 	}
-	.container{
+	.containerstuff{
 		float:left;
 		margin:0px;
 		padding:0px;
+		width:1000px;
 	}
 	#orgname{
 		font-size: 9px;
@@ -62,9 +66,12 @@
 		margin-top:3px;
 		padding-left: 5px;
 		text-transform: uppercase;
+		color:#ffffff;
 	}
+
 	#timeline{
 		padding-left: 5px;
+		color:#cccccc;
 	}
 	#progressbar{
 		margin-top:3px;
@@ -73,7 +80,9 @@
 		height:15px;
 	}
 	#rightsideinfo{
-		float: right;
+		float: left;
+		width:500px;
+		margin-left:5px;
 	}
 	</style>
 
@@ -81,7 +90,7 @@
 
 <body>
 
-	<div class="container">
+	<div class="containerstuff">
 		<ul id="projectlist">
 			<li>
 				<div class="calendar">
@@ -170,16 +179,20 @@
 		</ul>
 		<div class="tabbable tabs-left" id="rightsideinfo">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#upcoming" data-toggle="tab">Upcoming</a></li>
-				<li><a href="#previous" data-toggle="tab">Previous</a></li>
-				<li><a href="#new" data-toggle="tab">New</a></li>
-				<li><a href="#draft" data-toggle="tab">Draft</a></li>
+				<li class="active"><a href="#schedule" data-toggle="tab">Schedule</a></li>
+				<li><a href="#roster" data-toggle="tab">Roster</a></li>
+				<li><a href="#messages" data-toggle="tab">Messages</a></li>
+				<li><a href="#deleteproject" data-toggle="tab">Delete Project</a></li>
+				<li><a href="#pendingvolunteers" data-toggle="tab">Pending Volunteers</a></li>
+				<li><a href="#checkinvolunteers" data-toggle="tab">Check-In Volunteers</a></li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane active" id="upcoming">hello</div>
-				<div class="tab-pane" id="previous">hi</div>
-				<div class="tab-pane" id="new">h</div>
-				<div class="tab-pane" id="draft">y</div>
+				<div class="tab-pane active" id="schedule">Schedule</div>
+				<div class="tab-pane" id="roster">Roster</div>
+				<div class="tab-pane" id="messages">Messages</div>
+				<div class="tab-pane" id="deleteproject">Delete Project</div>
+				<div class="tab-pane" id="pendingvolunteers">Pending Volunteers</div>
+				<div class="tab-pane" id="checkinvolunteers">Check-In Volunteers</div>
 			</div>
 		</div>
 	</div>
