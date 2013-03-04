@@ -4117,9 +4117,23 @@ input[type="submit"].btn.btn-mini {
   color:#777777;
 }
 
+.containerstuff > .nav-tabs > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 20px;
+  color:#777777;
+  width:250px;
+}
+
 .nav-tabs > li > a:hover {
   color:#555555;
   background-color: #FF9900;
+}
+
+.containerstuff > .nav-tabs > li > a:hover {
+  color:#555555;
+  background-color: #eeeeee;
+  width:250px;
 }
 
 .nav-tabs > .active > a,
@@ -4128,6 +4142,19 @@ input[type="submit"].btn.btn-mini {
   cursor: default;
   background-color: #cccccc;
 }
+
+.containerstuff .nav-tabs > .active > a,
+.containerstuff .nav-tabs > .active > a:hover {
+  color: #555555;
+  cursor: default;
+  background-color: #cccccc;
+  width:250px;
+}
+
+.containerstuff .nav-tabs > .active > a > .infosection{
+  background-color: #A30000;
+}
+
 
 .nav-pills > li > a {
   padding-top: 8px;
@@ -4274,6 +4301,7 @@ input[type="submit"].btn.btn-mini {
 
 .tab-content {
   overflow: auto;
+  height:500px;
 }
 
 .tabs-below > .nav-tabs,
@@ -4343,6 +4371,7 @@ input[type="submit"].btn.btn-mini {
 .tabs-left > .nav-tabs .active > a,
 .tabs-left > .nav-tabs .active > a:hover {
   height:60px;
+  width:93px;
 }
 
 .tabs-right > .nav-tabs {
