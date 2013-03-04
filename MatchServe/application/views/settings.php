@@ -166,7 +166,14 @@ table {
 	
 </head>
 <body>
-    
+     <div class="header">
+    <?php echo render('elements.header'); ?>
+  </div>
+    <div class="dashboard">
+	</div>
+	  <div class="subDashboard">
+  </div>
+  <div class="workspace">
     <form id="settingsForm" action= <?php echo URL::to('settings/savesettings'); ?> method="post"> 
 		<br><br><h1>Personal Account Settings</h1>
 			<table class="table">
@@ -209,5 +216,9 @@ table {
 					<tr><td><input type='hidden' name='remove' id='remove' value='false'/></td></tr>
 				</table>	
     </form>
+	</div>
+	<div class="footer">
+  <?php echo render('elements.footer'); ?>
+</div>
 </body>
 </html>
