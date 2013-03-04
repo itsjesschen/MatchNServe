@@ -84,7 +84,14 @@
 		width:500px;
 		margin-left:5px;
 	}
+	.selected{
+		background-color: #A30000;
+	}
 	</style>
+
+	<script>
+
+	</script>
 
 </head>
 
@@ -179,20 +186,18 @@
 		</ul>
 		<div class="tabbable tabs-left" id="rightsideinfo">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#schedule" data-toggle="tab">Schedule</a></li>
-				<li><a href="#roster" data-toggle="tab">Roster</a></li>
-				<li><a href="#messages" data-toggle="tab">Messages</a></li>
-				<li><a href="#deleteproject" data-toggle="tab">Delete Project</a></li>
-				<li><a href="#pendingvolunteers" data-toggle="tab">Pending Volunteers</a></li>
-				<li><a href="#checkinvolunteers" data-toggle="tab">Check-In Volunteers</a></li>
+				<li class="active"><a href="#schedule" data-toggle="tab"><img src="img/CalendarGray.png"></br>Schedule</a></li>
+				<li><a href="#messages" data-toggle="tab"><img src="img/MessageGray.png"></br>Messages</a></li>
+				<li><a href="#deleteproject" data-toggle="tab"><img src="img/DeleteGray.png"></br>Delete Project</a></li>
+				<li><a href="#pendingvolunteers" data-toggle="tab"><img src="img/PendingGray.png"></br>Pending</a></li>
+				<li><a href="#checkinvolunteers" data-toggle="tab"><img src="img/CheckInGray.png"></br>Check-In</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="schedule">Schedule</div>
-				<div class="tab-pane" id="roster">Roster</div>
 				<div class="tab-pane" id="messages">Messages</div>
 				<div class="tab-pane" id="deleteproject">Delete Project</div>
-				<div class="tab-pane" id="pendingvolunteers">Pending Volunteers</div>
-				<div class="tab-pane" id="checkinvolunteers">Check-In Volunteers</div>
+				<div class="tab-pane" id="pendingvolunteers">Pending</div>
+				<div class="tab-pane" id="checkinvolunteers">Check-In</div>
 			</div>
 		</div>
 	</div>

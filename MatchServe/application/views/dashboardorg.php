@@ -12,6 +12,15 @@
   </script>
 
   <style>
+  .newdraft{
+    padding-left:5px;
+    padding-top:10px;
+  }
+  .upcomingprevious{
+    padding-right:4px;
+    padding-top:10px;
+
+  }
   </style>
 
 </head>
@@ -24,10 +33,10 @@
 
   <div class="dashboard">
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#upcoming" data-toggle="tab">Upcoming</a></li>
-      <li><a href="#previous" data-toggle="tab">Previous</a></li>
-      <li><a href="#new" data-toggle="tab">New</a></li>
-      <li><a href="#draft" data-toggle="tab">Draft</a></li>
+      <li class="active"><a href="#upcoming" data-toggle="tab"><div class="upcomingprevious"><img src="img/NextGray.png"></br>Upcoming</div></a></li>
+      <li><a href="#previous" data-toggle="tab"><div class="upcomingprevious"><img src="img/PreviousGray.png"></br>Previous</div></a></li>
+      <li><a href="#new" data-toggle="tab"><div class="newdraft"><img src="img/NewGray.png"></br>New</div></a></li>
+      <li><a href="#draft" data-toggle="tab"><div class="newdraft"><img src="img/DraftGray.png"></br>Draft</div></a></li>
     </ul>
   </div>
 
@@ -35,28 +44,28 @@
   </div>
   <!--
   The important thing here is knowing that each tab calls a different page
-  -->
-  <div class="workspace">
-    <div class="tab-content">
-      <div class="tab-pane active" id="upcoming">
-        <?php echo render('upcomingprojectsorg'); ?>
-      </div>
-
-      <div class="tab-pane" id="previous">
-      </div>
-
-      <div class="tab-pane" id="new">
-        <?php echo render('projectcreation'); ?>
-      </div>
-
-      <div class="tab-pane" id="draft">
-      </div>
+-->
+<div class="workspace">
+  <div class="tab-content">
+    <div class="tab-pane active" id="upcoming">
+      <?php echo render('upcomingprojectsorg'); ?>
     </div>
 
+    <div class="tab-pane" id="previous">
+    </div>
+
+    <div class="tab-pane" id="new">
+      <?php echo render('projectcreation'); ?>
+    </div>
+
+    <div class="tab-pane" id="draft">
+    </div>
   </div>
 
-  <div class="footer">
-    <?php echo render('elements.footer'); ?>
-  </div>
+</div>
+
+<div class="footer">
+  <?php echo render('elements.footer'); ?>
+</div>
 </body>
 </html>
