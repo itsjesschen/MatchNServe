@@ -39,6 +39,9 @@ class Home_Controller extends Base_Controller {
 		return View::make('search')
 			->with('name', '');
 	}
-
+	
+	public function action_volunteer() {
+		return View::make('dashboardvol');
+	}
 }
 ?>

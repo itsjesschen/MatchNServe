@@ -83,3 +83,37 @@ body {
 
 /*search.php END*/
 
+/* volunteerInfo.php */
+
+#quickSearch {
+	float: left;
+	min-width: 45%;
+	/*max-height: 89px;*/
+	margin: 0;
+	font-family: 'Lucida Grande';
+	color: white;
+}
+
+#quickSearch p {
+	margin: 0;
+	font-size: 22px;
+}
+
+#quickSearch_submitButtons {
+	display: inline-block;
+	float: right;
+}
+	
+.quickSearchButtons {
+	min-width: 100px;
+	display: inline-block;
+	font-weight: 100;
+	padding: 3px;
+	margin: 0;
+	font-family: helvetica;
+	float: right;
+	clear: right;
+	background: #3c3c3c;
+	color: white;
+	text-align: center;
+}

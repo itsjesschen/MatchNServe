@@ -6,8 +6,8 @@
 
   <!--SUPER IMPORTANT: MAKE SURE TO COPY AND PASTE THIS IN EVERY HEADER SO ALL THE INCLUDES CAN TAKE EFFECT IN THE PAGE-->
   <?php echo Asset::container('bootstrap')->styles();?>
-  <?php echo Asset::scripts();?>
   <?php echo Asset::styles();?>
+  <?php echo Asset::scripts();?>
 
   <script>
   </script>
@@ -18,6 +18,10 @@
   }
   body{
     margin: 0 auto;
+  }
+  
+  ul {
+    float: left;
   }
   </style>
   
@@ -31,12 +35,19 @@
   </div>
 
   <div class="dashboard">
-    <ul style="display: inline-block" class="nav nav-tabs">
+    <ul class="nav nav-tabs">
       <li class="active"><a href="#upcoming" data-toggle="tab">Upcoming</a></li>
       <li><a href="#previous" data-toggle="tab">Previous</a></li>
       <li><a href="#new" data-toggle="tab">New</a></li>
       <li><a href="#draft" data-toggle="tab">Draft</a></li>
     </ul>
+    <div id="quickSearch">
+        <p>Quick Preferences</p>
+        <div id="quickSearch_submitButtons">
+            <div class="quickSearchButtons" style="margin-bottom: 5px;" id="quickSearch_performQuickSearch">Quick Search</div>
+            <div class="quickSearchButtons" id="quickSearch_performFullSearch">Full Search</div>
+        </div>
+    </div>
   </div>
 
   <div class="subDashboard">

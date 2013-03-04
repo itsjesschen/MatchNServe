@@ -8,7 +8,7 @@ class Login_Controller extends Base_Controller{
 
 function action_login(){
 
- 	$dbLocalhost = mysql_connect("localhost", "root", "")
+ 	$dbLocalhost = mysql_connect("localhost", "root", "root")
  or die("Could not connect: " . mysql_error());
  mysql_select_db("matchserve", $dbLocalhost)
  or die("Could not find database: " . mysql_error());

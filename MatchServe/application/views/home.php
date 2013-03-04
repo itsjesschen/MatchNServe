@@ -59,7 +59,7 @@
       <img class="img-circle" data-src="holder.js/140x140">
       <h2>Volunteers</h2>
       <p>Find projects that fit your skills</p>
-      <p><a class="btn" href="#">View details &raquo;</a></p>
+      <p><a class="btn" href="volunteer">View details &raquo;</a></p>
     </div><!-- /.span4 -->
     <div class="span4">
       <img class="img-circle" data-src="holder.js/140x140">
