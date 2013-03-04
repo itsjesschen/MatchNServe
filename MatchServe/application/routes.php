@@ -45,6 +45,7 @@ Route::controller('facebooklogin');
 Route::controller('accountselection');
 Route::controller('logout');
 Route::controller('dashboardorg');
+Route::controller('dashboardvol');
 Route::controller('projectcreation');
 Route::controller('settings');
 Route::controller('createorg');

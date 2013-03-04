@@ -10,8 +10,31 @@
 	<title></title>
 
 	<style type="text/css">
-	
-	</style>
+
+	#presentationtitle{
+    text-align: center;
+  }
+
+  #tableinformation,
+  #projectCreationForm{
+    margin:0 auto;
+    text-align: center;
+  }
+  .inputBox{
+    width:450px;
+  }
+
+  #mission{
+    width:450px;
+    height:100px;
+  }
+  .dropdown{
+    text-align: left;
+    margin-left:310px;
+  }
+
+  </style>
+
 </head>
 
 <body>
@@ -20,16 +43,18 @@
   </div>
 
   <div class="dashboard">
+    
   </div>
 
   <div class="subDashboard">
+    <p id="presentationtitle">Welcome to the Organization Creation. To get started, please fill out the form below</p>
   </div>
 
   <div class="workspace">
     <form id="projectCreationForm" action=<?php echo URL::to('createorg/checkSubmit'); ?> method="get">
-     <table border = "0">
+     <table id="tableinformation" border = "0">
        <tr>
-        <td> <input id="name" type="text" name="name" value = "Organization Name" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/> </td>
+        <td><input id="name" type="text" name="name" value = "Organization Name" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/> </td>
       </tr>
       <tr> <td> <input id="address" type="text" name="address" value = "Address" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"  class="inputBox"> </td> </tr>
       <tr>
@@ -43,14 +68,14 @@
 
     <div id="project-creation-causes-dropdown">
      <div class="dropdown">
-       <a class="projectSkillSelector dropdown-toggle" data-toggle="dropdown" href="#"> Causes
+       <a class="projectSkillSelector dropdown-toggle" data-toggle="dropdown" href="#"> Select the major cause your organization is associated with
         <span class="caret"></span>
       </a>
       <ul class = "dropdown-menu">
       </ul>
     </div>    
   </div>
-  <br/> <br/>
+  <br/>
   <input type="submit" name="FinishButton" class="btn" value="Submit"/>
 
 </form>

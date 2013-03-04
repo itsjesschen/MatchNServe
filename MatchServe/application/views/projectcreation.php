@@ -25,7 +25,7 @@
 	.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
 
 	.inputBox {
-    width: 300px;
+		width: 300px;
 	}
 
 	#basicInfoGetter{
@@ -39,71 +39,89 @@
 </head>
 
 <body>
+
+	<div class="header">
+		<?php echo render('elements.header'); ?>
+	</div>
+
+	<div class="dashboard">
+	</div>
+
+ <div class="subDashboard">
+ </div>
+
+ <div class="workspace">
 	<form id="projectCreationForm" action=<?php echo URL::to('projectcreation/checkSubmit'); ?> method="get">
 
-        <div id="projectcreation-specifiers-container">
+		<div id="projectcreation-specifiers-container">
 
-	 		<input id="projectName" type="text" name="projectName" value="Give your project a name" defaultValue = "Give your project a name" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
-            </br></br>
-	 		<input id="projectHeadline" type="text" name="projectHeadline" value="What's the jist?" defaultValue = "What's the jist?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
-            </br></br>
-	 		<input id="projectDescription" type="text" name="projectDescription" value="Full project description" defaultValue = "Full project description" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
-            </br></br>
+			<input id="projectName" type="text" name="projectName" value="Give your project a name" defaultValue = "Give your project a name" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+		</br></br>
+		<input id="projectHeadline" type="text" name="projectHeadline" value="What's the jist?" defaultValue = "What's the jist?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+	</br></br>
+	<input id="projectDescription" type="text" name="projectDescription" value="Full project description" defaultValue = "Full project description" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+</br></br>
 
-			<p> LOCATION: 	
-				<input id="projectLocationONLINE" type="radio" name="projectLocation" value="1"> ONLINE
-				<input id="projectLocationONSITE" type="radio" name="projectLocation" value="2"> ONSITE
-			</p>
+<p> LOCATION: 	
+	<input id="projectLocationONLINE" type="radio" name="projectLocation" value="1"> ONLINE
+	<input id="projectLocationONSITE" type="radio" name="projectLocation" value="2"> ONSITE
+</p>
 
-	 		<input id="projectLocationOtherAddress" type="text" name="projectLocationOther" value="If other, please give address." defaultValue = "If other, please give address." onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
-	 		</br></br>
-	 		<input id="projectVolunteerNumber" type="text" name="projectVolunteerNumber" value="How many volunteers are needed?" defaultValue = "How many volunteers are needed?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
-            </br></br>
+<input id="projectLocationOtherAddress" type="text" name="projectLocationOther" value="If other, please give address." defaultValue = "If other, please give address." onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+</br></br>
+<input id="projectVolunteerNumber" type="text" name="projectVolunteerNumber" value="How many volunteers are needed?" defaultValue = "How many volunteers are needed?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+</br></br>
 
-			<div id="project-creation-admin-dropdown">
-			<li class="dropdown">
-                <a class="projectAdminSelector dropdown-toggle" data-toggle="dropdown" href="#">Primary Contact 
-                    <span class="caret"></span>
-                </a>
-                <ul class = "dropdown-menu">
-                </ul>
-            </li>
-			</br></br>
-			</div>
+<div id="project-creation-admin-dropdown">
+	<li class="dropdown">
+		<a class="projectAdminSelector dropdown-toggle" data-toggle="dropdown" href="#">Primary Contact 
+			<span class="caret"></span>
+		</a>
+		<ul class = "dropdown-menu">
+		</ul>
+	</li>
+</br></br>
+</div>
 
-			<input id="projectStartTime" type="text" name="projectStartTime" value="Start Time" defaultValue = "Start Time" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
-			<input id="projectEndTime" type="text" name="projectEndTime" value="End Time" defaultValue = "End Time" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
-			</br></br>
+<input id="projectStartTime" type="text" name="projectStartTime" value="Start Time" defaultValue = "Start Time" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+<input id="projectEndTime" type="text" name="projectEndTime" value="End Time" defaultValue = "End Time" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+</br></br>
 
-            <div id="project-creation-skills-dropdown">
-			<li class="dropdown">
-                <a class="projectSkillSelector dropdown-toggle" data-toggle="dropdown" href="#">Skills Required 
-                    <span class="caret"></span>
-                </a>
-                <ul class = "dropdown-menu">
-                </ul>
-            </li>
-			</br></br>
-			</div>
+<div id="project-creation-skills-dropdown">
+	<li class="dropdown">
+		<a class="projectSkillSelector dropdown-toggle" data-toggle="dropdown" href="#">Skills Required 
+			<span class="caret"></span>
+		</a>
+		<ul class = "dropdown-menu">
+		</ul>
+	</li>
+</br></br>
+</div>
 
-            <div id="project-creation-pgf-dropdown">
-			<li class="dropdown">
-                <a class="projectGoodForList dropdown-toggle" data-toggle="dropdown" href="#">Who is this good for? 
-                    <span class="caret"></span>
-                </a>
-                <ul class = "dropdown-menu">
-                </ul>
-            </li>
-			</br></br>
-			</div>
+<div id="project-creation-pgf-dropdown">
+	<li class="dropdown">
+		<a class="projectGoodForList dropdown-toggle" data-toggle="dropdown" href="#">Who is this good for? 
+			<span class="caret"></span>
+		</a>
+		<ul class = "dropdown-menu">
+		</ul>
+	</li>
+</br></br>
+</div>
 
-	 		<input id="projectRequirements" type="text" name="projectRequirements" value="Any requirements?" defaultValue = "Any requirements?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
-	 		</br></br>
+<input id="projectRequirements" type="text" name="projectRequirements" value="Any requirements?" defaultValue = "Any requirements?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+</br></br>
 
-		</div>
-            <input type="submit" name="SaveButton" class="btn" value="Save Draft"/>   
-            <input type="submit" name="FinishButton" class="btn" value="Finish"/>
-        	</br>
-	</form>
+</div>
+<input type="submit" name="SaveButton" class="btn" value="Save Draft"/>   
+<input type="submit" name="FinishButton" class="btn" value="Finish"/>
+</br>
+</form>
+</div>
+
+<div class="footer">
+  <?php echo render('elements.footer'); ?>
+</div>
+
 </body>
 </html>
