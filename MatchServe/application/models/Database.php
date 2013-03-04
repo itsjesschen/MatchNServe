@@ -95,7 +95,11 @@ class Database {
 	}
 
 	/**********************************GETTERS**************************************/
-	public static function getAdmin($OrgID){
+	public static function getAdmin($orgName){
+		$OrgID = DB::table('organizations')
+			->where('organizations.Name', '=', $orgName)
+			->only('OrganizationID');
+
 		$query = DB::table('admins')
 			->join('users', 'admins.UserID', '=', 'users.UserID')
 			->where('OrganizationID', '=', $OrgID)

@@ -14,9 +14,11 @@ class ProjectCreation_Controller extends Base_Controller
 		$table = $_GET['table'];
 		if ($table === "admins")
 		{
-			 $data = Database::getAdmin("1"); //TODO, use cookie to find out what the orgID is
-			 $data = json_encode($data);
-			 return $data;
+			//check the cookie and get the org name
+			$orgName = Cookie::get('account');
+			$data = Database::getAdmin($orgName); //TODO, use cookie to find out what the orgID is
+			$data = json_encode($data);
+			return $data;
 		}
 		else
 		{
@@ -31,9 +33,9 @@ class ProjectCreation_Controller extends Base_Controller
 		$table = $_GET['table'];
 		if ($table === "skills")
 		{
-			 $data = Database::getSkills(); 
-			 $data = json_encode($data);
-			 return $data;
+			$data = Database::getSkills(); 
+			$data = json_encode($data);
+			return $data;
 		}
 		else
 		{
@@ -48,9 +50,9 @@ class ProjectCreation_Controller extends Base_Controller
 		$table = $_GET['table'];
 		if ($table === "projectgoodfor")
 		{
-			 $data = Database::getPGF(); 
-			 $data = json_encode($data);
-			 return $data;
+			$data = Database::getPGF(); 
+			$data = json_encode($data);
+			return $data;
 		}
 		else
 		{
@@ -152,7 +154,7 @@ class ProjectCreation_Controller extends Base_Controller
 		
 		 //DATABASE CALL that goes to models/Database.php
 		 $success = Database::addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status );
-		 echo $success;
+		 echo URL::to('dashboardorg.php'); //TODO
 	}
 
 }

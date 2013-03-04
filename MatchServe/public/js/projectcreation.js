@@ -56,7 +56,8 @@ function populateProjectOptions(){ //gets all the admins from db and lists them 
             $options.append("<input type='radio' class='adminSelector'  name='admin' value=" + obj[i].userid + ">" + obj[i].name + "</br>"); //inserting into first dropdown
         }
     });
-$.ajax({//populate causes
+    //USED BY ANITA 
+    $.ajax({//populate causes
         type:"GET",
         url:"createorg/getCauses", 
         data:{
@@ -66,7 +67,7 @@ $.ajax({//populate causes
         var obj = jQuery.parseJSON(html);
         $options = $("#project-creation-causes-dropdown").find('ul.dropdown-menu'); 
         for(var i= 0; i < obj.length; i++){
-            $options.append("<input type='radio' class='skillSelector'  name='cause[]' value=" +obj[i].causeid + ">"+obj[i].description+"</br>"); //inserting into second dropdown
+            $options.append("<input type='radio' class='skillSelector'  name='cause[]' value=" +obj[i].causeid + ">"+obj[i].description+"</br>"); 
         }
     });
     $.ajax({//populate skills
