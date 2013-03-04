@@ -33,11 +33,6 @@ class Database {
 	{
 		$userName = Cookie::get('name');
 		if ($name != null && $address!=null && $zipcode != null && $phone != null && $mission != null && $causes != null) {
-			$name = '\''.$name.'\'';
-			$address = '\''.$address.'\'';
-			$zipcode = '\''.$zipcode.'\'';
-			$phone = '\''.$phone.'\'';
-			$mission = '\''.$mission.'\'';
 			//$causes = '\''.$causes.'\'';
 			//echo "Causes is".$causes." ";
 		    //DB::query('INSERT INTO organizations VALUES ('', '.$name.', '1', '.$address.', '.$zipcode', '.$phone.', '.$website.', '.$mission.')');
