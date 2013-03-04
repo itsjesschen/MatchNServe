@@ -49,6 +49,7 @@ Route::controller('projectcreation');
 Route::controller('settings');
 Route::controller('createorg');
 Route::controller('user');
+Route::controller('dashboardvol');
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers

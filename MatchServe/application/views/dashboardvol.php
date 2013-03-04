@@ -61,7 +61,6 @@
       <div class="tab-pane" id="previous">
       </div>
       <div class="tab-pane" id="new">
-        <?php echo render('projectcreation'); ?>
       </div>
       <div class="tab-pane" id="draft">
       </div>
