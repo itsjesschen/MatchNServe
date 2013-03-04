@@ -10,7 +10,7 @@ class Accountselection_Controller extends Base_Controller{
 		or die("Could not connect: " . mysql_error());
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
-		$userName = Session::get('userName');
+		$userName = Cookie::get('name');
 		if (isset($userName))
 		{
 			$results = mysql_query("SELECT organizations.Name FROM organizations, admins, users WHERE (users.Name='$userName' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)");
