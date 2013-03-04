@@ -111,7 +111,7 @@ function action_processlogin(){
 					or die("Problem writing to table: " . mysql_error());
 					Cookie::put('name', '$userName', 7200);
 					echo "Successfully created new user";
-					return Redirect::home();
+					return Redirect::to('dashboardvol');
 				}
 				else
 				{
@@ -230,7 +230,7 @@ function action_accountselection(){
 		if ($account == 'personal')
 		{
 			//change to dashboardvolunteer once page is created
-			return Redirect::home();
+			return Redirect::to('dashboardvol');
 		} else {
 			return Redirect::to('dashboardorg');
 		}
