@@ -1,7 +1,7 @@
 window.onload = init;
 
 function init(){
-    populateAdmin();//dynamically add in admins from db
+    populateProjectOptions();//dynamically add in admins from db
 }
 
 //code which allows the dropdown to remain open when selecting sub items from it
@@ -13,11 +13,22 @@ function preventDropdownToggle() {
 
 
 $(function() {
-    //ADDS IN DATEPICKER
-    $( "#projectDate" ).datepicker();
-  });
+    //Adds date and TIMEPICKER zomgwtfbbq
+    $( "#projectStartTime" ).datetimepicker({
+    controlType: 'select',
+    stepMinute: 30,
+    dateFormat: "yy-mm-dd",
+    timeFormat: 'HH:mm:ss',
+    });
+    $( "#projectEndTime" ).datetimepicker({
+    controlType: 'select',
+    stepMinute: 30,
+    dateFormat: "yy-mm-dd",
+    timeFormat: 'HH:mm:ss',
+    });
+});
 
-function searchFieldDisplay(item){
+function fieldDisplay(item){
     if(item.value == item.defaultValue ){//} || item.value =="search for"){
         item.value = "";
     }
@@ -31,21 +42,60 @@ function blurText(item) {
     item.style.color = "#888";
 }
 
-function populateAdmin(){ //gets all the admins from db and lists them based on the required orgID [TODO: HOW TO INCLUDE ORGID?]
+function populateProjectOptions(){ //gets all the admins from db and lists them based on the required orgID [TODO: HOW TO INCLUDE ORGID?]
     $.ajax({//populate admins
         type:"GET",
-        url:"projectcreation/getAdmin", 
+        url:"projectcreation/getAdmins", 
         data:{
             table : "admins"
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
-        $options = $("#projectcreation-specifiers-container").find('select'); 
+        $options = $("#project-creation-admin-dropdown").find('ul.dropdown-menu'); 
         for(var i= 0; i < obj.length; i++){
-             $options.append("<option name='admin[]' value=" + obj[i].name + ">" + obj[i].name + "</option>");
+            $options.append("<input type='radio' class='adminSelector'  name='admin' value=" + obj[i].userid + ">" + obj[i].name + "</br>"); //inserting into first dropdown
         }
-
+    });
+$.ajax({//populate causes
+        type:"GET",
+        url:"createorg/getCauses", 
+        data:{
+            table : "causes"
+        }
+    }).done(function(html){
+        var obj = jQuery.parseJSON(html);
+        $options = $("#project-creation-causes-dropdown").find('ul.dropdown-menu'); 
+        for(var i= 0; i < obj.length; i++){
+            $options.append("<input type='radio' class='skillSelector'  name='cause[]' value=" +obj[i].causeid + ">"+obj[i].description+"</br>"); //inserting into second dropdown
+        }
+    });
+    $.ajax({//populate skills
+        type:"GET",
+        url:"projectcreation/getSkills",
+        data:{
+            table : "skills"
+        }
+    }).done(function(html){
+        var obj = jQuery.parseJSON(html);
+        $options = $("#project-creation-skills-dropdown").find('ul.dropdown-menu');
+        for(var i= 0; i < obj.length; i++){
+            $options.append("<input type='checkbox' class='skillSelector'  name='skill[]' value=" + obj[i].skillid + ">" + obj[i].description + "</br>"); //inserting into second dropdown
+        }
         preventDropdownToggle();
     });
 
+    $.ajax({//populate projectGoodFor
+        type:"GET",
+        url:"projectcreation/getProjectGoodFors",
+        data:{
+            table : "projectgoodfor"
+        }
+    }).done(function(html){
+        var obj = jQuery.parseJSON(html);
+        $options = $("#project-creation-pgf-dropdown").find('ul.dropdown-menu');
+        for(var i= 0; i < obj.length; i++){
+            $options.append("<input type='checkbox' class='goodForSelector'  name='pgf[]' value=" + obj[i].pgf_id + ">" + obj[i].description + "</br>"); //inserting into third dropdown
+        }
+        preventDropdownToggle();
+    });
 }

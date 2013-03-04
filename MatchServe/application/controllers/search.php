@@ -39,10 +39,9 @@ class Search_Controller extends Base_Controller{
 		  }
 
 		//assumes number for zipcode
-		 if( isset($_GET['zipcode']) && ("zip code" != $_GET['zipcode']) ) {
-		  	$zipcode = $_GET['zipcode'];
-		 }
-		  // dd( isset($_GET['skill']) );
+		 // if( isset($_GET['zipcode']) && ("zip code" != $_GET['zipcode']) ) {
+		 //  	$zipcode = $_GET['zipcode'];
+		 // }
 			 if( isset($_GET['distance']) ){
 			 	$distance = $_GET['distance'];
 			 	$arguments['Location'] = $distance;
@@ -63,7 +62,7 @@ class Search_Controller extends Base_Controller{
 		 //DATABASE CALL that goes to models/Database.php
 		 $data = Database::getProjects($searchterm, $zipcode, $arguments);
 		 $data = json_encode($data);
-		  return $data;	
+		 return $data;	
 	}
 
 }

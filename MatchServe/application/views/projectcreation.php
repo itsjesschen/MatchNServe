@@ -8,26 +8,24 @@
 	<?php echo Asset::scripts();?>
 	<?php echo Asset::container('projectcreation')->scripts();?>
 	<?php echo Asset::container('datepicker')->scripts();?>
+	<?php echo Asset::container('timepicker')->scripts();?>
 	<?php echo Asset::styles();?> 
-
+	<title></title>
 
 	<style type="text/css">
+	.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+	.ui-timepicker-div dl { text-align: left; }
+	.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+	.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+	.ui-timepicker-div td { font-size: 90%; }
+	.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
 
-	a.dp-choose-date {
-		float: left;
-		width: 16px;
-		height: 16px;
-		padding: 0;
-		margin: 5px 3px 0;
-		display: block;
-		text-indent: -2000px;
-		overflow: hidden;
-		background: url(calendar.png) no-repeat; 
-	}
+	.ui-timepicker-rtl{ direction: rtl; }
+	.ui-timepicker-rtl dl { text-align: right; }
+	.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
 
-	a.dp-choose-date.dp-disabled {
-		background-position: 0 -20px;
-		cursor: default;
+	.inputBox {
+    width: 300px;
 	}
 
 	#basicInfoGetter{
@@ -41,21 +39,71 @@
 </head>
 
 <body>
-	<form action="projectcreation/test" method="get" id="basicInfoGetter">
-		<div id="projectcreation-specifiers-container">
-			<input id="projectName" type="text" width="100" name="projectName" value="Give your project a name" defaultValue = "Give your project a name" onclick="searchFieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"/>
+	<form id="projectCreationForm" action=<?php echo URL::to('projectcreation/checkSubmit'); ?> method="get">
+
+        <div id="projectcreation-specifiers-container">
+
+	 		<input id="projectName" type="text" name="projectName" value="Give your project a name" defaultValue = "Give your project a name" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+            </br></br>
+	 		<input id="projectHeadline" type="text" name="projectHeadline" value="What's the jist?" defaultValue = "What's the jist?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+            </br></br>
+	 		<input id="projectDescription" type="text" name="projectDescription" value="Full project description" defaultValue = "Full project description" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+            </br></br>
+
+			<p> LOCATION: 	
+				<input id="projectLocationONLINE" type="radio" name="projectLocation" value="1"> ONLINE
+				<input id="projectLocationONSITE" type="radio" name="projectLocation" value="2"> ONSITE
+			</p>
+
+	 		<input id="projectLocationOtherAddress" type="text" name="projectLocationOther" value="If other, please give address." defaultValue = "If other, please give address." onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+	 		</br></br>
+	 		<input id="projectVolunteerNumber" type="text" name="projectVolunteerNumber" value="How many volunteers are needed?" defaultValue = "How many volunteers are needed?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+            </br></br>
+
+			<div id="project-creation-admin-dropdown">
+			<li class="dropdown">
+                <a class="projectAdminSelector dropdown-toggle" data-toggle="dropdown" href="#">Primary Contact 
+                    <span class="caret"></span>
+                </a>
+                <ul class = "dropdown-menu">
+                </ul>
+            </li>
 			</br></br>
-			<input id="projectHeadline" type="text" width="100" name="projectHeadline" value="What's the jist?" defaultValue = "What's the jist?" onclick="searchFieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"/>
+			</div>
+
+			<input id="projectStartTime" type="text" name="projectStartTime" value="Start Time" defaultValue = "Start Time" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+			<input id="projectEndTime" type="text" name="projectEndTime" value="End Time" defaultValue = "End Time" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 			</br></br>
-			<input id="projectDescription" type="text" width="100" name="projectDescription" value="Full project description" defaultValue = "Full project description" onclick="searchFieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"/>
+
+            <div id="project-creation-skills-dropdown">
+			<li class="dropdown">
+                <a class="projectSkillSelector dropdown-toggle" data-toggle="dropdown" href="#">Skills Required 
+                    <span class="caret"></span>
+                </a>
+                <ul class = "dropdown-menu">
+                </ul>
+            </li>
 			</br></br>
-			<input id="projectDate" type="text" width="100" name="projectDate" value="Choose project date" defaultValue = "Choose project date" onclick="searchFieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"/>
+			</div>
+
+            <div id="project-creation-pgf-dropdown">
+			<li class="dropdown">
+                <a class="projectGoodForList dropdown-toggle" data-toggle="dropdown" href="#">Who is this good for? 
+                    <span class="caret"></span>
+                </a>
+                <ul class = "dropdown-menu">
+                </ul>
+            </li>
 			</br></br>
-			<select class="projectAdminSelector">
-				<option disabled> Select an admin </option>
-			</select>
+			</div>
+
+	 		<input id="projectRequirements" type="text" name="projectRequirements" value="Any requirements?" defaultValue = "Any requirements?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+	 		</br></br>
+
 		</div>
-		<p><p><input type="submit" /></p></p>
+            <input type="submit" name="SaveButton" class="btn" value="Save Draft"/>   
+            <input type="submit" name="FinishButton" class="btn" value="Finish"/>
+        	</br>
 	</form>
 </body>
 </html>

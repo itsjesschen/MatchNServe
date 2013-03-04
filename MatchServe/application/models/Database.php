@@ -2,15 +2,85 @@
 
 class Database {
 	/**********************************ADDERS**************************************/
-	public static function addAdmin($OrgID, $UserID){
+	public static function addAdmin($org, $user){
+		$user = '\''.$user.'\'';
+		$org = '\''.$org.'\'';
+		$userid = null;
+		$orgid = null;
+		$query = DB::query('SELECT UserID as userid FROM users WHERE Name = '.$user);
+		foreach($query as $obj) {
+			$userid = $obj->userid;
+		}
+		$query = DB::query('SELECT OrganizationID as orgid FROM organizations WHERE Name = '.$org);
+		foreach($query as $obj) {
+			$orgid = $obj->orgid;
+		}
+		if ($userid != null && $orgid!=null) {
+			$userid = '\''.$userid.'\'';
+			$orgid = '\''.$orgid.'\'';
+			DB::query('INSERT INTO admins VALUES ('.$orgid.', '.$userid.')');
+		}
+		else {
+			echo "Username not found";
+		}
+		//echo "UserID: ".$userid ." OrgID: ".$orgid; 
 	}
 	public static function addCauses($CauseID, $Description){
 	}
 	public static function addOrganization($OrgID, $Name){
 	}
+	public static function addOrg($name, $address, $zipcode, $phone, $website, $mission, $causes)
+	{
+		$userName = Cookie::get('name');
+		if ($name != null && $address!=null && $zipcode != null && $phone != null && $mission != null && $causes != null) {
+			$name = '\''.$name.'\'';
+			$address = '\''.$address.'\'';
+			$zipcode = '\''.$zipcode.'\'';
+			$phone = '\''.$phone.'\'';
+			$mission = '\''.$mission.'\'';
+			//$causes = '\''.$causes.'\'';
+			//echo "Causes is".$causes." ";
+		    //DB::query('INSERT INTO organizations VALUES ('', '.$name.', '1', '.$address.', '.$zipcode', '.$phone.', '.$website.', '.$mission.')');
+		   $orgId = DB::table('organizations')->insert_get_id(array('name' => $name, 'causeId' => $causes[0], 'address' => $address, 'zipcode' => $zipcode, 'website' => $website, 'mission' => $mission  ));
+		   $userId = DB::table('users')->where('Name', '=', $userName)->only('UserID');
+		   //echo "OrgID and UserIDs are " .$orgId. " " .$userId;
+		   DB::table('admins')->insert(array('OrganizationID' => $orgId, 'UserID' => $userId)); 
+	}
+	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
-	public static function addProjects(){
+	public static function addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status){
+		//insert new project
+		$newProjectID = DB::table('projects')->insert_get_id(array(
+				'Name' => $name,
+				'Details' => $details,
+				'Location' => $location,
+				'StartTime' => $startTime,
+				'EndTime' => $endTime,
+				'Spots' => $spots,
+				'Admin' => $admin,
+				'Status' => $status,
+				'Requirements' => $requirements,
+				'Headline' => $headline
+			));
+		//insert skills associated with that project
+		foreach($skills as $newSkill)
+		{
+			DB::table('projectskill')->insert(array(
+					'ProjectID' => $newProjectID,
+					'SkillID' => $newSkill
+			    ));
+		}
+		//insert pgfs
+		foreach($pgfs as $newPGF)
+		{
+			DB::table('pgfjoin')->insert(array(
+					'ProjectID' => $newProjectID,
+					'PGF_ID' => $newPGF
+			    ));
+		}
+
+		return $newProjectID;
 	}
 	public static function addProjectTime(){
 	}
@@ -40,6 +110,10 @@ class Database {
 	public static function getOrganization($OrgID, $Name){
 	}
 	public static function getOrgProject($OrgID, $ProjectID){
+	}
+	public static function getPGF(){
+		$query =  DB::table('projectgoodfor')->get();
+		return $query;
 	}
 	public static function getProjects($searchterm, $zipcode, $arguments){
 		// Build the inital query for name matching
@@ -71,42 +145,6 @@ class Database {
 			projecttime.TS_ID=timeslot.TS_ID and projects.ProjectID=pgfjoin.ProjectID and pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE 
 			'.$temp.' or projects.Details LIKE '.$temp.') GROUP BY projects.ProjectID');
 		}
-		/*$query = DB::table('projects');
-		$query = $query->join('projectcause', 'projects.ProjectID', '=', 'projectcause.ProjectID');
-		$query = $query->join('causes', 'projectcause.CauseID', '=', 'causes.CauseID');
-		$query = $query->join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID');
-		$query = $query->join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID');
-		$query = $query->join('projectskill', 'projects.ProjectID', '=', 'projectskill.ProjectID');
-		$query = $query->join('skills', 'projectskill.SkillID', '=', 'skills.SkillID');
-		$query = $query->join('projecttime', 'projects.ProjectID', '=', 'projecttime.ProjectID');
-		$query = $query->join('timeslot', 'projecttime.TS_ID', '=', 'timeslot.TS_ID');
-		$query = $query->join('pgfjoin', 'projects.ProjectID', '=', 'pgfjoin.ProjectID');
-		$query = $query->join('projectgoodfor', 'pgfjoin.PGF_ID', '=', 'projectgoodfor.PGF_ID');
-		if ($zipcode!=null){
-			$query = $query->where('projects.Location', '=', $zipcode);
- 		}
- 		if($arguments){
- 			 if( isset($arguments['Location']) ){
-			 }
-			 if( isset($arguments['Skills']) ){
-			 }
-			 if( isset($arguments['Cause']) ){
-			 	// dd($arguments['Cause']);
-			 }
-			 if( isset($arguments['Time'] ) ){
-			 	// dd($arguments['Time']);
-			 }
- 			// dd($arguments);
- 		}
- 		if ($searchterm!=null){
-			$query = $query->where('projects.Name', 'LIKE','%'.$searchterm.'%')
-			->or_where('projects.Details','LIKE','%'.$searchterm.'%');
- 		}
-		//$query = $query->where('projects.Status', '=', 'Open');
-		//$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline'));
-		//$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline', 'causes.Description as Cause', 'organizations.Name as Organization', 'skills.Description as Skills'));
-		$query = $query->get(array('projects.Name as Name', 'projects.Details as Details', 'projects.Location as Location', 'projects.Date as Date', 'projects.Spots as Spots', 'projects.Requirements as Requirements', 'projects.Headline as Headline', 'causes.Description as Cause', 'organizations.Name as Organization', 'skills.Description as Skills', 'timeslot.Time as Time', 'timeslot.Day as Day', 'projectgoodfor.Description as ProjectGoodFor'));
-		//$query = $query->get();*/
 		
 		return $query;
 	}
@@ -126,9 +164,28 @@ class Database {
 				      ->where('Time', '>', 17);
 				break;
 		}
-		
 		return $query;
 	}
+	
+	public static function getSettings($username, $account) {
+		$name = '\''.$username.'\'';
+		if ($account == 'personal' || $account == null) {
+			$query = DB::query('SELECT * FROM users WHERE Name = '.$name);
+			//print_r($query);
+		}
+		else {
+		$temp = '\'\'';
+		//$name = '\''.$username.'\'';
+		$organization = '\''.$account.'\'';
+		$query = DB::query('SELECT users.Name as Name, users.Email as Email, users.Password as Password FROM users WHERE users.Name = '.$name.'
+		UNION
+		SELECT users.Name as adminName, '.$temp.', '.$temp.' FROM users, organizations, admins
+		WHERE organizations.Name = '.$organization.' and users.UserID = admins.UserID and admins.OrganizationID = organizations.OrganizationID');
+		}
+		//print_r($query);
+		return $query;
+	}
+	
 	public static function getSkills(){
 		$query =  DB::table('skills')->get();
 		// ->only('Description');
@@ -139,5 +196,29 @@ class Database {
 	public static function getUserProject(){
 	}
 	public static function getUser(){
+	}
+	
+	public static function removeAdmin($account, $admin) {
+		$account = '\''.$account.'\'';
+		$admin = '\''.$admin.'\'';
+		echo "GETS HERE Account: ".$account." Admin: ".$admin;
+		DB::query('DELETE FROM admins WHERE UserID IN (SELECT UserID FROM users WHERE users.Name = '.$admin.') AND OrganizationID IN (SELECT 
+		OrganizationID FROM organizations WHERE organizations.Name = '.$account.')');
+	}
+	
+	public static function setSettings($name, $newname, $newpassword, $newemail) {
+		$name = '\''.$name.'\'';
+		if ($newpassword != null) {
+			$newpassword = '\''.$newpassword.'\'';
+			DB::query('UPDATE users SET Password='.$newpassword.' WHERE Name='.$name);
+		}
+		if ($newemail != null) {
+			$newemail = '\''.$newemail.'\'';
+			DB::query('UPDATE users SET Email='.$newemail.'	WHERE Name='.$name);
+		}
+		if ($newname != null) {
+			$newname = '\''.$newname.'\'';
+			DB::query('UPDATE users SET Name='.$newname.' WHERE Name='.$name);
+		}
 	}
 }

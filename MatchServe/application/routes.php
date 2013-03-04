@@ -46,7 +46,9 @@ Route::controller('accountselection');
 Route::controller('logout');
 Route::controller('dashboardorg');
 Route::controller('projectcreation');
-Route::controller('upcomingprojectsorg');
+Route::controller('settings');
+Route::controller('createorg');
+Route::controller('user');
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers
@@ -126,17 +128,18 @@ Route::filter('auth', function()
  */
 
 //.css
+ // Asset::add('reset', 'css/reset.css');
  Asset::container('bootstrap')->add('bootstrapResponsiveCSS', 'bootstrap/css/bootstrap-responsive.css');
  Asset::container('bootstrap')->add('bootstrapCSS', 'bootstrap/css/bootstrap.css');
  Asset::add('styles','css/styles.css');
- Asset::add('reset', 'css/reset.css');
  Asset::add('jqueryUI', 'css/jquery-ui.css');
 
 //.js
  Asset::add('jquery.min', 'js/jquery.min.js');
+ Asset::add('jquery-ui-1.10.1.min', 'js/jquery-ui-1.10.1.custom.min.js');
  Asset::container('search')->add('search', 'js/search.js');
  Asset::container('search')->add('searchajax','js/jquery.form.js','jquery.min');
  Asset::container('projectcreation')->add('projectcreation', 'js/projectcreation.js');
- Asset::container('datepicker')->add('jquery-ui-1', 'js/jquery-ui-1.10.1.custom.min.js');
  Asset::container('datepicker')->add('datepicker', 'js/jquery.ui.datepicker.min.js');
+ Asset::container('timepicker')->add('timepicker', 'js/timepicker.js');
  Asset::add('bootstrap', 'bootstrap/js/bootstrap.js', 'jquery.min');

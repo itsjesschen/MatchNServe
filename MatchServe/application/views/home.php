@@ -24,7 +24,7 @@
   </div>
 
   <div class="dashboard">
-   <div class="inputZip"><img src="img/TypeZip.png"/></div>
+   <div class="inputZip"> <?php echo HTML::image("img/TypeZip.png") ?> </div>
    <form class="navbar-form" action="<?php echo URL::to('search') ?>" method="get">
      <input type="text" value="  zip code" class="zipCodeField" onclick="value= ''" name="search-term">
      <input type="submit" value="Submit" class="btn">
@@ -39,13 +39,13 @@
     <!-- Carousel items -->
     <div class="carousel-inner">
       <div class="active item">
-        <img src="img/SaveLives.png"/>
+        <?php echo HTML::image("img/SaveLives.png") ?>
       </div>
       <div class="item">
-        <img src="img/ChangeCommunity.png"/>
+        <?php echo HTML::image("img/ChangeCommunity.png") ?>
       </div>
       <div class="item">
-        <img src="img/ChangeWorld.png"/>
+        <?php echo HTML::image("img/ChangeWorld.png") ?>
       </div>
     </div>
     <!-- Carousel nav -->
