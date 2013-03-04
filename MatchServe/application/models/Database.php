@@ -29,6 +29,24 @@ class Database {
 	}
 	public static function addOrganization($OrgID, $Name){
 	}
+	public static function addOrg($name, $address, $zipcode, $phone, $website, $mission, $causes)
+	{
+		$userName = Cookie::get('name');
+		if ($name != null && $address!=null && $zipcode != null && $phone != null && $mission != null && $causes != null) {
+			$name = '\''.$name.'\'';
+			$address = '\''.$address.'\'';
+			$zipcode = '\''.$zipcode.'\'';
+			$phone = '\''.$phone.'\'';
+			$mission = '\''.$mission.'\'';
+			//$causes = '\''.$causes.'\'';
+			//echo "Causes is".$causes." ";
+		    //DB::query('INSERT INTO organizations VALUES ('', '.$name.', '1', '.$address.', '.$zipcode', '.$phone.', '.$website.', '.$mission.')');
+		   $orgId = DB::table('organizations')->insert_get_id(array('name' => $name, 'causeId' => $causes[0], 'address' => $address, 'zipcode' => $zipcode, 'website' => $website, 'mission' => $mission  ));
+		   $userId = DB::table('users')->where('Name', '=', $userName)->only('UserID');
+		   //echo "OrgID and UserIDs are " .$orgId. " " .$userId;
+		   DB::table('admins')->insert(array('OrganizationID' => $orgId, 'UserID' => $userId)); 
+	}
+	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
 	public static function addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status){

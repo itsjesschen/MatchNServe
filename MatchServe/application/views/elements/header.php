@@ -30,8 +30,9 @@
                           <li> <a href = '#'> My Profile </a> </li>
                           <li> <a href = '#'> Karma Points </a> </li>
                           <li> <a href = '#'>History </a> </li>
-                          <li> <a href = '#'>Settings </a> </li>
-                          <li> <a href = '#'>Accounts </a> </li>
+                          <li> <a href = ".URL::to('settings').">Settings </a> </li>
+                          <li> <a href = " . URL::to('accountselection'). ">Accounts </a> </li>
+                          <li> <a href = ". URL::to('createorg').">Add An Org</a> </li>
                           <li> <a href = " . URL::to('logout/logout'). ">Logout </a> </li>
                           </ul>
                           </div>

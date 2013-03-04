@@ -198,10 +198,13 @@ table {
 							}
 							$i++;
 						}
+						if ($i > 1)
+						{
+							echo "<tr class='table'><td><a class='link' href='javascript:void(0)' onclick='addadmin()'>Add Administrator</a></td><td></td><td></td></tr>";
+							echo "<tr id='add' style='visibility:collapse'><td>Enter the username of the administrator to add:</td><td><input type='text' id='admintoadd'></td><td><div align='right'><a class='link' href='javascript:add()'>Add</a></div></td></tr>";
+						}
 					}
 					?>
-					<tr class='table'><td><a class='link' href='javascript:void(0)' onclick="addadmin()">Add Administrator</a></td><td></td><td></td></tr>
-					<tr id='add' style='visibility:collapse'><td>Enter the username of the administrator to add:</td><td><input type='text' id='admintoadd'></td><td><div align='right'><a class='link' href='javascript:add()'>Add</a></div></td></tr>
 					<tr class='table' id='empty' style='visibility:hidden'><td><input type='hidden' name='admin' id='admin' value=''/></td><td></td><td></td></tr>
 					<tr><td><input type='hidden' name='remove' id='remove' value='false'/></td></tr>
 				</table>	
