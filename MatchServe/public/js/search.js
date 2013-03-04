@@ -285,8 +285,8 @@ function initSearchResultListener(){
                                         </div> \
                                         <div class='rightHandSideStuff'> \
                                             <p class='projectDistance'><i class='icon-road'></i>" +curResult.location+ "</p> \
-                                            <p class='projectTime'><i class='icon-time'></i>"+curResult.time+"</p> \
-                                            <p class='projectDate'><i class='icon-calendar'></i>"+curResult.date+"</p> \
+                                            <p class='projectTime'><i class='icon-time'></i>"+curResult.starttime+"</p> \
+                                            <p class='projectDate'><i class='icon-calendar'></i>"+curResult.endtime+"</p> \
                                             <button class='btn btn-success' type='button' class='signUpButton'>Sign Up</button> \
                                         </div> \
                                     </a> \
