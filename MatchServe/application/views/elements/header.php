@@ -31,7 +31,7 @@
                           <li> <a href = '#'> Karma Points </a> </li>
                           <li> <a href = '#'>History </a> </li>
                           <li> <a href = ".URL::to('settings').">Settings </a> </li>
-                          <li> <a href = " . URL::to('accountselection/accountselection'). ">Accounts </a> </li>
+                          <li> <a href = " . URL::to('user/accountselectioncontroller'). ">Accounts </a> </li>
                           <li> <a href = ". URL::to('createorg').">Add An Org</a> </li>
                           <li> <a href = " . URL::to('user/logout'). ">Logout </a> </li>
                           </ul>
