@@ -39,7 +39,7 @@
 
 	#projectlist li{
 		clear:both;
-		margin:0;
+		margin:5px;
 		padding:0;
 		list-style: none;
 	}
@@ -170,11 +170,11 @@
 			<div class="tab-pane active" id="project1">
 				<div class="tabbable tabs-left" id="rightsideinfo">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#schedule" data-toggle="tab"><img src="img/CalendarGray.png"></br>Schedule</a></li>
-						<li><a href="#messages" data-toggle="tab"><img src="img/MessageGray.png"></br>Messages</a></li>
-						<li><a href="#deleteproject" data-toggle="tab"><img src="img/DeleteGray.png"></br>Delete Project</a></li>
-						<li><a href="#pendingvolunteers" data-toggle="tab"><img src="img/PendingGray.png"></br>Pending</a></li>
-						<li><a href="#checkinvolunteers" data-toggle="tab"><img src="img/CheckInGray.png"></br>Check-In</a></li>
+						<li class="active"><a href="#schedule" data-toggle="tab"><?php echo HTML::image("img/CalendarGray.png") ?></br>Schedule</a></li>
+						<li><a href="#messages" data-toggle="tab"><?php echo HTML::image("img/MessageGray.png") ?></br>Messages</a></li>
+						<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>
+						<li><a href="#pendingvolunteers" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>Pending</a></li>
+						<li><a href="#checkinvolunteers" data-toggle="tab"><?php echo HTML::image("img/CheckInGray.png") ?></br>Check-In</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="schedule">Schedule1</div>
@@ -189,11 +189,11 @@
 			<div class="tab-pane" id="project2">
 				<div class="tabbable tabs-left" id="rightsideinfo">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#schedule2" data-toggle="tab"><img src="img/CalendarGray.png"></br>Schedule</a></li>
-						<li><a href="#messages2" data-toggle="tab"><img src="img/MessageGray.png"></br>Messages</a></li>
-						<li><a href="#deleteproject2" data-toggle="tab"><img src="img/DeleteGray.png"></br>Delete Project</a></li>
-						<li><a href="#pendingvolunteers2" data-toggle="tab"><img src="img/PendingGray.png"></br>Pending</a></li>
-						<li><a href="#checkinvolunteers2" data-toggle="tab"><img src="img/CheckInGray.png"></br>Check-In</a></li>
+					<li class="active"><a href="#schedule2" data-toggle="tab"><?php echo HTML::image("img/CalendarGray.png") ?></br>Schedule</a></li>
+						<li><a href="#messages2" data-toggle="tab"><?php echo HTML::image("img/MessageGray.png") ?></br>Messages</a></li>
+						<li><a href="#deleteproject2" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>
+						<li><a href="#pendingvolunteers2" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>Pending</a></li>
+						<li><a href="#checkinvolunteers2" data-toggle="tab"><?php echo HTML::image("img/CheckInGray.png") ?></br>Check-In</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="schedule2">Schedule2</div>

@@ -33,10 +33,10 @@
 
   <div class="dashboard">
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#upcoming" data-toggle="tab"><div class="upcomingprevious"><img src="img/NextGray.png"></br>Upcoming</div></a></li>
-      <li><a href="#previous" data-toggle="tab"><div class="upcomingprevious"><img src="img/PreviousGray.png"></br>Previous</div></a></li>
-      <li><a href="#new" data-toggle="tab"><div class="newdraft"><img src="img/NewGray.png"></br>New</div></a></li>
-      <li><a href="#draft" data-toggle="tab"><div class="newdraft"><img src="img/DraftGray.png"></br>Draft</div></a></li>
+      <li class="active"><a href="#upcoming" data-toggle="tab"><div class="upcomingprevious"><?php echo HTML::image("img/NextGray.png") ?></br>Upcoming</div></a></li>
+      <li><a href="#previous" data-toggle="tab"><div class="upcomingprevious"><?php echo HTML::image("img/PreviousGray.png") ?></br>Previous</div></a></li>
+      <li><a href="#new" data-toggle="tab"><div class="newdraft"><?php echo HTML::image("img/NewGray.png") ?></br>New</div></a></li>
+      <li><a href="#draft" data-toggle="tab"><div class="newdraft"><?php echo HTML::image("img/DraftGray.png") ?></br>Draft</div></a></li>
     </ul>
   </div>
 
