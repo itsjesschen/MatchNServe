@@ -78,7 +78,7 @@
 			<div name="leftBox" class="infoBoxLeft">
 				<div class="stuffInside">
 				<div class = "prompt">Please fill out the form below to get started</div>
-				<form action="<?php echo URL::to('login/login')?>" method="POST">
+				<form action="<?php echo URL::to('user/processlogin')?>" method="POST">
 					<table>
 						<tr id="name">
 							<td>USERNAME
@@ -126,13 +126,15 @@
 			</div>
 
 			<div class="infoBoxMiddle">
-				<img src='img/orDivider.png'/></a>
+				<?php echo HTML::image('img/orDivider.png', 'Divder') ?>
+				</a>
 			</div>
 			
 			<div name = "rightBox" class="infoBoxRight">	
 				<div class="stuffInside">		
-				<a style="padding-left:20px" href="<?php echo URL::to('facebooklogin') ?>">
-					<img src='img/login-facebook.png'/></a>
+				<a style="padding-left:20px" href="<?php echo URL::to('user/facebooklogin') ?>">
+					<?php echo HTML::image('img/login-facebook.png', 'Facebook Link') ?>
+					</a>
 				</div>
 			</div>
 		</div>

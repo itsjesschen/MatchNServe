@@ -14,7 +14,7 @@
     <div class="navbar navbar-inverse">
         <div class="navbar-inner">
           <a href="<?php echo URL::to('home')?>" class="brand">
-            <img src="img/Title.png"/>
+            <?php echo HTML::image('img/Title.png', 'Title') ?>
           </a>
           <div class="navheader">
               <ul class="nav">
@@ -33,7 +33,7 @@
                           <li> <a href = ".URL::to('settings').">Settings </a> </li>
                           <li> <a href = " . URL::to('accountselection'). ">Accounts </a> </li>
                           <li> <a href = ". URL::to('createorg').">Add An Org</a> </li>
-                          <li> <a href = " . URL::to('logout/logout'). ">Logout </a> </li>
+                          <li> <a href = " . URL::to('user/logout'). ">Logout </a> </li>
                           </ul>
                           </div>
       
@@ -41,7 +41,7 @@
                 }
                 else
                 {
-                  echo "<li> <a href = " .URL::to('login'). "> Login/Register </a>";
+                  echo "<li> <a href = " .URL::to('user/login'). "> Login/Register </a>";
                 }
               ?>
             </li> 
