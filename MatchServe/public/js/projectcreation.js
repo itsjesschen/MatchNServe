@@ -80,7 +80,7 @@ function populateProjectOptions(){ //gets all the admins from db and lists them 
         var obj = jQuery.parseJSON(html);
         $options = $("#project-creation-skills-dropdown").find('ul.dropdown-menu');
         for(var i= 0; i < obj.length; i++){
-            $options.append("<input type='checkbox' class='skillSelector'  name='skill[]' value=" + obj[i].skillid + ">" + obj[i].description + "</br>"); //inserting into second dropdown
+            $options.append("<input type='checkbox' class='skillSelector'  name='skill[]' value=" + obj[i].skillid + " > " + obj[i].description + " </br> "); //inserting into second dropdown
         }
         preventDropdownToggle();
     });

@@ -32,6 +32,12 @@
     text-align: left;
     margin-left:310px;
   }
+  .dropdown-menu{
+    width:225px;
+  }
+  .dropdown ul input{
+    margin:7px;
+  }
 
   </style>
 

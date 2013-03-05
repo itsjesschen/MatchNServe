@@ -34,7 +34,6 @@
 	#projectDescription{
 		height:150px;
 	}
-
 	</style>
 </head>
 
