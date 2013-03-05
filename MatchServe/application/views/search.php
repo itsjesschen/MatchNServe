@@ -92,8 +92,10 @@
         display:inline-block;
     }
     .search-result-list{
-        width:570px;
+        width:610px;
+        height:460px;
         margin:10px;
+        overflow: auto;
     }
     #search-specifiers-container a, a:visited{
         color: rgb(181,0,0);

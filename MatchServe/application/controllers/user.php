@@ -47,7 +47,7 @@ function action_processlogin(){
 							echo "document.getElementById('myform').submit();";
 							echo "</script>";
 							echo "</html>"; */
-							return Redirect::to_action('accountselection/accountselection')->with('userName', $userName);
+							return Redirect::to_action('user/accountselectioncontroller')->with('userName', $userName);
 						}
 						else
 						{
@@ -111,7 +111,7 @@ function action_processlogin(){
 					or die("Problem writing to table: " . mysql_error());
 					Cookie::put('name', '$userName', 7200);
 					echo "Successfully created new user";
-					return Redirect::home();
+					return Redirect::to('dashboardvol');
 				}
 				else
 				{
@@ -188,6 +188,53 @@ if(!isset( $_REQUEST["code"] ) ) {
      echo("The state does not match. You may be a victim of CSRF.");
    }
 }
+function action_accountselection(){
+		return View::make('accountselection')->with('names', '$names')->with('userName', '$userName');
+	}
+	
+	function action_accountselectioncontroller(){
+		$dbLocalhost = mysql_connect("localhost", "root", "")
+		or die("Could not connect: " . mysql_error());
+		mysql_select_db("matchserve", $dbLocalhost)
+		or die("Could not find database: " . mysql_error());
+		$userName = Cookie::get('name');
+		if (isset($userName))
+		{
+			$results = mysql_query("SELECT organizations.Name FROM organizations, admins, users WHERE (users.Name='$userName' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)");
+			$count = 0;
+			$names = array();
+			$temp = "";
+			while($row = mysql_fetch_assoc($results)) 
+			{
+				$name = $row['Name'];
+				$temp = $temp . "<input type='hidden' name='names[]' value='$name' />";
+				$names[$count] = $row['Name'];
+				$count++;
+			}
+			if ($count > 0)
+			{				
+				return Redirect::to('user/accountselection')->with('userName', $userName)->with('names', $names);
+			}
+			else
+			{
+				Cookie::put('account', 'personal', 7200);
+				//change to dashboardvolunteer once page is created
+				return Redirect::home();
+			}
+		}
+	}
+	
+	public function action_accountselected(){
+		$account = $_GET['account'];
+		Cookie::put('account', $account, 7200);
+		if ($account == 'personal')
+		{
+			//change to dashboardvolunteer once page is created
+			return Redirect::to('dashboardvol');
+		} else {
+			return Redirect::to('dashboardorg');
+		}
+	}
 
 }
 

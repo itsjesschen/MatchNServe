@@ -33,11 +33,6 @@ class Database {
 	{
 		$userName = Cookie::get('name');
 		if ($name != null && $address!=null && $zipcode != null && $phone != null && $mission != null && $causes != null) {
-			$name = '\''.$name.'\'';
-			$address = '\''.$address.'\'';
-			$zipcode = '\''.$zipcode.'\'';
-			$phone = '\''.$phone.'\'';
-			$mission = '\''.$mission.'\'';
 			//$causes = '\''.$causes.'\'';
 			//echo "Causes is".$causes." ";
 		    //DB::query('INSERT INTO organizations VALUES ('', '.$name.', '1', '.$address.', '.$zipcode', '.$phone.', '.$website.', '.$mission.')');
@@ -95,7 +90,11 @@ class Database {
 	}
 
 	/**********************************GETTERS**************************************/
-	public static function getAdmin($OrgID){
+	public static function getAdmin($orgName){
+		$OrgID = DB::table('organizations')
+			->where('organizations.Name', '=', $orgName)
+			->only('OrganizationID');
+
 		$query = DB::table('admins')
 			->join('users', 'admins.UserID', '=', 'users.UserID')
 			->where('OrganizationID', '=', $OrgID)
@@ -122,28 +121,27 @@ class Database {
 		$temp = '\''.$temp.'\'';
 		if ($zipcode != null) 
 		{
-			$query = DB::query('SELECT projects.Name as Name, projects.Details as Details, projects.Location as Location, projects.Date as Date, 
+			$query = DB::query('SELECT projects.Name as Name, projects.Details as Details, projects.Location as Location,  
 			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
 			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
-			group_concat(DISTINCT timeslot.Time SEPARATOR '.$sep.') as Time, group_concat(DISTINCT timeslot.Day SEPARATOR '.$sep.') as Day, 
-			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, projectcause, causes, orgproject,
-			organizations, projectskill, skills, projecttime, timeslot, pgfjoin, projectgoodfor WHERE projects.ProjectID=projectcause.ProjectID and 
-			projectcause.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
-			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=projecttime.ProjectID and 
-			projecttime.TS_ID=timeslot.TS_ID and projects.ProjectID=pgfjoin.ProjectID and pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE 
-			'.$temp.' or projects.Details LIKE '.$temp.') and projects.Location = '.$zipcode.' GROUP BY projects.ProjectID');
+			projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, causes, orgproject,
+			organizations, projectskill, skills, pgfjoin, projectgoodfor WHERE  
+			organizations.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
+			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=pgfjoin.ProjectID and 
+			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE '.$temp.' or projects.Details LIKE '.$temp.') and 
+			projects.Location = '.$zipcode.' GROUP BY projects.ProjectID');
 		} else
 		{
-			$query = DB::query('SELECT projects.Name as Name, projects.Details as Details, projects.Location as Location, projects.Date as Date, 
+			$query = DB::query('SELECT projects.Name as Name, projects.Details as Details, projects.Location as Location,  
 			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
 			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
-			group_concat(DISTINCT timeslot.Time SEPARATOR '.$sep.') as Time, group_concat(DISTINCT timeslot.Day SEPARATOR '.$sep.') as Day, 
-			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, projectcause, causes, orgproject,
-			organizations, projectskill, skills, projecttime, timeslot, pgfjoin, projectgoodfor WHERE projects.ProjectID=projectcause.ProjectID and 
-			projectcause.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
-			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=projecttime.ProjectID and 
-			projecttime.TS_ID=timeslot.TS_ID and projects.ProjectID=pgfjoin.ProjectID and pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE 
-			'.$temp.' or projects.Details LIKE '.$temp.') GROUP BY projects.ProjectID');
+			projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, causes, orgproject,
+			organizations, projectskill, skills, pgfjoin, projectgoodfor WHERE  
+			organizations.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
+			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=pgfjoin.ProjectID and 
+			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE '.$temp.' or projects.Details LIKE '.$temp.') GROUP BY projects.ProjectID');
 		}
 		
 		return $query;

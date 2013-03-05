@@ -12,7 +12,7 @@
 		<!--FORM SCRIPT-->
 		<script language="javascript">
 			function returningUser(){
-				document.getElementById('newUser').style.visibility = "hidden";
+				document.getElementById('newUser').style.visibility = "collapse";
 				document.getElementById('password').style.visibility = "visible";
 				document.getElementById('passwordInput').style.visibility = "visible";
 				document.getElementById('submit').value = "LOGIN";
@@ -24,15 +24,15 @@
 				document.getElementById('password').style.visibility = "visible";
 				document.getElementById('passwordInput').style.visibility = "visible";
 				document.getElementById('submit').value = "REGISTER";
-				document.getElementById('forgotPassword').style.visibility = "hidden";
+				document.getElementById('forgotPassword').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
 			}
 			function forgotPassword(){
-				document.getElementById('newUser').style.visibility = "hidden";
-				document.getElementById('password').style.visibility = "hidden";
-				document.getElementById('passwordInput').style.visibility = "hidden";
+				document.getElementById('newUser').style.visibility = "collapse";
+				document.getElementById('password').style.visibility = "collapse";
+				document.getElementById('passwordInput').style.visibility = "collapse";
 				document.getElementById('submit').value = "SUBMIT";
-				document.getElementById('forgotPassword').style.visibility = "hidden";
+				document.getElementById('forgotPassword').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
 			}
 		</script>
@@ -41,7 +41,7 @@
 		color:gray;
 		}
 		#newUser {
-		visibility: hidden;
+		visibility: collapse;
 		}
 		#bottomLinks {
 		font-size:14px;

@@ -124,6 +124,9 @@ table {
   text-align: left;
   vertical-align: top;
 }
+#settingsForm {
+	margin:0px;
+}
      </style>
 	 
 	 <script language="javascript">		
