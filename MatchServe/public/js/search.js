@@ -181,11 +181,16 @@ function initSearch(){
 
             var searchlist = document.createElement("ul");
             searchlist.className = "search-result-list";
+            //initialize map
             $searchcol.append(searchlist);
-
+            var myOptions = {
+                zoom: 9,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
             for(var i= 0; i < obj.length; i++){
                 var curResult = obj[i];
-                listResults(searchlist, curResult, i); //lists results in results div
+                listResults(searchlist, curResult, i, map); //lists results in results div
             }
 
             // if ($searchcol.find("p.projectPosition").length === 0){ // 
@@ -198,16 +203,11 @@ function initSearch(){
     //will validate later
 }
 
-function listResults(resultList, result, resultidx){
+function listResults(resultList, result, resultidx, map){
     var resultLocation = result.location
 
     //inits map & geocoder object
     var geocoder = new google.maps.Geocoder();  
-    var myOptions = {
-        zoom: 9,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(document.getElementById("map"), myOptions);
 
     var curDistance = $('input[name="distance"]:checked').val();//gets current distance element
     var param = {//adds address of search result to parameters
@@ -216,26 +216,30 @@ function listResults(resultList, result, resultidx){
 
     //plots result on map if within distance
     geocoder.geocode(param, function(results, status) {
-       var resultLatLng = results[0].geometry.location;
-        if(!curDistance || curDistance === "all"){//if they do have distance defined
-            curDistance = Number.MAX_VALUE;
-        }
-        var curLocLatLng = new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
-        map.setCenter(curLocLatLng); 
-        var actualDistance = calculateDistance(curLocLatLng, resultLatLng);//calculates distance between the two
-        if (actualDistance < curDistance ){//if within distance
-            var marker = new google.maps.Marker({
-            position: resultLatLng,
-            animation: google.maps.Animation.DROP,
-            });    
-            marker.setMap(map); 
+        try{
+           var resultLatLng = results[0].geometry.location;
+            if(!curDistance || curDistance === "all"){//if they do have distance defined
+                curDistance = Number.MAX_VALUE;
+            }
+            var curLocLatLng = new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
+            map.setCenter(curLocLatLng); 
+            var actualDistance = calculateDistance(curLocLatLng, resultLatLng);//calculates distance between the two
+            if (actualDistance < curDistance ){//if within distance
+                var marker = new google.maps.Marker({
+                position: resultLatLng,
+                animation: google.maps.Animation.DROP,
+                });    
+                marker.setMap(map); 
 
-            //initialize event with right data
-            eventArray[0].searchList = resultList;//.initCustomEvent( "plotData",true,true, details);
-            eventArray[0].curResult = result;
-            eventArray[0].i = resultidx;
-            window.dispatchEvent(eventArray[0]);
-        }                  
+                //initialize event with right data
+                eventArray[0].searchList = resultList;//.initCustomEvent( "plotData",true,true, details);
+                eventArray[0].curResult = result;
+                eventArray[0].i = resultidx;
+                window.dispatchEvent(eventArray[0]);
+            }      
+        }catch(err){
+            // console.log('results');
+        }            
     });
 }
 function calculateDistance(loc1, loc2)
