@@ -89,7 +89,7 @@ body {
 	float: left;
 	min-width: 45%;
 	/*max-height: 89px;*/
-	margin-left: 5px;
+	margin: 0;
 	font-family: 'Lucida Grande';
 	color: white;
 }
@@ -116,28 +116,4 @@ body {
 	background: #3c3c3c;
 	color: white;
 	text-align: center;
-	cursor: pointer;
-}
-
-#quickSearch_form {
-    visibility: hidden;
-    display: inline-block;
-    font-size: 12px;
-}
-
-#quickSearch_checkboxes {
-    display: inline-block;
-}
-
-#quickSearch_selects {
-    display: inline-block;
-}
-
-#quickSearch_selects select {
-    font-size: xx-small;
-    height: 20px;
-}
-
-#quickSearch_checkboxes input {
-    margin-top: 0px !important;
 }
