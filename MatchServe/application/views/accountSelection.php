@@ -41,6 +41,15 @@
     width:0;
 }
 	</style>
+	<body>
+	<div class="header">
+    <?php echo render('elements.header'); ?>
+  </div>
+    <div class="dashboard">
+	</div>
+	  <div class="subDashboard">
+  </div>
+  <div class="workspace">
 	<table cellspacing='10px'>
 		<tr><td><div class="triangle-obtuse" style='-moz-border-radius:60px;border-radius:60px;width:300px;font-size:30px;color:white;background-color:rgb(119,119,119);padding:25px;font-style:italic;'>We found multiple accounts under your name. Which one would you like to use?</br>
 		<div style='font-size:15px;padding-top:10px;'>You can change these accounts later on. Just pick one for now.</div></div>
@@ -67,4 +76,10 @@
 			document.getElementById('myform').submit();
 		}
 	</script>
+	</div>
+	<div class="footer">
+  <?php echo render('elements.footer'); ?>
+</div>
+
+		</body>
 </html>

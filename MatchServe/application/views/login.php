@@ -4,12 +4,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Match & Serve | Login/Registration Page</title>
 
-		<!--SUPER IMPORTANT: MAKE SURE TO COPY AND PASTE THIS IN EVERY HEADER SO ALL THE INCLUDES CAN TAKE EFFECT IN THE PAGE-->
 		<?php echo Asset::container('bootstrap')->styles();?>
 		<?php echo Asset::scripts();?>
 
-		<!--for V2, make sure to implement these functions in classes... getElementById takes up a lot of memory-->
-		<!--FORM SCRIPT-->
 		<script language="javascript">
 			function returningUser(){
 				document.getElementById('newUser').style.visibility = "collapse";
@@ -18,6 +15,7 @@
 				document.getElementById('submit').value = "LOGIN";
 				document.getElementById('forgotPassword').style.visibility = "visible";
 				document.getElementById('bottomText').innerHTML = "Don't have an account yet? Create an account <a href='javascript:newUser()' class='link'>here</a>";
+				document.getElementById('fbbtn').src = "../img/login-facebook.png";
 			}
 			function newUser(){
 				document.getElementById('newUser').style.visibility = "visible";
@@ -26,6 +24,7 @@
 				document.getElementById('submit').value = "REGISTER";
 				document.getElementById('forgotPassword').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
+				document.getElementById('fbbtn').src = "../img/signup-facebook.png";
 			}
 			function forgotPassword(){
 				document.getElementById('newUser').style.visibility = "collapse";
@@ -34,6 +33,74 @@
 				document.getElementById('submit').value = "SUBMIT";
 				document.getElementById('forgotPassword').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
+				document.getElementById('fbbtn').src = "../img/login-facebook.png";
+			}
+			function validateName() {
+				//validate username
+				var name = document.getElementById('username').value;
+				
+				if (name==null || name=="")
+				{
+				  //alert("Username must be filled out.");
+				  document.getElementById('nameError').innerHTML = "Username must be filled out.";
+				  return false;
+				}
+				if (name.length <= 8 || name >= 15)
+				{
+					document.getElementById('nameError').innerHTML = "Username must be greater than 8 and less than 15 characters.";
+					//alert("Username must be greater than 8 and less than 15 characters.");
+					return false;
+				}
+				document.getElementById('nameError').innerHTML = "";	
+			}
+			function validatePassword() {
+				//validate password
+				var password = document.getElementById('password1').value;
+				if (password==null || password=="")
+				{
+				  //alert("Password must be filled out.");
+				  document.getElementById('pass1Error').innerHTML = "Password must be filled out.";
+				  return false;
+				}
+				if (password.length <= 8 || password.length >= 15)
+				{
+					//alert("Password must be greater than 8 and less than 15 characters.");
+					document.getElementById('pass1Error').innerHTML = "Password must be greater than 8 and less than 15 characters.";
+					return false;
+				}
+				document.getElementById('pass1Error').innerHTML = "";
+				validateConfirmPassword();
+			}
+			function validateConfirmPassword() {
+				//validate confirm password
+				var password = document.getElementById('password1').value;
+				var password2 = document.getElementById('password2').value;
+				if (password!=password2)
+				{
+				  document.getElementById('pass2Error').innerHTML = "Passwords must match.";
+				  //alert("Passwords must match.");
+				  return false;
+				}
+				document.getElementById('pass2Error').innerHTML = "";
+			}
+			function validateEmail() {
+				//validate email
+				var email = document.getElementById('email').value;
+				if (email==null || email=="")
+				{
+				  //alert("Email must be filled out.");
+				  document.getElementById('emailError').innerHTML = "Email must be filled out.";
+				  return false;
+				}
+				var atpos=email.indexOf("@");
+				var dotpos=email.lastIndexOf(".");
+				if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)
+				{
+				  document.getElementById('emailError').innerHTML = "Not a valid e-mail address";
+				  //alert("Not a valid e-mail address");
+				  return false;
+				}
+				document.getElementById('emailError').innerHTML = "";
 			}
 		</script>
 		<style>
@@ -60,6 +127,13 @@
 			cursor: pointer;
 			background-color:#1BC700;
 		}
+		#fbbtn {
+			width:250px;
+			height:40px;
+		}
+		.error {
+			color:red;
+		}
 		</style>
 	</head>
 
@@ -85,27 +159,29 @@
 							</td>
 						</tr>
 						<tr id="name">
-							<td><input type="text" class="formElementSpacing" name="userName">
-							</td>
+							<td><input type="text" class="formElementSpacing" name="userName" id='username' onblur="validateName()"></td>
+							<td><label class='error' id='nameError'></label></td>
 						</tr>
 						<tr id="password">
 							<td>PASSWORD: 
 							</td>
 						</tr>
 						<tr id="passwordInput">
-							<td><input type="password" class="formElementSpacing" name="password">
-							</td>
+							<td><input type="password" class="formElementSpacing" name="password" id='password1' onblur="validatePassword()"></td>
+							<td><label class='error' id='pass1Error'></label></td>
 						</tr>
 					</table>
 					<table  id="newUser" >
 						<tr><td>RE-TYPE PASSWORD:</td></tr>
 						<tr><td>
-							<input type="password" class="formElementSpacing" name="newPassword">
-						</td></tr>
+							<input type="password" class="formElementSpacing" name="newPassword" id='password2'onblur="validateConfirmPassword()"></td>
+							<td><label class='error' id='pass2Error'></label></td>
+						</tr>
 						<tr><td>EMAIL ADDRESS:</td></tr>
 						<tr><td>
-							<input type="text" class="formElementSpacing" name="newEmail">
-						</td></tr>
+							<input type="text" class="formElementSpacing" name="newEmail" id='email' onblur="validateEmail()"></td>
+							<td><label class='error' id='emailError'></label></td>
+						</tr>
 					</table>
 					
 					<table id="bottomLinks">	
@@ -133,7 +209,7 @@
 			<div name = "rightBox" class="infoBoxRight">	
 				<div class="stuffInside">		
 				<a style="padding-left:20px" href="<?php echo URL::to('user/facebooklogin') ?>">
-					<?php echo HTML::image('img/login-facebook.png', 'Facebook Link') ?>
+					<img id='fbbtn' src='../img/login-facebook.png'/>
 					</a>
 				</div>
 			</div>

@@ -28,6 +28,7 @@ class Settings_Controller extends Base_Controller{
 			$newname = null;
 			$newemail = null;
 			$newpassword = null;
+			$newpicture = null;
 			if (isset($_POST['username'])) {
 				$newname = $_POST['username'];
 				Cookie::forget('name');
@@ -47,15 +48,37 @@ class Settings_Controller extends Base_Controller{
 	public function action_removeadmin(){
 		$account = Cookie::get('account');
 		$admin = Session::get('admin');
-		Database::removeAdmin($account, $admin);
-		return Redirect::to_action('settings');
+		$numAdmin = Database::getNumAdmin($account);
+		if ($numAdmin > 1) {
+			Database::removeAdmin($account, $admin);
+			return Redirect::to_action('settings');
+		} else
+		{
+			echo ("<script>
+			alert('You cannot remove yourself as an administrator because you are the only administrator presently.  Please add another administrator first.');
+			  window.location.href = \"../settings\";
+			</script>");
+		}
 	}
 	
 	public function action_addadmin() {
 		$account = Cookie::get('account');
 		$admin = Session::get('admin');
-		Database::addAdmin($account, $admin);
-		return Redirect::to_action('settings');
+		$result = Database::addAdmin($account, $admin);
+		if (!$result) {
+			echo ("<script>
+			var email=prompt('We were not able to find user. Please enter the email of the administrator you would like to add and we will invite him/her to register.','Email');
+			if (email!=null && email!='')
+			  {
+			  //mail call to go here
+			  //<?php mail('?>email<?php', 'Match and Serve: Register', 'Your co-worker  would like to add you to the following organization: . Please register here: www.matchserve.com'); ?>
+			  window.location.href = \"../settings\";
+			  } else
+			  window.location.href = \"../settings\";
+			</script>");
+		} else {
+			return Redirect::to_action('settings');
+		}
 	}
 }
 

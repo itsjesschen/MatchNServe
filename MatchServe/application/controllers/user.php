@@ -12,7 +12,7 @@ function action_login(){
 
 function action_processlogin(){
 
- 	$dbLocalhost = mysql_connect("localhost", "root", "root")
+ 	$dbLocalhost = mysql_connect("localhost", "root", "")
  or die("Could not connect: " . mysql_error());
  mysql_select_db("matchserve", $dbLocalhost)
  or die("Could not find database: " . mysql_error());
@@ -29,6 +29,7 @@ function action_processlogin(){
 		{
 			if ($password != null && $password !="") 
 			{
+			//normal login
 				$result = mysql_query("SELECT Password FROM users WHERE Name='$userName'", $dbLocalhost);
 				$count = 0;
 					while($row = mysql_fetch_array($result))
@@ -37,31 +38,32 @@ function action_processlogin(){
 					  $encryptPassword = md5($password);
 						if ($encryptPassword == $row['Password'])
 						{
+							//successful login
 							Cookie::put('name', $userName, 7200);
-							/* echo "Successful Login";
-							echo "<html>";
-							echo "<form id='myform' action='<?php return Redirect::to('accountselection/accountselection'); ?>' method='post'>";
-							echo "<input type='hidden' name='userName' value='$userName' />";
-							echo "</form>";
-							echo "<script type='text/javascript'>";
-							echo "document.getElementById('myform').submit();";
-							echo "</script>";
-							echo "</html>"; */
 							return Redirect::to_action('user/accountselectioncontroller')->with('userName', $userName);
 						}
 						else
 						{
-							echo "Incorrect password!";
+						//incorrect password
 							$count = 2;
+							echo ("<script>
+							alert('Incorrect Password!');
+							  window.location.href = \"login\";
+							</script>");
 						}
 					  }
 					  if($count <= 0)
 					  {
-						echo "Your record does not exist.";
+					  //record does not exist
+						echo ("<script>
+							alert('Your record does not exist.');
+							  window.location.href = \"login\";
+							</script>");
 					  }
 			}
 			else 
 			{
+			//forgot password
 				$result = mysql_query("SELECT Email FROM users WHERE Name='$userName'", $dbLocalhost)
 					or die("Problem reading table: " . mysql_error());
 					$count = 0;
@@ -78,21 +80,33 @@ function action_processlogin(){
 
 					// Send
 					mail('$email', 'Match and Serve: Forgot Password', $message);
-					echo "Email sent";
+					echo ("<script>
+							alert('An email with your temporary password has been sent.');
+							  window.location.href = \"login\";
+							</script>");
 				}
 				 if($count <= 0)
 			     {
-					echo "Your record does not exist.";
+				 //no record found
+					echo ("<script>
+							alert('Your record does not exist.');
+							  window.location.href = \"login\";
+							</script>");
 				 }
 			}
 		}
 		else if(!preg_match($emailExp, $newEmail, $m))
 		{
-			echo "Invalid Email<br/>";
+			//email validation
+			echo ("<script>
+							alert('Invalid Email');
+							  window.location.href = \"login\";
+							</script>");
 		}
 
 		else if ($newPassword!=null && $newPassword !="")
 		{
+		//Register new user
 			$email = $_POST['newEmail'];
 			$temp1 = mysql_query("SELECT * FROM users WHERE Name='$userName'", $dbLocalhost);
 			$count = 0;
@@ -109,17 +123,25 @@ function action_processlogin(){
 					$sql="insert into users(Name, Email, Password) values('$userName','$email','$encryptPassword')";
 					$result = mysql_query($sql, $dbLocalhost)
 					or die("Problem writing to table: " . mysql_error());
-					Cookie::put('name', '$userName', 7200);
-					echo "Successfully created new user";
+					//new user registered successfully
+					Cookie::put('name', $userName, 7200);
 					return Redirect::to('dashboardvol');
 				}
 				else
 				{
-					echo "Passwords did not match.";
+				//Passwords did not match.
+					echo ("<script>
+							alert('Passwords did not match.');
+							  window.location.href = \"login\";
+							</script>");
 				}
 			} else
 			{
-			echo "Username already exists.";
+			//Username already exists.
+			echo ("<script>
+							alert('Username already exists.');
+							  window.location.href = \"login\";
+							</script>");
 			}
 		}
 	}
@@ -217,9 +239,12 @@ function action_accountselection(){
 			}
 			else
 			{
+				/* echo ("<script>
+							alert('You only have 1 account with us. If you believe you got this in error, please contact us at info@matchandserve.com or get in touch with the organization you're a part of.');
+							  window.location.href = \"home\";
+							</script>"); */
 				Cookie::put('account', 'personal', 7200);
-				//change to dashboardvolunteer once page is created
-				return Redirect::home();
+				return Redirect::to('dashboardvol');
 			}
 		}
 	}
