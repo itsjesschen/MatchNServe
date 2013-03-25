@@ -51,6 +51,7 @@ Route::controller('settings');
 Route::controller('createorg');
 Route::controller('user');
 Route::controller('dashboardvol');
+Route::controller('upcomingprojectsorg');
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers
