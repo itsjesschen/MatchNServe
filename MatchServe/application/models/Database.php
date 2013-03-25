@@ -3,25 +3,28 @@
 class Database {
 	/**********************************ADDERS**************************************/
 	public static function addAdmin($org, $user){
-		$user = '\''.$user.'\'';
-		$org = '\''.$org.'\'';
+		$user1 = '\''.$user.'\'';
+		$org1 = '\''.$org.'\'';
 		$userid = null;
 		$orgid = null;
-		$query = DB::query('SELECT UserID as userid FROM users WHERE Name = '.$user);
+		$query = DB::query('SELECT UserID as userid FROM users WHERE Name = '.$user1);
 		foreach($query as $obj) {
 			$userid = $obj->userid;
 		}
-		$query = DB::query('SELECT OrganizationID as orgid FROM organizations WHERE Name = '.$org);
+		$query = DB::query('SELECT OrganizationID as orgid FROM organizations WHERE Name = '.$org1);
 		foreach($query as $obj) {
 			$orgid = $obj->orgid;
 		}
 		if ($userid != null && $orgid!=null) {
+		//add admin
 			$userid = '\''.$userid.'\'';
 			$orgid = '\''.$orgid.'\'';
 			DB::query('INSERT INTO admins VALUES ('.$orgid.', '.$userid.')');
+			return true;
 		}
 		else {
-			echo "Username not found";
+			//Username not found
+			return false;
 		}
 		//echo "UserID: ".$userid ." OrgID: ".$orgid; 
 	}
@@ -101,6 +104,16 @@ class Database {
 			->get();
 		return $query;
 	}
+	public static function getNumAdmin($org){
+		$org1 = '\''.$org.'\'';
+		$num = null;
+		$query = DB::query('SELECT COUNT(admins.UserID) AS num FROM admins, organizations WHERE organizations.OrganizationID = admins.OrganizationID 
+		AND organizations.Name = '.$org1);
+		foreach($query as $obj) {
+			$num = $obj->num;
+		}
+		return $num;
+	}
 	public static function getCauses(){
 		$query =  DB::table('causes')->get();
 		// ->only('Description');
@@ -169,18 +182,15 @@ class Database {
 		$name = '\''.$username.'\'';
 		if ($account == 'personal' || $account == null) {
 			$query = DB::query('SELECT * FROM users WHERE Name = '.$name);
-			//print_r($query);
 		}
 		else {
 		$temp = '\'\'';
-		//$name = '\''.$username.'\'';
 		$organization = '\''.$account.'\'';
 		$query = DB::query('SELECT users.Name as Name, users.Email as Email, users.Password as Password FROM users WHERE users.Name = '.$name.'
 		UNION
 		SELECT users.Name as adminName, '.$temp.', '.$temp.' FROM users, organizations, admins
 		WHERE organizations.Name = '.$organization.' and users.UserID = admins.UserID and admins.OrganizationID = organizations.OrganizationID');
 		}
-		//print_r($query);
 		return $query;
 	}
 	
@@ -199,7 +209,6 @@ class Database {
 	public static function removeAdmin($account, $admin) {
 		$account = '\''.$account.'\'';
 		$admin = '\''.$admin.'\'';
-		echo "GETS HERE Account: ".$account." Admin: ".$admin;
 		DB::query('DELETE FROM admins WHERE UserID IN (SELECT UserID FROM users WHERE users.Name = '.$admin.') AND OrganizationID IN (SELECT 
 		OrganizationID FROM organizations WHERE organizations.Name = '.$account.')');
 	}

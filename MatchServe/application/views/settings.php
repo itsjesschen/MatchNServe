@@ -107,15 +107,18 @@
 		align:right;
 	}
 table {
-  max-width: 100%;
   background-color: transparent;
   border-collapse: collapse;
   border-spacing: 0;
+  width:90%;
+}
+#tablestyle {
+	width:90%;
 }
 
 .table1 {
-  width: 100%;
   margin-bottom: 20px;
+  width:90%;
 }
 
 .table1 td {
@@ -125,7 +128,8 @@ table {
   vertical-align: top;
 }
 #settingsForm {
-	margin:0px;
+	margin-left:0px;
+	padding-left:40px;
 }
      </style>
 	 
@@ -177,9 +181,9 @@ table {
 	  <div class="subDashboard">
   </div>
   <div class="workspace">
-    <form id="settingsForm" action= <?php echo URL::to('settings/savesettings'); ?> method="post"> 
-		<br><br><h1>Personal Account Settings</h1>
-			<table class="table">
+    <form id="settingsForm" action= <?php echo URL::to('settings/savesettings'); ?> method="post" enctype="multipart/form-data"> 
+		<h1>Personal Account Settings</h1>
+			<table class="table" id='tablestyle'>
 				<?php 
 					$data = Session::get('data');
 					$data = json_decode($data);

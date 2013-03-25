@@ -96,13 +96,15 @@ function deleteFilter(item){
             zip.value = zip.defaultValue;//clear search term field
             $(zip).removeClass("filtered");
         }else { //if it's a regular filter
+            //if it's a skill
             $(".filtered[value= '"+item.name+"']").attr("checked",false).removeClass("filtered");//if filter calls this, uncheck dropdown option
+            //if it's a cause
         }
     }
     else if ($(item).is('input')){
 
         if(item.name === "searchterm" || item.name === "zipcode"){
-           console.log($(".badge."+item.name+"").remove());//if there is a filter, delete. else dont care
+           $(".badge."+item.name+"").remove();//if there is a filter, delete. else dont care
            if(item.value === item.defaultValue){//if there's no new search term, delete filter class
                 $(item).removeClass("filtered");
            }
@@ -124,7 +126,7 @@ function addFilter(option){
         $("#filters-row ul.filterlist").append("<a class='badge "+option.name+"' onclick='deleteFilter(this)' name = '"+option.value +"'>" + option.value + " &times</a>");
     }
     else{// if it's a checkbox
-        $("#filters-row ul.filterlist").append("<a class='badge' onclick='deleteFilter(this)' name = '"+option.value +"'>" + option.value + " &times</a>");
+        $("#filters-row ul.filterlist").append("<a class='badge "+option.name.substr(0,5)+"' onclick='deleteFilter(this)' name = '"+option.value +"'>" + option.nextSibling.nodeValue + " &times</a>");
     }
     $(option).addClass("filtered");//on("click", deleteFilter(this));//prop("onclick", 'deleteFilter(this)');
 }
@@ -137,7 +139,6 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html); //converts reponse to a JS object
-        console.log(obj);
         $options = $("#search-specifiers-container").find('ul.dropdown-menu').slice(1,2); //chooses skills column
         for(var i= 0; i < obj.length; i++){ //goes through the response object 
              $options.append("<input type='checkbox' class='searchFilters'  name='skill[]' value=" +obj[i].skillid+ ">"+obj[i].description+"<br>");//inserts cause 
@@ -154,7 +155,6 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
     }).done(function(html){
         var obj = jQuery.parseJSON(html); //converts reponse to a JS object
         $options = $("#search-specifiers-container").find('ul.dropdown-menu').slice(2,3); //chooses causes column
-                    console.log(obj.length);
         for(var i= 0; i < obj.length; i++){
              $options.append("<input type='checkbox' class='searchFilters'  name='cause[]' value=" +obj[i].causeid+ ">"+obj[i].description+"<br>");//inserts cause 
         }
@@ -163,10 +163,6 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
 }
 
 function initSearch(){
-    // var populateData = function(formData, jqForm, options){
-    //         return true;
-    // }
-
     var options = { 
         url: 'search/getprojects', 
         // beforeSubmit: populateData,
@@ -185,11 +181,16 @@ function initSearch(){
 
             var searchlist = document.createElement("ul");
             searchlist.className = "search-result-list";
+            //initialize map
             $searchcol.append(searchlist);
-
+            var myOptions = {
+                zoom: 9,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
             for(var i= 0; i < obj.length; i++){
                 var curResult = obj[i];
-                listResults(searchlist, curResult, i); //lists results in results div
+                listResults(searchlist, curResult, i, map); //lists results in results div
             }
 
             // if ($searchcol.find("p.projectPosition").length === 0){ // 
@@ -202,16 +203,11 @@ function initSearch(){
     //will validate later
 }
 
-function listResults(resultList, result, resultidx){
+function listResults(resultList, result, resultidx, map){
     var resultLocation = result.location
 
     //inits map & geocoder object
     var geocoder = new google.maps.Geocoder();  
-    var myOptions = {
-        zoom: 9,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(document.getElementById("map"), myOptions);
 
     var curDistance = $('input[name="distance"]:checked').val();//gets current distance element
     var param = {//adds address of search result to parameters
@@ -220,27 +216,30 @@ function listResults(resultList, result, resultidx){
 
     //plots result on map if within distance
     geocoder.geocode(param, function(results, status) {
-       var resultLatLng = results[0].geometry.location;
+        try{
+           var resultLatLng = results[0].geometry.location;
+            if(!curDistance || curDistance === "all"){//if they do have distance defined
+                curDistance = Number.MAX_VALUE;
+            }
+            var curLocLatLng = new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
+            map.setCenter(curLocLatLng); 
+            var actualDistance = calculateDistance(curLocLatLng, resultLatLng);//calculates distance between the two
+            if (actualDistance < curDistance ){//if within distance
+                var marker = new google.maps.Marker({
+                position: resultLatLng,
+                animation: google.maps.Animation.DROP,
+                });    
+                marker.setMap(map); 
 
-        if(!curDistance || curDistance === "all"){//if they do have distance defined
-            curDistance = Number.MAX_VALUE;
-        }
-        var curLocLatLng = new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
-        map.setCenter(curLocLatLng); 
-        var actualDistance = calculateDistance(curLocLatLng, resultLatLng);//calculates distance between the two
-        if (actualDistance < curDistance ){//if within distance
-            var marker = new google.maps.Marker({
-            position: resultLatLng,
-            animation: google.maps.Animation.DROP,
-            });    
-            marker.setMap(map); 
-
-            //initialize event with right data
-            eventArray[0].searchList = resultList;//.initCustomEvent( "plotData",true,true, details);
-            eventArray[0].curResult = result;
-            eventArray[0].i = resultidx;
-            window.dispatchEvent(eventArray[0]);
-        }                  
+                //initialize event with right data
+                eventArray[0].searchList = resultList;//.initCustomEvent( "plotData",true,true, details);
+                eventArray[0].curResult = result;
+                eventArray[0].i = resultidx;
+                window.dispatchEvent(eventArray[0]);
+            }      
+        }catch(err){
+            // console.log('results');
+        }            
     });
 }
 function calculateDistance(loc1, loc2)
