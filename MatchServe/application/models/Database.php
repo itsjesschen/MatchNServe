@@ -201,6 +201,10 @@ class Database {
 	}
 	public static function getTimeSlot(){
 	}
+	public static function getUpcomingProjects(){
+		$query =  DB::table('projects')->get();
+		return $query;
+	}
 	public static function getUserProject(){
 	}
 	public static function getUser(){

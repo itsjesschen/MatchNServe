@@ -4,7 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title></title>
 	<!-- <?php echo Asset::container('bootstrap')->styles();?> -->
-	<!-- <?php echo Asset::scripts();?> -->
+	<?php echo Asset::scripts();?>	
+	<?php echo Asset::container('upcomingprojectsorg')->scripts();?>
+	<?php echo Asset::styles();?> 
+
 
 
 	<style>
