@@ -55,5 +55,10 @@ class DashboardVol_Controller extends Base_Controller{
 		 $data = json_encode($data);
 		 return $data;	
 	}
+	
+	public function action_getrecentprojects() {
+		$query = DB::query('SELECT p.* FROM projects p, userproject up, users u WHERE u.Name='.COOKIE::get('name').' AND up=u.UserID AND up.ProjectID=p.ProjectID');
+		echo($query);
+	}
 }
 ?>

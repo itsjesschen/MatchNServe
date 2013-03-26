@@ -17,6 +17,11 @@
     }
     
     $(document).ready(function() {
+      
+      $.get('dashboardvol/getrecentprojects', function(response) {
+          console.log("Upcoming Projects:" + response);
+      });
+      
       $.ajax({//populate skills
           type:"GET",
           url:"dashboardvol/initoptions",
