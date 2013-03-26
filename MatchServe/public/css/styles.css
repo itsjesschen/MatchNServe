@@ -75,7 +75,7 @@ body {
 }
 
 #search-results {
-    height:400px;
+    /*height:400px;*/
     width:1000px;
     overflow:auto;
     background-color:#FFFFFF;

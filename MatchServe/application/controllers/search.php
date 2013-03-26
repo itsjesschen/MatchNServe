@@ -13,6 +13,23 @@ class Search_Controller extends Base_Controller{
 
 		return View::make('search', $data);
 	}
+	// public function action_initoptions(){
+	// 	//query database and return a list of skills/causes
+	// 	$table = $_GET['table'];
+	// 	if ($table === "skills"){
+	// 		 $data = Database::getSkills();
+	// 		 $data = json_encode($data);
+	// 		 return $data;
+	// 	}else if($table === "causes"){
+	// 		 $data = Database::getCauses();
+	// 		 $data = json_encode($data);
+	// 		 return $data;
+	// 	}else{
+	// 		echo "ERROR";
+	// 		return;
+	// 		//error
+	// 	}
+	// }
 	public function action_initoptions(){
 		//query database and return a list of skills/causes
 		$table = $_GET['table'];
@@ -24,12 +41,16 @@ class Search_Controller extends Base_Controller{
 			 $data = Database::getCauses();
 			 $data = json_encode($data);
 			 return $data;
+		}else if ($table === "both"){
+			 $data = Database::getCauses();
+			 $data = json_encode($data);
+			 $data = Database::getSkills();
+			 return $data;
 		}else{
 			echo "ERROR";
-			//error
+			return;
 		}
 	}
-
 	public function action_getprojects(){
 		$arguments = array();
 		$searchterm = null;
@@ -62,6 +83,7 @@ class Search_Controller extends Base_Controller{
 		 //DATABASE CALL that goes to models/Database.php
 		 $data = Database::getProjects($searchterm, $zipcode, $arguments);
 		 $data = json_encode($data);
+
 		 return $data;	
 	}
 
