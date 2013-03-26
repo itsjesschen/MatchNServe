@@ -57,8 +57,17 @@ class DashboardVol_Controller extends Base_Controller{
 	}
 	
 	public function action_getrecentprojects() {
-		$query = DB::query('SELECT p.* FROM projects p, userproject up, users u WHERE u.Name='.COOKIE::get('name').' AND up=u.UserID AND up.ProjectID=p.ProjectID');
-		echo($query);
+		$dbLocalhost = mysql_connect("localhost", "root", "")
+		or die("Could not connect: " . mysql_error());
+		mysql_select_db("matchserve", $dbLocalhost)
+		or die("Could not find database: " . mysql_error());
+		$name = Cookie::get('name');
+		$query = mysql_query('SELECT projects.* FROM projects, userproject, users WHERE users.Name="'.$name.'" AND userproject.UserID=users.UserID AND userproject.ProjectID=projects.ProjectID', $dbLocalhost);
+		$rows = array();
+		while($r = mysql_fetch_assoc($query)) {
+		    $rows[] = $r;
+		}
+		echo(json_encode($rows));
 	}
 }
 ?>

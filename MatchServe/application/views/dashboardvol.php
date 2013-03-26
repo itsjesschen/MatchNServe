@@ -11,6 +11,20 @@
   <script src="http://malsup.github.com/jquery.form.js"></script>
 
   <script>
+    var Months = new Array();
+    Months['01'] = 'Jan';
+    Months['02'] = 'Feb';
+    Months['03'] = 'Mar';
+    Months['04'] = 'Apr';
+    Months['05'] = 'May';
+    Months['06'] = 'Jun';
+    Months['07'] = 'Jul';
+    Months['08'] = 'Aug';
+    Months['09'] = 'Sep';
+    Months['10'] = 'Oct';
+    Months['11'] = 'Nov';
+    Months['12'] = 'Dec';
+    
     function showQuickSearchForm() {
       $('#quickSearch_form').css('visibility', 'visible');
       $('#quickSearch_performFullSearch').attr('onclick', 'performFullSearch()');
@@ -20,6 +34,69 @@
       
       $.get('dashboardvol/getrecentprojects', function(response) {
           console.log("Upcoming Projects:" + response);
+          response = $.parseJSON(response);
+          // Change the first upcoming project:
+          var r = null;
+          var plist = document.getElementById('projectlist');
+          for(var i = 0; i < response.length; i++) {
+            r = response[i];
+            
+            // Create the list element
+            var li = document.createElement('li');
+            if(i == 0) {li.setAttribute('class', 'active')};
+            // Create the link
+            var link = document.createElement('a');
+            link.setAttribute('href','#project'+(i+1));
+            link.setAttribute('data-toggle', 'tab');
+            // Calendar
+            var calendar = document.createElement('div');
+            calendar.setAttribute('class', 'calendar');
+            // Month
+            var month = document.createElement('div');
+            month.setAttribute('id', 'month');
+            var MonthString = r.StartTime;
+              // Strip off other stuff
+            MonthString = MonthString.substr(5,2);
+            MonthString = Months[MonthString];
+            month.innerHTML = MonthString;
+            // Day
+            var day = document.createElement('div');
+            day.setAttribute('id','date');
+            var DayString = r.StartTime;
+            DayString = DayString.substr(8,2);
+            day.innerHTML = DayString;
+              // Attach Month and Day to Calendar
+              calendar.appendChild(month);
+              calendar.appendChild(day);
+            // infosection
+            var infosection = document.createElement('div');
+            infosection.setAttribute('class', 'infosection');
+            // project title
+            var projecttitle = document.createElement('div');
+            projecttitle.setAttribute('id', 'projecttitle');
+            projecttitle.innerHTML = r.Name;
+            // timeline
+            var timeline = document.createElement('div');
+            timeline.setAttribute('id', 'timeline');
+            var StartTime = r.StartTime;
+            StartTime = StartTime.substr(11,5);
+            var EndTime = r.EndTime;
+            EndTime = EndTime.substr(11,5);
+            timeline.innerHTML = StartTime + ' - ' + EndTime;
+              // Add title and timeline to infosection
+              infosection.appendChild(projecttitle);
+              infosection.appendChild(timeline);
+              
+            // append everything to link
+            link.appendChild(calendar);
+            link.appendChild(infosection);
+            
+            //append link to li
+            li.appendChild(link);
+            
+            //append li to ul
+            plist.appendChild(li);
+          }
       });
       
       $.ajax({//populate skills

@@ -99,7 +99,7 @@
 	<div class="containerstuff" class="tabbable tabs-left">
 		<ul id="projectlist" class="nav nav-tabs">
 			<!-- first project on the list, the href will connect the project with the rightsideinfo-->
-			<li class="active"><a href="#project1" data-toggle="tab">
+			<!--<li class="active"><a href="#project1" data-toggle="tab">
 				<div class="calendar">
 					<div id="month">MAR</div>
 					<div id="date">25</div>
@@ -110,56 +110,7 @@
 					<div id="timeline">10:00am - 2:00pm</div>
 					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
 				</div></a>
-			</li>
-			<!-- second project on the list-->
-			<li><a href="#project2" data-toggle="tab">
-				<div class="calendar">
-					<div id="month">MAR</div>
-					<div id="date">25</div>
-				</div>
-				<div class="infosection">
-					<div id="projecttitle">Web Developer</div>
-					<div id="orgname">Downtown Women's Center</div>
-					<div id="timeline">10:00am - 2:00pm</div>
-					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
-				</div></a>
-			</li>
-			<li><a href="#project3" data-toggle="tab">
-				<div class="calendar">
-					<div id="month">MAR</div>
-					<div id="date">25</div>
-				</div>
-				<div class="infosection">
-					<div id="projecttitle">Web Developer</div>
-					<div id="orgname">Downtown Women's Center</div>
-					<div id="timeline">10:00am - 2:00pm</div>
-					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
-				</div></a>
-			</li>
-			<li><a href="#project4" data-toggle="tab">
-				<div class="calendar">
-					<div id="month">MAR</div>
-					<div id="date">25</div>
-				</div>
-				<div class="infosection">
-					<div id="projecttitle">Web Developer</div>
-					<div id="orgname">Downtown Women's Center</div>
-					<div id="timeline">10:00am - 2:00pm</div>
-					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
-				</div></a>
-			</li>
-			<li><a href="#project5" data-toggle="tab">
-				<div class="calendar">
-					<div id="month">MAR</div>
-					<div id="date">25</div>
-				</div>
-				<div class="infosection">
-					<div id="projecttitle">Web Developer</div>
-					<div id="orgname">Downtown Women's Center</div>
-					<div id="timeline">10:00am - 2:00pm</div>
-					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
-				</div></a>
-			</li>
+			</li>-->
 		</ul>
 		<!-- this is the where you will find the tab content for the right hand side. This correlates 
 		exactly with the href from above. Make sure to follow it through -->
