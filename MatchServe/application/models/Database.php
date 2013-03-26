@@ -202,7 +202,12 @@ class Database {
 	public static function getTimeSlot(){
 	}
 	public static function getUpcomingProjects(){
-		$query =  DB::table('projects')->get();
+		/*$query =  DB::table('projects')->get();
+		return $query;*/
+		$query = DB::table('projects')
+		    ->left_join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID')
+		    ->left_join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID')
+		    ->get();
 		return $query;
 	}
 	public static function getUserProject(){
