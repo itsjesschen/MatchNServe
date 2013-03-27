@@ -71,7 +71,7 @@ class DashboardVol_Controller extends Base_Controller{
 	}
 	
 	public function action_getcheckins() {
-		$dbLocalhost = mysql_connect("localhost", "root", "")
+		$dbLocalhost = mysql_connect("localhost", "root", "root")
 		or die("Could not connect: " . mysql_error());
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
@@ -82,6 +82,16 @@ class DashboardVol_Controller extends Base_Controller{
 		    $rows[] = $r;
 		}
 		echo(json_encode($rows));
+	}
+	
+	public function action_deleteProject() {
+		$dbLocalhost = mysql_connect("localhost", "root", "root")
+		or die("Could not connect: " . mysql_error());
+		mysql_select_db("matchserve", $dbLocalhost)
+		or die("Could not find database: " . mysql_error());
+		$projectId = $_GET['project'];
+		$name = Cookie::get('name');
+		$query = mysql_query('DELETE FROM userproject WHERE userproject.ProjectID='.$projectId.' AND EXISTS (SELECT users.UserID FROM users WHERE userproject.UserID=users.UserID AND users.Name="'.$name.'")');
 	}
 }
 ?>

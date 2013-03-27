@@ -368,7 +368,7 @@ function signup(id){
     document.createElement("div");
    // console.log(document.cookie);
     var user = document.getElementById("cookie").getAttribute("name");
-    console.log(user);
+
         if(!user){
               alert("Please sign in to do that");           
         }else{
@@ -381,9 +381,9 @@ function signup(id){
                     pID : project.pid
                 }
             }).done(function(html) {
-                console.log(html);
+                
                 if (html !== 0){
-                    alert("Signed up Successfully");
+                    alert("You have successfully signed up for " + project.name+" project! ");
                 }else{
                     alert("Error Signing Up");
                 }

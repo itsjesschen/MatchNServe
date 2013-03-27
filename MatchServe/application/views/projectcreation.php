@@ -4,12 +4,12 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<?php echo Asset::container('bootstrap')->styles();?>
-	<?php echo Asset::scripts();?>
+	<!--<?php echo Asset::container('bootstrap')->styles();?>
+	<?php echo Asset::scripts();?> -->
 	<?php echo Asset::container('projectcreation')->scripts();?>
 	<?php echo Asset::container('datepicker')->scripts();?>
 	<?php echo Asset::container('timepicker')->scripts();?>
-	<?php echo Asset::styles();?> 
+	<!-- <?php echo Asset::styles();?>  -->
 	<title></title>
 
 	<style type="text/css">
