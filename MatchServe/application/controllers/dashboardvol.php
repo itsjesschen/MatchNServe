@@ -62,7 +62,21 @@ class DashboardVol_Controller extends Base_Controller{
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
 		$name = Cookie::get('name');
-		$query = mysql_query('SELECT projects.* FROM projects, userproject, users WHERE users.Name="'.$name.'" AND userproject.UserID=users.UserID AND userproject.ProjectID=projects.ProjectID', $dbLocalhost);
+		$query = mysql_query('SELECT projects.*,organizations.Name as orgname FROM orgproject, organizations, projects, userproject, users WHERE users.Name="'.$name.'" AND userproject.UserID=users.UserID AND userproject.ProjectID=projects.ProjectID AND projects.ProjectID=orgproject.ProjectID AND orgproject.OrganizationID=organizations.OrganizationID', $dbLocalhost);
+		$rows = array();
+		while($r = mysql_fetch_assoc($query)) {
+		    $rows[] = $r;
+		}
+		echo(json_encode($rows));
+	}
+	
+	public function action_getcheckins() {
+		$dbLocalhost = mysql_connect("localhost", "root", "")
+		or die("Could not connect: " . mysql_error());
+		mysql_select_db("matchserve", $dbLocalhost)
+		or die("Could not find database: " . mysql_error());
+		$projectId = $_GET['project'];
+		$query = mysql_query('SELECT users.Name,userproject.ProjectID FROM userproject, users WHERE userproject.ProjectID='.$projectId.' AND userproject.UserID = users.UserID');
 		$rows = array();
 		while($r = mysql_fetch_assoc($query)) {
 		    $rows[] = $r;

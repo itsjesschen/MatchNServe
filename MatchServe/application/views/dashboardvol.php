@@ -46,7 +46,7 @@
             if(i == 0) {li.setAttribute('class', 'active')};
             // Create the link
             var link = document.createElement('a');
-            link.setAttribute('href','#project'+(i+1));
+            link.setAttribute('href','#project'+r.ProjectID);
             link.setAttribute('data-toggle', 'tab');
             // Calendar
             var calendar = document.createElement('div');
@@ -75,6 +75,10 @@
             var projecttitle = document.createElement('div');
             projecttitle.setAttribute('id', 'projecttitle');
             projecttitle.innerHTML = r.Name;
+            // orgname
+            var orgname = document.createElement('div');
+            orgname.setAttribute('id', 'orgname');
+            orgname.innerHTML = r.orgname;
             // timeline
             var timeline = document.createElement('div');
             timeline.setAttribute('id', 'timeline');
@@ -85,6 +89,7 @@
             timeline.innerHTML = StartTime + ' - ' + EndTime;
               // Add title and timeline to infosection
               infosection.appendChild(projecttitle);
+              infosection.appendChild(orgname);
               infosection.appendChild(timeline);
               
             // append everything to link
@@ -96,6 +101,59 @@
             
             //append li to ul
             plist.appendChild(li);
+            
+            //--------------------
+            
+            // Now take care of the tab content
+            if(i == 0) {
+            $('#tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
+				'<div class="tabbable tabs-left" id="rightsideinfo">'+
+					'<ul class="nav nav-tabs">'+
+						'<li class="active"><a href="#schedule" data-toggle="tab"><?php echo HTML::image("img/CalendarGray.png") ?></br>Schedule</a></li>'+
+						'<li><a href="#messages" data-toggle="tab"><?php echo HTML::image("img/MessageGray.png") ?></br>Messages</a></li>'+
+						'<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
+						'<li><a href="#pendingvolunteers" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>Pending</a></li>'+
+						'<li><a href="#checkinvolunteers" data-toggle="tab"><?php echo HTML::image("img/CheckInGray.png") ?></br>Check-In</a></li>'+
+					'</ul>'+
+					'<div id="content" class="tab-content">'+
+                                                '<div class="tab-pane active" id="schedule">Schedule'+i+'</div>'+
+						'<div class="tab-pane" id="messages">Messages'+i+'</div>'+
+						'<div class="tab-pane" id="deleteproject">Delete Project'+i+'</div>'+
+						'<div class="tab-pane" id="pendingvolunteers">Pending'+i+'</div>'+
+						'<div class="tab-pane" id="checkinvolunteers"></div>'+
+					'</div>'+
+				'</div>'+
+			'</div>');
+            } else {
+              $('#tab-content').append('<div class="tab-pane" id="project'+r.ProjectID+'">'+
+				'<div class="tabbable tabs-left" id="rightsideinfo">'+
+					'<ul class="nav nav-tabs">'+
+						'<li class="active"><a href="#schedule'+i+'" data-toggle="tab"><?php echo HTML::image("img/CalendarGray.png") ?></br>Schedule</a></li>'+
+						'<li><a href="#messages'+i+'" data-toggle="tab"><?php echo HTML::image("img/MessageGray.png") ?></br>Messages</a></li>'+
+						'<li><a href="#deleteproject'+i+'" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
+						'<li><a href="#pendingvolunteers'+i+'" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>Pending</a></li>'+
+						'<li><a href="#checkinvolunteers'+i+'" data-toggle="tab"><?php echo HTML::image("img/CheckInGray.png") ?></br>Check-In</a></li>'+
+					'</ul>'+
+					'<div id="content" class="tab-content">'+
+                                                '<div class="tab-pane active" id="schedule'+i+'">Schedule'+i+'</div>'+
+						'<div class="tab-pane" id="messages'+i+'">Messages'+i+'</div>'+
+						'<div class="tab-pane" id="deleteproject'+i+'">Delete Project'+i+'</div>'+
+						'<div class="tab-pane" id="pendingvolunteers'+i+'">Pending'+i+'</div>'+
+						'<div class="tab-pane" id="checkinvolunteers'+i+'"></div>'+
+					'</div>'+
+				'</div>'+
+			'</div>');
+            }
+            
+             // Now populate the check-in
+            $.get('dashboardvol/getcheckins?project='+r.ProjectID, function(response) {
+              console.log("CheckIn Users: "+response);
+              response = $.parseJSON(response);
+              for(var j = 0; j < response.length; j++) {
+                var c = response[j];
+                $('#project'+c.ProjectID).find('#rightsideinfo').find('#content').find('[id^=checkinvolunteers]').append(c.Name + '<br>');
+              }
+            });
           }
       });
       

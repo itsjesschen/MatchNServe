@@ -114,8 +114,8 @@
 		</ul>
 		<!-- this is the where you will find the tab content for the right hand side. This correlates 
 		exactly with the href from above. Make sure to follow it through -->
-		<div class="tab-content">
-			<div class="tab-pane active" id="project1">
+		<div id="tab-content" class="tab-content">
+			<!--<div class="tab-pane active" id="project1">
 				<div class="tabbable tabs-left" id="rightsideinfo">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#schedule" data-toggle="tab"><?php echo HTML::image("img/CalendarGray.png") ?></br>Schedule</a></li>
@@ -157,7 +157,7 @@
 			<div class="tab-pane" id="project4">
 			</div>
 			<div class="tab-pane" id="project5">
-			</div>
+			</div>-->
 		</div>
 	</div>
 </body>
