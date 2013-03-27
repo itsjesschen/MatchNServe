@@ -7,11 +7,21 @@ class UpcomingProjectsOrg_Controller extends Base_Controller{
 		return View::make('upcomingprojectsorg');
 	}
 
-	public function action_getprojects()
+	public function action_getProjects()
 	{
-		 $data = Database::getUpcomingProjects();
-		 $data = json_encode($data);
-		 return $data;	
+		$table = $_GET['table'];
+		if ($table === "projects")
+		{
+			$orgName = Cookie::get('account');
+			$data = Database::getUpcomingProjects($orgName);
+			$data = json_encode($data);
+			return $data;	
+		}
+		else
+		{
+			echo "ERROR";
+			//error
+		}
 	}
 
 }

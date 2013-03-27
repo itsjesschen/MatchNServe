@@ -285,6 +285,7 @@
 <!-- onclick="value= '<?php if($zip_code != null){echo $zip_code;} else {echo "";}?>'"  -->
 <body>
     <div class="header">
+        <div id = "cookie" name =<?php echo Cookie::get('name'); ?> ></div>
         <?php echo render('elements.header'); ?>
     </div>
     <form id="searchForm" action= <?php echo URL::to('search/getprojects'); ?> method="get"> 
@@ -356,6 +357,7 @@
     <div class="footer">
         <?php echo render('elements.footer'); ?>
     </div>
+
 </body>
 </html>
 <script type="text/javascript"   

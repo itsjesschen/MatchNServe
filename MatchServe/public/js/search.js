@@ -1,7 +1,14 @@
 window.onload = init;
 
-var eventArray = new Array();
 
+var eventArray = new Array();
+var resultsArray = [];
+var locationsFound =0 ;
+var searchVars = {
+    eventArray : new Array(),
+    resultsArray: [],
+    locationsFound : 0
+}
 function init(){
     populateSearchOptions();//dynamically add in causes and skills
     initSearch();// init ajax search
@@ -160,12 +167,33 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         }
         preventDropdownToggle();//stays open on click
     });
+   
 }
+function findZip(){
 
+    //find zip location if there
+    var zip = document.getElementById("zip-code");
+    if(zip.value !== zip.defaultValue){
+        var param = {//adds address of search result to parameters
+            'address': zip.value
+        };
+        var geocoder = new google.maps.Geocoder();  
+        geocoder.geocode(param, function(results, status) {
+        try{
+            searchVars.userLoc = results[0].geometry.location;
+        }catch(err){
+            // console.log('results');
+        } 
+    });}else{
+        searchVars.userLoc = new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
+    }
+
+    
+}
 function initSearch(){
     var options = { 
         url: 'search/getprojects', 
-        // beforeSubmit: populateData,
+        beforeSubmit: findZip,
         success: function(html) {
             var obj = jQuery.parseJSON(html);
             $searchcol = $("#search-results");
@@ -174,23 +202,15 @@ function initSearch(){
                 return;
             }       
             $searchcol.html('');//clears results 
-            //adds map
-            var Emap = document.createElement("div");
-            Emap.setAttribute("id","map");
-            $searchcol.append(Emap);
 
-            var searchlist = document.createElement("ul");
-            searchlist.className = "search-result-list";
-            //initialize map
-            $searchcol.append(searchlist);
-            var myOptions = {
-                zoom: 9,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+            // var map = new google.maps.Map(document.getElementById("map"), myOptions);
+            resultsArray.length = 0;//clears the array
+            resultsArray.length = obj.length;//sets array to object's length
+            locationsFound = 0; //clears number found
             for(var i= 0; i < obj.length; i++){
+                resultsArray[i] = obj[i];
                 var curResult = obj[i];
-                listResults(searchlist, curResult, i, map); //lists results in results div
+                findDistance(curResult, i); //lists results in results div
             }
 
             // if ($searchcol.find("p.projectPosition").length === 0){ // 
@@ -203,7 +223,7 @@ function initSearch(){
     //will validate later
 }
 
-function listResults(resultList, result, resultidx, map){
+function findDistance( result, resultidx){
     var resultLocation = result.location
 
     //inits map & geocoder object
@@ -213,30 +233,21 @@ function listResults(resultList, result, resultidx, map){
     var param = {//adds address of search result to parameters
             'address': resultLocation
     };
-
+    
     //plots result on map if within distance
     geocoder.geocode(param, function(results, status) {
         try{
-           var resultLatLng = results[0].geometry.location;
-            if(!curDistance || curDistance === "all"){//if they do have distance defined
-                curDistance = Number.MAX_VALUE;
-            }
-            var curLocLatLng = new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
-            map.setCenter(curLocLatLng); 
+            locationsFound++;
+            var resultLatLng = results[0].geometry.location;
+            var curLocLatLng = searchVars.userLoc;//new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
             var actualDistance = calculateDistance(curLocLatLng, resultLatLng);//calculates distance between the two
-            if (actualDistance < curDistance ){//if within distance
-                var marker = new google.maps.Marker({
-                position: resultLatLng,
-                animation: google.maps.Animation.DROP,
-                });    
-                marker.setMap(map); 
-
-                //initialize event with right data
-                eventArray[0].searchList = resultList;//.initCustomEvent( "plotData",true,true, details);
-                eventArray[0].curResult = result;
-                eventArray[0].i = resultidx;
+            //add distance to object
+            resultsArray[resultidx].distance = actualDistance;
+            resultsArray[resultidx].LatLng = resultLatLng;
+            //once all the results are returned
+            if(locationsFound === resultsArray.length){
                 window.dispatchEvent(eventArray[0]);
-            }      
+            }  
         }catch(err){
             // console.log('results');
         }            
@@ -262,31 +273,68 @@ function searchFieldDisplay(item){
 }
 function initSearchResultListener(){
     //creates plotData event
-    eventArray[0]= new CustomEvent("plotData");
+    eventArray[0]= new CustomEvent("plotAllData");
 
     //adds function that listens to it
-    window.addEventListener ("plotData", function(e){ // will be called if result falls within distance
-                var searchList = e.searchList;
-                var curResult = e.curResult;
-                var i = e.i;
+    window.addEventListener ("plotAllData", function(e){ // will be called if result falls within distance
+        //iniitalizes map & center
+        $searchcol = $("#search-results");
+        var Emap = document.createElement("div");
+        Emap.setAttribute("id","map");
+        $searchcol.append(Emap);
+        var myOptions = {
+            zoom: 9,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        var curDistance = $('input[name="distance"]:checked').val();//gets current distance element
+        var curLocLatLng = searchVars.userLoc;//new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
+        map.setCenter(curLocLatLng); 
+        if(!curDistance || curDistance === "all"){//if they do have distance defined
+            curDistance = Number.MAX_VALUE;
+        }
 
-                    searchList.innerHTML += "<li class='search-item'>\
+        //sorts by distance
+        resultsArray.sort(function(a, b){
+            if(a.distance == null){
+                return 1;
+            }
+            if(b.distance == null){//a is not null
+                 return -1;
+            }
+            return a.distance-b.distance //both not null
+        });
+
+        var searchlist = document.createElement("ul");
+        searchlist.className = "search-result-list";
+        $searchcol.append(searchlist);
+
+        //loop through results and see which one is close enough
+        for( var i = 0; i < resultsArray.length; i ++){
+            var opportunity = resultsArray[i];
+            if (opportunity.distance && opportunity.distance < curDistance ){//if within distance
+                var marker = new google.maps.Marker({
+                position: opportunity.LatLng,
+                animation: google.maps.Animation.DROP,
+            });    
+            marker.setMap(map); 
+            //prints out results on page
+                    searchlist.innerHTML += "<li class='search-item'>\
                         <div class='accordion' id='accordion" +i+"'>\
                             <div class='accordion-group'>\
                                 <div class='accordion-heading'>\
                                     <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion" +i+"' href='#collapse" +i+"'>\
                                         <img class='causeImage iconCause' src='img/icon.JPG'/> \
                                         <div class='leftHandSideStuff'>\
-                                            <p class='projectPosition'>" +curResult.name +"</p> \
-                                            <p class='projectOrg'>" +curResult.cause +"</p> \
-                                            <p class='projectHeadline'>" +curResult.headline +"</p> \
-                                            <p class='reqsMsg requirementsWarning'>This project contains requirements</p> \
+                                            <p class='projectPosition'>" +opportunity.name +"</p> \
+                                            <p class='projectOrg'>" +opportunity.cause +"</p> \
+                                            <p class='projectHeadline'>" +opportunity.headline +"</p> \
                                         </div> \
                                         <div class='rightHandSideStuff'> \
-                                            <p class='projectDistance'><i class='icon-road'></i>" +curResult.location+ "</p> \
-                                            <p class='projectTime'><i class='icon-time'></i>"+curResult.starttime+"</p> \
-                                            <p class='projectDate'><i class='icon-calendar'></i>"+curResult.endtime+"</p> \
-                                            <button class='btn btn-success' type='button' class='signUpButton'>Sign Up</button> \
+                                            <p class='projectDistance'><i class='icon-road'></i>" +Math.round(opportunity.distance*10)/10+ " miles</p> \
+                                            <p class='projectTime'><i class='icon-time'></i>"+opportunity.starttime+"</p> \
+                                            <p class='projectDate'><i class='icon-calendar'></i>"+opportunity.endtime+"</p> \
+                                            <button class='btn btn-success' onClick=signup("+i+") type='button' class='signUpButton'>Sign Up</button> \
                                         </div> \
                                     </a> \
                                 </div> \
@@ -294,23 +342,61 @@ function initSearchResultListener(){
                                     <div class='accordion-inner'> \
                                         <p class='projectDescription'>\
                                             <span class='projectDescriptionTitle'>PROJECT DESCRIPTION</span><br> \
-                                            "+ curResult.details+" </p> \
+                                            "+ opportunity.details+" </p> \
                                         <div class='additionalInfoBox'> \
                                             <p class='accordionTitle'>ADDRESS</p> \
                                             <p class='projectLocation'>1200 Pennsylvania Ave SE, Washington, District of Columbia, 20003</p> \
                                             <p class='accordionTitle'>POSTED BY</p> \
                                             <p class='projectContact'>Anita Singh</p> \
                                             <p class='accordionTitle'>SKILLS NEEDED</p> \
-                                            <p class='projectSkills'>"+curResult.skills+"</p> \
+                                            <p class='projectSkills'>"+opportunity.skills+"</p> \
                                             <p class='accordionTitle'>ASSOCIATED CAUSES</p> \
-                                            <p class='projectCause'>" +curResult.cause+"</p> \
-                                            <p class='accordionTitle'>REQUIREMENTS NEEDED</p> \
-                                            <p class='projectReqs'>Drivers License Needed</p> \
+                                            <p class='projectCause'>" +opportunity.cause+"</p> \
                                         </div> \
                                     </div> \
                                 </div> \
                             </div>    \
                         </div> \
                     </li>";
-                }, false);
+                }
+            }
+        }, false);
+}//end eventlistener
+
+function signup(id){
+    var project = resultsArray[id];
+    document.createElement("div");
+   // console.log(document.cookie);
+    var user = document.getElementById("cookie").getAttribute("name");
+    console.log(user);
+        if(!user){
+              alert("Please sign in to do that");           
+        }else{
+          //console.log("Signing up for project # "+project.pid+"under name: "+user);
+           $.ajax({
+                type:"POST",
+                url:"search/signup",
+                data:{
+                    uID : user,
+                    pID : project.pid
+                }
+            }).done(function(html) {
+                console.log(html);
+                if (html !== 0){
+                    alert("Signed up Successfully");
+                }else{
+                    alert("Error Signing Up");
+                }
+            });
+            //if requirements are needed
+                   //check for requirements
+            //else
+                   //show confirmation page and sign up. Send to db that project now has user
+            //redirect to signin page
+        }
 }
+
+//removed requirements stuff 
+ //<p class='reqsMsg requirementsWarning'>This project contains requirements</p> \
+                                            // <p class='accordionTitle'>REQUIREMENTS NEEDED</p> \
+                                            // <p class='projectReqs'>Drivers License Needed</p> \

@@ -1,38 +1,33 @@
 window.onload = init;
 
-var eventArray = new Array();
-
 function init(){
+    alert("test");
     getOrgProjects();// init ajax to populate left sidebar
 } 
 
 
 function getOrgProjects(){
-
 $.ajax({//populate projects
         type:"GET",
-        url:"upcomingprojectsorg/getprojects", 
+        url:"upcomingprojectsorg/getProjects", 
         data:{
             table : "projects"
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
-        $options = $("#project-creation-admin-dropdown").find('ul.dropdown-menu'); 
-        for(var i= 0; i < obj.length; i++){
-            $options.append("<input type='radio' class='adminSelector'  name='admin' value=" + obj[i].userid + ">" + obj[i].name + "</br>"); //inserting into first dropdown
-        }
+        console.log(obj);
     });
-            $projectCardlist = $("#projectlist");
+          /*  $projectCardlist = $("#projectlist");
 
             for(var i= 0; i < obj.length; i++){
                 var curResult = obj[i];
                 addProjectCard(projectCardlist, curResult, i); //lists results in results div
-            }
+            }*/
 }
 
 function addProjectCard(projectCardlist, results, i)
 {
-    <li class="active"><a href="#project1" data-toggle="tab">
+/*    <li class="active"><a href="#project1" data-toggle="tab">
                 <div class="calendar">
                     <div id="month">MAR</div>
                     <div id="date">25</div>
@@ -102,4 +97,4 @@ function addProjectCard(projectCardlist, results, i)
         </div> \
     </li>";
 }, false);
-}
+*/}
