@@ -207,7 +207,7 @@ class Database {
 		$query = DB::table('projects')
 		    ->left_join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID')
 		    ->left_join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID')
-		    ->get();
+		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.Name as ProjectName', 'projects.StartTime', 'projects.Spots', 'organizations.Name as OrgName'));
 		return $query;
 	}
 	public static function getUserProject(){

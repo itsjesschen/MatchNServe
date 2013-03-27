@@ -26,7 +26,7 @@ $.ajax({//populate projects
         $options = $("#projectlist");
         for(var i= 0; i < obj.length; i++){
             var curResult = obj[i];
-            $options.append("<li><a href='#project" + i + "' data-toggle='tab'> \
+            $options.append("<li><a href='#project" + curResult.projectid + "' data-toggle='tab'> \
                 <div class='calendar' >\
                     <div id='month'>" + getMonth(curResult.starttime) + "</div>\
                     <div id='date'>" + curResult.starttime.slice(8,10) + "</div>\
@@ -44,14 +44,14 @@ $.ajax({//populate projects
         for(var i= 0; i < obj.length; i++){
             var curResult = obj[i];
             $options2.append("\
-                <div class='tab-pane' id='project" + i + "'>\
+                <div class='tab-pane' id='project" + curResult.projectid + "'>\
                     <div class='tabbable tabs-left' id='rightsideinfo'>\
                         <ul class='nav nav-tabs'>\
-                            <li class='active'><a href='#schedule' data-toggle='tab'><?php echo HTML::image('img/CalendarGray.png') ?></br>Schedule</a></li>\
-                            <li><a href='#messages' data-toggle='tab'><?php echo HTML::image('img/MessageGray.png') ?></br>Messages</a></li>\
-                            <li><a href='#deleteproject' data-toggle='tab'><?php echo HTML::image('img/DeleteGray.png') ?></br>Delete Project</a></li>\
-                            <li><a href='#pendingvolunteers' data-toggle='tab'><?php echo HTML::image('img/PendingGray.png') ?></br>Pending</a></li>\
-                            <li><a href='#checkinvolunteers' data-toggle='tab'><?php echo HTML::image('img/CheckInGray.png') ?></br>Check-In</a></li>\
+                            <li class='active'><a href='#schedule' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>Schedule</a></li>\
+                            <li><a href='#messages' data-toggle='tab'><?php echo HTML::image(\"img/MessageGray.png\") ?></br>Messages</a></li>\
+                            <li><a href='#deleteproject' data-toggle='tab'><?php echo HTML::image(\"img/DeleteGray.png\") ?></br>Delete Project</a></li>\
+                            <li><a href='#pendingvolunteers' data-toggle='tab'><?php echo HTML::image(\"img/PendingGray.png\") ?></br>Pending</a></li>\
+                            <li><a href='#checkinvolunteers' data-toggle='tab'><?php echo HTML::image(\"img/CheckInGray.png\") ?></br>Check-In</a></li>\
                         </ul>\
                         <div class='tab-content'>\
                             <div class='tab-pane active' id='schedule'>Schedule1</div>\

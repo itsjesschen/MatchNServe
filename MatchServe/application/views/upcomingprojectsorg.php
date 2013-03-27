@@ -100,66 +100,10 @@
 
 	<div class="containerstuff" class="tabbable tabs-left">
 		<ul id="projectlist" class="nav nav-tabs">
-			<!-- first project on the list, the href will connect the project with the rightsideinfo-->
-			<li class="active"><a href="#project1" data-toggle="tab">
-				<div class="calendar">
-					<div id="month">MAR</div>
-					<div id="date">25</div>
-				</div>
-				<div class="infosection">
-					<div id="projecttitle">Web Developer</div>
-					<div id="orgname">Downtown Women's Center</div>
-					<div id="timeline">10:00am - 2:00pm</div>
-					<div class="progress progress-info" id="progressbar"><div class="bar" style="width: 80%"></div></div>
-				</div></a>
-			</li>
 		</ul>
 		<!-- this is the where you will find the tab content for the right hand side. This correlates 
 		exactly with the href from above. Make sure to follow it through -->
 		<div class="tab-content" id="extendedprojectlist">
-			<div class="tab-pane active" id="project1">
-				<div class="tabbable tabs-left" id="rightsideinfo">
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#schedule" data-toggle="tab"><?php echo HTML::image("img/CalendarGray.png") ?></br>Schedule</a></li>
-						<li><a href="#messages" data-toggle="tab"><?php echo HTML::image("img/MessageGray.png") ?></br>Messages</a></li>
-						<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>
-						<li><a href="#pendingvolunteers" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>Pending</a></li>
-						<li><a href="#checkinvolunteers" data-toggle="tab"><?php echo HTML::image("img/CheckInGray.png") ?></br>Check-In</a></li>
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="schedule">Schedule1</div>
-						<div class="tab-pane" id="messages">Messages1</div>
-						<div class="tab-pane" id="deleteproject">Delete Project1</div>
-						<div class="tab-pane" id="pendingvolunteers">Pending1</div>
-						<div class="tab-pane" id="checkinvolunteers">Check-In1</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="tab-pane" id="project2">
-				<div class="tabbable tabs-left" id="rightsideinfo">
-					<ul class="nav nav-tabs">
-					<li class="active"><a href="#schedule2" data-toggle="tab"><?php echo HTML::image("img/CalendarGray.png") ?></br>Schedule</a></li>
-						<li><a href="#messages2" data-toggle="tab"><?php echo HTML::image("img/MessageGray.png") ?></br>Messages</a></li>
-						<li><a href="#deleteproject2" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>
-						<li><a href="#pendingvolunteers2" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>Pending</a></li>
-						<li><a href="#checkinvolunteers2" data-toggle="tab"><?php echo HTML::image("img/CheckInGray.png") ?></br>Check-In</a></li>
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="schedule2">Schedule2</div>
-						<div class="tab-pane" id="messages2">Messages2</div>
-						<div class="tab-pane" id="deleteproject2">Delete Project2</div>
-						<div class="tab-pane" id="pendingvolunteers2">Pending2</div>
-						<div class="tab-pane" id="checkinvolunteers2">Check-In2</div>
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane" id="project3">
-			</div>
-			<div class="tab-pane" id="project4">
-			</div>
-			<div class="tab-pane" id="project5">
-			</div>
 		</div>
 	</div>
 </body>
