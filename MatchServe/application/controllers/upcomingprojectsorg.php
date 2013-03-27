@@ -12,9 +12,10 @@ class UpcomingProjectsOrg_Controller extends Base_Controller{
 		$table = $_GET['table'];
 		if ($table === "projects")
 		{
-			 $data = Database::getUpcomingProjects();
-			 $data = json_encode($data);
-			 return $data;	
+			$orgName = Cookie::get('account');
+			$data = Database::getUpcomingProjects($orgName);
+			$data = json_encode($data);
+			return $data;	
 		}
 		else
 		{
