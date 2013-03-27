@@ -1,12 +1,12 @@
 window.onload = init;
 
 function init(){
+    alert("test");
     getOrgProjects();// init ajax to populate left sidebar
 } 
 
 
 function getOrgProjects(){
-
 $.ajax({//populate projects
         type:"GET",
         url:"upcomingprojectsorg/getProjects", 

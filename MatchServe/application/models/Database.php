@@ -206,8 +206,18 @@ class Database {
 	}
 	public static function getTimeSlot(){
 	}
-	public static function getUpcomingProjects(){
-		$query =  DB::table('projects')->get();
+	public static function getUpcomingProjects($orgName){
+		//get orgID from name
+
+		$orgID = DB::table('organizations')
+			->where('organizations.Name', '=', $orgName)
+			->only('OrganizationID');
+
+		$query = DB::table('projects')
+		    ->left_join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID')
+		    ->left_join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID')
+			->where('organizations.OrganizationID', '=', $orgID)
+		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.Name as ProjectName', 'projects.StartTime', 'projects.Spots', 'organizations.Name as OrgName'));
 		return $query;
 	}
 	public static function getUserProject(){
