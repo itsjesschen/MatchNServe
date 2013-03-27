@@ -118,7 +118,7 @@
 					'<div id="content" class="tab-content">'+
                                                 '<div class="tab-pane active" id="schedule">Schedule'+i+'</div>'+
 						'<div class="tab-pane" id="messages">Messages'+i+'</div>'+
-						'<div class="tab-pane" id="deleteproject">Delete Project'+i+'</div>'+
+						'<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
 						'<div class="tab-pane" id="pendingvolunteers">Pending'+i+'</div>'+
 						'<div class="tab-pane" id="checkinvolunteers"></div>'+
 					'</div>'+
@@ -137,7 +137,7 @@
 					'<div id="content" class="tab-content">'+
                                                 '<div class="tab-pane active" id="schedule'+i+'">Schedule'+i+'</div>'+
 						'<div class="tab-pane" id="messages'+i+'">Messages'+i+'</div>'+
-						'<div class="tab-pane" id="deleteproject'+i+'">Delete Project'+i+'</div>'+
+						'<div class="tab-pane" id="deleteproject'+i+'">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
 						'<div class="tab-pane" id="pendingvolunteers'+i+'">Pending'+i+'</div>'+
 						'<div class="tab-pane" id="checkinvolunteers'+i+'"></div>'+
 					'</div>'+
@@ -204,6 +204,12 @@
           document.getElementById('quickSearch_selects').appendChild(select);
       });
     });
+    
+    function deleteProject(projectID) {
+      $.get('dashboardvol/deleteProject?project='+projectID, function(response) {
+        window.location.reload();
+      });
+    }
     
     function performFullSearch() {
       // var populateData = function(formData, jqForm, options){
