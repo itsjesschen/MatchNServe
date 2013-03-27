@@ -1,4 +1,6 @@
 <html>
+<head>
+<?php echo Asset::scripts();?>
 	<style type='text/css'>
 		body 
 		{ 
@@ -41,6 +43,7 @@
     width:0;
 }
 	</style>
+	</head>
 	<body>
 	<div class="header">
     <?php echo render('elements.header'); ?>
