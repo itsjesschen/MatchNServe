@@ -60,10 +60,14 @@
 				<?php 
 				$userName = Session::get('userName');
 				$names = Session::get('names');
+				$names = json_decode($names);
+				if (is_array($names))
+					{
 				foreach($names as $name)
 				{
-					echo "<tr><td class='button' onclick=\"clicked('$name')\" align='center'>$name</td></tr>";
+					echo "<tr><td class='button' onclick=\"clicked('$name->name')\" align='center'>$name->name</td></tr>";
 				}   
+				}
 				?>
 				<tr><td><input type='hidden' name='account' id='account' value=''/></td></tr>
 				<tr><td><input type='hidden' name='userName' value='$userName'/></td></tr>

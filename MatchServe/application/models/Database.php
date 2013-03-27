@@ -111,6 +111,16 @@ class Database {
 	}
 
 	/**********************************GETTERS**************************************/
+	public static function getAccountCount($username) {
+		$name = '\''.$username.'\'';
+		$query = DB::query('SELECT COUNT(organizations.Name) as counts FROM organizations, admins, users WHERE (users.Name='.$name.' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)');
+		return $query;
+	}
+	public static function getAccounts($username) {
+		$name = '\''.$username.'\'';
+		$query = DB::query('SELECT organizations.Name as name FROM organizations, admins, users WHERE (users.Name='.$name.' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)');
+		return $query;
+	}
 	public static function getAdmin($orgName){
 		$OrgID = DB::table('organizations')
 			->where('organizations.Name', '=', $orgName)

@@ -40,7 +40,7 @@ function action_processlogin(){
 						{
 							//successful login
 							Cookie::put('name', $userName, 7200);
-							return Redirect::to_action('user/accountselectioncontroller')->with('userName', $userName);
+							return Redirect::to_action('user/accountselection')->with('userName', $userName);
 						}
 						else
 						{
@@ -119,13 +119,34 @@ function action_processlogin(){
 			{
 				if ($password == $newPassword)
 				{
-					$encryptPassword = md5($newPassword);
-					$sql="insert into users(Name, Email, Password) values('$userName','$email','$encryptPassword')";
-					$result = mysql_query($sql, $dbLocalhost)
-					or die("Problem writing to table: " . mysql_error());
-					//new user registered successfully
-					Cookie::put('name', $userName, 7200);
-					return Redirect::to('dashboardvol');
+					if (strlen($userName) > 8 && strlen($userName) < 15)
+					{
+						if (strlen($password) > 8 && strlen($password) < 15)
+						{
+						$encryptPassword = md5($newPassword);
+						$sql="insert into users(Name, Email, Password) values('$userName','$email','$encryptPassword')";
+						$result = mysql_query($sql, $dbLocalhost)
+						or die("Problem writing to table: " . mysql_error());
+						//new user registered successfully
+						Cookie::put('name', $userName, 7200);
+						return Redirect::to('dashboardvol');
+						}
+						else
+						{
+							//Password wasn't right length
+							echo ("<script>
+							alert('Password must be greater than 8 and less than 15 characters.');
+							  window.location.href = \"login\";
+							</script>");
+						}
+					}
+					else {
+						//Username wasn't right length
+						echo ("<script>
+							alert('Username must be greater than 8 and less than 15 characters.');
+							  window.location.href = \"login\";
+							</script>");
+					}
 				}
 				else
 				{
@@ -210,80 +231,53 @@ if(!isset( $_REQUEST["code"] ) ) {
      echo("The state does not match. You may be a victim of CSRF.");
    }
 }
-
-
 function action_accountselection(){
-		return View::make('accountselection')->with('names', '$names')->with('userName', '$userName');
+		$dbLocalhost = mysql_connect("localhost", "root", "")
+		or die("Could not connect: " . mysql_error());
+		mysql_select_db("matchserve", $dbLocalhost)
+		or die("Could not find database: " . mysql_error());
+		$userName = Cookie::get('name');
+		if (isset($userName))
+		{
+			$data = Database::getAccountCount($userName);
+			foreach($data as $obj) {
+				$count = $obj->counts;
+				}
+			//echo  $count;
+			if ($count > 0) {
+				$names = Database::getAccounts($userName);
+				$names = json_encode($names); 
+				Session::put('names', $names);
+				return View::make('accountselection')->with('names', $names)->with('userName', $userName);
+			}
+			else
+			{
+				/* echo ("<script>
+							alert('You only have 1 account with us. If you believe you got this in error, please contact us at info@matchandserve.com or get in touch with the organization you're a part of.');
+							  window.location.href = \"home\";
+							</script>"); */
+				Cookie::put('account', 'personal', 7200);
+				return Redirect::to('dashboardvol');
+			}
+		}
+		//return View::make('accountselection')->with('names', '$names')->with('userName', '$userName');
 	}
 	
-function action_accountselectioncontroller(){
-	$dbLocalhost = mysql_connect("localhost", "root", "")
-	or die("Could not connect: " . mysql_error());
-	mysql_select_db("matchserve", $dbLocalhost)
-	or die("Could not find database: " . mysql_error());
-	$userName = Cookie::get('name');
-	if (isset($userName))
-	{
-		$results = mysql_query("SELECT organizations.Name FROM organizations, admins, users WHERE (users.Name='$userName' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)");
-		$count = 0;
-		$names = array();
-		$temp = "";
-		while($row = mysql_fetch_assoc($results)) 
+	 function action_accountselectioncontroller(){
+		return Redirect::to('user/accountselection');
+	} 
+	
+	public function action_accountselected(){
+		$account = $_GET['account'];
+		Cookie::put('account', $account, 7200);
+		if ($account == 'personal')
 		{
-			$name = $row['Name'];
-			$temp = $temp . "<input type='hidden' name='names[]' value='$name' />";
-			$names[$count] = $row['Name'];
-			$count++;
-		}
-		if ($count > 0)
-		{				
-			return Redirect::to('user/accountselection')->with('userName', $userName)->with('names', $names);
-		}
-		else
-		{
-			/* echo ("<script>
-						alert('You only have 1 account with us. If you believe you got this in error, please contact us at info@matchandserve.com or get in touch with the organization you're a part of.');
-						  window.location.href = \"home\";
-						</script>"); */
-			Cookie::put('account', 'personal', 7200);
+			//change to dashboardvolunteer once page is created
 			return Redirect::to('dashboardvol');
+		} else {
+			return Redirect::to('dashboardorg');
 		}
 	}
-}
-
-public function action_accountselected(){
-	$account = $_GET['account'];
-	Cookie::put('account', $account, 7200);
-	if ($account == 'personal')
-	{
-		//change to dashboardvolunteer once page is created
-		return Redirect::to('dashboardvol');
-	} else {
-		return Redirect::to('dashboardorg');
-	}
-}
-
-public function action_karma(){
-	$dbLocalhost = mysql_connect("localhost", "root", "")
-	or die("Could not connect: " . mysql_error());
-	mysql_select_db("matchserve", $dbLocalhost)
-	or die("Could not find database: " . mysql_error());
-	$userName = Cookie::get('name');
-	if (isset($userName))
-	{
-		$karma = DB::table('users')->where('Name', '=', $userName)->only('KarmaPoints');
-		//$karma = mysql_query("SELECT Karma FROM users WHERE users.Name='$userName'");
-		$data = array(
-			'karma' => $karma
-		);
-
-		return View::make('karma', $data);
-		
-	}
-	else{
-		return View::make('karma');
-	}
-}
 
 }
 

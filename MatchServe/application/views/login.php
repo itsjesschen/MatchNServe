@@ -14,6 +14,10 @@
 				document.getElementById('passwordInput').style.visibility = "visible";
 				document.getElementById('submit').value = "LOGIN";
 				document.getElementById('forgotPassword').style.visibility = "visible";
+				document.getElementById('nameError').style.visibility = "collapse";
+				document.getElementById('pass1Error').style.visibility = "collapse";
+				document.getElementById('pass2Error').style.visibility = "collapse";
+				document.getElementById('emailError').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Don't have an account yet? Create an account <a href='javascript:newUser()' class='link'>here</a>";
 				document.getElementById('fbbtn').src = "../img/login-facebook.png";
 			}
@@ -23,6 +27,10 @@
 				document.getElementById('passwordInput').style.visibility = "visible";
 				document.getElementById('submit').value = "REGISTER";
 				document.getElementById('forgotPassword').style.visibility = "collapse";
+				document.getElementById('nameError').style.visibility = "visible";
+				document.getElementById('pass1Error').style.visibility = "visible";
+				document.getElementById('pass2Error').style.visibility = "visible";
+				document.getElementById('emailError').style.visibility = "visible";
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
 				document.getElementById('fbbtn').src = "../img/signup-facebook.png";
 			}
@@ -32,6 +40,10 @@
 				document.getElementById('passwordInput').style.visibility = "collapse";
 				document.getElementById('submit').value = "SUBMIT";
 				document.getElementById('forgotPassword').style.visibility = "collapse";
+				document.getElementById('nameError').style.visibility = "collapse";
+				document.getElementById('pass1Error').style.visibility = "collapse";
+				document.getElementById('pass2Error').style.visibility = "collapse";
+				document.getElementById('emailError').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
 				document.getElementById('fbbtn').src = "../img/login-facebook.png";
 			}
@@ -133,6 +145,7 @@
 		}
 		.error {
 			color:red;
+			visibility: collapse;
 		}
 		</style>
 	</head>
