@@ -368,10 +368,12 @@ function signup(id){
     document.createElement("div");
    // console.log(document.cookie);
     var user = document.getElementById("cookie").getAttribute("name");
-    console.log(project);
-        if(user != null){
-            console.log("Signing up for project # "+project.pid+"under name: "+user);
-            $.ajax({
+    console.log(user);
+        if(!user){
+              alert("Please sign in to do that");           
+        }else{
+          //console.log("Signing up for project # "+project.pid+"under name: "+user);
+           $.ajax({
                 type:"POST",
                 url:"search/signup",
                 data:{
@@ -390,8 +392,6 @@ function signup(id){
                    //check for requirements
             //else
                    //show confirmation page and sign up. Send to db that project now has user
-        }else{
-            alert("Please sign in to do that");
             //redirect to signin page
         }
 }
