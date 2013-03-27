@@ -383,7 +383,7 @@ function signup(id){
             }).done(function(html) {
                 console.log(html);
                 if (html !== 0){
-                    alert("Signed up Successfully");
+                    alert("You have successfully signed up for " + project.name+" project! ");
                 }else{
                     alert("Error Signing Up");
                 }
