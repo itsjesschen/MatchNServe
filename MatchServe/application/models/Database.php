@@ -91,6 +91,11 @@ class Database {
 	public static function addUser(){
 		
 	}
+	public static function signup($user, $project){
+		$uID = DB::table('users')->where('name', '=', $user)->only('UserID');
+		DB::table('userproject')->insert(array('UserID' => $uID,'ProjectID' => $project ));
+		return $uID;
+	}
 
 	/**********************************GETTERS**************************************/
 	public static function getAdmin($orgName){
@@ -134,7 +139,7 @@ class Database {
 		$temp = '\''.$temp.'\'';
 		if ($zipcode != null) 
 		{
-			$query = DB::query('SELECT projects.Name as Name, projects.Details as Details, projects.Location as Location,  
+			$query = DB::query('SELECT projects.ProjectID as pID, projects.Name as Name, projects.Details as Details, projects.Location as Location,  
 			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
 			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
 			projects.StartTime as StartTime, projects.EndTime as EndTime, 
@@ -146,7 +151,7 @@ class Database {
 			projects.Location = '.$zipcode.' GROUP BY projects.ProjectID');
 		} else
 		{
-			$query = DB::query('SELECT projects.Name as Name, projects.Details as Details, projects.Location as Location,  
+			$query = DB::query('SELECT projects.ProjectID as pID, projects.Name as Name, projects.Details as Details, projects.Location as Location,  
 			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
 			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
 			projects.StartTime as StartTime, projects.EndTime as EndTime, 

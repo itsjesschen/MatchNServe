@@ -51,6 +51,12 @@ class Search_Controller extends Base_Controller{
 			return;
 		}
 	}
+	public function action_signup(){
+		$user = $_POST['uID'];
+		$project = $_POST['pID'];
+		$data = Database::signup($user, $project);
+		return $data;
+	}
 	public function action_getprojects(){
 		$arguments = array();
 		$searchterm = null;

@@ -173,7 +173,6 @@ function findZip(){
 
     //find zip location if there
     var zip = document.getElementById("zip-code");
-console.log(zip);
     if(zip.value !== zip.defaultValue){
         var param = {//adds address of search result to parameters
             'address': zip.value
@@ -196,9 +195,7 @@ function initSearch(){
         url: 'search/getprojects', 
         beforeSubmit: findZip,
         success: function(html) {
-            //console.log(html);
             var obj = jQuery.parseJSON(html);
-            //console.log(obj);
             $searchcol = $("#search-results");
             if(obj.length == 0){
                 $searchcol.html("Sorry, no search results. Please try another term :)");
@@ -312,7 +309,6 @@ function initSearchResultListener(){
         searchlist.className = "search-result-list";
         $searchcol.append(searchlist);
 
-        //console.log(searchlist);
         //loop through results and see which one is close enough
         for( var i = 0; i < resultsArray.length; i ++){
             var opportunity = resultsArray[i];
@@ -322,7 +318,6 @@ function initSearchResultListener(){
                 animation: google.maps.Animation.DROP,
             });    
             marker.setMap(map); 
-        console.log(marker);
             //prints out results on page
                     searchlist.innerHTML += "<li class='search-item'>\
                         <div class='accordion' id='accordion" +i+"'>\
@@ -339,7 +334,7 @@ function initSearchResultListener(){
                                             <p class='projectDistance'><i class='icon-road'></i>" +Math.round(opportunity.distance*10)/10+ " miles</p> \
                                             <p class='projectTime'><i class='icon-time'></i>"+opportunity.starttime+"</p> \
                                             <p class='projectDate'><i class='icon-calendar'></i>"+opportunity.endtime+"</p> \
-                                            <button class='btn btn-success' onclick='signup("+i+")' type='button' class='signUpButton'>Sign Up</button> \
+                                            <button class='btn btn-success' onClick=signup("+i+") type='button' class='signUpButton'>Sign Up</button> \
                                         </div> \
                                     </a> \
                                 </div> \
@@ -368,20 +363,38 @@ function initSearchResultListener(){
         }, false);
 }//end eventlistener
 
-// function signup(id){
-//     var project = resultsArray[id];
-//     var name = Cookie::get('name');
-//         if(name != null){
-//             console.log("Signing up for project # "+id+"under name: "+name);
-//             //if requirements are needed
-//                    //check for requirements
-//             //else
-//                    //show confirmation page and sign up. Send to db that project now has user
-//         }else{
-//             console.log("Redirect to sign-in page");
-//             //redirect to signin page
-//         }
-// }
+function signup(id){
+    var project = resultsArray[id];
+    document.createElement("div");
+   // console.log(document.cookie);
+    var user = document.getElementById("cookie").getAttribute("name");
+    console.log(project);
+        if(user != null){
+            console.log("Signing up for project # "+project.pid+"under name: "+user);
+            $.ajax({
+                type:"POST",
+                url:"search/signup",
+                data:{
+                    uID : user,
+                    pID : project.pid
+                }
+            }).done(function(html) {
+                console.log(html);
+                if (html !== 0){
+                    alert("Signed up Successfully");
+                }else{
+                    alert("Error Signing Up");
+                }
+            });
+            //if requirements are needed
+                   //check for requirements
+            //else
+                   //show confirmation page and sign up. Send to db that project now has user
+        }else{
+            alert("Please sign in to do that");
+            //redirect to signin page
+        }
+}
 
 //removed requirements stuff 
  //<p class='reqsMsg requirementsWarning'>This project contains requirements</p> \
