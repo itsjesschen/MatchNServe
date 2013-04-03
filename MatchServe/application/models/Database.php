@@ -11,7 +11,7 @@ class Database {
 		foreach($query as $obj) {
 			$userid = $obj->userid;
 		}
-		$query = DB::query('SELECT OrganizationID as orgid FROM organizations WHERE Name = '.$org1);
+		$query = DB::query('SELECT OrganizationID as orgid FROM organizations WHERE OrgName = '.$org1);
 		foreach($query as $obj) {
 			$orgid = $obj->orgid;
 		}
@@ -50,12 +50,12 @@ class Database {
 	public static function addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName){
 		//get the orgID		
 		$orgID = DB::table('organizations')
-			->where('organizations.Name', '=', $orgName)
+			->where('organizations.OrgName', '=', $orgName)
 			->only('OrganizationID');
 
 		//insert new project
 		$newProjectID = DB::table('projects')->insert_get_id(array(
-				'Name' => $name,
+				'ProjectName' => $name,
 				'Details' => $details,
 				'Location' => $location,
 				'StartTime' => $startTime,
@@ -113,17 +113,17 @@ class Database {
 	/**********************************GETTERS**************************************/
 	public static function getAccountCount($username) {
 		$name = '\''.$username.'\'';
-		$query = DB::query('SELECT COUNT(organizations.Name) as counts FROM organizations, admins, users WHERE (users.Name='.$name.' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)');
+		$query = DB::query('SELECT COUNT(organizations.OrgName) as counts FROM organizations, admins, users WHERE (users.Name='.$name.' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)');
 		return $query;
 	}
 	public static function getAccounts($username) {
 		$name = '\''.$username.'\'';
-		$query = DB::query('SELECT organizations.Name as name FROM organizations, admins, users WHERE (users.Name='.$name.' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)');
+		$query = DB::query('SELECT organizations.OrgName as name FROM organizations, admins, users WHERE (users.Name='.$name.' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)');
 		return $query;
 	}
 	public static function getAdmin($orgName){
 		$OrgID = DB::table('organizations')
-			->where('organizations.Name', '=', $orgName)
+			->where('organizations.OrgName', '=', $orgName)
 			->only('OrganizationID');
 
 		$query = DB::table('admins')
@@ -136,7 +136,7 @@ class Database {
 		$org1 = '\''.$org.'\'';
 		$num = null;
 		$query = DB::query('SELECT COUNT(admins.UserID) AS num FROM admins, organizations WHERE organizations.OrganizationID = admins.OrganizationID 
-		AND organizations.Name = '.$org1);
+		AND organizations.OrgName = '.$org1);
 		foreach($query as $obj) {
 			$num = $obj->num;
 		}
@@ -162,27 +162,27 @@ class Database {
 		$temp = '\''.$temp.'\'';
 		if ($zipcode != null) 
 		{
-			$query = DB::query('SELECT projects.ProjectID as pID, projects.Name as Name, projects.Details as Details, projects.Location as Location,  
+			$query = DB::query('SELECT projects.ProjectID as pID, projects.ProjectName as Name, projects.Details as Details, projects.Location as Location,  
 			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
-			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
+			'.$sep.') as Cause, organizations.OrgName as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
 			projects.StartTime as StartTime, projects.EndTime as EndTime, 
 			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, causes, orgproject,
 			organizations, projectskill, skills, pgfjoin, projectgoodfor WHERE  
 			organizations.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
 			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=pgfjoin.ProjectID and 
-			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE '.$temp.' or projects.Details LIKE '.$temp.') and 
+			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.') and 
 			projects.Location = '.$zipcode.' GROUP BY projects.ProjectID');
 		} else
 		{
-			$query = DB::query('SELECT projects.ProjectID as pID, projects.Name as Name, projects.Details as Details, projects.Location as Location,  
+			$query = DB::query('SELECT projects.ProjectID as pID, projects.ProjectName as Name, projects.Details as Details, projects.Location as Location,  
 			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
-			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
+			'.$sep.') as Cause, organizations.OrgName as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
 			projects.StartTime as StartTime, projects.EndTime as EndTime, 
 			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, causes, orgproject,
 			organizations, projectskill, skills, pgfjoin, projectgoodfor WHERE  
 			organizations.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
 			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=pgfjoin.ProjectID and 
-			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE '.$temp.' or projects.Details LIKE '.$temp.') GROUP BY projects.ProjectID');
+			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.') GROUP BY projects.ProjectID');
 		}
 		
 		return $query;
@@ -217,7 +217,7 @@ class Database {
 		$query = DB::query('SELECT users.Name as Name, users.Email as Email, users.Password as Password FROM users WHERE users.Name = '.$name.'
 		UNION
 		SELECT users.Name as adminName, '.$temp.', '.$temp.' FROM users, organizations, admins
-		WHERE organizations.Name = '.$organization.' and users.UserID = admins.UserID and admins.OrganizationID = organizations.OrganizationID');
+		WHERE organizations.OrgName = '.$organization.' and users.UserID = admins.UserID and admins.OrganizationID = organizations.OrganizationID');
 		}
 		return $query;
 	}
@@ -233,14 +233,14 @@ class Database {
 		//get orgID from name
 
 		$orgID = DB::table('organizations')
-			->where('organizations.Name', '=', $orgName)
+			->where('organizations.OrgName', '=', $orgName)
 			->only('OrganizationID');
 
 		$query = DB::table('projects')
 		    ->left_join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID')
 		    ->left_join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID')
 			->where('organizations.OrganizationID', '=', $orgID)
-		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.Name as ProjectName', 'projects.StartTime', 'projects.Spots', 'organizations.Name as OrgName'));
+		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.ProjectName as ProjectName', 'projects.StartTime', 'projects.EndTime','projects.Spots', 'organizations.OrgName as OrgName', 'projects.Address', 'projects.Requirements', 'projects.Headline'));
 		return $query;
 	}
 	public static function getUserProject(){
@@ -252,7 +252,7 @@ class Database {
 		$account = '\''.$account.'\'';
 		$admin = '\''.$admin.'\'';
 		DB::query('DELETE FROM admins WHERE UserID IN (SELECT UserID FROM users WHERE users.Name = '.$admin.') AND OrganizationID IN (SELECT 
-		OrganizationID FROM organizations WHERE organizations.Name = '.$account.')');
+		OrganizationID FROM organizations WHERE organizations.OrgName = '.$account.')');
 	}
 	
 	public static function setSettings($name, $newname, $newpassword, $newemail) {
