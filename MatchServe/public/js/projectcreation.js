@@ -47,18 +47,18 @@ $.ajax({//populate projects
                 <div class='tab-pane' id='project" + curResult.projectid + "'>\
                     <div class='tabbable tabs-left' id='rightsideinfo'>\
                         <ul class='nav nav-tabs'>\
-                            <li class='active'><a href='#schedule' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>Schedule</a></li>\
-                            <li><a href='#messages' data-toggle='tab'><?php echo HTML::image(\"img/MessageGray.png\") ?></br>Messages</a></li>\
-                            <li><a href='#deleteproject' data-toggle='tab'><?php echo HTML::image(\"img/DeleteGray.png\") ?></br>Delete Project</a></li>\
-                            <li><a href='#pendingvolunteers' data-toggle='tab'><?php echo HTML::image(\"img/PendingGray.png\") ?></br>Pending</a></li>\
-                            <li><a href='#checkinvolunteers' data-toggle='tab'><?php echo HTML::image(\"img/CheckInGray.png\") ?></br>Check-In</a></li>\
+                            <li class='active'><a href='#schedule" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>Schedule</a></li>\
+                            <li><a href='#messages" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/MessageGray.png\") ?></br>Messages</a></li>\
+                            <li><a href='#deleteproject" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/DeleteGray.png\") ?></br>Delete Project</a></li>\
+                            <li><a href='#pendingvolunteers" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/PendingGray.png\") ?></br>Pending</a></li>\
+                            <li><a href='#checkinvolunteers" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CheckInGray.png\") ?></br>Check-In</a></li>\
                         </ul>\
                         <div class='tab-content'>\
-                            <div class='tab-pane active' id='schedule'>Schedule1</div>\
-                            <div class='tab-pane' id='messages'>Messages1</div>\
-                            <div class='tab-pane' id='deleteproject'>Delete Project1</div>\
-                            <div class='tab-pane' id='pendingvolunteers'>Pending1</div>\
-                            <div class='tab-pane' id='checkinvolunteers'>Check-In1</div>\
+                            <div class='tab-pane active' id='schedule" + curResult.projectid + "'>Schedule " + curResult.projectid + "</div>\
+                            <div class='tab-pane' id='messages" + curResult.projectid + "'>Messages " + curResult.projectid + "</div>\
+                            <div class='tab-pane' id='deleteproject" + curResult.projectid + "'>Delete Project " + curResult.projectid + "</div>\
+                            <div class='tab-pane' id='pendingvolunteers" + curResult.projectid + "'>Pending " + curResult.projectid + "</div>\
+                            <div class='tab-pane' id='checkinvolunteers" + curResult.projectid + "'>Check-In " + curResult.projectid + "</div>\
                         </div>\
                     </div>\
                 </div>"
