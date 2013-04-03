@@ -155,7 +155,7 @@ class ProjectCreation_Controller extends Base_Controller
 		$orgName = Cookie::get('account');
 		//DATABASE CALL that goes to models/Database.php
 		$success = Database::addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName );
-		echo URL::to('dashboardorg.php'); //TODO
+		echo URL::to('dashboardorg'); //TODO
 	}
 
 }
