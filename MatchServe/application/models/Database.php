@@ -200,6 +200,14 @@ class Database {
 		}
 		return $query;
 	}
+
+	public static function getSchedule()
+	{
+		$query = DB::table('userproject')
+			->left_join('users', 'userproject.UserID', '=', 'users.UserID')
+			->get(array('userproject.UserID', 'userproject.ProjectID', 'userproject.Approved', 'users.FirstName', 'users.LastName'));
+		return $query;
+	}
 	
 	public static function getSettings($username, $account) {
 		$name = '\''.$username.'\'';

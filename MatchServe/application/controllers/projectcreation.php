@@ -67,7 +67,7 @@ class ProjectCreation_Controller extends Base_Controller
 		$name = null;
 		$headline = null;
 		$details = null;
-		$location = null;
+		$address = null;
 		$spots = null;
 		$admin = null;
 		$startTime = null;
@@ -107,10 +107,10 @@ class ProjectCreation_Controller extends Base_Controller
 	    {
 	  		$details = $_GET['projectDescription'];
 	  	}
-	  	//gets project location
+	  	//gets project address
 	  	if( isset($_GET['projectLocation']) && ($_GET['projectLocation'] == '2'))
 	    {
-	  		$location = $_GET['projectLocation'];
+	  		$address = $_GET['projectAddress'];
 	  	}
 	  	//get the max number of volunteers 
 	  	if( isset($_GET['projectVolunteerNumber']) && ("How many volunteers are needed?" != $_GET['projectVolunteerNumber']))
@@ -154,7 +154,7 @@ class ProjectCreation_Controller extends Base_Controller
 		
 		$orgName = Cookie::get('account');
 		//DATABASE CALL that goes to models/Database.php
-		$success = Database::addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName );
+		$success = Database::addProject($name, $headline, $details, $address, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName );
 		echo URL::to('dashboardorg'); //TODO
 	}
 
