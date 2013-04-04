@@ -7,12 +7,38 @@ var locationsFound =0 ;
 var searchVars = {
     eventArray : new Array(),
     resultsArray: [],
-    locationsFound : 0
+    locationsFound : 0,
+    options : { 
+        url: 'search/getprojects', 
+        beforeSubmit: findZip,
+        success: function(html) {
+            var obj = jQuery.parseJSON(html);
+            $searchcol = $("#search-results");
+            if(obj.length == 0){
+                $searchcol.html("Sorry, no search results. Please try another term :)");
+                return;
+            }       
+            $searchcol.html('');//clears results 
+
+            // var map = new google.maps.Map(document.getElementById("map"), myOptions);
+            resultsArray.length = 0;//clears the array
+            resultsArray.length = obj.length;//sets array to object's length
+            locationsFound = 0; //clears number found
+            for(var i= 0; i < obj.length; i++){
+                resultsArray[i] = obj[i];
+                var curResult = obj[i];
+                findDistance(curResult, i); //lists results in results div
+            }
+
+            // if ($searchcol.find("p.projectPosition").length === 0){ // 
+            //     $searchcol.html("Sorry, there are no projects that are " + $('input[name="distance"]:checked')[0].nextSibling.nodeValue + " away from you. Projects are available at greater distances :)");
+            // }
+        } 
+    }
 }
 function init(){
     populateSearchOptions();//dynamically add in causes and skills
     initSearch();// init ajax search
-
     $('.dropdown-menu').on('click','input', function(){ //init filter click handlers
         if ( $(this).hasClass("filtered")){ //maps filter to element it points to
             deleteFilter(this);
@@ -20,7 +46,17 @@ function init(){
             addFilter(this);
         }
     });
-    initSearchResultListener();
+    initSearchResultListener(); // pair up search results to data from backend when sent
+    onPageLoadSearch(); //search for the first time with zipcode inputted
+}
+
+function onPageLoadSearch(){ //automatic search once page has loaded
+    $('#searchForm').ajaxSubmit(searchVars.options); 
+    return false;
+}
+
+function initSearch(){ //subsequent searches after initial search
+    $('#searchForm').ajaxForm(searchVars.options); //assigns search ajax to search form
 }
 
 //code which allows the dropdown to remain open when selecting sub items from it
@@ -64,27 +100,6 @@ function blurText(item) {
             deleteFilter(item);//if there is an item
         }
         addFilter(item);
-    }
-}
-
-function validateSearchFields() {
-    //TODO VALIDATE
-    search();
-}
-function search(){
-    //options from distance
-    $distance = $("#search-specifiers-container").find('li.search-category').slice(0,1); //chooses skills column
-    //options from skills
-    $skills = {
-
-    }
-    //options from causes
-    $causes ={
-
-    }
-    //options from time
-    $time ={
-
     }
 }
 
@@ -190,41 +205,9 @@ function findZip(){
 
     
 }
-function initSearch(){
-    var options = { 
-        url: 'search/getprojects', 
-        beforeSubmit: findZip,
-        success: function(html) {
-            var obj = jQuery.parseJSON(html);
-            $searchcol = $("#search-results");
-            if(obj.length == 0){
-                $searchcol.html("Sorry, no search results. Please try another term :)");
-                return;
-            }       
-            $searchcol.html('');//clears results 
-
-            // var map = new google.maps.Map(document.getElementById("map"), myOptions);
-            resultsArray.length = 0;//clears the array
-            resultsArray.length = obj.length;//sets array to object's length
-            locationsFound = 0; //clears number found
-            for(var i= 0; i < obj.length; i++){
-                resultsArray[i] = obj[i];
-                var curResult = obj[i];
-                findDistance(curResult, i); //lists results in results div
-            }
-
-            // if ($searchcol.find("p.projectPosition").length === 0){ // 
-            //     $searchcol.html("Sorry, there are no projects that are " + $('input[name="distance"]:checked')[0].nextSibling.nodeValue + " away from you. Projects are available at greater distances :)");
-            // }
-        } 
-    };
-
-    $('#searchForm').ajaxForm(options); 
-    //will validate later
-}
 
 function findDistance( result, resultidx){
-    var resultLocation = result.location
+    var resultLocation = result.location;
 
     //inits map & geocoder object
     var geocoder = new google.maps.Geocoder();  
@@ -312,12 +295,20 @@ function initSearchResultListener(){
         //loop through results and see which one is close enough
         for( var i = 0; i < resultsArray.length; i ++){
             var opportunity = resultsArray[i];
-            if (opportunity.distance && opportunity.distance < curDistance ){//if within distance
+
+            if( opportunity.spots <= 0){//skip projects with no openings
+                continue;
+            }
+
+            if (opportunity.distance && opportunity.distance < curDistance ){//if project is within distance
                 var marker = new google.maps.Marker({
                 position: opportunity.LatLng,
                 animation: google.maps.Animation.DROP,
             });    
-            marker.setMap(map); 
+            marker.setMap(map); //add marker to map
+            marker.setTitle(opportunity.name); //add title to map
+            attachMarkerToResult(marker, i); // attach click handler
+
             //prints out results on page
                     searchlist.innerHTML += "<li class='search-item'>\
                         <div class='accordion' id='accordion" +i+"'>\
@@ -334,7 +325,7 @@ function initSearchResultListener(){
                                             <p class='projectDistance'><i class='icon-road'></i>" +Math.round(opportunity.distance*10)/10+ " miles</p> \
                                             <p class='projectTime'><i class='icon-time'></i>"+opportunity.starttime+"</p> \
                                             <p class='projectDate'><i class='icon-calendar'></i>"+opportunity.endtime+"</p> \
-                                            <button class='btn btn-success' onClick=signup("+i+") type='button' class='signUpButton'>Sign Up</button> \
+                                            <button class='btn btn-success' onClick=signup(event,"+i+") type='button' class='signUpButton'>Sign Up</button> \
                                         </div> \
                                     </a> \
                                 </div> \
@@ -345,7 +336,7 @@ function initSearchResultListener(){
                                             "+ opportunity.details+" </p> \
                                         <div class='additionalInfoBox'> \
                                             <p class='accordionTitle'>ADDRESS</p> \
-                                            <p class='projectLocation'>1200 Pennsylvania Ave SE, Washington, District of Columbia, 20003</p> \
+                                            <p class='projectLocation'>"+opportunity.location+"</p> \
                                             <p class='accordionTitle'>POSTED BY</p> \
                                             <p class='projectContact'>Anita Singh</p> \
                                             <p class='accordionTitle'>SKILLS NEEDED</p> \
@@ -363,10 +354,29 @@ function initSearchResultListener(){
         }, false);
 }//end eventlistener
 
-function signup(id){
+function attachMarkerToResult(marker, number) {
+  var message = resultsArray[number].name;
+
+  google.maps.event.addListener(marker, 'mouseover', function() {
+    var container = document.getElementById("search-results").childNodes[1]; // parent element with scrollbars
+    var scrollTo = $("#accordion"+number+"").position().top; // element to scroll to
+    $(container).animate({ 
+        scrollTop: scrollTo - $(container).offset().top + container.scrollTop// scroll to project in list
+    });
+    // $("#collapse"+number+"").collapse('toggle');
+
+  });
+    google.maps.event.addListener(marker, 'click', function() {
+    $("#collapse"+number+"").collapse('toggle');
+  });
+}
+
+function signup(event, id){
     var project = resultsArray[id];
     document.createElement("div");
-   // console.log(document.cookie);
+    if( project.spots === 0){ //error check
+        alert("I'm sorry. There are no more spots left");
+    }
     var user = document.getElementById("cookie").getAttribute("name");
 
         if(!user){
@@ -394,6 +404,11 @@ function signup(id){
                    //show confirmation page and sign up. Send to db that project now has user
             //redirect to signin page
         }
+          if (event.stopPropagation) {
+              event.stopPropagation();   // W3C model
+          } else {
+              event.cancelBubble = true; // IE model
+          }
 }
 
 //removed requirements stuff 
