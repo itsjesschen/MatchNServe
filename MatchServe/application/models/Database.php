@@ -57,7 +57,7 @@ class Database {
 		$newProjectID = DB::table('projects')->insert_get_id(array(
 				'ProjectName' => $name,
 				'Details' => $details,
-				'Location' => $location,
+				'Address' => $location,
 				'StartTime' => $startTime,
 				'EndTime' => $endTime,
 				'Spots' => $spots,
@@ -160,31 +160,26 @@ class Database {
 		$sep = "', '";
 		$temp = '%'.$searchterm.'%';
 		$temp = '\''.$temp.'\'';
-		if ($zipcode != null) 
-		{
-			$query = DB::query('SELECT projects.ProjectID as pID, projects.ProjectName as Name, projects.Details as Details, projects.Location as Location,  
-			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
-			'.$sep.') as Cause, organizations.OrgName as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
-			projects.StartTime as StartTime, projects.EndTime as EndTime, 
-			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, causes, orgproject,
-			organizations, projectskill, skills, pgfjoin, projectgoodfor WHERE  
-			organizations.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
-			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=pgfjoin.ProjectID and 
-			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.') and 
-			projects.Location = '.$zipcode.' GROUP BY projects.ProjectID');
-		} else
-		{
-			$query = DB::query('SELECT projects.ProjectID as pID, projects.ProjectName as Name, projects.Details as Details, projects.Location as Location,  
-			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
-			'.$sep.') as Cause, organizations.OrgName as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
-			projects.StartTime as StartTime, projects.EndTime as EndTime, 
-			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, causes, orgproject,
-			organizations, projectskill, skills, pgfjoin, projectgoodfor WHERE  
-			organizations.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
-			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=pgfjoin.ProjectID and 
-			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.') GROUP BY projects.ProjectID');
-		}
 		
+		$query = DB::query('
+			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
+			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
+			            projects.Headline as Headline, organizations.OrgName as Organization,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime,
+			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
+			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
+						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill
+				WHERE  
+			 		organizations.CauseID=causes.CauseID
+			 		and projects.ProjectID=orgproject.ProjectID
+			 		and orgproject.OrganizationID=organizations.OrganizationID 
+					and projects.ProjectID=pgfjoin.ProjectID
+					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
+					and projects.ProjectID=projectskill.ProjectID 
+					and projectskill.SkillID=skills.SkillID
+					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
+			 	GROUP BY projects.ProjectID');
 		return $query;
 	}
 	public static function getProjectTime($times) {

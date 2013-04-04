@@ -66,9 +66,9 @@ class Search_Controller extends Base_Controller{
 		  }
 
 		//assumes number for zipcode
-		 // if( isset($_GET['zipcode']) && ("zip code" != $_GET['zipcode']) ) {
-		 //  	$zipcode = $_GET['zipcode'];
-		 // }
+		 if( isset($_GET['zipcode']) && ("zip code" != $_GET['zipcode']) ) {
+		  	$zipcode = $_GET['zipcode'];
+		 }
 			 if( isset($_GET['distance']) ){
 			 	$distance = $_GET['distance'];
 			 	$arguments['Location'] = $distance;
