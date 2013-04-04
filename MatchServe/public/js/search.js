@@ -8,19 +8,18 @@ var searchVars = {
     eventArray : new Array(),
     resultsArray: [],
     locationsFound : 0,
-    options : { 
+    options : { //search options 
         url: 'search/getprojects', 
         beforeSubmit: findZip,
-        success: function(html) {
+        success: function(html) { // callback function for successful searches
             var obj = jQuery.parseJSON(html);
             $searchcol = $("#search-results");
             if(obj.length == 0){
                 $searchcol.html("Sorry, no search results. Please try another term :)");
                 return;
             }       
-            $searchcol.html('');//clears results 
+            $searchcol.html('');//clears prior results 
 
-            // var map = new google.maps.Map(document.getElementById("map"), myOptions);
             resultsArray.length = 0;//clears the array
             resultsArray.length = obj.length;//sets array to object's length
             locationsFound = 0; //clears number found
@@ -194,16 +193,16 @@ function findZip(){
         };
         var geocoder = new google.maps.Geocoder();  
         geocoder.geocode(param, function(results, status) {
-        try{
-            searchVars.userLoc = results[0].geometry.location;
-        }catch(err){
-            // console.log('results');
-        } 
-    });}else{
+            try{
+                searchVars.userLoc = results[0].geometry.location;
+            }catch(err){
+                // console.log('results');
+            } 
+        });
+    }else{
         searchVars.userLoc = new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
     }
-
-    
+ 
 }
 
 function findDistance( result, resultidx){
@@ -222,7 +221,7 @@ function findDistance( result, resultidx){
         try{
             locationsFound++;
             var resultLatLng = results[0].geometry.location;
-            var curLocLatLng = searchVars.userLoc;//new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
+            var curLocLatLng = searchVars.userLoc;//finds LOS ANGELES lat long to base search off of or zipcode inputted 
             var actualDistance = calculateDistance(curLocLatLng, resultLatLng);//calculates distance between the two
             //add distance to object
             resultsArray[resultidx].distance = actualDistance;
@@ -245,7 +244,7 @@ function calculateDistance(loc1, loc2)
     }
     catch (error)
     {
-        alert(error);
+        alert(error);//error finding distance
     }
 }
 
@@ -260,18 +259,19 @@ function initSearchResultListener(){
 
     //adds function that listens to it
     window.addEventListener ("plotAllData", function(e){ // will be called if result falls within distance
-        //iniitalizes map & center
+
+        //iniitalizes google map & center
         $searchcol = $("#search-results");
-        var Emap = document.createElement("div");
+        var Emap = document.createElement("div");//container for map
         Emap.setAttribute("id","map");
         $searchcol.append(Emap);
         var myOptions = {
             zoom: 9,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        var map = new google.maps.Map(document.getElementById("map"), myOptions); //map itself
         var curDistance = $('input[name="distance"]:checked').val();//gets current distance element
-        var curLocLatLng = searchVars.userLoc;//new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
+        var curLocLatLng = searchVars.userLoc;//finds LOS ANGELES lat long to base search off of or zipcode inputted 
         map.setCenter(curLocLatLng); 
         if(!curDistance || curDistance === "all"){//if they do have distance defined
             curDistance = Number.MAX_VALUE;
@@ -288,7 +288,7 @@ function initSearchResultListener(){
             return a.distance-b.distance //both not null
         });
 
-        var searchlist = document.createElement("ul");
+        var searchlist = document.createElement("ul");//create list to hold projects
         searchlist.className = "search-result-list";
         $searchcol.append(searchlist);
 
@@ -355,30 +355,28 @@ function initSearchResultListener(){
 }//end eventlistener
 
 function attachMarkerToResult(marker, number) {
-  var message = resultsArray[number].name;
-
-  google.maps.event.addListener(marker, 'mouseover', function() {
-    var container = document.getElementById("search-results").childNodes[1]; // parent element with scrollbars
-    var scrollTo = $("#accordion"+number+"").position().top; // element to scroll to
-    $(container).animate({ 
-        scrollTop: scrollTo - $(container).offset().top + container.scrollTop// scroll to project in list
+    //adding scrolling event to marker...scrolls to project it correlates to
+    google.maps.event.addListener(marker, 'mouseover', function() { 
+        var container = document.getElementById("search-results").childNodes[1]; // parent element with scrollbars
+        var scrollTo = $("#accordion"+number+"").position().top; // element to scroll to
+        $(container).animate({ 
+            scrollTop: scrollTo - $(container).offset().top + container.scrollTop// scroll to project in list
+        });
     });
-    // $("#collapse"+number+"").collapse('toggle');
-
-  });
+    //adding click event to marker...opens and closes the project tile it correlates to
     google.maps.event.addListener(marker, 'click', function() {
     $("#collapse"+number+"").collapse('toggle');
-  });
+    });
 }
 
 function signup(event, id){
     var project = resultsArray[id];
     document.createElement("div");
-    if( project.spots === 0){ //error check
+
+    if( project.spots === 0){ //error check just in case for open spots
         alert("I'm sorry. There are no more spots left");
     }
     var user = document.getElementById("cookie").getAttribute("name");
-
         if(!user){
               alert("Please sign in to do that");           
         }else{
