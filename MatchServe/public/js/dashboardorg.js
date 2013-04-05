@@ -5,6 +5,7 @@ var projectlistid = new Array();
 function init(){
     populateProjectOptions();//dynamically add in admins from db
     getOrgProjects();//adds in all the projects to the projects page on load
+    getSchedule();//populates both schedule and pending tabs for projects
 }
 
 //code which allows the dropdown to remain open when selecting sub items from it
@@ -84,7 +85,6 @@ $.ajax({//populate projects
             );
         }
     });
-    getSchedule();
 }
 
 function getSchedule(){
@@ -96,8 +96,6 @@ $.ajax({
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
-        console.log(obj);
-
         for(var i= 0; i < projectlistid.length; i++)
         {
             var counter = 1;
@@ -116,13 +114,11 @@ $.ajax({
                         $options5 = $("#pendingvolunteers" + curResult.projectid);
                         $options5.append("<p>Are you sure you want to <a href='#' onclick='approveUser(\"" + curResult.userid + "\",\"" + curResult.projectid + "\")'>approve </a> " +  curResult.firstname + " " + curResult.lastname + "</p>\ ");
                     }
-                    
                     counter++;
                 }
             }
         }
     });
-    alert("end");
 }
 
 function approveUser(userID, projectID) {
