@@ -116,6 +116,13 @@ $.ajax({
     });
 }
 
+
+function deleteProject(projectID) {
+  $.get('upcomingprojectsorg/deleteProject?project=' + projectID, function(response) {
+    window.location.reload();
+  });
+}
+
 function getTime(dbdate){
     var time = dbdate.slice(11,20);
     return time;

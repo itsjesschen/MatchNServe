@@ -42,8 +42,10 @@ class UpcomingProjectsOrg_Controller extends Base_Controller{
 
 	public function action_deleteProject() 
 	{	
-		$projectId = $_GET['project'];
+		$projectID = $_GET['project'];
 		$data = Database::deleteProject($projectID);
+		$data = json_encode($data);
+		return $data;	
 	}
 
 }
