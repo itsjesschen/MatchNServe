@@ -75,7 +75,6 @@ $.ajax({//populate projects
                                 <p> <b>Requirements:</b> " + req + "</p>\
                             </div>\
                             <div class='tab-pane' id='schedule" + curResult.projectid + "'></div>\
-                            <div class='tab-pane' id='messages" + curResult.projectid + "'></div>\
                             <div class='tab-pane' id='deleteproject" + curResult.projectid + "'>Are you sure you want to <a href='#' onclick='deleteProject(\"" + curResult.projectid + "\")'>delete</a> this project?</div>\
                             <div class='tab-pane' id='pendingvolunteers" + curResult.projectid + "'></div>\
                             <div class='tab-pane' id='checkinvolunteers" + curResult.projectid + "'></div>\
@@ -105,17 +104,32 @@ $.ajax({
             for(var j = 0; j < obj.length; j++)
             {
                 var curResult = obj[j];
-                if(projectlistid[i] == curResult.projectid && curResult.approved == "1")
+                if(projectlistid[i] == curResult.projectid)
                 {
-                    $options4 = $("#schedule" + curResult.projectid);
-                    $options4.append("<p>" + counter + ". "+  curResult.firstname + " " + curResult.lastname + "</p>\ ");
+                    if(curResult.approved == "1")
+                    {
+                        $options4 = $("#schedule" + curResult.projectid);
+                        $options4.append("<p>" + counter + ". "+  curResult.firstname + " " + curResult.lastname + "</p>\ ");
+                    }
+                    else
+                    {
+                        $options5 = $("#pendingvolunteers" + curResult.projectid);
+                        $options5.append("<p>Are you sure you want to <a href='#' onclick='approveUser(\"" + curResult.userid + "\",\"" + curResult.projectid + "\")'>approve </a> " +  curResult.firstname + " " + curResult.lastname + "</p>\ ");
+                    }
+                    
                     counter++;
                 }
             }
         }
     });
+    alert("end");
 }
 
+function approveUser(userID, projectID) {
+  $.get('upcomingprojectsorg/approveUser?user=' + userID + '&project=' + projectID, function(response) {
+    window.location.reload();
+  });
+}
 
 function deleteProject(projectID) {
   $.get('upcomingprojectsorg/deleteProject?project=' + projectID, function(response) {

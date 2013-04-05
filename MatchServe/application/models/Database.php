@@ -123,6 +123,15 @@ class Database {
 	public static function addUser(){
 	}
 
+	public static function approveUser($userID, $projectID)
+	{
+		$query = DB::table('userproject')
+    		->where('ProjectID', '=', $projectID)
+    		->where('UserID', '=', $userID)
+    		->update(array('Approved' => 1));
+
+	}
+
 	public static function deleteProject($projectID)
 	{
 		$query = DB::table('projects')

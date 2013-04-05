@@ -44,8 +44,13 @@ class UpcomingProjectsOrg_Controller extends Base_Controller{
 	{	
 		$projectID = $_GET['project'];
 		$data = Database::deleteProject($projectID);
-		$data = json_encode($data);
-		return $data;	
+	}
+
+	public function action_approveUser() 
+	{	
+		$userID = $_GET['user'];
+		$projectID = $_GET['project'];
+		$data = Database::approveUser($userID, $projectID);
 	}
 
 }
