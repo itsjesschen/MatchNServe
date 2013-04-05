@@ -5,7 +5,6 @@ var counter = 1;
 
 function init(){
     getOrgProjects();//adds in all the projects to the projects page on load
-    getSchedule();//populates both schedule and pending tabs for projects
     populateProjectOptions();//dynamically add in admins from db
 }
 
@@ -84,6 +83,7 @@ $.ajax({//populate projects
             );
         }
     });
+    setTimeout(function(){getSchedule()},100);;//populates both schedule and pending tabs for projects
 }
 
 function getSchedule(){
