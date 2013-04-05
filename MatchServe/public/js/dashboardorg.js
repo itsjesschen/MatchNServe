@@ -28,18 +28,17 @@ $.ajax({//populate projects
         var obj = jQuery.parseJSON(html);
         $options = $("#projectlist");
         for(var i= 0; i < obj.length; i++){
-            var curResult = obj[i];
             //add the current projectID into the list of project
-            projectlistid[i] = curResult.projectid;
-            $options.append("<li><a href='#project" + curResult.projectid + "' data-toggle='tab'> \
+            projectlistid[i] = obj[i].projectid;
+            $options.append("<li><a href='#project" + obj[i].projectid + "' data-toggle='tab'> \
                 <div class='calendar' >\
-                    <div id='month'>" + getMonth(curResult.starttime) + "</div>\
-                    <div id='date'>" + curResult.starttime.slice(8,10) + "</div>\
+                    <div id='month'>" + getMonth(obj[i].starttime) + "</div>\
+                    <div id='date'>" + obj[i].starttime.slice(8,10) + "</div>\
                 </div>\
                 <div class='infosection'>\
-                    <div id='projecttitle'>" + curResult.projectname + "</div>\
-                    <div id='orgname'>" + curResult.orgname + "</div>\
-                    <div id='times'>" + getTime(curResult.starttime) + " - " + getTime(curResult.endtime) + "</div>\
+                    <div id='projecttitle'>" + obj[i].projectname + "</div>\
+                    <div id='orgname'>" + obj[i].orgname + "</div>\
+                    <div id='times'>" + getTime(obj[i].starttime) + " - " + getTime(obj[i].endtime) + "</div>\
                     <div class='progress progress-info' id='progressbar'><div class='bar' style='width: 80%'></div></div>\
                 </div></a>\
             </li>");
@@ -48,38 +47,37 @@ $.ajax({//populate projects
         //add right hand side stuff
         $options2 = $("#extendedprojectlist");
         for(var i= 0; i < obj.length; i++){
-            var curResult = obj[i];
             //see if requirements is null
-            var req = curResult.requirements;
-            if('null' != req)
+            var req = obj[i].requirements;
+            if(!req)
             {
                 req = 'There are no requirements for this project.';
             }
             $options2.append("\
-                <div class='tab-pane' id='project" + curResult.projectid + "'>\
+                <div class='tab-pane' id='project" + obj[i].projectid + "'>\
                     <div class='tabbable tabs-left' id='rightsideinfo'>\
                         <ul class='nav nav-tabs' id='buttonlist'>\
-                            <li class='active'><a href='#moreinfo" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>More Info</a></li>\
-                            <li><a href='#schedule" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>Schedule</a></li>\
-                            <li><a href='#deleteproject" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/DeleteGray.png\") ?></br>Delete Project</a></li>\
-                            <li><a href='#pendingvolunteers" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/PendingGray.png\") ?></br>Pending</a></li>\
-                            <li><a href='#checkinvolunteers" + curResult.projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CheckInGray.png\") ?></br>Check-In</a></li>\
+                            <li class='active'><a href='#moreinfo" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>More Info</a></li>\
+                            <li><a href='#schedule" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>Schedule</a></li>\
+                            <li><a href='#deleteproject" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/DeleteGray.png\") ?></br>Delete Project</a></li>\
+                            <li><a href='#pendingvolunteers" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/PendingGray.png\") ?></br>Pending</a></li>\
+                            <li><a href='#checkinvolunteers" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CheckInGray.png\") ?></br>Check-In</a></li>\
                         </ul>\
                         <div class='tab-content'>\
-                            <div class='tab-pane active' id='moreinfo" + curResult.projectid + "'> \
-                                <p> <b>Project Name:</b> " + curResult.projectname + "</p>\
-                                <p> <b>Details:</b> " + curResult.details + "</p>\
-                                <p> <b>Headline:</b> " + curResult.headline + "</p>\
-                                <p> <b>Address:</b> " + curResult.address + "</p>\
-                                <p> <b>Start Time:</b> " + curResult.starttime + "</p>\
-                                <p> <b>End Time:</b> " + curResult.endtime + "</p>\
-                                <p> <b>Total Spots:</b> " + curResult.spots + "</p>\
+                            <div class='tab-pane active' id='moreinfo" + obj[i].projectid + "'> \
+                                <p> <b>Project Name:</b> " + obj[i].projectname + "</p>\
+                                <p> <b>Details:</b> " + obj[i].details + "</p>\
+                                <p> <b>Headline:</b> " + obj[i].headline + "</p>\
+                                <p> <b>Address:</b> " + obj[i].address + "</p>\
+                                <p> <b>Start Time:</b> " + obj[i].starttime + "</p>\
+                                <p> <b>End Time:</b> " + obj[i].endtime + "</p>\
+                                <p> <b>Total Spots:</b> " + obj[i].spots + "</p>\
                                 <p> <b>Requirements:</b> " + req + "</p>\
                             </div>\
-                            <div class='tab-pane' id='schedule" + curResult.projectid + "'></div>\
-                            <div class='tab-pane' id='deleteproject" + curResult.projectid + "'>Are you sure you want to <a href='#' onclick='deleteProject(\"" + curResult.projectid + "\")'>delete</a> this project?</div>\
-                            <div class='tab-pane' id='pendingvolunteers" + curResult.projectid + "'></div>\
-                            <div class='tab-pane' id='checkinvolunteers" + curResult.projectid + "'></div>\
+                            <div class='tab-pane' id='schedule" + obj[i].projectid + "'></div>\
+                            <div class='tab-pane' id='deleteproject" + obj[i].projectid + "'>Are you sure you want to <a href='#' onclick='deleteProject(\"" + obj[i].projectid + "\")'>delete</a> this project?</div>\
+                            <div class='tab-pane' id='pendingvolunteers" + obj[i].projectid + "'></div>\
+                            <div class='tab-pane' id='checkinvolunteers" + obj[i].projectid + "'></div>\
                         </div>\
                     </div>\
                 </div>"

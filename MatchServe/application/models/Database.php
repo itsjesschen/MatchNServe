@@ -280,7 +280,7 @@ class Database {
 		    ->left_join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID')
 		    ->left_join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID')
 			->where('organizations.OrganizationID', '=', $orgID)
-		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.ProjectName as ProjectName', 'projects.StartTime', 'projects.EndTime','projects.Spots', 'organizations.OrgName as OrgName', 'projects.Address', 'projects.Requirements', 'projects.Headline'));
+		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.ProjectName as ProjectName', 'projects.StartTime', 'projects.EndTime','projects.Spots', 'organizations.OrgName as OrgName', 'projects.Address', 'projects.Requirements', 'projects.Headline', 'projects.Details'));
 		return $query;
 	}
 	public static function getUserProject(){

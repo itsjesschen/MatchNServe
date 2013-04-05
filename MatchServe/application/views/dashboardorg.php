@@ -7,8 +7,8 @@
   <!--SUPER IMPORTANT: MAKE SURE TO COPY AND PASTE THIS IN EVERY HEADER SO ALL THE INCLUDES CAN TAKE EFFECT IN THE PAGE-->
   <?php echo Asset::container('bootstrap')->styles();?>
   <?php echo Asset::scripts();?>
-  <?php echo Asset::container('dashboardorg')->scripts();?>
   <?php echo Asset::styles();?>
+  <?php echo Asset::container('dashboardorg')->scripts();?>
 
   <script>
   </script>

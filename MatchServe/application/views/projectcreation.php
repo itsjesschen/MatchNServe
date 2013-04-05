@@ -48,7 +48,7 @@
 			</br></br>
 			<input id="projectHeadline" type="text" name="projectHeadline" value="Tell us the project in 1 short sentence" defaultValue = "Tell us the project in 1 short sentence" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 		</br></br>
-		<input id="projectDescription" type="text" name="projectDescription" value="Give us the full project description" defaultValue = "Give us the full project description" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+		<input id="projectDetails" type="text" name="projectDetails" value="Give us the full project description" defaultValue = "Give us the full project description" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 	</br></br>
 	<p> LOCATION: 	
 		<input id="projectLocationONLINE" type="radio" name="projectLocation" value="1"> ONLINE

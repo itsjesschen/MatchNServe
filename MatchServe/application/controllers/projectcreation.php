@@ -103,9 +103,9 @@ class ProjectCreation_Controller extends Base_Controller
 	  		$headline = $_GET['projectHeadline'];
 	  	}
 	  	//gets the project description
-	  	if( isset($_GET['projectDescription']) && ("Full project description" != $_GET['projectDescription']))
+	  	if( isset($_GET['projectDetails']) && ("Full project description" != $_GET['projectDetails']))
 	    {
-	  		$details = $_GET['projectDescription'];
+	  		$details = $_GET['projectDetails'];
 	  	}
 	  	//gets project address
 	  	if( isset($_GET['projectLocation']) && ($_GET['projectLocation'] == '2'))
