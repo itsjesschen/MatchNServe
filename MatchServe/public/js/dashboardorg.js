@@ -1,11 +1,12 @@
 window.onload = init;
 
 var projectlistid = new Array();
+var counter = 1;
 
 function init(){
-    populateProjectOptions();//dynamically add in admins from db
     getOrgProjects();//adds in all the projects to the projects page on load
     getSchedule();//populates both schedule and pending tabs for projects
+    populateProjectOptions();//dynamically add in admins from db
 }
 
 //code which allows the dropdown to remain open when selecting sub items from it
@@ -98,7 +99,7 @@ $.ajax({
         var obj = jQuery.parseJSON(html);
         for(var i= 0; i < projectlistid.length; i++)
         {
-            var counter = 1;
+            counter = 1;
             for(var j = 0; j < obj.length; j++)
             {
                 var curResult = obj[j];

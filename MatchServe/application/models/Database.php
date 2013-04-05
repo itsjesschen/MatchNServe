@@ -129,6 +129,7 @@ class Database {
     		->where('ProjectID', '=', $projectID)
     		->where('UserID', '=', $userID)
     		->update(array('Approved' => 1));
+		return $query;
 
 	}
 
@@ -137,6 +138,7 @@ class Database {
 		$query = DB::table('projects')
 			->where('ProjectID', '=', $projectID)
 			->delete();
+		return $query;
 	}
 
 	public static function signup($user, $project){
