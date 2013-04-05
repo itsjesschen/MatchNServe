@@ -8,6 +8,7 @@
   <?php echo Asset::container('bootstrap')->styles();?>
   <?php echo Asset::scripts();?>
   <?php echo Asset::styles();?>
+  <?php echo Asset::container('dashboardorg')->scripts();?>
 
   <script>
   </script>

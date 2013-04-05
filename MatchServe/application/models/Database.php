@@ -47,25 +47,44 @@ class Database {
 	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
-	public static function addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName){
+	public static function addProject($name, $headline, $details, $address, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName){
 		//get the orgID		
 		$orgID = DB::table('organizations')
 			->where('organizations.OrgName', '=', $orgName)
 			->only('OrganizationID');
 
-		//insert new project
-		$newProjectID = DB::table('projects')->insert_get_id(array(
-				'ProjectName' => $name,
-				'Details' => $details,
-				'Address' => $location,
-				'StartTime' => $startTime,
-				'EndTime' => $endTime,
-				'Spots' => $spots,
-				'Admin' => $admin,
-				'Status' => $status,
-				'Requirements' => $requirements,
-				'Headline' => $headline
-			));
+
+			//insert new project
+			if($requirements == "")
+			{
+				$newProjectID = DB::table('projects')->insert_get_id(array(
+					'ProjectName' => $name,
+					'Details' => $details,
+					'Address' => $address,
+					'StartTime' => $startTime,
+					'EndTime' => $endTime,
+					'Spots' => $spots,
+					'Admin' => $admin,
+					'Status' => $status,
+					'Requirements' => NULL,
+					'Headline' => $headline
+				));
+			}
+			else
+			{
+				$newProjectID = DB::table('projects')->insert_get_id(array(
+					'ProjectName' => $name,
+					'Details' => $details,
+					'Address' => $address,
+					'StartTime' => $startTime,
+					'EndTime' => $endTime,
+					'Spots' => $spots,
+					'Admin' => $admin,
+					'Status' => $status,
+					'Requirements' => $requirements,
+					'Headline' => $headline
+				));
+			}
 
 		//insert into orgproject to keep track of which org owns it
 		DB::table('orgproject')->insert(array(
@@ -102,8 +121,26 @@ class Database {
 	public static function addUserProject(){
 	}
 	public static function addUser(){
-		
 	}
+
+	public static function approveUser($userID, $projectID)
+	{
+		$query = DB::table('userproject')
+    		->where('ProjectID', '=', $projectID)
+    		->where('UserID', '=', $userID)
+    		->update(array('Approved' => 1));
+		return $query;
+
+	}
+
+	public static function deleteProject($projectID)
+	{
+		$query = DB::table('projects')
+			->where('ProjectID', '=', $projectID)
+			->delete();
+		return $query;
+	}
+
 	public static function signup($user, $project){
 		$uID = DB::table('users')->where('Name', '=', $user)->only('UserID');
 		//checks to see if user has already signed up
@@ -207,6 +244,14 @@ class Database {
 		}
 		return $query;
 	}
+
+	public static function getSchedule()
+	{
+		$query = DB::table('userproject')
+			->left_join('users', 'userproject.UserID', '=', 'users.UserID')
+			->get(array('userproject.UserID', 'userproject.ProjectID', 'userproject.Approved', 'users.FirstName', 'users.LastName'));
+		return $query;
+	}
 	
 	public static function getSettings($username, $account) {
 		$name = '\''.$username.'\'';
@@ -242,7 +287,7 @@ class Database {
 		    ->left_join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID')
 		    ->left_join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID')
 			->where('organizations.OrganizationID', '=', $orgID)
-		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.ProjectName as ProjectName', 'projects.StartTime', 'projects.EndTime','projects.Spots', 'organizations.OrgName as OrgName', 'projects.Address', 'projects.Requirements', 'projects.Headline'));
+		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.ProjectName as ProjectName', 'projects.StartTime', 'projects.EndTime','projects.Spots', 'organizations.OrgName as OrgName', 'projects.Address', 'projects.Requirements', 'projects.Headline', 'projects.Details'));
 		return $query;
 	}
 	public static function getUserProject(){
