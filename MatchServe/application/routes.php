@@ -146,3 +146,4 @@ Route::filter('auth', function()
  Asset::container('datepicker')->add('datepicker', 'js/jquery.ui.datepicker.min.js');
  Asset::container('timepicker')->add('timepicker', 'js/timepicker.js');
  Asset::add('bootstrap', 'bootstrap/js/bootstrap.js', 'jquery.min');
+ Asset::container('login')->add('login','js/login.js');

@@ -105,9 +105,16 @@ class Database {
 		
 	}
 	public static function signup($user, $project){
-		$uID = DB::table('users')->where('name', '=', $user)->only('UserID');
-		DB::table('userproject')->insert(array('UserID' => $uID,'ProjectID' => $project ));
-		return $uID;
+		$uID = DB::table('users')->where('Name', '=', $user)->only('UserID');
+		//checks to see if user has already signed up
+		$query = DB::query('SELECT userID FROM userproject WHERE (userID ='.$uID.' AND projectID = '.$project.')');
+		if($query){
+			return "false";
+		}else{
+			DB::table('userproject')->insert(array('UserID' => $uID,'ProjectID' => $project ));
+			return "true";
+		}
+		//decrement prject spots TODO
 	}
 
 	/**********************************GETTERS**************************************/

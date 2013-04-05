@@ -36,7 +36,7 @@ var searchVars = {
     }
 }
 function init(){
-    populateSearchOptions();//dynamically add in causes and skills
+   // populateSearchOptions();//dynamically add in causes and skills
     initSearch();// init ajax search
     $('.dropdown-menu').on('click','input', function(){ //init filter click handlers
         if ( $(this).hasClass("filtered")){ //maps filter to element it points to
@@ -47,6 +47,7 @@ function init(){
     });
     initSearchResultListener(); // pair up search results to data from backend when sent
     onPageLoadSearch(); //search for the first time with zipcode inputted
+    initSignup();
 }
 
 function onPageLoadSearch(){ //automatic search once page has loaded
@@ -181,7 +182,7 @@ function populateSearchOptions(){//so that we dont have to hardcode skills & cau
         }
         preventDropdownToggle();//stays open on click
     });
-   
+   return false;
 }
 function findZip(){
 
@@ -325,7 +326,7 @@ function initSearchResultListener(){
                                             <p class='projectDistance'><i class='icon-road'></i>" +Math.round(opportunity.distance*10)/10+ " miles</p> \
                                             <p class='projectTime'><i class='icon-time'></i>"+opportunity.starttime+"</p> \
                                             <p class='projectDate'><i class='icon-calendar'></i>"+opportunity.endtime+"</p> \
-                                            <button class='btn btn-success' onClick=signup(event,"+i+") type='button' class='signUpButton'>Sign Up</button> \
+                                            <button class='btn btn-success' onClick=signUpForProject(event,"+i+") type='button' class='signUpButton'>Sign Up</button> \
                                         </div> \
                                     </a> \
                                 </div> \
@@ -369,7 +370,7 @@ function attachMarkerToResult(marker, number) {
     });
 }
 
-function signup(event, id){
+function signUpForProject(event, id){
     var project = resultsArray[id];
     document.createElement("div");
 
@@ -377,38 +378,101 @@ function signup(event, id){
         alert("I'm sorry. There are no more spots left");
     }
     var user = document.getElementById("cookie").getAttribute("name");
+
+        //if there is no user, signup/login first
         if(!user){
-              alert("Please sign in to do that");           
-        }else{
-          //console.log("Signing up for project # "+project.pid+"under name: "+user);
-           $.ajax({
-                type:"POST",
-                url:"search/signup",
-                data:{
-                    uID : user,
-                    pID : project.pid
-                }
-            }).done(function(html) {
-                
-                if (html !== 0){
-                    alert("You have successfully signed up for " + project.name+" project! ");
-                }else{
-                    alert("Error Signing Up");
-                }
+
+            //set login-form submission here so it knows the project ID it has to return to
+            $("#login-form").submit( function () {
+                var user = document.getElementById("username").value;
+                var passwd = document.getElementById("password1").value;
+                var newpasswd = document.getElementById("password2").value;
+                var email = document.getElementById("email").value;
+                 $.ajax({//populate causes
+                    type:"POST",
+                    url:"user/processlogin",
+                    data:{
+                        userName : user, 
+                        password : passwd,
+                        newPassword : newpasswd,
+                        newEmail : email,
+                        search : "true"
+                    }
+                }).done(function(html){
+                    console.log(html);
+                    signUpAndLoggedIn(html,project);//signup for project
+                });
+                return false;
             });
-            //if requirements are needed
-                   //check for requirements
-            //else
-                   //show confirmation page and sign up. Send to db that project now has user
-            //redirect to signin page
+            // Getting the variable's value from a link 
+            var loginBox = "#login-box";
+
+            //Fade in the Popup and add close button
+            $(loginBox).fadeIn(300);
+            
+            //Set the center alignment padding + border
+            var popMargTop = ($(loginBox).height() + 24) / 2; 
+            var popMargLeft = ($(loginBox).width() + 24) / 2; 
+            
+            $(loginBox).css({ 
+                'margin-top' : -popMargTop,
+                'margin-left' : -popMargLeft
+            });
+            
+            // Add the mask to body
+            $('body').append('<div id="mask"></div>');
+            $('#mask').fadeIn(300);   
+        }else{
+            signUpAndLoggedIn(user, project);
+        } 
+    //cancel propigation so that click doesn't register in expanding/collapsing the project
+    if (event.stopPropagation) {
+        event.stopPropagation();   // W3C model
+    } else {
+        event.cancelBubble = true; // IE model
+    }
+}
+function signUpAndLoggedIn(username, project){
+    console.log("Signing up for project # "+project.pid+"under name: "+username);
+    $.ajax({
+        type:"POST",
+        url:"search/signup",
+        data:{
+        uID : username,
+        pID : project.pid
+    }
+    }).done(function(html) {
+        if (html !== 0){
+            if(html === "false"){
+                alert("You already signed up for the " + project.name+" project! ");
+            }else{
+                alert("Thanks for signing up for the " + project.name+" project! ");
+            }
+            console.log(html);
+            
+        }else{
+            alert("Error Signing Up");
         }
-          if (event.stopPropagation) {
-              event.stopPropagation();   // W3C model
-          } else {
-              event.cancelBubble = true; // IE model
-          }
+    });
+    //if requirements are needed
+        //check for requirements
+    //else
+        //show confirmation page and sign up. Send to db that project now has user
+    //redirect to signin page
 }
 
+function initSignup(){
+        // When clicking on the button close or the mask layer the popup closed
+    $('a.close, #mask').on('click', function() { 
+        $('#mask , .login-popup').fadeOut(300 , function() {
+            $('#mask').remove();  
+        }); 
+        return false;
+    });
+}
+function signUp(){
+    
+}
 //removed requirements stuff 
  //<p class='reqsMsg requirementsWarning'>This project contains requirements</p> \
                                             // <p class='accordionTitle'>REQUIREMENTS NEEDED</p> \

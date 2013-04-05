@@ -17,14 +17,17 @@ function action_processlogin(){
  mysql_select_db("matchserve", $dbLocalhost)
  or die("Could not find database: " . mysql_error());
 
-    if (isset($_POST['submit']))
+    if (isset($_POST['submit']) || isset($_POST['search']))
 	{
+
 		$userName = $_POST['userName'];
 		$password = $_POST['password'];
 		$newPassword = $_POST['newPassword'];
 		$emailExp = '/^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-Z0-9]{2,4}$/';
 		$newEmail = $_POST['newEmail'];
-
+		if(isset($_POST['search'])){
+			$isSearch = $_POST['search'];
+		}
 		if ($userName != null && $userName !="" && ($newPassword == null || $newPassword ==""))
 		{
 			if ($password != null && $password !="") 
@@ -40,6 +43,9 @@ function action_processlogin(){
 						{
 							//successful login
 							Cookie::put('name', $userName, 7200);
+							if ($isSearch === "true"){
+								return $userName;
+							}
 							return Redirect::to_action('user/accountselection')->with('userName', $userName);
 						}
 						else
@@ -123,13 +129,16 @@ function action_processlogin(){
 					{
 						if (strlen($password) > 8 && strlen($password) < 15)
 						{
-						$encryptPassword = md5($newPassword);
-						$sql="insert into users(Name, Email, Password) values('$userName','$email','$encryptPassword')";
-						$result = mysql_query($sql, $dbLocalhost)
-						or die("Problem writing to table: " . mysql_error());
-						//new user registered successfully
-						Cookie::put('name', $userName, 7200);
-						return Redirect::to('dashboardvol');
+							$encryptPassword = md5($newPassword);
+							$sql="insert into users(Name, Email, Password) values('$userName','$email','$encryptPassword')";
+							$result = mysql_query($sql, $dbLocalhost)
+							or die("Problem writing to table: " . mysql_error());
+							//new user registered successfully
+							Cookie::put('name', $userName, 7200);
+							if ($isSearch === "true"){
+								return $userName;
+							}
+							return Redirect::to('dashboardvol');
 						}
 						else
 						{

@@ -7,6 +7,7 @@
     <?php echo Asset::container('bootstrap')->styles();?>
     <?php echo Asset::scripts();?>
     <?php echo Asset::container('search')->scripts();?>
+    <?php echo Asset::container('login')->scripts();?>
     <?php echo Asset::styles();?> 
 
     <style>
@@ -268,6 +269,175 @@
         font-size: 14px;
     }
 
+/* 
+
+signup css 
+
+*/
+.container-login {width: 960px; margin: 0 auto; overflow: hidden;}
+
+#content {  float: left; width: 100%;}
+
+.post { margin: 0 auto; padding-bottom: 50px; float: left; width: 960px; }
+
+.btn-sign {
+    width:460px;
+    margin-bottom:20px;
+    margin:0 auto;
+    padding:20px;
+    border-radius:5px;
+    background: -moz-linear-gradient(center top, #00c6ff, #018eb6);
+    background: -webkit-gradient(linear, left top, left bottom, from(#00c6ff), to(#018eb6));
+    background:  -o-linear-gradient(top, #00c6ff, #018eb6);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#00c6ff', EndColorStr='#018eb6');
+    text-align:center;
+    font-size:36px;
+    color:#fff;
+    text-transform:uppercase;
+}
+
+.btn-sign a { color:#fff; text-shadow:0 1px 2px #161616; }
+
+#mask {
+    display: none;
+    background: #000; 
+    position: fixed; left: 0; top: 0; 
+    z-index: 10;
+    width: 100%; height: 100%;
+    opacity: 0.8;
+    z-index: 999;
+}
+
+.login-popup{
+    display:none;
+    background: #333;
+    padding: 10px;  
+    border: 2px solid #ddd;
+    float: left;
+    font-size: 1.2em;
+    position: fixed;
+    top: 50%; left: 50%;
+    z-index: 99999;
+    box-shadow: 0px 0px 20px #999;
+    -moz-box-shadow: 0px 0px 20px #999; /* Firefox */
+    -webkit-box-shadow: 0px 0px 20px #999; /* Safari, Chrome */
+    border-radius:3px 3px 3px 3px;
+    -moz-border-radius: 3px; /* Firefox */
+    -webkit-border-radius: 3px; /* Safari, Chrome */
+}
+
+img.btn_close {
+    float: right; 
+    margin: -28px -28px 28px 28px;
+}
+
+fieldset { 
+    border:none; 
+}
+
+form.signin .textbox label { 
+    display:block; 
+    padding-bottom:7px; 
+}
+
+form.signin .textbox span { 
+    display:block;
+}
+
+form.signin p, form.signin span { 
+    color:#999; 
+    font-size:11px; 
+    line-height:18px;
+} 
+
+form.signin .textbox input { 
+    background:#666666; 
+    border-bottom:1px solid #333;
+    border-left:1px solid #000;
+    border-right:1px solid #333;
+    border-top:1px solid #000;
+    color:#fff; 
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    font:13px Arial, Helvetica, sans-serif;
+    padding:6px 6px 4px;
+    width:200px;
+}
+
+form.signin input:-moz-placeholder { color:#bbb; text-shadow:0 0 2px #000; }
+form.signin input::-webkit-input-placeholder { color:#bbb; text-shadow:0 0 2px #000;  }
+
+/*.button { 
+    background: -moz-linear-gradient(center top, #f3f3f3, #dddddd);
+    background: -webkit-gradient(linear, left top, left bottom, from(#f3f3f3), to(#dddddd));
+    background:  -o-linear-gradient(top, #f3f3f3, #dddddd);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f3f3f3', EndColorStr='#dddddd');
+    border-color:#000; 
+    border-width:1px;
+    border-radius:4px 4px 4px 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color:#333;
+    cursor:pointer;
+    display:inline-block;
+    padding:6px 6px 4px;
+    margin-top:10px;
+    font:12px; 
+    width:107px;
+}*/
+
+.button:hover { background:#ddd; }
+/*end css*/
+/* css for form from login */
+        form {
+        color:gray;
+        }
+        .infoBoxLeft-login {
+            float :left;
+            margin-top:20px;
+        }
+        .stuffInside-login{
+            margin-left: 20px;
+        }
+        .infoBoxRight-login{
+            float:right;
+            margin-top: 225px;
+        }
+        #newUser {
+        visibility: collapse;
+        }
+        #bottomLinks {
+        font-size:14px;
+        }
+        .link{
+        color:grey;
+        font-weight:bold;
+        text-decoration:underline;
+        }
+        #submit
+        {
+            color:white;
+            font-weight:bold;
+            padding:10px;
+            border:none;
+            cursor: pointer;
+            background-color:#1BC700;
+        }
+        #fbbtn {
+            width:250px;
+            height:40px;
+        }
+        .fb-icon{
+            margin:0 auto;
+            padding: 0 50px;
+        }
+        .error {
+            color:red;
+            visibility: collapse;
+        }
+
+/* end css from form login*/
     </style>
 
     <?php if($zip_code != null){
@@ -347,13 +517,83 @@
     <div id="search-content" class="workspace">
         <div id="filters-row">
             <ul class = "filterlist">
-
-                <!--             <p>(Filters...to be added if time allowed)</p> -->
             </ul>
         </div>
         <div id="search-results">        
         </div>
     </div>
+<!-- signup-->
+<div class="container-login">
+    <div id="content">     
+        <div id="login-box" class="login-popup">
+            <a href="#" class="close"><img src="img/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>   
+            <div name="leftBox" class="infoBoxLeft-login">
+                <div class="stuffInside-login">
+                <div class = "prompt">Please login or signup to join an opportunity</div>
+                <form id="login-form">
+                    <table>
+                        <tr id="name">
+                            <p>USERNAME :</p>
+                            <label class='error' id='nameError'></label>
+                            <input type="text" class="formElementSpacing" name="userName" id='username' onblur="validateName()">
+                        </tr>
+                        <tr id="password">
+                            <p>PASSWORD:</p>
+                            <div id="passwordInput">
+                                 <label class='error' id='pass1Error'></label>
+                                <input type="password" class="formElementSpacing" name="password" id='password1' onblur="validatePassword()">
+                            </div>
+                        </tr>
+                    </table>
+                    <table  id="newUser" >
+                        <tr><td>RE-TYPE PASSWORD:</td></tr>
+                        <tr><td>
+                            <input type="password" class="formElementSpacing" name="newPassword" id='password2'onblur="validateConfirmPassword()"></td>
+                            <td><label class='error' id='pass2Error'></label></td>
+                        </tr>
+                        <tr><td>EMAIL ADDRESS:</td></tr>
+                        <tr><td>
+                            <input type="text" class="formElementSpacing" name="newEmail" id='email' onblur="validateEmail()"></td>
+                            <td><label class='error' id='emailError'></label></td>
+                        </tr>
+                    </table>
+                    
+                    <table id="bottomLinks">    
+                        <div class="prompt" id="bottomText" >Don't have an account yet? Create an account 
+                            <a class="link" href="javascript:newUser()" >here</a>
+                        </div>
+                                
+                        <tr><td id="forgotPassword" class="prompt">Forgot your password? Click 
+                            <a class="link" href="javascript:forgotPassword()"> here</a>
+                        </td></tr>
+                                
+                        <tr><td>
+                            <input type="submit" class="button" id="submit" name="submit" value="LOGIN" />
+                        </td></tr>
+                    </table>
+                </form>
+                </div>
+            </div>
+<!-- 
+            <div class="infoBoxMiddle">
+                <?php echo HTML::image('img/orDivider.png', 'Divder') ?>
+                </a>
+            </div>
+            
+            <div name = "rightBox" class="infoBoxRight-login">    
+                <div class="fb-icon">       
+                <a style="padding-left:20px" href="<?php echo URL::to('user/facebooklogin') ?>">
+                    <img id='fbbtn' src='img/login-facebook.png'/>
+                    </a>
+                </div>
+            </div> -->
+
+        </div><!-- end id popup-->
+    </div> 
+</div>
+<!-- end of signup-->
+
+
     <div class="footer">
         <?php echo render('elements.footer'); ?>
     </div>
