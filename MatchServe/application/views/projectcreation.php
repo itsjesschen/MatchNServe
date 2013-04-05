@@ -58,7 +58,7 @@
 		<input id="projectLocationONLINE" type="radio" name="projectLocation" value="1"> ONLINE
 		<input id="projectLocationONSITE" type="radio" name="projectLocation" value="2"> ONSITE
 	</p>
-	<input id="projectLocationOtherAddress" type="text" name="projectLocationOther" value="If other, please give address." defaultValue = "If other, please give address." onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+	<input id="projectAddress" type="text" name="projectAddress" value="If ONSITE, please give full address." defaultValue = "If ONSITE, please give full address." onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 </br></br>
 <input id="projectVolunteerNumber" type="text" name="projectVolunteerNumber" value="How many volunteers are needed?" defaultValue = "How many volunteers are needed?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 </br></br>

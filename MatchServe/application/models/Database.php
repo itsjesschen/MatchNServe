@@ -47,25 +47,44 @@ class Database {
 	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
-	public static function addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName){
+	public static function addProject($name, $headline, $details, $address, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName){
 		//get the orgID		
 		$orgID = DB::table('organizations')
 			->where('organizations.OrgName', '=', $orgName)
 			->only('OrganizationID');
 
-		//insert new project
-		$newProjectID = DB::table('projects')->insert_get_id(array(
-				'ProjectName' => $name,
-				'Details' => $details,
-				'Address' => $location,
-				'StartTime' => $startTime,
-				'EndTime' => $endTime,
-				'Spots' => $spots,
-				'Admin' => $admin,
-				'Status' => $status,
-				'Requirements' => $requirements,
-				'Headline' => $headline
-			));
+
+			//insert new project
+			if($requirements == "")
+			{
+				$newProjectID = DB::table('projects')->insert_get_id(array(
+					'ProjectName' => $name,
+					'Details' => $details,
+					'Address' => $address,
+					'StartTime' => $startTime,
+					'EndTime' => $endTime,
+					'Spots' => $spots,
+					'Admin' => $admin,
+					'Status' => $status,
+					'Requirements' => NULL,
+					'Headline' => $headline
+				));
+			}
+			else
+			{
+				$newProjectID = DB::table('projects')->insert_get_id(array(
+					'ProjectName' => $name,
+					'Details' => $details,
+					'Address' => $address,
+					'StartTime' => $startTime,
+					'EndTime' => $endTime,
+					'Spots' => $spots,
+					'Admin' => $admin,
+					'Status' => $status,
+					'Requirements' => $requirements,
+					'Headline' => $headline
+				));
+			}
 
 		//insert into orgproject to keep track of which org owns it
 		DB::table('orgproject')->insert(array(
@@ -102,8 +121,15 @@ class Database {
 	public static function addUserProject(){
 	}
 	public static function addUser(){
-		
 	}
+
+	public static function deleteProject($projectID)
+	{
+		$query = DB::table('projects')
+			->where('ProjectID', '=', $projectID)
+			->delete();
+	}
+
 	public static function signup($user, $project){
 		$uID = DB::table('users')->where('name', '=', $user)->only('UserID');
 		DB::table('userproject')->insert(array('UserID' => $uID,'ProjectID' => $project ));
