@@ -102,20 +102,19 @@ $.ajax({
             counter = 1;
             for(var j = 0; j < obj.length; j++)
             {
-                var curResult = obj[j];
-                if(projectlistid[i] == curResult.projectid)
+                if(projectlistid[i] == obj[j].projectid)
                 {
-                    if(curResult.approved == "1")
+                    if(obj[j].approved == "1")
                     {
-                        $options4 = $("#schedule" + curResult.projectid);
-                        $options4.append("<p>" + counter + ". "+  curResult.firstname + " " + curResult.lastname + "</p>\ ");
+                        $options4 = $("#schedule" + obj[j].projectid);
+                        $options4.append("<p>" + counter + ". "+  obj[j].firstname + " " + obj[j].lastname + "</p>\ ");
+                        counter++;
                     }
                     else
                     {
-                        $options5 = $("#pendingvolunteers" + curResult.projectid);
-                        $options5.append("<p>Are you sure you want to <a href='#' onclick='approveUser(\"" + curResult.userid + "\",\"" + curResult.projectid + "\")'>approve </a> " +  curResult.firstname + " " + curResult.lastname + "</p>\ ");
+                        $options5 = $("#pendingvolunteers" + obj[j].projectid);
+                        $options5.append("<p>Are you sure you want to <a href='#' onclick='approveUser(\"" + obj[j].userid + "\",\"" + obj[j].projectid + "\")'>approve </a> " +  obj[j].firstname + " " + obj[j].lastname + " ?</p>\ ");
                     }
-                    counter++;
                 }
             }
         }
