@@ -19,7 +19,7 @@ var searchVars = {
                 return;
             }       
             $searchcol.html('');//clears prior results 
-
+            document.getElementById("search-results").innerHTML = "<p> Loading search results near you ... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
             resultsArray.length = 0;//clears the array
             resultsArray.length = obj.length;//sets array to object's length
             locationsFound = 0; //clears number found
@@ -52,6 +52,7 @@ function init(){
 
 function onPageLoadSearch(){ //automatic search once page has loaded
     $('#searchForm').ajaxSubmit(searchVars.options); 
+    document.getElementById("search-results").innerHTML = "<p> Loading search results near you ... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
     return false;
 }
 
@@ -263,6 +264,7 @@ function initSearchResultListener(){
 
         //iniitalizes google map & center
         $searchcol = $("#search-results");
+        $searchcol.html('');
         var Emap = document.createElement("div");//container for map
         Emap.setAttribute("id","map");
         $searchcol.append(Emap);
@@ -288,7 +290,6 @@ function initSearchResultListener(){
             }
             return a.distance-b.distance //both not null
         });
-
         var searchlist = document.createElement("ul");//create list to hold projects
         searchlist.className = "search-result-list";
         $searchcol.append(searchlist);
@@ -404,7 +405,22 @@ function signUpForProject(event, id){
                 });
                 return false;
             });
-            // Getting the variable's value from a link 
+            createMask();
+            //show visibility of form
+            document.getElementsByName("leftBox")[0].style.display = '';
+
+        }else{
+            signUpAndLoggedIn(user, project);
+        } 
+    //cancel propigation so that click doesn't register in expanding/collapsing the project
+    if (event.stopPropagation) {
+        event.stopPropagation();   // W3C model
+    } else {
+        event.cancelBubble = true; // IE model
+    }
+}
+function createMask(){
+    // Getting the variable's value from a link 
             var loginBox = "#login-box";
 
             //Fade in the Popup and add close button
@@ -422,18 +438,15 @@ function signUpForProject(event, id){
             // Add the mask to body
             $('body').append('<div id="mask"></div>');
             $('#mask').fadeIn(300);   
-        }else{
-            signUpAndLoggedIn(user, project);
-        } 
-    //cancel propigation so that click doesn't register in expanding/collapsing the project
-    if (event.stopPropagation) {
-        event.stopPropagation();   // W3C model
-    } else {
-        event.cancelBubble = true; // IE model
-    }
 }
 function signUpAndLoggedIn(username, project){
     console.log("Signing up for project # "+project.pid+"under name: "+username);
+    //hide current elements
+    //document.getElementById("signUpConfirmation-container").style.display = 'none';
+    document.getElementById("signUpConfirmation-container").innerHTML = " <p style = 'color: white;'> Signing up for project... <p><img class = 'loader' src = img/ajax-loader.gif></img>";
+    document.getElementsByName("leftBox")[0].style.display = 'none';
+    createMask();
+
     $.ajax({
         type:"POST",
         url:"search/signup",
@@ -443,13 +456,24 @@ function signUpAndLoggedIn(username, project){
     }
     }).done(function(html) {
         if (html !== 0){
+
             if(html === "false"){
-                alert("You already signed up for the " + project.name+" project! ");
+                document.getElementById("signUpConfirmation-container").innerHTML= "<p style='color: white;'> You already signed up for the " + project.name+" project!</p>\
+                <button type = 'button' class='closewindow button'> Return to Search</button>";
             }else{
-                alert("Thanks for signing up for the " + project.name+" project! ");
+                document.getElementById("signUpConfirmation-container").innerHTML= "<p style='color: white;'> Thanks for signing up for the " + project.name+" project!</p>\
+                <button type = 'button' class='closewindow button'> Return to Search</button>";
             }
+            $('button.closewindow, #mask').on('click', function() { 
+                $('#mask , .login-popup').fadeOut(300 , function() {
+                    $('#mask').remove();  
+                    window.location.reload();
+                }); 
+
+                return false;
+            });
+            document.getElementById("signUpConfirmation-container").style.display = ''; //show afterwards
             console.log(html);
-            
         }else{
             alert("Error Signing Up");
         }

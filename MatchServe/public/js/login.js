@@ -9,7 +9,10 @@ function returningUser(){
 				document.getElementById('pass2Error').style.visibility = "collapse";
 				document.getElementById('emailError').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Don't have an account yet? Create an account <a href='javascript:newUser()' class='link'>here</a>";
-				document.getElementById('fbbtn').src = "../img/login-facebook.png";
+				var img = document.getElementById('fbbtn')
+				 if ( img ){
+				 	img.src = "../img/login-facebook.png";
+				 } 
 			}
 			function newUser(){
 				document.getElementById('newUser').style.visibility = "visible";
@@ -22,7 +25,10 @@ function returningUser(){
 				document.getElementById('pass2Error').style.visibility = "visible";
 				document.getElementById('emailError').style.visibility = "visible";
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
-				document.getElementById('fbbtn').src = "../img/signup-facebook.png";
+				var img = document.getElementById('fbbtn')
+				 if ( img ){
+				 	img.src = "../img/signup-facebook.png";
+				 } 
 			}
 			function forgotPassword(){
 				document.getElementById('newUser').style.visibility = "collapse";
@@ -35,72 +41,93 @@ function returningUser(){
 				document.getElementById('pass2Error').style.visibility = "collapse";
 				document.getElementById('emailError').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
-				document.getElementById('fbbtn').src = "../img/login-facebook.png";
+				var img = document.getElementById('fbbtn')
+				 if ( img ){
+				 	img.src = "../img/login-facebook.png";
+				 } 
 			}
 			function validateName() {
 				//validate username
 				var name = document.getElementById('username').value;
-				
+				var error = document.getElementById('nameError')
 				if (name==null || name=="")
 				{
 				  //alert("Username must be filled out.");
-				  document.getElementById('nameError').innerHTML = "Username must be filled out.";
+				  error.innerHTML = "Username must be filled out.";
+				  error.style.visibility = "visible";
 				  return false;
 				}
 				if (name.length <= 8 || name >= 15)
 				{
-					document.getElementById('nameError').innerHTML = "Username must be greater than 8 and less than 15 characters.";
+					error.innerHTML = "Username must be greater than 8 and less than 15 characters.";
+					error.style.visibility = "visible";
 					//alert("Username must be greater than 8 and less than 15 characters.");
 					return false;
 				}
-				document.getElementById('nameError').innerHTML = "";	
+				//else hide errors
+				error.innerHTML = "";
+				error.style.visibility = "collapse";
 			}
 			function validatePassword() {
 				//validate password
 				var password = document.getElementById('password1').value;
+				var error = document.getElementById('pass1Error');
 				if (password==null || password=="")
 				{
 				  //alert("Password must be filled out.");
-				  document.getElementById('pass1Error').innerHTML = "Password must be filled out.";
+				  error.innerHTML = "Password must be filled out.";
+				  error.style.visibility = "visible";
 				  return false;
 				}
 				if (password.length <= 8 || password.length >= 15)
 				{
 					//alert("Password must be greater than 8 and less than 15 characters.");
-					document.getElementById('pass1Error').innerHTML = "Password must be greater than 8 and less than 15 characters.";
+					error.innerHTML = "Password must be greater than 8 and less than 15 characters.";
+					error.style.visibility = "visible";
 					return false;
 				}
-				document.getElementById('pass1Error').innerHTML = "";
+				//else hide errors
+				error.innerHTML = "";
+				error.style.visibility = "collapse";
+
 				validateConfirmPassword();
 			}
 			function validateConfirmPassword() {
 				//validate confirm password
 				var password = document.getElementById('password1').value;
 				var password2 = document.getElementById('password2').value;
+				var error = document.getElementById('pass2Error');
 				if (password!=password2)
 				{
-				  document.getElementById('pass2Error').innerHTML = "Passwords must match.";
+				  error.innerHTML = "Passwords must match.";
+				  error.style.visibility = "visible";
 				  //alert("Passwords must match.");
 				  return false;
 				}
-				document.getElementById('pass2Error').innerHTML = "";
+				//else hide errors
+				error.innerHTML = "";
+				error.style.visibility = "collapse";
 			}
 			function validateEmail() {
 				//validate email
 				var email = document.getElementById('email').value;
+				var error = document.getElementById('emailError');
 				if (email==null || email=="")
 				{
 				  //alert("Email must be filled out.");
-				  document.getElementById('emailError').innerHTML = "Email must be filled out.";
-				  return false;
+				 error.innerHTML = "Email must be filled out.";
+				 error.style.visibility = "visible";
+				 return false;
 				}
 				var atpos=email.indexOf("@");
 				var dotpos=email.lastIndexOf(".");
 				if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)
 				{
-				  document.getElementById('emailError').innerHTML = "Not a valid e-mail address";
+				  error.innerHTML = "Not a valid e-mail address";
+				  error.style.visibility = "visible";
 				  //alert("Not a valid e-mail address");
 				  return false;
 				}
-				document.getElementById('emailError').innerHTML = "";
+				error.innerHTML = "";
+				error.style.visibility = "collapse";
 			}
