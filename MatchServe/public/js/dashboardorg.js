@@ -1,7 +1,6 @@
 window.onload = init;
 
 var projectlistid = new Array();
-var previouslistid = new Array();
 var counter = 1;
 var temp1 = new Date();
 var curDate = Date.parse(temp1);
@@ -56,7 +55,7 @@ $.ajax({//populate projects
             else
             {
                 //add the current projectID into the list of previous projects
-                previousprojectlist[i] = obj[i].projectid;
+                projectlistid[i] = obj[i].projectid;
                 $previousOptions.append("<li><a href='#project" + obj[i].projectid + "' data-toggle='tab'> \
                     <div class='calendar' >\
                         <div id='month'>" + getMonth(obj[i].starttime) + "</div>\
@@ -74,7 +73,7 @@ $.ajax({//populate projects
 
         //add right hand side stuff
         $options2 = $("#extendedprojectlist");
-        $previousOptions2 = $("previousextendedprojectlist");
+        $previousOptions2 = $("#previousextendedprojectlist");
         for(var i= 0; i < obj.length; i++){
             //if the end date has not passed, add the project to the list
             var temp2 = obj[i].endtime;
