@@ -1,7 +1,11 @@
 window.onload = init;
 
 var projectlistid = new Array();
+var previouslistid = new Array();
 var counter = 1;
+var temp1 = new Date();
+var curDate = Date.parse(temp1);
+var otherDate;
 
 function init(){
     getOrgProjects();//adds in all the projects to the projects page on load
@@ -25,62 +29,128 @@ $.ajax({//populate projects
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
+        console.log(obj);
         $options = $("#projectlist");
+        $previousOptions = $("#previousprojectlist");
         for(var i= 0; i < obj.length; i++){
-            //add the current projectID into the list of project
-            projectlistid[i] = obj[i].projectid;
-            $options.append("<li><a href='#project" + obj[i].projectid + "' data-toggle='tab'> \
-                <div class='calendar' >\
-                    <div id='month'>" + getMonth(obj[i].starttime) + "</div>\
-                    <div id='date'>" + obj[i].starttime.slice(8,10) + "</div>\
-                </div>\
-                <div class='infosection'>\
-                    <div id='projecttitle'>" + obj[i].projectname + "</div>\
-                    <div id='orgname'>" + obj[i].orgname + "</div>\
-                    <div id='times'>" + getTime(obj[i].starttime) + " - " + getTime(obj[i].endtime) + "</div>\
-                    <div class='progress progress-info' id='progressbar'><div class='bar' style='width: 80%'></div></div>\
-                </div></a>\
-            </li>");
+            //if the end date has not passed, show it on left side of upcoming
+            var temp2 = obj[i].endtime;
+            otherDate = Date.parse(temp2);
+            if((curDate - otherDate) < 1)
+            {
+                //add the current projectID into the list of projects
+                projectlistid[i] = obj[i].projectid;
+                $options.append("<li><a href='#project" + obj[i].projectid + "' data-toggle='tab'> \
+                    <div class='calendar' >\
+                        <div id='month'>" + getMonth(obj[i].starttime) + "</div>\
+                        <div id='date'>" + obj[i].starttime.slice(8,10) + "</div>\
+                    </div>\
+                    <div class='infosection'>\
+                        <div id='projecttitle'>" + obj[i].projectname + "</div>\
+                        <div id='orgname'>" + obj[i].orgname + "</div>\
+                        <div id='times'>" + getTime(obj[i].starttime) + " - " + getTime(obj[i].endtime) + "</div>\
+                        <div class='progress progress-info' id='progressbar'><div class='bar' style='width: 80%'></div></div>\
+                    </div></a>\
+                </li>");
+            }
+            else
+            {
+                //add the current projectID into the list of previous projects
+                previousprojectlist[i] = obj[i].projectid;
+                $previousOptions.append("<li><a href='#project" + obj[i].projectid + "' data-toggle='tab'> \
+                    <div class='calendar' >\
+                        <div id='month'>" + getMonth(obj[i].starttime) + "</div>\
+                        <div id='date'>" + obj[i].starttime.slice(8,10) + "</div>\
+                    </div>\
+                    <div class='infosection'>\
+                        <div id='projecttitle'>" + obj[i].projectname + "</div>\
+                        <div id='orgname'>" + obj[i].orgname + "</div>\
+                        <div id='times'>" + getTime(obj[i].starttime) + " - " + getTime(obj[i].endtime) + "</div>\
+                        <div class='progress progress-info' id='progressbar'><div class='bar' style='width: 80%'></div></div>\
+                    </div></a>\
+                </li>");
+            }
         }
 
         //add right hand side stuff
         $options2 = $("#extendedprojectlist");
+        $previousOptions2 = $("previousextendedprojectlist");
         for(var i= 0; i < obj.length; i++){
-            //see if requirements is null
-            var req = obj[i].requirements;
-            if(!req)
+            //if the end date has not passed, add the project to the list
+            var temp2 = obj[i].endtime;
+            otherDate = Date.parse(temp2);
+            if((curDate - otherDate) < 1)
             {
-                req = 'There are no requirements for this project.';
-            }
-            $options2.append("\
-                <div class='tab-pane' id='project" + obj[i].projectid + "'>\
-                    <div class='tabbable tabs-left' id='rightsideinfo'>\
-                        <ul class='nav nav-tabs' id='buttonlist'>\
-                            <li class='active'><a href='#moreinfo" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>More Info</a></li>\
-                            <li><a href='#schedule" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>Schedule</a></li>\
-                            <li><a href='#deleteproject" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/DeleteGray.png\") ?></br>Delete Project</a></li>\
-                            <li><a href='#pendingvolunteers" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/PendingGray.png\") ?></br>Pending</a></li>\
-                            <li><a href='#checkinvolunteers" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CheckInGray.png\") ?></br>Check-In</a></li>\
-                        </ul>\
-                        <div class='tab-content'>\
-                            <div class='tab-pane active' id='moreinfo" + obj[i].projectid + "'> \
-                                <p> <b>Project Name:</b> " + obj[i].projectname + "</p>\
-                                <p> <b>Details:</b> " + obj[i].details + "</p>\
-                                <p> <b>Headline:</b> " + obj[i].headline + "</p>\
-                                <p> <b>Address:</b> " + obj[i].address + "</p>\
-                                <p> <b>Start Time:</b> " + obj[i].starttime + "</p>\
-                                <p> <b>End Time:</b> " + obj[i].endtime + "</p>\
-                                <p> <b>Total Spots:</b> " + obj[i].spots + "</p>\
-                                <p> <b>Requirements:</b> " + req + "</p>\
+                //see if requirements is null
+                var req = obj[i].requirements;
+                if(!req)
+                {
+                    req = 'There are no requirements for this project.';
+                }
+                $options2.append("\
+                    <div class='tab-pane' id='project" + obj[i].projectid + "'>\
+                        <div class='tabbable tabs-left' id='rightsideinfo'>\
+                            <ul class='nav nav-tabs' id='buttonlist'>\
+                                <li class='active'><a href='#moreinfo" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>More Info</a></li>\
+                                <li><a href='#schedule" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>Schedule</a></li>\
+                                <li><a href='#deleteproject" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/DeleteGray.png\") ?></br>Delete Project</a></li>\
+                                <li><a href='#pendingvolunteers" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/PendingGray.png\") ?></br>Pending</a></li>\
+                                <li><a href='#checkinvolunteers" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CheckInGray.png\") ?></br>Check-In</a></li>\
+                            </ul>\
+                            <div class='tab-content'>\
+                                <div class='tab-pane active' id='moreinfo" + obj[i].projectid + "'> \
+                                    <p> <b>Project Name:</b> " + obj[i].projectname + "</p>\
+                                    <p> <b>Details:</b> " + obj[i].details + "</p>\
+                                    <p> <b>Headline:</b> " + obj[i].headline + "</p>\
+                                    <p> <b>Address:</b> " + obj[i].address + "</p>\
+                                    <p> <b>Start Time:</b> " + obj[i].starttime + "</p>\
+                                    <p> <b>End Time:</b> " + obj[i].endtime + "</p>\
+                                    <p> <b>Total Spots:</b> " + obj[i].spots + "</p>\
+                                    <p> <b>Requirements:</b> " + req + "</p>\
+                                </div>\
+                                <div class='tab-pane' id='schedule" + obj[i].projectid + "'></div>\
+                                <div class='tab-pane' id='deleteproject" + obj[i].projectid + "'>Are you sure you want to <a href='#' onclick='deleteProject(\"" + obj[i].projectid + "\")'>delete</a> this project?</div>\
+                                <div class='tab-pane' id='pendingvolunteers" + obj[i].projectid + "'></div>\
+                                <div class='tab-pane' id='checkinvolunteers" + obj[i].projectid + "'></div>\
                             </div>\
-                            <div class='tab-pane' id='schedule" + obj[i].projectid + "'></div>\
-                            <div class='tab-pane' id='deleteproject" + obj[i].projectid + "'>Are you sure you want to <a href='#' onclick='deleteProject(\"" + obj[i].projectid + "\")'>delete</a> this project?</div>\
-                            <div class='tab-pane' id='pendingvolunteers" + obj[i].projectid + "'></div>\
-                            <div class='tab-pane' id='checkinvolunteers" + obj[i].projectid + "'></div>\
                         </div>\
-                    </div>\
-                </div>"
-            );
+                    </div>"
+                );
+            }
+            else
+            {
+                //see if requirements is null
+                var req = obj[i].requirements;
+                if(!req)
+                {
+                    req = 'There are no requirements for this project.';
+                }
+                $previousOptions2.append("\
+                    <div class='tab-pane' id='project" + obj[i].projectid + "'>\
+                        <div class='tabbable tabs-left' id='rightsideinfo'>\
+                            <ul class='nav nav-tabs' id='buttonlist'>\
+                                <li class='active'><a href='#moreinfo" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>More Info</a></li>\
+                                <li><a href='#schedule" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/CalendarGray.png\") ?></br>Schedule</a></li>\
+                                <li><a href='#deleteproject" + obj[i].projectid + "' data-toggle='tab'><?php echo HTML::image(\"img/DeleteGray.png\") ?></br>Delete Project</a></li>\
+                            </ul>\
+                            <div class='tab-content'>\
+                                <div class='tab-pane active' id='moreinfo" + obj[i].projectid + "'> \
+                                    <p> <b>Project Name:</b> " + obj[i].projectname + "</p>\
+                                    <p> <b>Details:</b> " + obj[i].details + "</p>\
+                                    <p> <b>Headline:</b> " + obj[i].headline + "</p>\
+                                    <p> <b>Address:</b> " + obj[i].address + "</p>\
+                                    <p> <b>Start Time:</b> " + obj[i].starttime + "</p>\
+                                    <p> <b>End Time:</b> " + obj[i].endtime + "</p>\
+                                    <p> <b>Total Spots:</b> " + obj[i].spots + "</p>\
+                                    <p> <b>Requirements:</b> " + req + "</p>\
+                                </div>\
+                                <div class='tab-pane' id='schedule" + obj[i].projectid + "'></div>\
+                                <div class='tab-pane' id='deleteproject" + obj[i].projectid + "'>Are you sure you want to <a href='#' onclick='deleteProject(\"" + obj[i].projectid + "\")'>delete</a> this project?</div>\
+                            </div>\
+                        </div>\
+                    </div>"
+                );
+            }
         }
     });
     setTimeout(function(){getSchedule()},100);;//populates both schedule and pending tabs for projects

@@ -54,6 +54,7 @@
     </div>
 
     <div class="tab-pane" id="previous">
+      <?php echo render('previousprojects'); ?>
     </div>
 
     <div class="tab-pane" id="new">
