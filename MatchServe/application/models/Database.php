@@ -39,7 +39,7 @@ class Database {
 			//$causes = '\''.$causes.'\'';
 			//echo "Causes is".$causes." ";
 		    //DB::query('INSERT INTO organizations VALUES ('', '.$name.', '1', '.$address.', '.$zipcode', '.$phone.', '.$website.', '.$mission.')');
-		   $orgId = DB::table('organizations')->insert_get_id(array('name' => $name, 'causeId' => $causes[0], 'address' => $address, 'zipcode' => $zipcode, 'website' => $website, 'mission' => $mission  ));
+		   $orgId = DB::table('organizations')->insert_get_id(array('OrgName' => $name, 'causeId' => $causes[0], 'address' => $address, 'zipcode' => $zipcode, 'website' => $website, 'mission' => $mission  ));
 		   $userId = DB::table('users')->where('Name', '=', $userName)->only('UserID');
 		   //echo "OrgID and UserIDs are " .$orgId. " " .$userId;
 		   DB::table('admins')->insert(array('OrganizationID' => $orgId, 'UserID' => $userId)); 
@@ -287,7 +287,7 @@ class Database {
 		    ->left_join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID')
 		    ->left_join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID')
 			->where('organizations.OrganizationID', '=', $orgID)
-		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.ProjectName as ProjectName', 'projects.StartTime', 'projects.EndTime','projects.Spots', 'organizations.OrgName as OrgName', 'projects.Address', 'projects.Requirements', 'projects.Headline', 'projects.Details'));
+		    ->get(array('projects.EndTime', 'projects.ProjectID', 'orgproject.OrganizationID', 'projects.ProjectName as ProjectName', 'projects.StartTime','projects.Spots', 'organizations.OrgName as OrgName', 'projects.Address', 'projects.Requirements', 'projects.Headline', 'projects.Details'));
 		return $query;
 	}
 	public static function getUserProject(){

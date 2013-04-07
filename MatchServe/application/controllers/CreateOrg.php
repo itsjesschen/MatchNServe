@@ -53,7 +53,7 @@ class CreateOrg_Controller extends Base_Controller
     	$data = Database::addOrg($name, $address, $zipcode, $phone, $website, $mission, $causes);
 		$data = json_encode($data);
 		echo("Your organization's information has been succesfully stored!");
-		//return $data;	
+		//return $data;
 		
     	
 }

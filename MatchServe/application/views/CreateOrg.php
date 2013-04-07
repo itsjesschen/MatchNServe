@@ -4,8 +4,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<?php echo Asset::container('bootstrap')->styles();?>
-	<?php echo Asset::container('projectcreation')->scripts();?>
+	<?php echo Asset::container('createorg')->scripts();?>
 	<?php echo Asset::scripts();?>
 	<title></title>
 
