@@ -25,6 +25,7 @@ function action_processlogin(){
 		$newPassword = $_POST['newPassword'];
 		$emailExp = '/^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-Z0-9]{2,4}$/';
 		$newEmail = $_POST['newEmail'];
+		$isSearch = null;
 		if(isset($_POST['search'])){
 			$isSearch = $_POST['search'];
 		}
