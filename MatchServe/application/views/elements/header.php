@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title></title>
  <?php echo Asset::container('bootstrap')->styles();?>
-  
+  <?php echo Asset::container('header')->scripts();?>
 </head>
 
 <body>
@@ -24,18 +24,19 @@
                 if(isset($name))
                 {
 
-                    echo "<li class='dropdown'>
+                     echo "<li class='dropdown'>
   <a class='dropdown-toggle' data-toggle='dropdown' href='#'>" .$name. "<span class='caret'> </span></a>
   <ul class='dropdown-menu' role= 'menu' aria-labelledby= 'dLabel'>
                           <li> <a href = '#'> My Profile </a> </li>
-                          <li> <a href = ".URL::to('user/karma')."> Karma Points </a> </li>
+                          <li> <a href = '#'> Karma Points </a> </li>
                           <li> <a href = '#'>History </a> </li>
                           <li> <a href = ".URL::to('settings').">Settings </a> </li>
-                          <li> <a href = " . URL::to('user/accountselectioncontroller'). ">Accounts </a> </li>
+                          <li> <a href = " . URL::to('user/accountselectioncontroller'). "  onclick = 'confirmAction()' >Accounts</a> </li>
                           <li> <a href = ". URL::to('createorg').">Add An Org</a> </li>
                           <li> <a href = " . URL::to('user/logout'). ">Logout </a> </li>
                           </ul>
                           </div>
+      
       
                           ";
                 }

@@ -45,6 +45,11 @@ class Database {
 		   DB::table('admins')->insert(array('OrganizationID' => $orgId, 'UserID' => $userId)); 
 	}
 	}
+	public static function checkIfOrgExists($name)
+	{
+		$orgID = DB::table('organizations')->where('OrgName', '=', $name)->only('OrganizationID');
+		return $orgID;
+	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
 	public static function addProject($name, $headline, $details, $address, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName){
@@ -290,6 +295,13 @@ class Database {
 		    ->get(array('projects.EndTime', 'projects.ProjectID', 'orgproject.OrganizationID', 'projects.ProjectName as ProjectName', 'projects.StartTime','projects.Spots', 'organizations.OrgName as OrgName', 'projects.Address', 'projects.Requirements', 'projects.Headline', 'projects.Details'));
 		return $query;
 	}
+	public static function getAdmins()
+		{
+			$name = Cookie::get('name');
+			$userid = DB::table('users')->where('Name', '=', $name)->only('UserID');
+			$admins = DB::table('admins')->where('UserID', '=', $userid);
+			return $admins;
+		}
 	public static function getUserProject(){
 	}
 	public static function getUser(){

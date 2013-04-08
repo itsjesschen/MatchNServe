@@ -49,7 +49,7 @@ function returningUser(){
 			function validateName() {
 				//validate username
 				var name = document.getElementById('username').value;
-				var error = document.getElementById('nameError')
+				var error = document.getElementById('nameError');
 				if (name==null || name=="")
 				{
 				  //alert("Username must be filled out.");
