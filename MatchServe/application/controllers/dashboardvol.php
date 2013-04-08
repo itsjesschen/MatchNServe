@@ -62,7 +62,7 @@ class DashboardVol_Controller extends Base_Controller{
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
 		$name = Cookie::get('name');
-		$query = mysql_query('SELECT projects.*,organizations.Name as orgname FROM orgproject, organizations, projects, userproject, users WHERE users.Name="'.$name.'" AND userproject.UserID=users.UserID AND userproject.ProjectID=projects.ProjectID AND projects.ProjectID=orgproject.ProjectID AND orgproject.OrganizationID=organizations.OrganizationID', $dbLocalhost);
+		$query = mysql_query('SELECT projects.*,organizations.OrgName as orgname FROM orgproject, organizations, projects, userproject, users WHERE users.Name="'.$name.'" AND userproject.UserID=users.UserID AND userproject.ProjectID=projects.ProjectID AND projects.ProjectID=orgproject.ProjectID AND orgproject.OrganizationID=organizations.OrganizationID', $dbLocalhost);
 		$rows = array();
 		while($r = mysql_fetch_assoc($query)) {
 		    $rows[] = $r;

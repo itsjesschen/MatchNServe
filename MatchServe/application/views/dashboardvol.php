@@ -74,7 +74,7 @@
             // project title
             var projecttitle = document.createElement('div');
             projecttitle.setAttribute('id', 'projecttitle');
-            projecttitle.innerHTML = r.Name;
+            projecttitle.innerHTML = r.ProjectName;
             // orgname
             var orgname = document.createElement('div');
             orgname.setAttribute('id', 'orgname');
@@ -120,7 +120,7 @@
                 '</div>'+
                 '</div>'+
                 '</div>');
-} else {
+            } else {
               $('#tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
                 '<div class="tabbable tabs-left" id="rightsideinfo">'+
                 '<ul class="nav nav-tabs">'+
