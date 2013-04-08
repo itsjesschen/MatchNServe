@@ -94,8 +94,7 @@
 </div>
 <input id="projectRequirements" type="text" name="projectRequirements" value="Any requirements?" defaultValue = "Any requirements?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 </br></br>
-</div>
-<input type="submit" name="SaveButton" class="btn" value="Save Draft"/>   
+</div> 
 <input type="submit" name="FinishButton" class="btn" value="Finish"/>
 </br>
 </div>
