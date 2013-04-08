@@ -106,7 +106,7 @@
             
             // Now take care of the tab content
             if(i == 0) {
-              $('#tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
+              $('.tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
                 '<div class="tabbable tabs-left" id="rightsideinfo">'+
                 '<ul class="nav nav-tabs">'+
                 '<li class="active"><a href="#moreinfo" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
@@ -114,14 +114,14 @@
                 '<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
                 '</ul>'+
                 '<div id="content" class="tab-content">'+
-                '<div class="tab-pane active" id="moreinfo">PULL ALL THE INFO FROM PROJECT IN DB HERE'+i+'</div>'+
+                '<div class="tab-pane active" id="moreinfo">'+r.Details+'</div>'+
                 '<div class="tab-pane" id="roster">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
                 '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
                 '</div>'+
                 '</div>'+
                 '</div>');
             } else {
-              $('#tab-content').append('<div class="tab-pane" id="project'+r.ProjectID+'">'+
+              $('.tab-content').append('<div class="tab-pane" id="project'+r.ProjectID+'">'+
                 '<div class="tabbable tabs-left" id="rightsideinfo">'+
                 '<ul class="nav nav-tabs">'+
                 '<li class="active"><a href="#moreinfo" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
@@ -129,7 +129,7 @@
                 '<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
                 '</ul>'+
                 '<div id="content" class="tab-content">'+
-                '<div class="tab-pane active" id="moreinfo">PULL ALL THE INFO FROM PROJECT IN DB HERE'+i+'</div>'+
+                '<div class="tab-pane active" id="moreinfo">'+r.Details+'</div>'+
                 '<div class="tab-pane" id="roster">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
                 '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
                 '</div>'+
