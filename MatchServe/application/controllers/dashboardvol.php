@@ -57,7 +57,7 @@ class DashboardVol_Controller extends Base_Controller{
 	}
 	
 	public function action_getrecentprojects() {
-		$dbLocalhost = mysql_connect("localhost", "root", "root")
+		$dbLocalhost = mysql_connect("localhost", "root", "")
 		or die("Could not connect: " . mysql_error());
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
@@ -71,7 +71,7 @@ class DashboardVol_Controller extends Base_Controller{
 	}
 	
 	public function action_getcheckins() {
-		$dbLocalhost = mysql_connect("localhost", "root", "root")
+		$dbLocalhost = mysql_connect("localhost", "root", "")
 		or die("Could not connect: " . mysql_error());
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
@@ -85,7 +85,7 @@ class DashboardVol_Controller extends Base_Controller{
 	}
 	
 	public function action_deleteProject() {
-		$dbLocalhost = mysql_connect("localhost", "root", "root")
+		$dbLocalhost = mysql_connect("localhost", "root", "")
 		or die("Could not connect: " . mysql_error());
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
