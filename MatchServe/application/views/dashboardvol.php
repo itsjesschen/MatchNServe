@@ -11,30 +11,30 @@
   <script src="http://malsup.github.com/jquery.form.js"></script>
 
   <script>
-    var Months = new Array();
-    Months['01'] = 'Jan';
-    Months['02'] = 'Feb';
-    Months['03'] = 'Mar';
-    Months['04'] = 'Apr';
-    Months['05'] = 'May';
-    Months['06'] = 'Jun';
-    Months['07'] = 'Jul';
-    Months['08'] = 'Aug';
-    Months['09'] = 'Sep';
-    Months['10'] = 'Oct';
-    Months['11'] = 'Nov';
-    Months['12'] = 'Dec';
-    
-    function showQuickSearchForm() {
-      $('#quickSearch_form').css('visibility', 'visible');
-      $('#quickSearch_performFullSearch').attr('onclick', 'performFullSearch()');
-    }
-    
-    $(document).ready(function() {
-      
-      $.get('dashboardvol/getrecentprojects', function(response) {
-          console.log("Upcoming Projects:" + response);
-          response = $.parseJSON(response);
+  var Months = new Array();
+  Months['01'] = 'Jan';
+  Months['02'] = 'Feb';
+  Months['03'] = 'Mar';
+  Months['04'] = 'Apr';
+  Months['05'] = 'May';
+  Months['06'] = 'Jun';
+  Months['07'] = 'Jul';
+  Months['08'] = 'Aug';
+  Months['09'] = 'Sep';
+  Months['10'] = 'Oct';
+  Months['11'] = 'Nov';
+  Months['12'] = 'Dec';
+
+  function showQuickSearchForm() {
+    $('#quickSearch_form').css('visibility', 'visible');
+    $('#quickSearch_performFullSearch').attr('onclick', 'performFullSearch()');
+  }
+
+  $(document).ready(function() {
+
+    $.get('dashboardvol/getrecentprojects', function(response) {
+      console.log("Upcoming Projects:" + response);
+      response = $.parseJSON(response);
           // Change the first upcoming project:
           var r = null;
           var plist = document.getElementById('projectlist');
@@ -56,9 +56,9 @@
             month.setAttribute('id', 'month');
             var MonthString = r.StartTime;
               // Strip off other stuff
-            MonthString = MonthString.substr(5,2);
-            MonthString = Months[MonthString];
-            month.innerHTML = MonthString;
+              MonthString = MonthString.substr(5,2);
+              MonthString = Months[MonthString];
+              month.innerHTML = MonthString;
             // Day
             var day = document.createElement('div');
             day.setAttribute('id','date');
@@ -106,47 +106,39 @@
             
             // Now take care of the tab content
             if(i == 0) {
-            $('#tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
-				'<div class="tabbable tabs-left" id="rightsideinfo">'+
-					'<ul class="nav nav-tabs">'+
-						'<li class="active"><a href="#schedule" data-toggle="tab"><?php echo HTML::image("img/CalendarGray.png") ?></br>Schedule</a></li>'+
-						'<li><a href="#messages" data-toggle="tab"><?php echo HTML::image("img/MessageGray.png") ?></br>Messages</a></li>'+
-						'<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
-						'<li><a href="#pendingvolunteers" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>Pending</a></li>'+
-						'<li><a href="#checkinvolunteers" data-toggle="tab"><?php echo HTML::image("img/CheckInGray.png") ?></br>Check-In</a></li>'+
-					'</ul>'+
-					'<div id="content" class="tab-content">'+
-                                                '<div class="tab-pane active" id="schedule">Schedule'+i+'</div>'+
-						'<div class="tab-pane" id="messages">Messages'+i+'</div>'+
-						'<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
-						'<div class="tab-pane" id="pendingvolunteers">Pending'+i+'</div>'+
-						'<div class="tab-pane" id="checkinvolunteers"></div>'+
-					'</div>'+
-				'</div>'+
-			'</div>');
-            } else {
-              $('#tab-content').append('<div class="tab-pane" id="project'+r.ProjectID+'">'+
-				'<div class="tabbable tabs-left" id="rightsideinfo">'+
-					'<ul class="nav nav-tabs">'+
-						'<li class="active"><a href="#schedule'+i+'" data-toggle="tab"><?php echo HTML::image("img/CalendarGray.png") ?></br>Schedule</a></li>'+
-						'<li><a href="#messages'+i+'" data-toggle="tab"><?php echo HTML::image("img/MessageGray.png") ?></br>Messages</a></li>'+
-						'<li><a href="#deleteproject'+i+'" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
-						'<li><a href="#pendingvolunteers'+i+'" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>Pending</a></li>'+
-						'<li><a href="#checkinvolunteers'+i+'" data-toggle="tab"><?php echo HTML::image("img/CheckInGray.png") ?></br>Check-In</a></li>'+
-					'</ul>'+
-					'<div id="content" class="tab-content">'+
-                                                '<div class="tab-pane active" id="schedule'+i+'">Schedule'+i+'</div>'+
-						'<div class="tab-pane" id="messages'+i+'">Messages'+i+'</div>'+
-						'<div class="tab-pane" id="deleteproject'+i+'">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
-						'<div class="tab-pane" id="pendingvolunteers'+i+'">Pending'+i+'</div>'+
-						'<div class="tab-pane" id="checkinvolunteers'+i+'"></div>'+
-					'</div>'+
-				'</div>'+
-			'</div>');
-            }
-            
+              $('#tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
+                '<div class="tabbable tabs-left" id="rightsideinfo">'+
+                '<ul class="nav nav-tabs">'+
+                '<li class="active"><a href="#moreinfo" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
+                '<li><a href="#roster" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
+                '<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
+                '</ul>'+
+                '<div id="content" class="tab-content">'+
+                '<div class="tab-pane active" id="moreinfo">PULL ALL THE INFO FROM PROJECT IN DB HERE'+i+'</div>'+
+                '<div class="tab-pane" id="roster">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
+                '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>');
+} else {
+              $('#tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
+                '<div class="tabbable tabs-left" id="rightsideinfo">'+
+                '<ul class="nav nav-tabs">'+
+                '<li class="active"><a href="#moreinfo" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
+                '<li><a href="#roster" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
+                '<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
+                '</ul>'+
+                '<div id="content" class="tab-content">'+
+                '<div class="tab-pane active" id="moreinfo">PULL ALL THE INFO FROM PROJECT IN DB HERE'+i+'</div>'+
+                '<div class="tab-pane" id="roster">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
+                '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>');
+}
+
              // Now populate the check-in
-            $.get('dashboardvol/getcheckins?project='+r.ProjectID, function(response) {
+             $.get('dashboardvol/getcheckins?project='+r.ProjectID, function(response) {
               console.log("CheckIn Users: "+response);
               response = $.parseJSON(response);
               for(var j = 0; j < response.length; j++) {
@@ -154,15 +146,15 @@
                 $('#project'+c.ProjectID).find('#rightsideinfo').find('#content').find('[id^=checkinvolunteers]').append(c.Name + '<br>');
               }
             });
-          }
-      });
-      
+           }
+         });
+
       $.ajax({//populate skills
-          type:"GET",
-          url:"dashboardvol/initoptions",
-          data:{
-              table : "skills"
-          }
+        type:"GET",
+        url:"dashboardvol/initoptions",
+        data:{
+          table : "skills"
+        }
       }).done(function(html){
           var obj = jQuery.parseJSON(html); //converts reponse to a JS object
           console.log(obj);
@@ -172,21 +164,21 @@
           select.setAttribute('name', 'skill');
           for(var i= 0; i < obj.length; i++){ //goes through the response object
               //alert("this is in the loop on iteration " + i);
-               var option = document.createElement('option');
-               option.innerText = obj[i].description;
-               option.Value = obj[i].skillid;
-               select.appendChild(option); 
-          }
-          document.getElementById('quickSearch_selects').appendChild(select);
-          document.getElementById('quickSearch_selects').appendChild(document.createElement('br'));
-      });
+              var option = document.createElement('option');
+              option.innerText = obj[i].description;
+              option.Value = obj[i].skillid;
+              select.appendChild(option); 
+            }
+            document.getElementById('quickSearch_selects').appendChild(select);
+            document.getElementById('quickSearch_selects').appendChild(document.createElement('br'));
+          });
       
       $.ajax({//populate causes
-          type:"GET",
-          url:"dashboardvol/initoptions",
-          data:{
-              table : "causes"
-          }
+        type:"GET",
+        url:"dashboardvol/initoptions",
+        data:{
+          table : "causes"
+        }
       }).done(function(html){
           var obj = jQuery.parseJSON(html); //converts reponse to a JS object
           console.log(obj);
@@ -196,172 +188,172 @@
           select.setAttribute('name', 'cause');
           for(var i= 0; i < obj.length; i++){ //goes through the response object
               //alert("this is in the loop on iteration " + i);
-               var option = document.createElement('option');
-               option.innerText = obj[i].description;
-               option.Value = obj[i].skillid;
-               select.appendChild(option); 
-          }
-          document.getElementById('quickSearch_selects').appendChild(select);
-      });
+              var option = document.createElement('option');
+              option.innerText = obj[i].description;
+              option.Value = obj[i].skillid;
+              select.appendChild(option); 
+            }
+            document.getElementById('quickSearch_selects').appendChild(select);
+          });
     });
-    
-    function deleteProject(projectID) {
-      $.get('dashboardvol/deleteProject?project='+projectID, function(response) {
-        window.location.reload();
-      });
-    }
-    
-    function performFullSearch() {
+
+function deleteProject(projectID) {
+  $.get('dashboardvol/deleteProject?project='+projectID, function(response) {
+    window.location.reload();
+  });
+}
+
+function performFullSearch() {
       // var populateData = function(formData, jqForm, options){
       //         return true;
       // }
-  
+
       var options = { 
-          url: 'dashboardvol/getprojects', 
+        url: 'dashboardvol/getprojects', 
           // beforeSubmit: populateData,
           success: function(html) {
+            var obj = jQuery.parseJSON(html);
+            $searchcol = $("#search-results");
+            if(obj.length == 0){
+              $searchcol.html("Sorry, no search results. Please try another term :)");
+              return;
+            }       
+              $searchcol.html('');//clears results 
+              //adds map
+              var Emap = document.createElement("div");
+              Emap.setAttribute("id","map");
+              $searchcol.append(Emap);
+
+              var searchlist = document.createElement("ul");
+              searchlist.className = "search-result-list";
+              $searchcol.append(searchlist);
+
+              for(var i= 0; i < obj.length; i++){
+                var curResult = obj[i];
+                  listResults(searchlist, curResult, i); //lists results in results div
+                }
+
+              // if ($searchcol.find("p.projectPosition").length === 0){ // 
+              //     $searchcol.html("Sorry, there are no projects that are " + $('input[name="distance"]:checked')[0].nextSibling.nodeValue + " away from you. Projects are available at greater distances :)");
+              // }
+            } 
+          };
+
+          $.ajax({
+            type: "GET",
+            url: "dashboardvol/getprojects",
+            success: function(html) {
               var obj = jQuery.parseJSON(html);
               $searchcol = $("#search-results");
               if(obj.length == 0){
-                  $searchcol.html("Sorry, no search results. Please try another term :)");
-                  return;
+                $searchcol.html("Sorry, no search results. Please try another term :)");
+                return;
               }       
               $searchcol.html('');//clears results 
               //adds map
               var Emap = document.createElement("div");
               Emap.setAttribute("id","map");
               $searchcol.append(Emap);
-  
+
               var searchlist = document.createElement("ul");
               searchlist.className = "search-result-list";
               $searchcol.append(searchlist);
-  
+
               for(var i= 0; i < obj.length; i++){
-                  var curResult = obj[i];
+                var curResult = obj[i];
                   listResults(searchlist, curResult, i); //lists results in results div
-              }
-  
+                }
+
               // if ($searchcol.find("p.projectPosition").length === 0){ // 
               //     $searchcol.html("Sorry, there are no projects that are " + $('input[name="distance"]:checked')[0].nextSibling.nodeValue + " away from you. Projects are available at greater distances :)");
               // }
-          } 
-      };
-  
-      $.ajax({
-        type: "GET",
-        url: "dashboardvol/getprojects",
-        success: function(html) {
-              var obj = jQuery.parseJSON(html);
-              $searchcol = $("#search-results");
-              if(obj.length == 0){
-                  $searchcol.html("Sorry, no search results. Please try another term :)");
-                  return;
-              }       
-              $searchcol.html('');//clears results 
-              //adds map
-              var Emap = document.createElement("div");
-              Emap.setAttribute("id","map");
-              $searchcol.append(Emap);
-  
-              var searchlist = document.createElement("ul");
-              searchlist.className = "search-result-list";
-              $searchcol.append(searchlist);
-  
-              for(var i= 0; i < obj.length; i++){
-                  var curResult = obj[i];
-                  listResults(searchlist, curResult, i); //lists results in results div
-              }
-  
-              // if ($searchcol.find("p.projectPosition").length === 0){ // 
-              //     $searchcol.html("Sorry, there are no projects that are " + $('input[name="distance"]:checked')[0].nextSibling.nodeValue + " away from you. Projects are available at greater distances :)");
-              // }
-          },
-          data: $('#searchForm').serialize()
-      });
+            },
+            data: $('#searchForm').serialize()
+          });
       //will validate later
-  }
-  
-  function listResults(resultList, result, resultidx){
+    }
+
+    function listResults(resultList, result, resultidx){
       var resultLocation = result.location
-  
+
       //inits map & geocoder object
       var geocoder = new google.maps.Geocoder();  
       var myOptions = {
-          zoom: 9,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+        zoom: 9,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map = new google.maps.Map(document.getElementById("map"), myOptions);
-  
+
       var curDistance = $('input[name="distance"]:checked').val();//gets current distance element
       var param = {//adds address of search result to parameters
-              'address': resultLocation
+        'address': resultLocation
       };
-  
+
       //plots result on map if within distance
       geocoder.geocode(param, function(results, status) {
-         var resultLatLng = results[0].geometry.location;
-  
+       var resultLatLng = results[0].geometry.location;
+
           if(!curDistance || curDistance === "all"){//if they do have distance defined
-              curDistance = Number.MAX_VALUE;
+            curDistance = Number.MAX_VALUE;
           }
           var curLocLatLng = new google.maps.LatLng(34.0522, -118.2428);//finds LOS ANGELES lat long to base search off of or zipcode inputted 
           map.setCenter(curLocLatLng); 
           var actualDistance = calculateDistance(curLocLatLng, resultLatLng);//calculates distance between the two
           if (actualDistance < curDistance ){//if within distance
-              var marker = new google.maps.Marker({
+            var marker = new google.maps.Marker({
               position: resultLatLng,
               animation: google.maps.Animation.DROP,
-              });    
-              marker.setMap(map); 
-  
+            });    
+            marker.setMap(map); 
+
               //initialize event with right data
               eventArray[0].searchList = resultList;//.initCustomEvent( "plotData",true,true, details);
               eventArray[0].curResult = result;
               eventArray[0].i = resultidx;
               window.dispatchEvent(eventArray[0]);
-          }                  
-      });
-  }
-  function calculateDistance(loc1, loc2)
+            }                  
+          });
+}
+function calculateDistance(loc1, loc2)
+{
+  try
   {
-      try
-      {
           var distance = google.maps.geometry.spherical.computeDistanceBetween (loc1, loc2)/1609.34; //calculates distance in meters
           return distance; //meters to miles conversion
-      }
-      catch (error)
-      {
+        }
+        catch (error)
+        {
           alert(error);
+        }
       }
-  }
-  </script>
+      </script>
 
-  <style>
-  .projectList{
-    width:200px;
-  }
-  body{
-    margin: 0 auto;
-  }
-  
-  ul {
-    float: left;
-  }
-  </style>
-  
-</head>
+      <style>
+      .projectList{
+        width:200px;
+      }
+      body{
+        margin: 0 auto;
+      }
 
-<!--BEGINNING OF BODY-->
-<body>
+      ul {
+        float: left;
+      }
+      </style>
 
-  <div class="header">
-    <?php echo render('elements.header'); ?>
-  </div>
+    </head>
 
-  <div class="dashboard">
-    <div id="quickSearch">
-        <p>Quick Preferences</p>
-        <div id="quickSearch_form">
+    <!--BEGINNING OF BODY-->
+    <body>
+
+      <div class="header">
+        <?php echo render('elements.header'); ?>
+      </div>
+
+      <div class="dashboard">
+        <div id="quickSearch">
+          <p>Quick Preferences</p>
+          <div id="quickSearch_form">
            <form id="searchForm" action= <?php echo URL::to('dashboardvol/getprojects'); ?> method="get">
             <div id="quickSearch_checkboxes">
               <input type="checkbox" name="time_of_week" value="Weekdays">&nbsp; Weekdays<br>
@@ -373,31 +365,31 @@
           </form>
         </div>
         <div id="quickSearch_submitButtons">
-            <div class="quickSearchButtons" style="margin-bottom: 5px;" id="quickSearch_performQuickSearch">Quick Search</div>
-            <div class="quickSearchButtons" id="quickSearch_performFullSearch" onclick="showQuickSearchForm()">Full Search</div>
+          <div class="quickSearchButtons" style="margin-bottom: 5px;" id="quickSearch_performQuickSearch">Quick Search</div>
+          <div class="quickSearchButtons" id="quickSearch_performFullSearch" onclick="showQuickSearchForm()">Full Search</div>
         </div>
-    </div>
-  </div>
-
-  <div class="subDashboard">
-  </div>
-
-  <div class="workspace">
-    <div class="tab-content">
-      <div class="tab-pane active" id="upcoming">
-        <?php echo render('upcomingprojectsorg'); ?>
       </div>
     </div>
-    <div id="#search-results">
-      
-    </div>
-  </div>
 
-  <div class="footer">
-    <?php echo render('elements.footer'); ?>
-  </div>
-</body>
-</html>
-<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHjf2qKi514z9BBaY5ubhMqTMsMsPa07c&sensor=false&v=3&libraries=geometry">
-</script>
+    <div class="subDashboard">
+    </div>
+
+    <div class="workspace">
+      <div class="tab-content">
+        <div class="tab-pane active" id="upcoming">
+          <?php echo render('upcomingprojectsorg'); ?>
+        </div>
+      </div>
+      <div id="#search-results">
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <?php echo render('elements.footer'); ?>
+    </div>
+  </body>
+  </html>
+  <script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHjf2qKi514z9BBaY5ubhMqTMsMsPa07c&sensor=false&v=3&libraries=geometry">
+  </script>

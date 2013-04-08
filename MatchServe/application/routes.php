@@ -52,6 +52,7 @@ Route::controller('createorg');
 Route::controller('user');
 Route::controller('dashboardvol');
 Route::controller('upcomingprojectsorg');
+Route::controller('previousprojects');
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers
@@ -142,7 +143,9 @@ Route::filter('auth', function()
  Asset::add('jquery-ui-1.10.1.min', 'js/jquery-ui-1.10.1.custom.min.js');
  Asset::container('search')->add('search', 'js/search.js');
  Asset::container('search')->add('searchajax','js/jquery.form.js','jquery.min');
- Asset::container('projectcreation')->add('projectcreation', 'js/projectcreation.js');
+ Asset::container('dashboardorg')->add('dashboardorg', 'js/dashboardorg.js');
+ Asset::container('createorg')->add('createorg', 'js/createorg.js');
  Asset::container('datepicker')->add('datepicker', 'js/jquery.ui.datepicker.min.js');
  Asset::container('timepicker')->add('timepicker', 'js/timepicker.js');
  Asset::add('bootstrap', 'bootstrap/js/bootstrap.js', 'jquery.min');
+ Asset::container('login')->add('login','js/login.js');

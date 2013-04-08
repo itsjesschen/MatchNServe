@@ -11,7 +11,7 @@ class Database {
 		foreach($query as $obj) {
 			$userid = $obj->userid;
 		}
-		$query = DB::query('SELECT OrganizationID as orgid FROM organizations WHERE Name = '.$org1);
+		$query = DB::query('SELECT OrganizationID as orgid FROM organizations WHERE OrgName = '.$org1);
 		foreach($query as $obj) {
 			$orgid = $obj->orgid;
 		}
@@ -39,33 +39,57 @@ class Database {
 			//$causes = '\''.$causes.'\'';
 			//echo "Causes is".$causes." ";
 		    //DB::query('INSERT INTO organizations VALUES ('', '.$name.', '1', '.$address.', '.$zipcode', '.$phone.', '.$website.', '.$mission.')');
-		   $orgId = DB::table('organizations')->insert_get_id(array('name' => $name, 'causeId' => $causes[0], 'address' => $address, 'zipcode' => $zipcode, 'website' => $website, 'mission' => $mission  ));
+		   $orgId = DB::table('organizations')->insert_get_id(array('OrgName' => $name, 'causeId' => $causes[0], 'address' => $address, 'zipcode' => $zipcode, 'website' => $website, 'mission' => $mission  ));
 		   $userId = DB::table('users')->where('Name', '=', $userName)->only('UserID');
 		   //echo "OrgID and UserIDs are " .$orgId. " " .$userId;
 		   DB::table('admins')->insert(array('OrganizationID' => $orgId, 'UserID' => $userId)); 
 	}
 	}
+	public static function checkIfOrgExists($name)
+	{
+		$orgID = DB::table('organizations')->where('OrgName', '=', $name)->only('OrganizationID');
+		return $orgID;
+	}
 	public static function addOrgProject($OrgID, $ProjectID){
 	}
-	public static function addProject($name, $headline, $details, $location, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName){
+	public static function addProject($name, $headline, $details, $address, $spots, $admin, $startTime, $endTime, $skills, $pgfs, $requirements, $status, $orgName){
 		//get the orgID		
 		$orgID = DB::table('organizations')
-			->where('organizations.Name', '=', $orgName)
+			->where('organizations.OrgName', '=', $orgName)
 			->only('OrganizationID');
 
-		//insert new project
-		$newProjectID = DB::table('projects')->insert_get_id(array(
-				'Name' => $name,
-				'Details' => $details,
-				'Location' => $location,
-				'StartTime' => $startTime,
-				'EndTime' => $endTime,
-				'Spots' => $spots,
-				'Admin' => $admin,
-				'Status' => $status,
-				'Requirements' => $requirements,
-				'Headline' => $headline
-			));
+
+			//insert new project
+			if($requirements == "")
+			{
+				$newProjectID = DB::table('projects')->insert_get_id(array(
+					'ProjectName' => $name,
+					'Details' => $details,
+					'Address' => $address,
+					'StartTime' => $startTime,
+					'EndTime' => $endTime,
+					'Spots' => $spots,
+					'Admin' => $admin,
+					'Status' => $status,
+					'Requirements' => NULL,
+					'Headline' => $headline
+				));
+			}
+			else
+			{
+				$newProjectID = DB::table('projects')->insert_get_id(array(
+					'ProjectName' => $name,
+					'Details' => $details,
+					'Address' => $address,
+					'StartTime' => $startTime,
+					'EndTime' => $endTime,
+					'Spots' => $spots,
+					'Admin' => $admin,
+					'Status' => $status,
+					'Requirements' => $requirements,
+					'Headline' => $headline
+				));
+			}
 
 		//insert into orgproject to keep track of which org owns it
 		DB::table('orgproject')->insert(array(
@@ -102,18 +126,53 @@ class Database {
 	public static function addUserProject(){
 	}
 	public static function addUser(){
-		
 	}
+
+	public static function approveUser($userID, $projectID)
+	{
+		$query = DB::table('userproject')
+    		->where('ProjectID', '=', $projectID)
+    		->where('UserID', '=', $userID)
+    		->update(array('Approved' => 1));
+		return $query;
+
+	}
+
+	public static function deleteProject($projectID)
+	{
+		$query = DB::table('projects')
+			->where('ProjectID', '=', $projectID)
+			->delete();
+		return $query;
+	}
+
 	public static function signup($user, $project){
-		$uID = DB::table('users')->where('name', '=', $user)->only('UserID');
-		DB::table('userproject')->insert(array('UserID' => $uID,'ProjectID' => $project ));
-		return $uID;
+		$uID = DB::table('users')->where('Name', '=', $user)->only('UserID');
+		//checks to see if user has already signed up
+		$query = DB::query('SELECT userID FROM userproject WHERE (userID ='.$uID.' AND projectID = '.$project.')');
+		if($query){
+			return "false";
+		}else{
+			DB::table('userproject')->insert(array('UserID' => $uID,'ProjectID' => $project ));
+			return "true";
+		}
+		//decrement prject spots TODO
 	}
 
 	/**********************************GETTERS**************************************/
+	public static function getAccountCount($username) {
+		$name = '\''.$username.'\'';
+		$query = DB::query('SELECT COUNT(organizations.OrgName) as counts FROM organizations, admins, users WHERE (users.Name='.$name.' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)');
+		return $query;
+	}
+	public static function getAccounts($username) {
+		$name = '\''.$username.'\'';
+		$query = DB::query('SELECT organizations.OrgName as name FROM organizations, admins, users WHERE (users.Name='.$name.' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)');
+		return $query;
+	}
 	public static function getAdmin($orgName){
 		$OrgID = DB::table('organizations')
-			->where('organizations.Name', '=', $orgName)
+			->where('organizations.OrgName', '=', $orgName)
 			->only('OrganizationID');
 
 		$query = DB::table('admins')
@@ -126,7 +185,7 @@ class Database {
 		$org1 = '\''.$org.'\'';
 		$num = null;
 		$query = DB::query('SELECT COUNT(admins.UserID) AS num FROM admins, organizations WHERE organizations.OrganizationID = admins.OrganizationID 
-		AND organizations.Name = '.$org1);
+		AND organizations.OrgName = '.$org1);
 		foreach($query as $obj) {
 			$num = $obj->num;
 		}
@@ -150,31 +209,26 @@ class Database {
 		$sep = "', '";
 		$temp = '%'.$searchterm.'%';
 		$temp = '\''.$temp.'\'';
-		if ($zipcode != null) 
-		{
-			$query = DB::query('SELECT projects.ProjectID as pID, projects.Name as Name, projects.Details as Details, projects.Location as Location,  
-			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
-			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
-			projects.StartTime as StartTime, projects.EndTime as EndTime, 
-			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, causes, orgproject,
-			organizations, projectskill, skills, pgfjoin, projectgoodfor WHERE  
-			organizations.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
-			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=pgfjoin.ProjectID and 
-			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE '.$temp.' or projects.Details LIKE '.$temp.') and 
-			projects.Location = '.$zipcode.' GROUP BY projects.ProjectID');
-		} else
-		{
-			$query = DB::query('SELECT projects.ProjectID as pID, projects.Name as Name, projects.Details as Details, projects.Location as Location,  
-			projects.Spots as Spots, projects.Requirements as Requirements, projects.Headline as Headline, group_concat(DISTINCT causes.Description SEPARATOR 
-			'.$sep.') as Cause, organizations.Name as Organization, group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills, 
-			projects.StartTime as StartTime, projects.EndTime as EndTime, 
-			group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor FROM projects, causes, orgproject,
-			organizations, projectskill, skills, pgfjoin, projectgoodfor WHERE  
-			organizations.CauseID=causes.CauseID and projects.ProjectID=orgproject.ProjectID and orgproject.OrganizationID=organizations.OrganizationID 
-			and projects.ProjectID=projectskill.ProjectID and projectskill.SkillID=skills.SkillID and projects.ProjectID=pgfjoin.ProjectID and 
-			pgfjoin.PGF_ID=projectgoodfor.PGF_ID and (projects.Name LIKE '.$temp.' or projects.Details LIKE '.$temp.') GROUP BY projects.ProjectID');
-		}
 		
+		$query = DB::query('
+			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
+			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
+			            projects.Headline as Headline, organizations.OrgName as Organization,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime,
+			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
+			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
+						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill
+				WHERE  
+			 		organizations.CauseID=causes.CauseID
+			 		and projects.ProjectID=orgproject.ProjectID
+			 		and orgproject.OrganizationID=organizations.OrganizationID 
+					and projects.ProjectID=pgfjoin.ProjectID
+					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
+					and projects.ProjectID=projectskill.ProjectID 
+					and projectskill.SkillID=skills.SkillID
+					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
+			 	GROUP BY projects.ProjectID');
 		return $query;
 	}
 	public static function getProjectTime($times) {
@@ -195,6 +249,14 @@ class Database {
 		}
 		return $query;
 	}
+
+	public static function getSchedule()
+	{
+		$query = DB::table('userproject')
+			->left_join('users', 'userproject.UserID', '=', 'users.UserID')
+			->get(array('userproject.UserID', 'userproject.ProjectID', 'userproject.Approved', 'users.FirstName', 'users.LastName'));
+		return $query;
+	}
 	
 	public static function getSettings($username, $account) {
 		$name = '\''.$username.'\'';
@@ -207,7 +269,7 @@ class Database {
 		$query = DB::query('SELECT users.Name as Name, users.Email as Email, users.Password as Password FROM users WHERE users.Name = '.$name.'
 		UNION
 		SELECT users.Name as adminName, '.$temp.', '.$temp.' FROM users, organizations, admins
-		WHERE organizations.Name = '.$organization.' and users.UserID = admins.UserID and admins.OrganizationID = organizations.OrganizationID');
+		WHERE organizations.OrgName = '.$organization.' and users.UserID = admins.UserID and admins.OrganizationID = organizations.OrganizationID');
 		}
 		return $query;
 	}
@@ -223,16 +285,23 @@ class Database {
 		//get orgID from name
 
 		$orgID = DB::table('organizations')
-			->where('organizations.Name', '=', $orgName)
+			->where('organizations.OrgName', '=', $orgName)
 			->only('OrganizationID');
 
 		$query = DB::table('projects')
 		    ->left_join('orgproject', 'projects.ProjectID', '=', 'orgproject.ProjectID')
 		    ->left_join('organizations', 'orgproject.OrganizationID', '=', 'organizations.OrganizationID')
 			->where('organizations.OrganizationID', '=', $orgID)
-		    ->get(array('projects.ProjectID', 'orgproject.OrganizationID', 'projects.Name as ProjectName', 'projects.StartTime', 'projects.Spots', 'organizations.Name as OrgName'));
+		    ->get(array('projects.EndTime', 'projects.ProjectID', 'orgproject.OrganizationID', 'projects.ProjectName as ProjectName', 'projects.StartTime','projects.Spots', 'organizations.OrgName as OrgName', 'projects.Address', 'projects.Requirements', 'projects.Headline', 'projects.Details'));
 		return $query;
 	}
+	public static function getAdmins()
+		{
+			$name = Cookie::get('name');
+			$userid = DB::table('users')->where('Name', '=', $name)->only('UserID');
+			$admins = DB::table('admins')->where('UserID', '=', $userid);
+			return $admins;
+		}
 	public static function getUserProject(){
 	}
 	public static function getUser(){
@@ -242,7 +311,7 @@ class Database {
 		$account = '\''.$account.'\'';
 		$admin = '\''.$admin.'\'';
 		DB::query('DELETE FROM admins WHERE UserID IN (SELECT UserID FROM users WHERE users.Name = '.$admin.') AND OrganizationID IN (SELECT 
-		OrganizationID FROM organizations WHERE organizations.Name = '.$account.')');
+		OrganizationID FROM organizations WHERE organizations.OrgName = '.$account.')');
 	}
 	
 	public static function setSettings($name, $newname, $newpassword, $newemail) {

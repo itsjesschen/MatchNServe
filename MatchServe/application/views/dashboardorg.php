@@ -8,6 +8,7 @@
   <?php echo Asset::container('bootstrap')->styles();?>
   <?php echo Asset::scripts();?>
   <?php echo Asset::styles();?>
+  <?php echo Asset::container('dashboardorg')->scripts();?>
 
   <script>
   </script>
@@ -53,6 +54,7 @@
     </div>
 
     <div class="tab-pane" id="previous">
+      <?php echo render('previousprojects'); ?>
     </div>
 
     <div class="tab-pane" id="new">

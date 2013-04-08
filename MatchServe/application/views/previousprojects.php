@@ -34,13 +34,13 @@
 		background-color: #777777;
 	}
 
-	#projectlist li{
+	#previousprojectlist li{
 		clear:both;
 		margin:5px;
 		padding:0;
 		list-style: none;
 	}
-	#projectlist{
+	#previousprojectlist{
 		height:500px;
 		width:300px;
 		margin:0px;
@@ -94,11 +94,11 @@
 <body>
 
 	<div class="containerstuff" class="tabbable tabs-left">
-		<ul id="projectlist" class="nav nav-tabs">
+		<ul id="previousprojectlist" class="nav nav-tabs">
 		</ul>
 		<!-- this is the where you will find the tab content for the right hand side. This correlates 
 		exactly with the href from above. Make sure to follow it through -->
-		<div class="tab-content" id="extendedprojectlist">
+		<div class="tab-content" id="previousextendedprojectlist">
 		</div>
 	</div>
 </body>

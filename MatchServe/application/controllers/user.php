@@ -17,14 +17,18 @@ function action_processlogin(){
  mysql_select_db("matchserve", $dbLocalhost)
  or die("Could not find database: " . mysql_error());
 
-    if (isset($_POST['submit']))
+    if (isset($_POST['submit']) || isset($_POST['search']))
 	{
+
 		$userName = $_POST['userName'];
 		$password = $_POST['password'];
 		$newPassword = $_POST['newPassword'];
 		$emailExp = '/^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-Z0-9]{2,4}$/';
 		$newEmail = $_POST['newEmail'];
-
+		$isSearch = null;
+		if(isset($_POST['search'])){
+			$isSearch = $_POST['search'];
+		}
 		if ($userName != null && $userName !="" && ($newPassword == null || $newPassword ==""))
 		{
 			if ($password != null && $password !="") 
@@ -40,7 +44,10 @@ function action_processlogin(){
 						{
 							//successful login
 							Cookie::put('name', $userName, 7200);
-							return Redirect::to_action('user/accountselectioncontroller')->with('userName', $userName);
+							if ($isSearch === "true"){
+								return $userName;
+							}
+							return Redirect::to_action('user/accountselection')->with('userName', $userName);
 						}
 						else
 						{
@@ -119,13 +126,37 @@ function action_processlogin(){
 			{
 				if ($password == $newPassword)
 				{
-					$encryptPassword = md5($newPassword);
-					$sql="insert into users(Name, Email, Password) values('$userName','$email','$encryptPassword')";
-					$result = mysql_query($sql, $dbLocalhost)
-					or die("Problem writing to table: " . mysql_error());
-					//new user registered successfully
-					Cookie::put('name', $userName, 7200);
-					return Redirect::to('dashboardvol');
+					if (strlen($userName) > 8 && strlen($userName) < 15)
+					{
+						if (strlen($password) > 8 && strlen($password) < 15)
+						{
+							$encryptPassword = md5($newPassword);
+							$sql="insert into users(Name, Email, Password) values('$userName','$email','$encryptPassword')";
+							$result = mysql_query($sql, $dbLocalhost)
+							or die("Problem writing to table: " . mysql_error());
+							//new user registered successfully
+							Cookie::put('name', $userName, 7200);
+							if ($isSearch === "true"){
+								return $userName;
+							}
+							return Redirect::to('dashboardvol');
+						}
+						else
+						{
+							//Password wasn't right length
+							echo ("<script>
+							alert('Password must be greater than 8 and less than 15 characters.');
+							  window.location.href = \"login\";
+							</script>");
+						}
+					}
+					else {
+						//Username wasn't right length
+						echo ("<script>
+							alert('Username must be greater than 8 and less than 15 characters.');
+							  window.location.href = \"login\";
+							</script>");
+					}
 				}
 				else
 				{
@@ -211,10 +242,6 @@ if(!isset( $_REQUEST["code"] ) ) {
    }
 }
 function action_accountselection(){
-		return View::make('accountselection')->with('names', '$names')->with('userName', '$userName');
-	}
-	
-	function action_accountselectioncontroller(){
 		$dbLocalhost = mysql_connect("localhost", "root", "")
 		or die("Could not connect: " . mysql_error());
 		mysql_select_db("matchserve", $dbLocalhost)
@@ -222,20 +249,16 @@ function action_accountselection(){
 		$userName = Cookie::get('name');
 		if (isset($userName))
 		{
-			$results = mysql_query("SELECT organizations.Name FROM organizations, admins, users WHERE (users.Name='$userName' AND admins.UserID=users.UserID AND organizations.OrganizationID=admins.OrganizationID)");
-			$count = 0;
-			$names = array();
-			$temp = "";
-			while($row = mysql_fetch_assoc($results)) 
-			{
-				$name = $row['Name'];
-				$temp = $temp . "<input type='hidden' name='names[]' value='$name' />";
-				$names[$count] = $row['Name'];
-				$count++;
-			}
-			if ($count > 0)
-			{				
-				return Redirect::to('user/accountselection')->with('userName', $userName)->with('names', $names);
+			$data = Database::getAccountCount($userName);
+			foreach($data as $obj) {
+				$count = $obj->counts;
+				}
+			//echo  $count;
+			if ($count > 0) {
+				$names = Database::getAccounts($userName);
+				$names = json_encode($names); 
+				Session::put('names', $names);
+				return View::make('accountselection')->with('names', $names)->with('userName', $userName);
 			}
 			else
 			{
@@ -247,7 +270,12 @@ function action_accountselection(){
 				return Redirect::to('dashboardvol');
 			}
 		}
+		//return View::make('accountselection')->with('names', '$names')->with('userName', '$userName');
 	}
+	
+	 function action_accountselectioncontroller(){
+		return Redirect::to('user/accountselection');
+	} 
 	
 	public function action_accountselected(){
 		$account = $_GET['account'];

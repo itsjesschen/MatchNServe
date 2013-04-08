@@ -4,9 +4,8 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<?php echo Asset::container('bootstrap')->styles();?>
-	<?php echo Asset::container('projectcreation')->scripts();?>
 	<?php echo Asset::scripts();?>
+	<?php echo Asset::container('createorg')->scripts();?>
 	<title></title>
 
 	<style type="text/css">
@@ -38,9 +37,12 @@
   .dropdown ul input{
     margin:7px;
   }
-
+	.error 
+	{
+		color:red;
+		visibility: collapse;
+	}
   </style>
-
 </head>
 
 <body>
@@ -60,18 +62,26 @@
     <form id="projectCreationForm" action=<?php echo URL::to('createorg/checkSubmit'); ?> method="get">
      <table id="tableinformation" border = "0">
        <tr>
-        <td><input id="name" type="text" name="name" value = "Organization Name" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/> </td>
+        <td><input id="name" type="text" name="name" value = "Organization Name" onblur="validateName()" class="inputBox"/> </td>
+        <td><label class = "error" id='nameError'>Required</label></td>
       </tr>
-      <tr> <td> <input id="address" type="text" name="address" value = "Address" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"  class="inputBox"> </td> </tr>
+      <tr> <td> <input id="address" type="text" name="address" value = "Address"  onblur="validateAddress()"  class="inputBox"> </td> 
+      <td><label class = "error" id='addressError'> Required </label></td>
+      </tr> 
       <tr>
-        <td> <input id="zipcode" type="text" name="zipcode" value = "Zip Code" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"  class="inputBox"/> </td>
+        <td> <input id="zipcode" type="text" name="zipcode" value = "Zip Code" onblur="validateZipcode()"  class="inputBox"/> </td>
+        <td><label class = "error" id='zipcodeError'> Invalid zipcode </label></td>
       </tr>
-      <tr>  <td> <input id="phone" type="text" name="phone" value = "Phone" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"  class="inputBox"/>  </td> </tr>
-      <tr>  <td> <input id="website" type="text" name="website" value = "Website" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"  class="inputBox"/> </td> </tr>
-      <tr>  <td> <textarea id="mission" type="text" name="mission"  value = "Mission" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"   class="inputBox">Mission </textarea> </td> </tr>
+      <tr>  <td> <input id="phone" type="text" name="phone" value = "Phone" onblur="validatePhone()"  class="inputBox"/>  </td> 
+      <td><label class = "error" id='phoneError'> Invalid phone number </label></td>
+      </tr>
+      <tr>  <td> <input id="website" type="text" name="website" value = "Website" onblur="validateWebsite()"  class="inputBox"/> </td>
+      <td><label class = "error" id='websiteError'> Invalid website </label></td>
+      </tr>
+      <tr>  <td> <textarea id="mission" type="text" name="mission"  value = "Mission" onblur="validateMission()" class="inputBox">Mission </textarea> </td>
+      <td><label class = "error" id='missionError'> Mission is required </label></td>
+      </tr>
     </table>
-
-
     <div id="project-creation-causes-dropdown">
      <div class="dropdown">
        <a class="projectSkillSelector dropdown-toggle" data-toggle="dropdown" href="#"> Select the major cause your organization is associated with

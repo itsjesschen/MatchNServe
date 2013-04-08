@@ -1,10 +1,10 @@
 <?php
 
-class UpcomingProjectsOrg_Controller extends Base_Controller{
+class PreviousProjects_Controller extends Base_Controller{
 	
 	public function action_index()
 	{
-		return View::make('upcomingprojectsorg');
+		return View::make('previousprojects');
 	}
 
 	public function action_getProjects()
@@ -39,23 +39,5 @@ class UpcomingProjectsOrg_Controller extends Base_Controller{
 			//error
 		}
 	}
-
-	public function action_deleteProject() 
-	{	
-		$projectID = $_GET['project'];
-		$data = Database::deleteProject($projectID);
-		$data = json_encode($data);
-		return $data;	
-	}
-
-	public function action_approveUser() 
-	{	
-		$userID = $_GET['user'];
-		$projectID = $_GET['project'];
-		$data = Database::approveUser($userID, $projectID);
-		$data = json_encode($data);
-		return $data;	
-	}
-
 }
 ?>

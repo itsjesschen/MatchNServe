@@ -4,12 +4,8 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<?php echo Asset::container('bootstrap')->styles();?>
-	<?php echo Asset::scripts();?>
-	<?php echo Asset::container('projectcreation')->scripts();?>
 	<?php echo Asset::container('datepicker')->scripts();?>
 	<?php echo Asset::container('timepicker')->scripts();?>
-	<?php echo Asset::styles();?> 
 	<title></title>
 
 	<style type="text/css">
@@ -52,13 +48,13 @@
 			</br></br>
 			<input id="projectHeadline" type="text" name="projectHeadline" value="Tell us the project in 1 short sentence" defaultValue = "Tell us the project in 1 short sentence" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 		</br></br>
-		<input id="projectDescription" type="text" name="projectDescription" value="Give us the full project description" defaultValue = "Give us the full project description" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+		<input id="projectDetails" type="text" name="projectDetails" value="Give us the full project description" defaultValue = "Give us the full project description" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 	</br></br>
 	<p> LOCATION: 	
 		<input id="projectLocationONLINE" type="radio" name="projectLocation" value="1"> ONLINE
 		<input id="projectLocationONSITE" type="radio" name="projectLocation" value="2"> ONSITE
 	</p>
-	<input id="projectLocationOtherAddress" type="text" name="projectLocationOther" value="If other, please give address." defaultValue = "If other, please give address." onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
+	<input id="projectAddress" type="text" name="projectAddress" value="If ONSITE, please give full address." defaultValue = "If ONSITE, please give full address." onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 </br></br>
 <input id="projectVolunteerNumber" type="text" name="projectVolunteerNumber" value="How many volunteers are needed?" defaultValue = "How many volunteers are needed?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 </br></br>
@@ -98,8 +94,7 @@
 </div>
 <input id="projectRequirements" type="text" name="projectRequirements" value="Any requirements?" defaultValue = "Any requirements?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 </br></br>
-</div>
-<input type="submit" name="SaveButton" class="btn" value="Save Draft"/>   
+</div> 
 <input type="submit" name="FinishButton" class="btn" value="Finish"/>
 </br>
 </div>
