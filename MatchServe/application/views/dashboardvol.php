@@ -121,7 +121,7 @@
                 '</div>'+
                 '</div>');
             } else {
-              $('#tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
+              $('#tab-content').append('<div class="tab-pane" id="project'+r.ProjectID+'">'+
                 '<div class="tabbable tabs-left" id="rightsideinfo">'+
                 '<ul class="nav nav-tabs">'+
                 '<li class="active"><a href="#moreinfo" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
@@ -375,14 +375,8 @@ function calculateDistance(loc1, loc2)
     </div>
 
     <div class="workspace">
-      <div class="tab-content">
-        <div class="tab-pane active" id="upcoming">
-          <?php echo render('upcomingprojectsorg'); ?>
-        </div>
-      </div>
-      <div id="#search-results">
-
-      </div>
+      <?php echo render('upcomingprojectsorg'); ?>
+      <div id="#search-results"></div>
     </div>
 
     <div class="footer">
