@@ -98,7 +98,7 @@
 		</ul>
 		<!-- this is the where you will find the tab content for the right hand side. This correlates 
 		exactly with the href from above. Make sure to follow it through -->
-		<div class="tab-content" id="extendedprojectlist">
+		<div class="tab-content tab-content-special" id="extendedprojectlist">
 		</div>
 	</div>
 </body>
