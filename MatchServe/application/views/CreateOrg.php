@@ -73,7 +73,7 @@
         <td><label class = "error" id='zipcodeError'> Invalid zipcode </label></td>
       </tr>
       <tr>  <td> <input id="phone" type="text" name="phone" value = "Phone" onblur="validatePhone()"  class="inputBox"/>  </td> 
-      <td><label class = "error" id='phoneError'> Invalid phone number </label></td>
+      <td><label class = "error" id='phoneError'> Invalid phone number (digits only) </label></td>
       </tr>
       <tr>  <td> <input id="website" type="text" name="website" value = "Website" onblur="validateWebsite()"  class="inputBox"/> </td>
       <td><label class = "error" id='websiteError'> Invalid website </label></td>

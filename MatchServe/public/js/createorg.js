@@ -32,6 +32,10 @@ function validateName()
 	{
 		  errorName.style.visibility = "visible";
 	}	
+	else
+	{
+		errorName.style.visibility = "collapse";
+	}
 }
 function validateAddress()
 {
@@ -40,6 +44,10 @@ function validateAddress()
 	if(address.length < 1)
 	{
 		errorAddress.style.visibility = "visible";
+	}
+	else
+	{
+		errorAddress.style.visibility = "collapse";
 	}
 }
 function validateZipcode()
@@ -51,16 +59,25 @@ function validateZipcode()
 	{
 		errorZipcode.style.visibility = "visible";
 	}
+	else
+	{
+		errorZipcode.style.visibility = "collapse";
+	}
 }
 function validatePhone()
 {
 	var phone = document.getElementById('phone').value; 
 	var errorPhone = document.getElementById('phoneError');
 	var num_regex = /^\d+$/; // numeric digits only
-	if(!phone.match(num_regex))
+	if(!phone.match(num_regex) || phone.length < 10)
 	{
 		errorPhone.style.visibility = "visible";
 	}
+	else
+	{
+		errorPhone.style.visibility = "collapse";
+	}
+	
 }
 function validateWebsite()
 {
@@ -70,6 +87,10 @@ function validateWebsite()
 	{
 		errorWebsite.style.visibility = "visible";
 	}
+	else
+	{
+		errorWebsite.style.visibility = "collapse";
+	}
 }
 function validateMission()
 {
@@ -78,5 +99,9 @@ function validateMission()
 	if(mission.length <1)
 	{
 		errorMission.style.visibility = "visible";
+	}
+	else
+	{
+		errorMission.style.visibility = "collapse";
 	}
 }
