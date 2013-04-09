@@ -6,13 +6,20 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title></title>
 <!--   <?php echo Asset::container('bootstrap')->styles();?> -->
+
+<style>
+#alignment{
+  margin-left:10px;
+  margin-top:15px;
+}
+</style>
 </head>
 
 <body>
 	<div class="footer">
 	<div class="navbar navbar-inverse">
   		<div class="navbar-inner">
-    		<ul class="nav">
+    		<ul class="nav" id="alignment">
       			<li><a href="#">The Team</a></li>
       			<li><a href="#">Press</a></li>
                 <li><a href="#">Careers</a></li>

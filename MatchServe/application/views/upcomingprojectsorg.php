@@ -64,6 +64,7 @@
 	#projecttitle{
 		margin-top:3px;
 		padding-left: 5px;
+		font-size: 9px;
 		text-transform: uppercase;
 		color:#ffffff;
 	}
@@ -71,6 +72,11 @@
 	#timeline{
 		padding-left: 5px;
 		color:#cccccc;
+	}
+
+	#times{
+		color:#ffffff;
+		font-size: 10px;
 	}
 	#progressbar{
 		margin-top:3px;

@@ -324,9 +324,9 @@ function initSearchResultListener(){
                                             <p class='projectHeadline'>" +opportunity.headline +"</p> \
                                         </div> \
                                         <div class='rightHandSideStuff'> \
-                                            <p class='projectDistance'><i class='icon-road'></i>" +Math.round(opportunity.distance*10)/10+ " miles</p> \
-                                            <p class='projectTime'><i class='icon-time'></i>"+opportunity.starttime+"</p> \
-                                            <p class='projectDate'><i class='icon-calendar'></i>"+opportunity.endtime+"</p> \
+                                            <p class='projectDistance'><i class='icon-map-marker'></i>" +Math.round(opportunity.distance*10)/10+ " miles</p> \
+                                            <p class='projectTime'><i class='icon-ok'></i>"+opportunity.starttime+"</p> \
+                                            <p class='projectDate'><i class='icon-remove'></i>"+opportunity.endtime+"</p> \
                                             <button class='btn btn-success' onClick=signUpForProject(event,"+i+") type='button' class='signUpButton'>Sign Up</button> \
                                         </div> \
                                     </a> \
@@ -340,7 +340,7 @@ function initSearchResultListener(){
                                             <p class='accordionTitle'>ADDRESS</p> \
                                             <p class='projectLocation'>"+opportunity.location+"</p> \
                                             <p class='accordionTitle'>POSTED BY</p> \
-                                            <p class='projectContact'>Anita Singh</p> \
+                                            <p class='projectContact'>"+opportunity.admin+"</p> \
                                             <p class='accordionTitle'>SKILLS NEEDED</p> \
                                             <p class='projectSkills'>"+opportunity.skills+"</p> \
                                             <p class='accordionTitle'>ASSOCIATED CAUSES</p> \
