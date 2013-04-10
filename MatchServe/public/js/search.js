@@ -317,10 +317,10 @@ function initSearchResultListener(){
                             <div class='accordion-group'>\
                                 <div class='accordion-heading'>\
                                     <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion" +i+"' href='#collapse" +i+"'>\
-                                        <img class='causeImage iconCause' src='img/icon.JPG'/> \
+                                        <img class='causeImage iconCause' src='img/dwc.JPG'/> \
                                         <div class='leftHandSideStuff'>\
                                             <p class='projectPosition'>" +opportunity.name +"</p> \
-                                            <p class='projectOrg'>" +opportunity.cause +"</p> \
+                                            <p class='projectOrg'>" +opportunity.Orgname+"</p> \
                                             <p class='projectHeadline'>" +opportunity.headline +"</p> \
                                         </div> \
                                         <div class='rightHandSideStuff'> \
@@ -340,7 +340,7 @@ function initSearchResultListener(){
                                             <p class='accordionTitle'>ADDRESS</p> \
                                             <p class='projectLocation'>"+opportunity.location+"</p> \
                                             <p class='accordionTitle'>POSTED BY</p> \
-                                            <p class='projectContact'>"+opportunity.admin+"</p> \
+                                            <p class='projectContact'>"+opportunity.user+"</p> \
                                             <p class='accordionTitle'>SKILLS NEEDED</p> \
                                             <p class='projectSkills'>"+opportunity.skills+"</p> \
                                             <p class='accordionTitle'>ASSOCIATED CAUSES</p> \
