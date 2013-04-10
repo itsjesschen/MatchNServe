@@ -109,6 +109,8 @@
     </style>
 
   <script>
+  var skills = null;  
+    
   var Months = new Array();
   Months['01'] = 'Jan';
   Months['02'] = 'Feb';
@@ -202,6 +204,24 @@
             
             //--------------------
             
+            // get the skills for this project id
+            $.ajax({
+              type:"GET",
+              url: 'dashboardvol/getskills?projectid='+r.ProjectID,
+              async: false,
+              success: function(response) {
+                skills = eval(response);
+              },
+              dataType: 'json'
+              });
+            
+            var skillsString = '';
+            for(var j = 0; j < skills.length; j++) {
+              skillsString += skills[j].Description;
+              skillsString += ', ';
+              alert(skillsString);
+            }
+            
             // Now take care of the tab content
             if(i == 0) {
               $('.tab-content-special').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
@@ -232,9 +252,7 @@
                                             '<span class="projectDescriptionTitle">PROJECT DESCRIPTION</span><br>' + r.Details + ' </p>' +
                                         '<div class="additionalInfoBox">' + 
                                             '<p class="accordionTitle">SKILLS NEEDED</p>' + 
-                                            '<p class="projectSkills">' + r.Skills + '</p>' + 
-                                            '<p class="accordionTitle">ASSOCIATED CAUSES</p>' + 
-                                            '<p class="projectCause">' + r.Cause + '</p>' + 
+                                            '<p class="projectSkills">' + skillsString + '</p>' + 
                                         '</div>' + 
                                     '</div>' + 
                                 '</div>' + 
@@ -250,12 +268,12 @@
               $('.tab-content-special').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
                 '<div style="width: 700px" class="tabbable tabs-left" id="rightsideinfo">'+
                 '<ul class="nav nav-tabs">'+
-                '<li class="active"><a href="#moreinfo" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
-                '<li><a href="#roster" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
-                '<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
+                '<li class="active"><a href="#moreinfo'+i+'" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
+                '<li><a href="#roster'+i+'" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
+                '<li><a href="#deleteproject'+i+'" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
                 '</ul>'+
                 '<div id="content" class="tab-content">'+
-                '<div class="tab-pane active" id="moreinfo">'+
+                '<div class="tab-pane active" id="moreinfo'+i+'">'+
                     '<div class="accordion-group">'+
                                 '<div class="accordion-heading">' + 
                                         '<img class="causeImage iconCause" src="img/icon.JPG"/>' +
@@ -275,16 +293,14 @@
                                             '<span class="projectDescriptionTitle">PROJECT DESCRIPTION</span><br>' + r.Details + ' </p>' +
                                         '<div class="additionalInfoBox">' + 
                                             '<p class="accordionTitle">SKILLS NEEDED</p>' + 
-                                            '<p class="projectSkills">' + r.Skills + '</p>' + 
-                                            '<p class="accordionTitle">ASSOCIATED CAUSES</p>' + 
-                                            '<p class="projectCause">' + r.Cause + '</p>' + 
+                                            '<p class="projectSkills">' + skillsString + '</p>' + 
                                         '</div>' + 
                                     '</div>' + 
                                 '</div>' + 
                             '</div>' + 
                 '</div>'+
-                '<div class="tab-pane" id="roster">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
-                '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
+                '<div class="tab-pane" id="roster'+i+'">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
+                '<div class="tab-pane" id="deleteproject'+i+'">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
                 '</div>'+
                 '</div>'+
                 '</div>');

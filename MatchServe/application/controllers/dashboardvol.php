@@ -93,5 +93,19 @@ class DashboardVol_Controller extends Base_Controller{
 		$name = Cookie::get('name');
 		$query = mysql_query('DELETE FROM userproject WHERE userproject.ProjectID='.$projectId.' AND EXISTS (SELECT users.UserID FROM users WHERE userproject.UserID=users.UserID AND users.Name="'.$name.'")');
 	}
+	
+	public function action_getskills() {
+		$dbLocalhost = mysql_connect("localhost", "root", "")
+		or die("Could not connect: " . mysql_error());
+		mysql_selectdb("matchserve", $dbLocalhost)
+		or die("Couild not find database: " . mysql_error());
+		$projectId = $_GET['projectid'];
+		$query = mysql_query('SELECT skills.* FROM skills, projectskill WHERE projectskill.ProjectID='.$projectId.' AND projectskill.SkillID=skills.SkillID');
+		$rows = array();
+		while($r = mysql_fetch_assoc($query)) {
+		    $rows[] = $r;
+		}
+		echo(json_encode($rows));
+	}
 }
 ?>
