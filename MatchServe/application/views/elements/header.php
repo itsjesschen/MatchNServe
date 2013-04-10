@@ -28,7 +28,7 @@
   <a class='dropdown-toggle' data-toggle='dropdown' href='#'>" .$name. "<span class='caret'> </span></a>
   <ul class='dropdown-menu' role= 'menu' aria-labelledby= 'dLabel'>
                           <li> <a href = '#'> My Profile </a> </li>
-                          <li> <a href = '#'> Karma Points </a> </li>
+                          <li> <a href = ".URL::to('user/karma')."> Karma Points </a> </li>
                           <li> <a href = '#'>History </a> </li>
                           <li> <a href = ".URL::to('settings').">Settings </a> </li>
                           <li> <a href = " . URL::to('user/accountselectioncontroller'). "  onclick = 'confirmAction()' >Accounts</a> </li>
