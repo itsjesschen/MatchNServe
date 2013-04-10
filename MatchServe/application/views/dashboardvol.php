@@ -109,7 +109,8 @@
     </style>
 
   <script>
-  var skills = null;  
+  var skills = null;
+  var checkin = null;
     
   var Months = new Array();
   Months['01'] = 'Jan';
@@ -218,8 +219,29 @@
             var skillsString = '';
             for(var j = 0; j < skills.length; j++) {
               skillsString += skills[j].Description;
-              skillsString += ', ';
-              alert(skillsString);
+              if(skills.length > 1)
+                skillsString += ', ';
+              //alert(skillsString);
+            }
+            
+            // Now populate the check-in
+            $.ajax({
+              type: 'GET',
+              url: 'dashboardvol/getcheckins?project='+r.ProjectID,
+              async: false,
+              success: function(response) {
+                //alert(repsonse);
+                checkin = eval(response);
+              },
+              dataType: 'json'
+            });
+            
+            var checkinString = '';
+            for(var j = 0; j < checkin.length; j++) {
+              checkinString += checkin[j].Name;
+              if(checkin.length > 1)
+                checkinString += ', ';
+              //alert(checkinString);
             }
             
             // Now take care of the tab content
@@ -258,7 +280,7 @@
                                 '</div>' + 
                             '</div>' + 
                 '</div>'+
-                '<div class="tab-pane" id="roster">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
+                '<div class="tab-pane" id="roster">' + checkinString + '</div>'+
                 '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
                 '</div>'+
                 '</div>'+
@@ -299,22 +321,12 @@
                                 '</div>' + 
                             '</div>' + 
                 '</div>'+
-                '<div class="tab-pane" id="roster'+i+'">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
+                '<div class="tab-pane" id="roster'+i+'">' + checkinString + '</div>'+
                 '<div class="tab-pane" id="deleteproject'+i+'">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
                 '</div>'+
                 '</div>'+
                 '</div>');
-}
-
-             // Now populate the check-in
-             $.get('dashboardvol/getcheckins?project='+r.ProjectID, function(response) {
-              console.log("CheckIn Users: "+response);
-              response = $.parseJSON(response);
-              for(var j = 0; j < response.length; j++) {
-                var c = response[j];
-                $('#project'+c.ProjectID).find('#rightsideinfo').find('#content').find('[id^=checkinvolunteers]').append(c.Name + '<br>');
-              }
-            });
+            }
            }
          });
 
