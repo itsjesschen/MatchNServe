@@ -62,7 +62,7 @@ class DashboardVol_Controller extends Base_Controller{
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
 		$name = Cookie::get('name');
-		$query = mysql_query('SELECT projects.*,organizations.Name as orgname FROM orgproject, organizations, projects, userproject, users WHERE users.Name="'.$name.'" AND userproject.UserID=users.UserID AND userproject.ProjectID=projects.ProjectID AND projects.ProjectID=orgproject.ProjectID AND orgproject.OrganizationID=organizations.OrganizationID', $dbLocalhost);
+		$query = mysql_query('SELECT projects.*,organizations.OrgName as orgname FROM orgproject, organizations, projects, userproject, users WHERE users.Name="'.$name.'" AND userproject.UserID=users.UserID AND userproject.ProjectID=projects.ProjectID AND projects.ProjectID=orgproject.ProjectID AND orgproject.OrganizationID=organizations.OrganizationID', $dbLocalhost);
 		$rows = array();
 		while($r = mysql_fetch_assoc($query)) {
 		    $rows[] = $r;
@@ -71,7 +71,7 @@ class DashboardVol_Controller extends Base_Controller{
 	}
 	
 	public function action_getcheckins() {
-		$dbLocalhost = mysql_connect("localhost", "root", "root")
+		$dbLocalhost = mysql_connect("localhost", "root", "")
 		or die("Could not connect: " . mysql_error());
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
@@ -85,13 +85,27 @@ class DashboardVol_Controller extends Base_Controller{
 	}
 	
 	public function action_deleteProject() {
-		$dbLocalhost = mysql_connect("localhost", "root", "root")
+		$dbLocalhost = mysql_connect("localhost", "root", "")
 		or die("Could not connect: " . mysql_error());
 		mysql_select_db("matchserve", $dbLocalhost)
 		or die("Could not find database: " . mysql_error());
 		$projectId = $_GET['project'];
 		$name = Cookie::get('name');
 		$query = mysql_query('DELETE FROM userproject WHERE userproject.ProjectID='.$projectId.' AND EXISTS (SELECT users.UserID FROM users WHERE userproject.UserID=users.UserID AND users.Name="'.$name.'")');
+	}
+	
+	public function action_getskills() {
+		$dbLocalhost = mysql_connect("localhost", "root", "")
+		or die("Could not connect: " . mysql_error());
+		mysql_selectdb("matchserve", $dbLocalhost)
+		or die("Couild not find database: " . mysql_error());
+		$projectId = $_GET['projectid'];
+		$query = mysql_query('SELECT skills.* FROM skills, projectskill WHERE projectskill.ProjectID='.$projectId.' AND projectskill.SkillID=skills.SkillID');
+		$rows = array();
+		while($r = mysql_fetch_assoc($query)) {
+		    $rows[] = $r;
+		}
+		echo(json_encode($rows));
 	}
 }
 ?>

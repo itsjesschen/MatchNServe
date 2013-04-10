@@ -36,23 +36,40 @@ class CreateOrg_Controller extends Base_Controller
 		$causes = array();
 		$i = 0;
 		
-		    $name = $_GET['name']; 
+		$name = $_GET['name']; 
 		
-			$address = $_GET['address'];
+		$address = $_GET['address'];
     
-    	 	$zipcode = $_GET['zipcode'];
+    	$zipcode = $_GET['zipcode'];
     
-    		$phone = $_GET['phone'];
+    	$phone = $_GET['phone'];
     	
-    		$website = $_GET['website'];
+    	$website = $_GET['website'];
     
-    		$mission = $_GET['mission'];
+    	$mission = $_GET['mission'];
     
-    		$causes = $_GET['cause'];
-    	
-    	$data = Database::addOrg($name, $address, $zipcode, $phone, $website, $mission, $causes);
-		$data = json_encode($data);
-		echo("Your organization's information has been succesfully stored!");
+    	$causes = $_GET['cause'];
+    	$data = " ";
+    	if ($name != null && $address!=null && $zipcode != null && $phone != null && $mission != null && $causes[0] != null) 
+    	{
+    		$orgID = Database::checkIfOrgExists($name);
+    		if($orgID == null)
+    		{
+    			$data = Database::addOrg($name, $address, $zipcode, $phone, $website, $mission, $causes);
+    		}
+    		else
+    		{
+    			echo "<script> alert('Organization already exists') </script>";
+    			return;
+    		}
+    	}
+    	else
+    	{
+    		echo "<script> alert('Make sure you selected a Cause and entered all fields correctly.') </script>";
+    		return;
+    	}
+		//$data = json_encode($data);
+		echo("Your organization's information has been succesfully stored!"); 
 		//return $data;
 		
     	

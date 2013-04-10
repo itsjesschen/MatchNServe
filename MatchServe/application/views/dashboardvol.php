@@ -3,14 +3,115 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Match & Serve | Dashboard Page</title>
-
+  
   <!--SUPER IMPORTANT: MAKE SURE TO COPY AND PASTE THIS IN EVERY HEADER SO ALL THE INCLUDES CAN TAKE EFFECT IN THE PAGE-->
-  <!-- <?php echo Asset::container('bootstrap')->styles();?> -->
+  <?php echo Asset::container('bootstrap')->styles();?>
   <?php echo Asset::styles();?>
   <?php echo Asset::scripts();?>
   <script src="http://malsup.github.com/jquery.form.js"></script>
+  
+  <style>
+  /*If adding css, please designate which file it belongs to by wrapping it in a comment block*/
+
+  /*search.php START*/
+
+  .leftHandSideStuff{
+    position:relative;
+    float:left;
+    width:320px;
+    height:75px;
+  }
+  .rightHandSideStuff{
+    position:relative;
+    float:right;
+    overflow:none;
+    width:150px;
+    height:75px;
+    /*        margin-top:-8px;*/
+  }
+  .iconCause{
+    float:left;
+    width:75px;
+    height:75px;
+  }
+  .projectPosition{
+    font-size: 25px;
+    margin-left:10px;
+    padding:0;
+    text-transform: uppercase;
+    color:#111111;
+  }
+  .projectOrg{
+    font-size:14px;
+    font-style: italic;
+    margin-left:10px;
+    padding:0;
+    color:#111111;
+  }
+  .projectHeadline{
+    font-size: 10px;
+    margin-left:10px;
+    color:#111111;
+  }
+  .requirementsWarning{
+    margin-left:10px;
+    color:#111111;
+  }
+  .rightHandSideStuff i{
+    vertical-align:middle;
+  }
+  .projectDistance,
+  .projectTime,
+  .projectDate{
+    font-size: .8em;
+    line-height:1.4em;
+    color:#111111;
+  }
+
+  .projectDescription{
+    height:100%;
+    width:50%;
+    display:inline-block;
+    overflow: auto;
+    background-color: #eeeeee;
+    margin-left:-15px;
+  }
+  .projectDescriptionTitle{
+    width:100%;
+    height:18px;
+    font-size:.9em;
+    font-color:#111111;
+    background-color: #cccccc;
+  }
+  .additionalInfoBox{
+    display: inline-block;
+    float:right;
+    width:50%;
+    padding:0;
+  }
+  .projectLocation, 
+  .projectContact,
+  .projectSkills,
+  .projectCause,
+  .projectReqs{
+  }
+  .accordionTitle{
+    font-size:14px;
+    font-color:#111111;
+    background-color: #cccccc;
+  }
+  .dropdownTitle{
+    margin-top:5px;
+    font-size: 14px;
+  }
+
+  /* end css from form login*/
+  </style>
 
   <script>
+  var skills = null;
+  var checkin = null;
+
   var Months = new Array();
   Months['01'] = 'Jan';
   Months['02'] = 'Feb';
@@ -74,7 +175,7 @@
             // project title
             var projecttitle = document.createElement('div');
             projecttitle.setAttribute('id', 'projecttitle');
-            projecttitle.innerHTML = r.Name;
+            projecttitle.innerHTML = r.ProjectName;
             // orgname
             var orgname = document.createElement('div');
             orgname.setAttribute('id', 'orgname');
@@ -104,50 +205,98 @@
             
             //--------------------
             
+            // get the skills for this project id
+            $.ajax({
+              type:"GET",
+              url: 'dashboardvol/getskills?projectid='+r.ProjectID,
+              async: false,
+              success: function(response) {
+                skills = eval(response);
+              },
+              dataType: 'json'
+            });
+            
+            var skillsString = '';
+            for(var j = 0; j < skills.length; j++) {
+              skillsString += skills[j].Description;
+              if(skills.length > 1)
+                skillsString += ', ';
+              //alert(skillsString);
+            }
+            
+            // Now populate the check-in
+            $.ajax({
+              type: 'GET',
+              url: 'dashboardvol/getcheckins?project='+r.ProjectID,
+              async: false,
+              success: function(response) {
+                //alert(repsonse);
+                checkin = eval(response);
+              },
+              dataType: 'json'
+            });
+            
+            var checkinString = '';
+            for(var j = 0; j < checkin.length; j++) {
+              checkinString += checkin[j].Name;
+              if(checkin.length > 1)
+                checkinString += ', ';
+              //alert(checkinString);
+            }
+            
             // Now take care of the tab content
             if(i == 0) {
-              $('#tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
-                '<div class="tabbable tabs-left" id="rightsideinfo">'+
-                '<ul class="nav nav-tabs">'+
-                '<li class="active"><a href="#moreinfo" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
-                '<li><a href="#roster" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
-                '<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
-                '</ul>'+
+              $('.tab-content-special').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
+                '<div style="width: 700px" class="tabbable tabs-left" id="rightsideinfo">'+
+                  '<ul class="nav nav-tabs">'+
+                    '<li class="active"><a href="#moreinfo" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
+                    '<li><a href="#roster" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
+                    '<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
+                  '</ul>'+
+                //'</div>' +
                 '<div id="content" class="tab-content">'+
-                '<div class="tab-pane active" id="moreinfo">PULL ALL THE INFO FROM PROJECT IN DB HERE'+i+'</div>'+
-                '<div class="tab-pane" id="roster">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
-                '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
-                '</div>'+
-                '</div>'+
+                  '<div class="tab-pane active" id="moreinfo">' + 
+                    '<p> <b>Project Name:</b>' + r.ProjectName + '</p>' +
+                    '<p> <b>Details:</b>' + r.Details + '</p>' +
+                    '<p> <b>Headline:</b>' + r.Headline + '</p>' +
+                    '<p> <b>Address:</b>' + r.Address + '</p>' +
+                    '<p> <b>Start Time:</b>' + r.StartTime + '</p>' +
+                    '<p> <b>End Time:</b>' + r.EndTime + '</p>' +
+                    '<p> <b>Total Spots:</b>' + r.Spots + '</p>' +
+                    '<p> <b>Requirements:</b>' + r.Requirements + '</p>' +
+                    '<p> <b>Skills Needed:</b>' + skillsString + '</p>' + 
+                  '</div>' + 
+                  '<div class="tab-pane" id="roster">' + checkinString + '</div>'+
+                  '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
                 '</div>');
-} else {
-              $('#tab-content').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
-                '<div class="tabbable tabs-left" id="rightsideinfo">'+
-                '<ul class="nav nav-tabs">'+
-                '<li class="active"><a href="#moreinfo" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
-                '<li><a href="#roster" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
-                '<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
-                '</ul>'+
+            }
+            else{
+              $('.tab-content-special').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
+                '<div style="width: 700px" class="tabbable tabs-left" id="rightsideinfo">'+
+                  '<ul class="nav nav-tabs">'+
+                    '<li class="active"><a href="#moreinfo'+i+'" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
+                    '<li><a href="#roster'+i+'" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
+                    '<li><a href="#deleteproject'+i+'" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
+                  '</ul>'+
+                //'</div>'+
                 '<div id="content" class="tab-content">'+
-                '<div class="tab-pane active" id="moreinfo">PULL ALL THE INFO FROM PROJECT IN DB HERE'+i+'</div>'+
-                '<div class="tab-pane" id="roster">ALL THE PEOPLE SIGNED UP FOR THE PROJECT'+i+'</div>'+
-                '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
-                '</div>'+
-                '</div>'+
+                  '<div class="tab-pane active" id="moreinfo'+i+'">'+
+                    '<p> <b>Project Name:</b>' + r.ProjectName + '</p>' +
+                    '<p> <b>Details:</b>' + r.Details + '</p>' +
+                    '<p> <b>Headline:</b>' + r.Headline + '</p>' +
+                    '<p> <b>Address:</b>' + r.Address + '</p>' +
+                    '<p> <b>Start Time:</b>' + r.StartTime + '</p>' +
+                    '<p> <b>End Time:</b>' + r.EndTime + '</p>' +
+                    '<p> <b>Total Spots:</b>' + r.Spots + '</p>' +
+                    '<p> <b>Requirements:</b>' + r.Requirements + '</p>' +
+                    '<p> <b>Skills Needed:</b>' + skillsString + '</p>' + 
+                  '</div>' + 
+                  '<div class="tab-pane" id="roster'+i+'">' + checkinString + '</div>'+
+                  '<div class="tab-pane" id="deleteproject'+i+'">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
                 '</div>');
-}
-
-             // Now populate the check-in
-             $.get('dashboardvol/getcheckins?project='+r.ProjectID, function(response) {
-              console.log("CheckIn Users: "+response);
-              response = $.parseJSON(response);
-              for(var j = 0; j < response.length; j++) {
-                var c = response[j];
-                $('#project'+c.ProjectID).find('#rightsideinfo').find('#content').find('[id^=checkinvolunteers]').append(c.Name + '<br>');
               }
-            });
-           }
-         });
+        }
+});
 
       $.ajax({//populate skills
         type:"GET",
@@ -375,14 +524,8 @@ function calculateDistance(loc1, loc2)
     </div>
 
     <div class="workspace">
-      <div class="tab-content">
-        <div class="tab-pane active" id="upcoming">
-          <?php echo render('upcomingprojectsorg'); ?>
-        </div>
-      </div>
-      <div id="#search-results">
-
-      </div>
+      <?php echo render('upcomingprojectsorg'); ?>
+      <div id="#search-results"></div>
     </div>
 
     <div class="footer">

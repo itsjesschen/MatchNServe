@@ -162,6 +162,8 @@
     }
     .dropdown-menu{
         color:#111111;
+        height:250px;
+        overflow: auto;
     }
     .signUpButton{
         margin-top:2px;

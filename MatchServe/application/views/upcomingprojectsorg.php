@@ -64,6 +64,7 @@
 	#projecttitle{
 		margin-top:3px;
 		padding-left: 5px;
+		font-size: 9px;
 		text-transform: uppercase;
 		color:#ffffff;
 	}
@@ -71,6 +72,11 @@
 	#timeline{
 		padding-left: 5px;
 		color:#cccccc;
+	}
+
+	#times{
+		color:#ffffff;
+		font-size: 10px;
 	}
 	#progressbar{
 		margin-top:3px;
@@ -98,7 +104,7 @@
 		</ul>
 		<!-- this is the where you will find the tab content for the right hand side. This correlates 
 		exactly with the href from above. Make sure to follow it through -->
-		<div class="tab-content" id="extendedprojectlist">
+		<div class="tab-content tab-content-special" id="extendedprojectlist">
 		</div>
 	</div>
 </body>
