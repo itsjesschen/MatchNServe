@@ -420,8 +420,8 @@ function signUpForProject(event, id){
     }
 }
 function createMask(){
-    // Getting the variable's value from a link 
-            var loginBox = "#login-box";
+
+             var loginBox = "#login-box";
 
             //Fade in the Popup and add close button
             $(loginBox).fadeIn(300);
@@ -437,7 +437,7 @@ function createMask(){
             
             // Add the mask to body
             $('body').append('<div id="mask"></div>');
-            $('#mask').fadeIn(300);   
+            $('#mask').fadeIn(300);    
 }
 function signUpAndLoggedIn(username, project){
     console.log("Signing up for project # "+project.pid+"under name: "+username);
