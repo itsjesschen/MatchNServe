@@ -1,6 +1,6 @@
 window.onload = init;
 
-
+// VARIABLES AND EVENT LOADERS
 var eventArray = new Array();
 var resultsArray = [];
 var locationsFound =0 ;
@@ -35,6 +35,25 @@ var searchVars = {
         } 
     }
 }
+function getImg(id){
+    switch(id){
+        case 3:
+            return "img/dwc.jpg";
+        case 4:
+            return "img/jericho.jpg";
+        case 5:
+            return "img/usc.jpg";
+        default:
+            return "img/icon.jpg";
+    }
+}
+
+
+
+
+/**************
+***ACTUAL CODE PORTION
+***/
 function init(){
    // populateSearchOptions();//dynamically add in causes and skills
     initSearch();// init ajax search
@@ -317,10 +336,10 @@ function initSearchResultListener(){
                             <div class='accordion-group'>\
                                 <div class='accordion-heading'>\
                                     <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion" +i+"' href='#collapse" +i+"'>\
-                                        <img class='causeImage iconCause' src='img/dwc.JPG'/> \
+                                        <img class='causeImage iconCause' src='"+getImg(opportunity.orgid)+"'/> \
                                         <div class='leftHandSideStuff'>\
                                             <p class='projectPosition'>" +opportunity.name +"</p> \
-                                            <p class='projectOrg'>" +opportunity.Orgname+"</p> \
+                                            <p class='projectOrg'>" +opportunity.organization+"</p> \
                                             <p class='projectHeadline'>" +opportunity.headline +"</p> \
                                         </div> \
                                         <div class='rightHandSideStuff'> \
@@ -340,7 +359,7 @@ function initSearchResultListener(){
                                             <p class='accordionTitle'>ADDRESS</p> \
                                             <p class='projectLocation'>"+opportunity.location+"</p> \
                                             <p class='accordionTitle'>POSTED BY</p> \
-                                            <p class='projectContact'>"+opportunity.user+"</p> \
+                                            <p class='projectContact'>"+opportunity.firstnameadmin+ " " + opportunity.lastnameadmin+"</p> \
                                             <p class='accordionTitle'>SKILLS NEEDED</p> \
                                             <p class='projectSkills'>"+opportunity.skills+"</p> \
                                             <p class='accordionTitle'>ASSOCIATED CAUSES</p> \
@@ -497,6 +516,8 @@ function initSignup(){
 function signUp(){
     
 }
+
+
 //removed requirements stuff 
  //<p class='reqsMsg requirementsWarning'>This project contains requirements</p> \
                                             // <p class='accordionTitle'>REQUIREMENTS NEEDED</p> \

@@ -223,16 +223,18 @@ class Database {
 		$query = DB::query('
 			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
 			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
-			            projects.Headline as Headline, organizations.OrgName as Organization,
-			            projects.StartTime as StartTime, projects.EndTime as EndTime,
+			            projects.Headline as Headline, organizations.OrgName as Organization, organizations.OrganizationID as OrgID,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			            users.FirstName as FirstNameAdmin, users.LastName as LastNameAdmin,
 			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
 			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
 						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
-				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill, users
 				WHERE  
 			 		organizations.CauseID=causes.CauseID
 			 		and projects.ProjectID=orgproject.ProjectID
 			 		and orgproject.OrganizationID=organizations.OrganizationID 
+			 		and users.UserID=projects.Admin
 					and projects.ProjectID=pgfjoin.ProjectID
 					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
 					and projects.ProjectID=projectskill.ProjectID 
