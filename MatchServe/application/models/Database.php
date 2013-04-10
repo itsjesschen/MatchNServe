@@ -197,6 +197,16 @@ class Database {
 		return $query;
 	}
 	public static function getOrganization($OrgID, $Name){
+		$query = DB::table('
+			SELECT organizations.OrganizationID as OrgName 
+
+			FROM organizations 
+
+			WHERE
+				organizations.OrganizationID=orgproject.OrganizationID
+		');
+		return $query;
+
 	}
 	public static function getOrgProject($OrgID, $ProjectID){
 	}
