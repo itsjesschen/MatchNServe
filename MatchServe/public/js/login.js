@@ -4,10 +4,10 @@ function returningUser(){
 				document.getElementById('passwordInput').style.visibility = "visible";
 				document.getElementById('submit').value = "LOGIN";
 				document.getElementById('forgotPassword').style.visibility = "visible";
-				document.getElementById('nameError').style.visibility = "hidden";
-				document.getElementById('pass1Error').style.visibility = "hidden";
-				document.getElementById('pass2Error').style.visibility = "hidden";
-				document.getElementById('emailError').style.visibility = "hidden";
+				document.getElementById('nameError').style.visibility = "collapse";
+				document.getElementById('pass1Error').style.visibility = "collapse";
+				document.getElementById('pass2Error').style.visibility = "collapse";
+				document.getElementById('emailError').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Don't have an account yet? Create an account <a href='javascript:newUser()' class='link'>here</a>";
 				var img = document.getElementById('fbbtn')
 				 if ( img ){
@@ -36,10 +36,10 @@ function returningUser(){
 				document.getElementById('passwordInput').style.visibility = "collapse";
 				document.getElementById('submit').value = "SUBMIT";
 				document.getElementById('forgotPassword').style.visibility = "collapse";
-				document.getElementById('nameError').style.visibility = "hidden";
-				document.getElementById('pass1Error').style.visibility = "hidden";
-				document.getElementById('pass2Error').style.visibility = "hidden";
-				document.getElementById('emailError').style.visibility = "hidden";
+				document.getElementById('nameError').style.visibility = "collapse";
+				document.getElementById('pass1Error').style.visibility = "collapse";
+				document.getElementById('pass2Error').style.visibility = "collapse";
+				document.getElementById('emailError').style.visibility = "collapse";
 				document.getElementById('bottomText').innerHTML = "Already have an account? Login <a href='javascript:returningUser()' class='link'>here</a>";
 				var img = document.getElementById('fbbtn')
 				 if ( img ){
