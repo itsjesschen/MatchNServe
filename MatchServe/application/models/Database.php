@@ -227,7 +227,7 @@ class Database {
 		$timesStr = '(';
 		$i = true;
 		if (isset($skills)) {
-			for ($skills as $skill) {
+			foreach ($skills as $skill) {
 				if ($i)
 					$skillsStr += $skill;
 				else {
@@ -239,7 +239,7 @@ class Database {
 		}
 		$i = true;
 		if (isset($causes)) {
-			for ($causes as $cause) {
+			foreach ($causes as $cause) {
 				if ($i)
 					$causesStr += $cause;
 				else {
@@ -251,7 +251,7 @@ class Database {
 		}
 		$i = true;
 		if (isset($times)) {
-			for ($timess as $time) {
+			foreach ($timess as $time) {
 				if ($i)
 					$timesStr += $time;
 				else {
