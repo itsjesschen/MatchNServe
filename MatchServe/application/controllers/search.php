@@ -78,8 +78,10 @@ class Search_Controller extends Base_Controller{
 			 }
 			 if( isset($_GET['time']) ){
 				$times = $_GET['time'];
-			 }
-
+			 } 
+		//$searchterm = 'a';
+		//$skills = array(1,2,3,4,5,6,7,8,9);
+		//$causes = array(9,14);
 		 //DATABASE CALL that goes to models/Database.php
 		 $data = Database::getProjects($searchterm, $skills, $causes, $times);
 		 //$data = json_encode($data);
