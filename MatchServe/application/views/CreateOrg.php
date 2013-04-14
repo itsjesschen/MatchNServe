@@ -19,6 +19,9 @@
     margin:0 auto;
     text-align: center;
   }
+  #tableinformation{
+    margin-left:265px;
+  }
   .inputBox{
     width:450px;
   }
