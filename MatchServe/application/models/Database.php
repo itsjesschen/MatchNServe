@@ -214,13 +214,55 @@ class Database {
 		$query =  DB::table('projectgoodfor')->get();
 		return $query;
 	}
-	public static function getProjects($searchterm, $zipcode, $arguments){
+	public static function getProjects($searchterm, $skills, $causes, $times){
 		// Build the inital query for name matching
 		$sep = "', '";
 		$temp = '%'.$searchterm.'%';
 		$temp = '\''.$temp.'\'';
-		
-		$query = DB::query('
+		$numSkills = count($skills);
+		$numCauses = count($causes);
+		$numTimes = count($times);
+		$skillsStr = '(';
+		$causesStr = '(';
+		$timesStr = '(';
+		$i = true;
+		if (isset($skills)) {
+			foreach ($skills as $skill) {
+				if ($i)
+					$skillsStr += $skill;
+				else {
+					$skillsStr += ','.$skill;
+					$i = false;
+				}
+			}
+			$skillsStr += ')';
+		}
+		$i = true;
+		if (isset($causes)) {
+			foreach ($causes as $cause) {
+				if ($i)
+					$causesStr += $cause;
+				else {
+					$causesStr += ','.$cause;
+					$i = false;
+				}
+			}
+			$causesStr += ')';
+		}
+		$i = true;
+		if (isset($times)) {
+			foreach ($timess as $time) {
+				if ($i)
+					$timesStr += $time;
+				else {
+					$timesStr += ','.$time;
+					$i = false;
+				}
+			}
+			$timesStr += ')';
+		}
+		if ($numSkills == 0 && $numCauses == 0 && $numTimes == 0) {
+			$query = DB::query('
 			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
 			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
 			            projects.Headline as Headline, organizations.OrgName as Organization, organizations.OrganizationID as OrgID,
@@ -241,7 +283,191 @@ class Database {
 					and projectskill.SkillID=skills.SkillID
 					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
 			 	GROUP BY projects.ProjectID');
-		return $query;
+			return $query;
+		}
+		elseif ($numSkills > 0 && $numCauses == 0 && $numTimes == 0)
+		{
+			$query = DB::query('
+			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
+			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
+			            projects.Headline as Headline, organizations.OrgName as Organization, organizations.OrganizationID as OrgID,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			            users.FirstName as FirstNameAdmin, users.LastName as LastNameAdmin,
+			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
+			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
+						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill, users
+				WHERE  
+			 		organizations.CauseID=causes.CauseID
+			 		and projects.ProjectID=orgproject.ProjectID
+			 		and orgproject.OrganizationID=organizations.OrganizationID 
+			 		and users.UserID=projects.Admin
+					and projects.ProjectID=pgfjoin.ProjectID
+					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
+					and projects.ProjectID=projectskill.ProjectID 
+					and projectskill.SkillID=skills.SkillID
+					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
+					and skills.SkillID IN '.$skillsStr.'
+			 	GROUP BY projects.ProjectID');
+			return $query;
+		}
+		elseif ($numSkills > 0 && $numCauses > 0 && $numTimes == 0)
+		{
+			$query = DB::query('
+			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
+			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
+			            projects.Headline as Headline, organizations.OrgName as Organization, organizations.OrganizationID as OrgID,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			            users.FirstName as FirstNameAdmin, users.LastName as LastNameAdmin,
+			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
+			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
+						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill, users
+				WHERE  
+			 		organizations.CauseID=causes.CauseID
+			 		and projects.ProjectID=orgproject.ProjectID
+			 		and orgproject.OrganizationID=organizations.OrganizationID 
+			 		and users.UserID=projects.Admin
+					and projects.ProjectID=pgfjoin.ProjectID
+					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
+					and projects.ProjectID=projectskill.ProjectID 
+					and projectskill.SkillID=skills.SkillID
+					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
+					and skills.SkillID IN '.$skillsStr.'
+					and causes.CauseID IN '.$causesStr.'
+			 	GROUP BY projects.ProjectID');
+			return $query;
+		}
+		elseif ($numSkills > 0 && $numCauses > 0 && $numTimes > 0)
+		{
+			$query = DB::query('
+			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
+			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
+			            projects.Headline as Headline, organizations.OrgName as Organization, organizations.OrganizationID as OrgID,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			            users.FirstName as FirstNameAdmin, users.LastName as LastNameAdmin,
+			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
+			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
+						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill, users
+				WHERE  
+			 		organizations.CauseID=causes.CauseID
+			 		and projects.ProjectID=orgproject.ProjectID
+			 		and orgproject.OrganizationID=organizations.OrganizationID 
+			 		and users.UserID=projects.Admin
+					and projects.ProjectID=pgfjoin.ProjectID
+					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
+					and projects.ProjectID=projectskill.ProjectID 
+					and projectskill.SkillID=skills.SkillID
+					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
+					and skills.SkillID IN '.$skillsStr.'
+					and causes.CauseID IN '.$causesStr.'
+			 	GROUP BY projects.ProjectID');
+			return $query;
+		}
+		elseif ($numSkills > 0 && $numCauses == 0 && $numTimes > 0)
+		{
+			$query = DB::query('
+			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
+			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
+			            projects.Headline as Headline, organizations.OrgName as Organization, organizations.OrganizationID as OrgID,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			            users.FirstName as FirstNameAdmin, users.LastName as LastNameAdmin,
+			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
+			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
+						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill, users
+				WHERE  
+			 		organizations.CauseID=causes.CauseID
+			 		and projects.ProjectID=orgproject.ProjectID
+			 		and orgproject.OrganizationID=organizations.OrganizationID 
+			 		and users.UserID=projects.Admin
+					and projects.ProjectID=pgfjoin.ProjectID
+					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
+					and projects.ProjectID=projectskill.ProjectID 
+					and projectskill.SkillID=skills.SkillID
+					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
+					and skills.SkillID IN '.$skillsStr.'
+			 	GROUP BY projects.ProjectID');
+			return $query;
+		}
+		elseif ($numSkills == 0 && $numCauses > 0 && $numTimes == 0)
+		{
+			$query = DB::query('
+			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
+			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
+			            projects.Headline as Headline, organizations.OrgName as Organization, organizations.OrganizationID as OrgID,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			            users.FirstName as FirstNameAdmin, users.LastName as LastNameAdmin,
+			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
+			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
+						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill, users
+				WHERE  
+			 		organizations.CauseID=causes.CauseID
+			 		and projects.ProjectID=orgproject.ProjectID
+			 		and orgproject.OrganizationID=organizations.OrganizationID 
+			 		and users.UserID=projects.Admin
+					and projects.ProjectID=pgfjoin.ProjectID
+					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
+					and projects.ProjectID=projectskill.ProjectID 
+					and projectskill.SkillID=skills.SkillID
+					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
+					and causes.CauseID IN '.$causesStr.'
+			 	GROUP BY projects.ProjectID');
+			return $query;
+		}
+		elseif ($numSkills == 0 && $numCauses > 0 && $numTimes > 0)
+		{
+			$query = DB::query('
+			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
+			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
+			            projects.Headline as Headline, organizations.OrgName as Organization, organizations.OrganizationID as OrgID,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			            users.FirstName as FirstNameAdmin, users.LastName as LastNameAdmin,
+			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
+			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
+						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill, users
+				WHERE  
+			 		organizations.CauseID=causes.CauseID
+			 		and projects.ProjectID=orgproject.ProjectID
+			 		and orgproject.OrganizationID=organizations.OrganizationID 
+			 		and users.UserID=projects.Admin
+					and projects.ProjectID=pgfjoin.ProjectID
+					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
+					and projects.ProjectID=projectskill.ProjectID 
+					and projectskill.SkillID=skills.SkillID
+					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
+					and causes.CauseID IN '.$causesStr.'
+			 	GROUP BY projects.ProjectID');
+			return $query;
+		}
+		elseif ($numSkills == 0 && $numCauses == 0 && $numTimes > 0)
+		{
+			$query = DB::query('
+			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
+			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 
+			            projects.Headline as Headline, organizations.OrgName as Organization, organizations.OrganizationID as OrgID,
+			            projects.StartTime as StartTime, projects.EndTime as EndTime, 
+			            users.FirstName as FirstNameAdmin, users.LastName as LastNameAdmin,
+			            group_concat(DISTINCT causes.Description SEPARATOR  '.$sep.') as Cause, 
+			           	group_concat(DISTINCT skills.Description SEPARATOR '.$sep.') as Skills,	
+						group_concat(DISTINCT projectgoodfor.Description SEPARATOR '.$sep.') as ProjectGoodFor 
+				FROM projects, causes, organizations, skills,projectgoodfor, orgproject ,pgfjoin, projectskill, users
+				WHERE  
+			 		organizations.CauseID=causes.CauseID
+			 		and projects.ProjectID=orgproject.ProjectID
+			 		and orgproject.OrganizationID=organizations.OrganizationID 
+			 		and users.UserID=projects.Admin
+					and projects.ProjectID=pgfjoin.ProjectID
+					and pgfjoin.PGF_ID=projectgoodfor.PGF_ID
+					and projects.ProjectID=projectskill.ProjectID 
+					and projectskill.SkillID=skills.SkillID
+					and (projects.ProjectName LIKE '.$temp.' or projects.Details LIKE '.$temp.')
+			 	GROUP BY projects.ProjectID');
+			return $query;
+		}
 	}
 	public static function getProjectTime($times) {
 		$query = DB::table('timeslot');
