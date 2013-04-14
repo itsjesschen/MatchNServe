@@ -65,26 +65,27 @@
     <form id="projectCreationForm" action=<?php echo URL::to('createorg/checkSubmit'); ?> method="get">
      <table id="tableinformation" border = "0">
        <tr>
-        <td><input id="name" type="text" name="name" value = "Organization Name" onblur="validateName()" class="inputBox"/> </td>
+      <td><input id="name" type="text" name="name" placeholder = "Organization Name" defaultValue = "Organization Name" onblur="validateName()" class="inputBox"/> </td>
         <td><label class = "error" id='nameError'>Required</label></td>
       </tr>
-      <tr> <td> <input id="address" type="text" name="address" value = "Address"  onblur="validateAddress()"  class="inputBox"> </td> 
+      <tr> <td> <input id="address" type="text" name="address" placeholder = "Address"  onblur="validateAddress()"  class="inputBox"> </td> 
       <td><label class = "error" id='addressError'> Required </label></td>
       </tr> 
       <tr>
-        <td> <input id="zipcode" type="text" name="zipcode" value = "Zip Code" onblur="validateZipcode()"  class="inputBox"/> </td>
+        <td> <input id="zipcode" type="text" name="zipcode" placeholder = "Zip Code" onblur="validateZipcode()"  class="inputBox"/> </td>
         <td><label class = "error" id='zipcodeError'> Invalid zipcode </label></td>
       </tr>
-      <tr>  <td> <input id="phone" type="text" name="phone" value = "Phone" onblur="validatePhone()"  class="inputBox"/>  </td> 
+      <tr>  <td> <input id="phone" type="text" name="phone" placeholder = "Phone" onblur="validatePhone()"  class="inputBox"/>  </td> 
       <td><label class = "error" id='phoneError'> Invalid phone number (digits only) </label></td>
       </tr>
-      <tr>  <td> <input id="website" type="text" name="website" value = "Website" onblur="validateWebsite()"  class="inputBox"/> </td>
+      <tr>  <td> <input id="website" type="text" name="website" placeholder = "Website" onblur="validateWebsite()"  class="inputBox"/> </td>
       <td><label class = "error" id='websiteError'> Invalid website </label></td>
       </tr>
-      <tr>  <td> <textarea id="mission" type="text" name="mission"  value = "Mission" onblur="validateMission()" class="inputBox">Mission </textarea> </td>
+      <tr>  <td> <textarea placeholder = "Mission" id="mission" type="text" name="mission" onblur="validateMission()"></textarea> </td>
       <td><label class = "error" id='missionError'> Mission is required </label></td>
       </tr>
     </table>
+
     <div id="project-creation-causes-dropdown">
      <div class="dropdown">
        <a class="projectSkillSelector dropdown-toggle" data-toggle="dropdown" href="#"> Select the major cause your organization is associated with
