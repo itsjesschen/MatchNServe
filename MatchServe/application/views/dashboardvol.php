@@ -25,9 +25,12 @@
     position:relative;
     float:right;
     overflow:none;
-    width:150px;
+    width:650px;
     height:75px;
     /*        margin-top:-8px;*/
+  }
+  #content{
+    height:400px;
   }
   .iconCause{
     float:left;
@@ -112,6 +115,9 @@
   }
   #quickSearch_selects{
     margin-left: 15px;
+  }
+  #rightsideinfo{
+    width:690px;
   }
 
   /* end css from form login*/

@@ -41,7 +41,13 @@
 		position:absolute;
 		margin-left:525px;
 	}
-
+	li{
+		list-style: none;
+	}
+	.dropdown-menu{
+		height:200px;
+		overflow: auto;
+	}
 	</style>
 </head>
 
