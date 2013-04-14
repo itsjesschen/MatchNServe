@@ -8,8 +8,8 @@ var otherDate;
 var userprojectmap = {};
 
 function init(){
-    populateProjectOptions();//dynamically add in admins from db
     getOrgProjects();//adds in all the projects to the projects page on load
+    populateProjectOptions();//dynamically add in admins from db
 }
 
 //code which allows the dropdown to remain open when selecting sub items from it
@@ -184,6 +184,7 @@ $.ajax({
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
+        console.log(obj);
         for(var i= 0; i < projectlistid.length; i++)
         {
             counter = 1;
@@ -195,18 +196,31 @@ $.ajax({
                     {
                         $options4 = $("#schedule" + obj[j].projectid);
                         $options4.append("<p>" + counter + ". "+  obj[j].firstname + " " + obj[j].lastname + "</p>\ ");
+
+                        if(obj[j].checkedin == "0")
+                        {
+                            $options5 = $("#checkinvolunteers" + obj[j].projectid);
+                            $options5.append("<p>Check in<a href='#' onclick='checkInUser(\"" + obj[j].userid + "\",\"" + obj[j].projectid + "\")'> " +  obj[j].firstname + " " + obj[j].lastname + " </a>  </p>\ ");
+                        }
                         counter++;
                     }
                     else
                     {
-                        $options5 = $("#pendingvolunteers" + obj[j].projectid);
-                        $options5.append("<p>Are you sure you want to <a href='#' onclick='approveUser(\"" + obj[j].userid + "\",\"" + obj[j].projectid + "\")'>approve </a> " +  obj[j].firstname + " " + obj[j].lastname + " ?</p>\ ");
+                        $options6 = $("#pendingvolunteers" + obj[j].projectid);
+                        $options6.append("<p>Are you sure you want to <a href='#' onclick='approveUser(\"" + obj[j].userid + "\",\"" + obj[j].projectid + "\")'>approve </a> " +  obj[j].firstname + " " + obj[j].lastname + " ?</p>\ ");
                     }
                 }
             }
         }
     });
 }
+
+function checkInUser(userID, projectID) {
+  $.get('upcomingprojectsorg/checkInUser?user=' + userID + '&project=' + projectID, function(response) {
+    window.location.reload();
+  });
+}
+
 
 function approveUser(userID, projectID) {
   $.get('upcomingprojectsorg/approveUser?user=' + userID + '&project=' + projectID, function(response) {

@@ -135,7 +135,15 @@ class Database {
     		->where('UserID', '=', $userID)
     		->update(array('Approved' => 1));
 		return $query;
+	}
 
+	public static function checkInUser($userID, $projectID)
+	{
+		$query = DB::table('userproject')
+    		->where('ProjectID', '=', $projectID)
+    		->where('UserID', '=', $userID)
+    		->update(array('CheckedIn' => 1));
+		return $query;
 	}
 
 	public static function deleteProject($projectID)
@@ -514,7 +522,7 @@ class Database {
 	{
 		$query = DB::table('userproject')
 			->left_join('users', 'userproject.UserID', '=', 'users.UserID')
-			->get(array('userproject.UserID', 'userproject.ProjectID', 'userproject.Approved', 'users.FirstName', 'users.LastName'));
+			->get(array('userproject.UserID', 'userproject.ProjectID', 'userproject.Approved', 'users.FirstName', 'users.LastName', 'userproject.CheckedIn'));
 		return $query;
 	}
 	

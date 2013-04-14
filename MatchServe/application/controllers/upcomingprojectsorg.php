@@ -73,5 +73,14 @@ class UpcomingProjectsOrg_Controller extends Base_Controller{
 		return $data;	
 	}
 
+	public function action_checkInUser() 
+	{	
+		$userID = $_GET['user'];
+		$projectID = $_GET['project'];
+		$data = Database::checkInUser($userID, $projectID);
+		$data = json_encode($data);
+		return $data;	
+	}
+
 }
 ?>
