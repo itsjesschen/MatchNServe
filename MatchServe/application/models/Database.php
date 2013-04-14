@@ -221,33 +221,40 @@ class Database {
 		$temp = '\''.$temp.'\'';
 		$numSkills = count($skills);
 		$numCauses = count($causes);
+
 		$numTimes = count($times);
 		$skillsStr = '(';
 		$causesStr = '(';
 		$timesStr = '(';
 		$i = true;
+
 		if (isset($skills)) {
+			$count = $numSkills;
 			foreach ($skills as $skill) {
-				if ($i)
-					$skillsStr += $skill;
-				else {
-					$skillsStr += ','.$skill;
+				if ($count == 1 || $i){
+					$skillsStr = $skillsStr.$skill;
 					$i = false;
 				}
+				else {
+					$skillsStr = $skillsStr.', '.$skill;
+					$count --;	
+				}
+								
 			}
-			$skillsStr += ')';
-		}
+
+			$skillsStr = $skillsStr.')';
+		}	
 		$i = true;
 		if (isset($causes)) {
 			foreach ($causes as $cause) {
 				if ($i)
-					$causesStr += $cause;
+					$causesStr = $causesStr.$cause;
 				else {
-					$causesStr += ','.$cause;
+					$causesStr = $causesStr.','.$cause;
 					$i = false;
 				}
 			}
-			$causesStr += ')';
+			$causesStr = $causesStr.')';
 		}
 		$i = true;
 		if (isset($times)) {
@@ -287,6 +294,8 @@ class Database {
 		}
 		elseif ($numSkills > 0 && $numCauses == 0 && $numTimes == 0)
 		{
+					dd($skillsStr);
+		return;
 			$query = DB::query('
 			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 
 			            projects.Address as Location,  projects.Spots as Spots,      projects.Requirements as Requirements, 

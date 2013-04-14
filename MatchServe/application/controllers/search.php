@@ -60,36 +60,29 @@ class Search_Controller extends Base_Controller{
 	public function action_getprojects(){
 		$arguments = array();
 		$searchterm = null;
-		$zipcode = null;
+		$skills = null;
+		$causes = null;
+		$times = null;
+		//$zipcode = null;
 		 if( isset($_GET['searchterm']) && ("search for" != $_GET['searchterm'])){
 		  	$searchterm = $_GET['searchterm'];
 		  }
-
-		//assumes number for zipcode
-		 if( isset($_GET['zipcode']) && ("zip code" != $_GET['zipcode']) ) {
-		  	$zipcode = $_GET['zipcode'];
-		 }
-			 if( isset($_GET['distance']) ){
-			 	$distance = $_GET['distance'];
-			 	$arguments['Location'] = $distance;
-			 }
 			 if( isset($_GET['skill']) ){
-			 	$arguments['Skills'] = $_GET['skill'];
+			 	$skills = $_GET['skill'];
 			 }
 			  // dd( isset($_GET['cause']) );
 			 if( isset($_GET['cause']) ){
 
-	 			$arguments['Cause'] = $_GET['cause'];
+	 			$causes = $_GET['cause'];
 
 			 }
 			 if( isset($_GET['time']) ){
-				$arguments['Time'] = $_GET['time'];
+				$times = $_GET['time'];
 			 }
-			  // dd($arguments);
-		 //DATABASE CALL that goes to models/Database.php
-		 $data = Database::getProjects($searchterm, $zipcode, $arguments);
-		 $data = json_encode($data);
 
+		 //DATABASE CALL that goes to models/Database.php
+		 $data = Database::getProjects($searchterm, $skills, $causes, $times);
+		 //$data = json_encode($data);
 		 return $data;	
 	}
 

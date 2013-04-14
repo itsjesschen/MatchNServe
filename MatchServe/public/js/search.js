@@ -13,26 +13,26 @@ var searchVars = {
         beforeSubmit: findZip,
         success: function(html) { // callback function for successful searches
             console.log(html);
-            // var obj = jQuery.parseJSON(html);
-            // $searchcol = $("#search-results");
-            // if(obj.length == 0){
-            //     $searchcol.html("Sorry, no search results. Please try another term :)");
-            //     return;
-            // }       
-            // $searchcol.html('');//clears prior results 
-            // document.getElementById("search-results").innerHTML = "<p> Loading search results near you ... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
-            // resultsArray.length = 0;//clears the array
-            // resultsArray.length = obj.length;//sets array to object's length
-            // locationsFound = 0; //clears number found
-            // for(var i= 0; i < obj.length; i++){
-            //     resultsArray[i] = obj[i];
-            //     var curResult = obj[i];
-            //     findDistance(curResult, i); //lists results in results div
-            // }
+            var obj = jQuery.parseJSON(html);
+            $searchcol = $("#search-results");
+            if(obj.length == 0){
+                $searchcol.html("Sorry, no search results. Please try another term :)");
+                return;
+            }       
+            $searchcol.html('');//clears prior results 
+            document.getElementById("search-results").innerHTML = "<p> Loading search results near you ... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
+            resultsArray.length = 0;//clears the array
+            resultsArray.length = obj.length;//sets array to object's length
+            locationsFound = 0; //clears number found
+            for(var i= 0; i < obj.length; i++){
+                resultsArray[i] = obj[i];
+                var curResult = obj[i];
+                findDistance(curResult, i); //lists results in results div
+            }
 
-            // if ($searchcol.find("p.projectPosition").length === 0){ // 
-            //     $searchcol.html("Sorry, there are no projects that are " + $('input[name="distance"]:checked')[0].nextSibling.nodeValue + " away from you. Projects are available at greater distances :)");
-            // }
+            if ($searchcol.find("p.projectPosition").length === 0){ // 
+                $searchcol.html("Sorry, there are no projects that are " + $('input[name="distance"]:checked')[0].nextSibling.nodeValue + " away from you. Projects are available at greater distances :)");
+            }
         } 
     }
 }
@@ -56,7 +56,7 @@ function getImg(id){
 ***ACTUAL CODE PORTION
 ***/
 function init(){
-   // populateSearchOptions();//dynamically add in causes and skills
+    populateSearchOptions();//dynamically add in causes and skills
     initSearch();// init ajax search
     $('.dropdown-menu').on('click','input', function(){ //init filter click handlers
         if ( $(this).hasClass("filtered")){ //maps filter to element it points to
@@ -71,7 +71,7 @@ function init(){
 }
 
 function onPageLoadSearch(){ //automatic search once page has loaded
-    $('#searchForm').ajaxSubmit(searchVars.options); 
+   // $('#searchForm').ajaxSubmit(searchVars.options); 
     document.getElementById("search-results").innerHTML = "<p> Loading search results near you ... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
     return false;
 }
