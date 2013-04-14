@@ -562,8 +562,11 @@ class Database {
 			$admins = DB::table('admins')->where('UserID', '=', $userid);
 			return $admins;
 		}
-	public static function getUserProject(){
+	public static function getUserProjects(){
+		$query = DB::query('SELECT Count(UserID) AS UserCount, ProjectID FROM userproject WHERE Approved = 1 GROUP BY ProjectID');
+		return $query;
 	}
+
 	public static function getUser(){
 	}
 	

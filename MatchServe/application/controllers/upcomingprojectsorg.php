@@ -40,6 +40,22 @@ class UpcomingProjectsOrg_Controller extends Base_Controller{
 		}
 	}
 
+	public function action_getUserProjects()
+	{
+		$table = $_GET['table'];
+		if ($table === "userproject")
+		{
+			$data = Database::getUserProjects();
+			$data = json_encode($data);
+			return $data;	
+		}
+		else
+		{
+			echo "ERROR";
+			//error
+		}
+	}
+
 	public function action_deleteProject() 
 	{	
 		$projectID = $_GET['project'];
