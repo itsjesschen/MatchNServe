@@ -59,19 +59,20 @@ class CreateOrg_Controller extends Base_Controller
     		}
     		else
     		{
-    			echo "<script> alert('Organization already exists') </script>";
+    			echo "<script> alert('Organization already exists');
+    			window.location.href = \"../createorg\";</script>";
     			return;
     		}
     	}
     	else
     	{
-    		echo "<script> alert('Make sure you selected a Cause and entered all fields correctly.') </script>";
+    		echo "<script> alert('Make sure you selected a Cause and entered all fields correctly.');
+    		window.location.href = \"../createorg\";</script>";
     		return;
     	}
-		//$data = json_encode($data);
-		echo("Your organization's information has been succesfully stored!"); 
-		//return $data;
-		
+    	
+    	echo "<script> alert('Your Information has been succesfully stored!');
+    		window.location.href = \"../dashboardvol\";</script>";
     	
 }
 }
