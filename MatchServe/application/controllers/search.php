@@ -72,7 +72,6 @@ class Search_Controller extends Base_Controller{
 			 }
 			  // dd( isset($_GET['cause']) );
 			 if( isset($_GET['cause']) ){
-
 	 			$causes = $_GET['cause'];
 
 			 }

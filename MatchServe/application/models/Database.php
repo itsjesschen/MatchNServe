@@ -391,7 +391,7 @@ class Database {
 			//print_r($query);
 			return $query;
 		}
-		elseif ($skillsSet && !$causesSet && $timesSet)
+		elseif (!$skillsSet && $causesSet && $timesSet)
 		{
 			$query = DB::query('
 			    SELECT  projects.ProjectID as pID,     projects.ProjectName as Name, projects.Details as Details, 

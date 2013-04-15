@@ -330,7 +330,12 @@ function initSearchResultListener(){
             marker.setMap(map); //add marker to map
             marker.setTitle(opportunity.name); //add title to map
             attachMarkerToResult(marker, i); // attach click handler
-
+            var startdate = new Date(Date.parse(opportunity.starttime));
+            var startday=startdate.toLocaleDateString();
+            var starttime=startdate.toLocaleTimeString();
+            var enddate = new Date(Date.parse(opportunity.endtime));
+            var endday=enddate.toLocaleDateString();
+            var endtime=enddate.toLocaleTimeString();
             //prints out results on page
                     searchlist.innerHTML += "<li class='search-item'>\
                         <div class='accordion' id='accordion" +i+"'>\
@@ -345,8 +350,8 @@ function initSearchResultListener(){
                                         </div> \
                                         <div class='rightHandSideStuff'> \
                                             <p class='projectDistance'><i class='icon-map-marker'></i>" +Math.round(opportunity.distance*10)/10+ " miles</p> \
-                                            <p class='projectTime'><i class='icon-ok'></i>"+opportunity.starttime+"</p> \
-                                            <p class='projectDate'><i class='icon-remove'></i>"+opportunity.endtime+"</p> \
+                                            <p class='projectTime'><i class='icon-ok'></i>"+startday+ " "+starttime+"</p> \
+                                            <p class='projectDate'><i class='icon-remove'></i>"+endday+ " " + endtime+"</p> \
                                             <button class='btn btn-success' onClick=signUpForProject(event,"+i+") type='button' class='signUpButton'>Sign Up</button> \
                                         </div> \
                                     </a> \
