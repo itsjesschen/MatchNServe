@@ -2,13 +2,12 @@ window.onload = init;
 
 var projectlistid = new Array();
 var counter = 1;
-var temp1 = new Date();
-var curDate = Date.parse(temp1);
+var curDate = new Date();
 var otherDate;
 var userprojectmap = {};
 
 function init(){
-    getOrgProjects();//adds in all the projects to the projects page on load
+    getUserProjects();//get the number of users for each project
     populateProjectOptions();//dynamically add in admins from db
 }
 
@@ -19,27 +18,8 @@ function preventDropdownToggle() {
   });
 }
 
-function test() {
-
-}
-
 //loads up all the projects from the DB and places them on the left side of dashboardorg
 function getOrgProjects(){
-$.ajax({//populate admins
-    type:"GET",
-    url:"upcomingprojectsorg/getUserProjects", 
-    data:{
-        table : "userproject"
-    }
-}).done(function(html){
-    var mapobj = jQuery.parseJSON(html);
-    console.log(mapobj);
-    for(var i= 0; i < mapobj.length; i++)
-    {
-        userprojectmap[mapobj[i].projectid] = parseInt(mapobj[i].usercount);
-    }
-});
-
 $.ajax({//populate projects
         type:"GET",
         url:"upcomingprojectsorg/getProjects", 
@@ -48,14 +28,16 @@ $.ajax({//populate projects
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
-        console.log(obj);
+        //console.log(obj);
         $options = $("#projectlist");
         $previousOptions = $("#previousprojectlist");
         for(var i= 0; i < obj.length; i++){
             //if the end date has not passed, show it on left side of upcoming
             var temp2 = obj[i].endtime;
-            otherDate = Date.parse(temp2);
-            if((curDate - otherDate) < 1)
+            //alert("temp2 is : " + temp2);
+            otherDate = stringToDate(temp2);
+            //alert("otherDate is : " + otherDate);
+            if(dates.compare(curDate, otherDate) < 1)
             {
                 //add the current projectID into the list of projects
                 projectlistid[i] = obj[i].projectid;
@@ -234,11 +216,87 @@ function deleteProject(projectID) {
   });
 }
 
+function getUserProjects() {
+    $.ajax({//populate admins
+        type:"GET",
+        url:"upcomingprojectsorg/getUserProjects", 
+        data:{
+            table : "userproject"
+        }
+    }).done(function(html){
+        var mapobj = jQuery.parseJSON(html);
+        //console.log(mapobj);
+        for(var i= 0; i < mapobj.length; i++)
+        {
+            userprojectmap[mapobj[i].projectid] = parseInt(mapobj[i].usercount);
+        }
+    });
+
+
+    setTimeout(function(){getOrgProjects()},200);//populates both schedule and pending tabs for projects
+}
+
 function getTime(dbdate){
     var time = dbdate.slice(11,20);
     return time;
 }
 
+function stringToDate(s)  {
+  s = s.split(/[-: ]/);
+  return new Date(s[0], s[1]-1, s[2], s[3], s[4], s[5]);
+}
+
+var dates = {
+    convert:function(d) {
+        // Converts the date in d to a date-object. The input can be:
+        //   a date object: returned without modification
+        //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
+        //   a number     : Interpreted as number of milliseconds
+        //                  since 1 Jan 1970 (a timestamp) 
+        //   a string     : Any format supported by the javascript engine, like
+        //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
+        //  an object     : Interpreted as an object with year, month and date
+        //                  attributes.  **NOTE** month is 0-11.
+        return (
+            d.constructor === Date ? d :
+            d.constructor === Array ? new Date(d[0],d[1],d[2]) :
+            d.constructor === Number ? new Date(d) :
+            d.constructor === String ? new Date(d) :
+            typeof d === "object" ? new Date(d.year,d.month,d.date) :
+            NaN
+        );
+    },
+    compare:function(a,b) {
+        // Compare two dates (could be of any type supported by the convert
+        // function above) and returns:
+        //  -1 : if a < b
+        //   0 : if a = b
+        //   1 : if a > b
+        // NaN : if a or b is an illegal date
+        // NOTE: The code inside isFinite does an assignment (=).
+        return (
+            isFinite(a=this.convert(a).valueOf()) &&
+            isFinite(b=this.convert(b).valueOf()) ?
+            (a>b)-(a<b) :
+            NaN
+        );
+    },
+    inRange:function(d,start,end) {
+        // Checks if date in d is between dates in start and end.
+        // Returns a boolean or NaN:
+        //    true  : if d is between start and end (inclusive)
+        //    false : if d is before start or after end
+        //    NaN   : if one or more of the dates is illegal.
+        // NOTE: The code inside isFinite does an assignment (=).
+       return (
+            isFinite(d=this.convert(d).valueOf()) &&
+            isFinite(start=this.convert(start).valueOf()) &&
+            isFinite(end=this.convert(end).valueOf()) ?
+            start <= d && d <= end :
+            NaN
+        );
+    }
+}
 
 function getMonth(dbdate){
     var dateNum = dbdate.slice(5,7);

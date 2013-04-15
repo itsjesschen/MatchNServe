@@ -102,7 +102,7 @@
 </div>
 <input id="projectRequirements" type="text" name="projectRequirements" value="Any requirements?" defaultValue = "Any requirements?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 </br></br>
-<input type="submit" name="FinishButton" class="btn" value="Finish"/>
+<input type="button" name="FinishButton" class="btn" value="Finish"/>
 
 </div> 
 </br>
