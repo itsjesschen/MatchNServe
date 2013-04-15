@@ -6,9 +6,8 @@
 
 		<?php echo Asset::container('bootstrap')->styles();?>
 		<?php echo Asset::scripts();?>
-    	<?php echo Asset::container('login')->scripts();?>
+		<?php echo Asset::container('login')->scripts();?>
 		<script language="javascript">
-			// login scripts now contained in a separate js file
 		</script>
 		<style>
 		form {
@@ -63,14 +62,16 @@
 				<form action="<?php echo URL::to('user/processlogin')?>" method="POST">
 					<table>
 						<tr id="name">
-							<td>USERNAME</td>
+							<td>USERNAME
+							</td>
 						</tr>
 						<tr id="name">
 							<td><input type="text" class="formElementSpacing" name="userName" id='username' onblur="validateName()"></td>
 							<td><label class='error' id='nameError'></label></td>
 						</tr>
 						<tr id="password">
-							<td>PASSWORD:</td>
+							<td>PASSWORD: 
+							</td>
 						</tr>
 						<tr id="passwordInput">
 							<td><input type="password" class="formElementSpacing" name="password" id='password1' onblur="validatePassword()"></td>

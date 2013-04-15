@@ -40,6 +40,22 @@ class UpcomingProjectsOrg_Controller extends Base_Controller{
 		}
 	}
 
+	public function action_getUserProjects()
+	{
+		$table = $_GET['table'];
+		if ($table === "userproject")
+		{
+			$data = Database::getUserProjects();
+			$data = json_encode($data);
+			return $data;	
+		}
+		else
+		{
+			echo "ERROR";
+			//error
+		}
+	}
+
 	public function action_deleteProject() 
 	{	
 		$projectID = $_GET['project'];
@@ -53,6 +69,15 @@ class UpcomingProjectsOrg_Controller extends Base_Controller{
 		$userID = $_GET['user'];
 		$projectID = $_GET['project'];
 		$data = Database::approveUser($userID, $projectID);
+		$data = json_encode($data);
+		return $data;	
+	}
+
+	public function action_checkInUser() 
+	{	
+		$userID = $_GET['user'];
+		$projectID = $_GET['project'];
+		$data = Database::checkInUser($userID, $projectID);
 		$data = json_encode($data);
 		return $data;	
 	}

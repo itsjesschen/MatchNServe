@@ -289,6 +289,26 @@ function action_accountselection(){
 		}
 	}
 
+	public function action_karma(){
+		$dbLocalhost = mysql_connect("localhost", "root", "")
+		or die("Could not connect: " . mysql_error());
+		mysql_select_db("matchserve", $dbLocalhost)
+		or die("Could not find database: " . mysql_error());
+		$userName = Cookie::get('name');
+		if (isset($userName)){
+			$karma = DB::table('users')->where('Name', '=', $userName)->only('KarmaPoints');
+			$data = array(
+				'karma' => $karma
+				);
+
+			return View::make('karma', $data);
+		}
+		else{
+			return View::make('karma');
+		}
+
+	}
+
 }
 
 ?>

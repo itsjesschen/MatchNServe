@@ -11,107 +11,123 @@
   <script src="http://malsup.github.com/jquery.form.js"></script>
   
   <style>
-    /*If adding css, please designate which file it belongs to by wrapping it in a comment block*/
+  /*If adding css, please designate which file it belongs to by wrapping it in a comment block*/
 
-    /*search.php START*/
-    
-    .leftHandSideStuff{
-        position:relative;
-        float:left;
-        width:320px;
-        height:75px;
-    }
-    .rightHandSideStuff{
-        position:relative;
-        float:right;
-        overflow:none;
-        width:150px;
-        height:75px;
-/*        margin-top:-8px;*/
-    }
-    .iconCause{
-        float:left;
-        width:75px;
-        height:75px;
-    }
-    .projectPosition{
-        font-size: 25px;
-        margin-left:10px;
-        padding:0;
-        text-transform: uppercase;
-        color:#111111;
-    }
-    .projectOrg{
-        font-size:14px;
-        font-style: italic;
-        margin-left:10px;
-        padding:0;
-        color:#111111;
-    }
-    .projectHeadline{
-        font-size: 10px;
-        margin-left:10px;
-        color:#111111;
-    }
-    .requirementsWarning{
-        margin-left:10px;
-        color:#111111;
-    }
-    .rightHandSideStuff i{
-        vertical-align:middle;
-    }
-    .projectDistance,
-    .projectTime,
-    .projectDate{
-        font-size: .8em;
-        line-height:1.4em;
-        color:#111111;
-    }
-    
-    .projectDescription{
-        height:100%;
-        width:50%;
-        display:inline-block;
-        overflow: auto;
-        background-color: #eeeeee;
-        margin-left:-15px;
-    }
-    .projectDescriptionTitle{
-        width:100%;
-        height:18px;
-        font-size:.9em;
-        font-color:#111111;
-        background-color: #cccccc;
-    }
-    .additionalInfoBox{
-        display: inline-block;
-        float:right;
-        width:50%;
-        padding:0;
-    }
-    .projectLocation, 
-    .projectContact,
-    .projectSkills,
-    .projectCause,
-    .projectReqs{
-    }
-    .accordionTitle{
-        font-size:14px;
-        font-color:#111111;
-        background-color: #cccccc;
-    }
-    .dropdownTitle{
-        margin-top:5px;
-        font-size: 14px;
-    }
+  /*search.php START*/
 
-/* end css from form login*/
-    </style>
+  .leftHandSideStuff{
+    position:relative;
+    float:left;
+    width:320px;
+    height:75px;
+  }
+  .rightHandSideStuff{
+    position:relative;
+    float:right;
+    overflow:none;
+    width:650px;
+    height:75px;
+    /*        margin-top:-8px;*/
+  }
+  #content{
+    height:400px;
+  }
+  .iconCause{
+    float:left;
+    width:75px;
+    height:75px;
+  }
+  .projectPosition{
+    font-size: 25px;
+    margin-left:10px;
+    padding:0;
+    text-transform: uppercase;
+    color:#111111;
+  }
+  .projectOrg{
+    font-size:14px;
+    font-style: italic;
+    margin-left:10px;
+    padding:0;
+    color:#111111;
+  }
+  .projectHeadline{
+    font-size: 10px;
+    margin-left:10px;
+    color:#111111;
+  }
+  .requirementsWarning{
+    margin-left:10px;
+    color:#111111;
+  }
+  .rightHandSideStuff i{
+    vertical-align:middle;
+  }
+  .projectDistance,
+  .projectTime,
+  .projectDate{
+    font-size: .8em;
+    line-height:1.4em;
+    color:#111111;
+  }
+
+  .projectDescription{
+    height:100%;
+    width:50%;
+    display:inline-block;
+    overflow: auto;
+    background-color: #eeeeee;
+    margin-left:-15px;
+  }
+  .projectDescriptionTitle{
+    width:100%;
+    height:18px;
+    font-size:.9em;
+    font-color:#111111;
+    background-color: #cccccc;
+  }
+  .additionalInfoBox{
+    float:right;
+    width:50%;
+    padding:0;
+  }
+  .projectLocation, 
+  .projectContact,
+  .projectSkills,
+  .projectCause,
+  .projectReqs{
+  }
+  .accordionTitle{
+    font-size:14px;
+    font-color:#111111;
+    background-color: #cccccc;
+  }
+  .dropdownTitle{
+    margin-top:5px;
+    font-size: 14px;
+  }
+  #quickSearch{
+    visibility: hidden;
+    margin-left: 250px;
+    margin-top: 5px;
+  }
+  #quickSearch_form{
+  }
+  #quickSearch_selects{
+    margin-left: 15px;
+  }
+  #rightsideinfo{
+    width:690px;
+  }
+
+  /* end css from form login*/
+  </style>
 
   <script>
+
   var skills = null;
   var checkin = null;
-    
+
   var Months = new Array();
   Months['01'] = 'Jan';
   Months['02'] = 'Feb';
@@ -214,7 +230,7 @@
                 skills = eval(response);
               },
               dataType: 'json'
-              });
+            });
             
             var skillsString = '';
             for(var j = 0; j < skills.length; j++) {
@@ -253,82 +269,50 @@
                 '<li><a href="#roster" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
                 '<li><a href="#deleteproject" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
                 '</ul>'+
+                //'</div>' +
                 '<div id="content" class="tab-content">'+
                 '<div class="tab-pane active" id="moreinfo">' + 
-                    '<div class="accordion-group">'+
-                                '<div class="accordion-heading">' + 
-                                        '<img class="causeImage iconCause" src="img/icon.JPG"/>' +
-                                        '<div class="leftHandSideStuff">' + 
-                                            '<p class="projectPosition">' + r.ProjectName + '</p>' + 
-                                            '<p class="projectHeadline">' + r.Headline + '</p>' + 
-                                        '</div>' + 
-                                        '<div class="rightHandSideStuff">' + 
-                                            '<p class="projectDistance"><i class="icon-road"></i>' + ' miles</p>' + 
-                                            '<p class="projectTime"><i class="icon-time"></i>' + r.StartTime + '</p>' + 
-                                            '<p class="projectDate"><i class="icon-calendar"></i>' + r.EndTime + '</p>' + 
-                                        '</div>' + 
-                                '</div>' + 
-                                '<div class="accordion-body">' + 
-                                    '<div class="accordion-inner">' + 
-                                        '<p class="projectDescription">' +
-                                            '<span class="projectDescriptionTitle">PROJECT DESCRIPTION</span><br>' + r.Details + ' </p>' +
-                                        '<div class="additionalInfoBox">' + 
-                                            '<p class="accordionTitle">SKILLS NEEDED</p>' + 
-                                            '<p class="projectSkills">' + skillsString + '</p>' + 
-                                        '</div>' + 
-                                    '</div>' + 
-                                '</div>' + 
-                            '</div>' + 
-                '</div>'+
+                '<p> <b>Project Name:</b>' + r.ProjectName + '</p>' +
+                '<p> <b>Details:</b>' + r.Details + '</p>' +
+                '<p> <b>Headline:</b>' + r.Headline + '</p>' +
+                '<p> <b>Address:</b>' + r.Address + '</p>' +
+                '<p> <b>Start Time:</b>' + r.StartTime + '</p>' +
+                '<p> <b>End Time:</b>' + r.EndTime + '</p>' +
+                '<p> <b>Total Spots:</b>' + r.Spots + '</p>' +
+                '<p> <b>Requirements:</b>' + r.Requirements + '</p>' +
+                '<p> <b>Skills Needed:</b>' + skillsString + '</p>' + 
+                '</div>' + 
                 '<div class="tab-pane" id="roster">' + checkinString + '</div>'+
                 '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
                 '</div>');
-            } else {
-              $('.tab-content-special').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
-                '<div style="width: 700px" class="tabbable tabs-left" id="rightsideinfo">'+
-                '<ul class="nav nav-tabs">'+
-                '<li class="active"><a href="#moreinfo'+i+'" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
-                '<li><a href="#roster'+i+'" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
-                '<li><a href="#deleteproject'+i+'" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
-                '</ul>'+
+}
+else{
+  $('.tab-content-special').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
+    '<div style="width: 700px" class="tabbable tabs-left" id="rightsideinfo">'+
+    '<ul class="nav nav-tabs">'+
+    '<li class="active"><a href="#moreinfo'+i+'" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
+    '<li><a href="#roster'+i+'" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
+    '<li><a href="#deleteproject'+i+'" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
+    '</ul>'+
+                //'</div>'+
                 '<div id="content" class="tab-content">'+
                 '<div class="tab-pane active" id="moreinfo'+i+'">'+
-                    '<div class="accordion-group">'+
-                                '<div class="accordion-heading">' + 
-                                        '<img class="causeImage iconCause" src="img/icon.JPG"/>' +
-                                        '<div class="leftHandSideStuff">' + 
-                                            '<p class="projectPosition">' + r.ProjectName + '</p>' + 
-                                            '<p class="projectHeadline">' + r.Headline + '</p>' + 
-                                        '</div>' + 
-                                        '<div class="rightHandSideStuff">' + 
-                                            '<p class="projectDistance"><i class="icon-road"></i>' + ' miles</p>' + 
-                                            '<p class="projectTime"><i class="icon-time"></i>' + r.StartTime + '</p>' + 
-                                            '<p class="projectDate"><i class="icon-calendar"></i>' + r.EndTime + '</p>' + 
-                                        '</div>' + 
-                                '</div>' + 
-                                '<div class="accordion-body">' + 
-                                    '<div class="accordion-inner">' + 
-                                        '<p class="projectDescription">' +
-                                            '<span class="projectDescriptionTitle">PROJECT DESCRIPTION</span><br>' + r.Details + ' </p>' +
-                                        '<div class="additionalInfoBox">' + 
-                                            '<p class="accordionTitle">SKILLS NEEDED</p>' + 
-                                            '<p class="projectSkills">' + skillsString + '</p>' + 
-                                        '</div>' + 
-                                    '</div>' + 
-                                '</div>' + 
-                            '</div>' + 
-                '</div>'+
+                '<p> <b>Project Name:</b>' + r.ProjectName + '</p>' +
+                '<p> <b>Details:</b>' + r.Details + '</p>' +
+                '<p> <b>Headline:</b>' + r.Headline + '</p>' +
+                '<p> <b>Address:</b>' + r.Address + '</p>' +
+                '<p> <b>Start Time:</b>' + r.StartTime + '</p>' +
+                '<p> <b>End Time:</b>' + r.EndTime + '</p>' +
+                '<p> <b>Total Spots:</b>' + r.Spots + '</p>' +
+                '<p> <b>Requirements:</b>' + r.Requirements + '</p>' +
+                '<p> <b>Skills Needed:</b>' + skillsString + '</p>' + 
+                '</div>' + 
                 '<div class="tab-pane" id="roster'+i+'">' + checkinString + '</div>'+
                 '<div class="tab-pane" id="deleteproject'+i+'">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
-                '</div>'+
-                '</div>'+
                 '</div>');
-            }
-           }
-         });
+}
+}
+});
 
       $.ajax({//populate skills
         type:"GET",
@@ -535,36 +519,35 @@ function calculateDistance(loc1, loc2)
         <div id="quickSearch">
           <p>Quick Preferences</p>
           <div id="quickSearch_form">
-           <form id="searchForm" action= <?php echo URL::to('dashboardvol/getprojects'); ?> method="get">
-            <div id="quickSearch_checkboxes">
-              <input type="checkbox" name="time_of_week" value="Weekdays">&nbsp; Weekdays<br>
-              <input type="checkbox" name="time_of_week" value="Weeknights">&nbsp; Weeknights<br>
-              <input type="checkbox" name="time_of_week" value="Weekends">&nbsp; Weekends
-            </div>
-            <div id="quickSearch_selects">
-            </div>
-          </form>
-        </div>
-        <div id="quickSearch_submitButtons">
-          <div class="quickSearchButtons" style="margin-bottom: 5px;" id="quickSearch_performQuickSearch">Quick Search</div>
-          <div class="quickSearchButtons" id="quickSearch_performFullSearch" onclick="showQuickSearchForm()">Full Search</div>
+            <form id="searchForm" action= <?php echo URL::to('dashboardvol/getprojects'); ?> method="get">
+              <div id="quickSearch_checkboxes">
+                <input type="checkbox" name="time_of_week" value="Weekdays">&nbsp; Weekdays<br>
+                <input type="checkbox" name="time_of_week" value="Weeknights">&nbsp; Weeknights<br>
+                <input type="checkbox" name="time_of_week" value="Weekends">&nbsp; Weekends
+              </div>
+              <div id="quickSearch_selects"></div>
+            </form>
+          </div>
+          <div id="quickSearch_submitButtons">
+            <div class="quickSearchButtons" style="margin-bottom: 5px;" id="quickSearch_performQuickSearch">Save</div>
+            <div class="quickSearchButtons" id="quickSearch_performFullSearch">Search</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="subDashboard">
-    </div>
+      <div class="subDashboard">
+      </div>
 
-    <div class="workspace">
-      <?php echo render('upcomingprojectsorg'); ?>
-      <div id="#search-results"></div>
-    </div>
+      <div class="workspace">
+        <?php echo render('upcomingprojectsorg'); ?>
+        <div id="#search-results"></div>
+      </div>
 
-    <div class="footer">
-      <?php echo render('elements.footer'); ?>
-    </div>
-  </body>
-  </html>
-  <script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHjf2qKi514z9BBaY5ubhMqTMsMsPa07c&sensor=false&v=3&libraries=geometry">
-  </script>
+      <div class="footer">
+        <?php echo render('elements.footer'); ?>
+      </div>
+    </body>
+    </html>
+    <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHjf2qKi514z9BBaY5ubhMqTMsMsPa07c&sensor=false&v=3&libraries=geometry">
+    </script>

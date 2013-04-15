@@ -35,10 +35,9 @@
 
   <div class="dashboard">
     <ul style="display: inline-block" class="nav nav-tabs">
-      <li class="active"><a href="#upcoming" data-toggle="tab">Upcoming</a></li>
-      <li><a href="#previous" data-toggle="tab">Previous</a></li>
-      <li><a href="#new" data-toggle="tab">New</a></li>
-      <li><a href="#draft" data-toggle="tab">Draft</a></li>
+      <li class="active"><a href="#upcoming" data-toggle="tab"><img src="img/NextGray.png"></img></br></br>Upcoming</a></li>
+      <li><a href="#previous" data-toggle="tab"><img src="img/PreviousGray.png"></img></br></br>Previous</a></li>
+      <li><a href="#new" data-toggle="tab"><img src="img/NewGray.png"></img></br></br>New</a></li>
     </ul>
   </div>
 
@@ -52,16 +51,11 @@
     <div class="tab-pane active" id="upcoming">
       <?php echo render('upcomingprojectsorg'); ?>
     </div>
-
     <div class="tab-pane" id="previous">
       <?php echo render('previousprojects'); ?>
     </div>
-
     <div class="tab-pane" id="new">
       <?php echo render('projectcreation'); ?>
-    </div>
-
-    <div class="tab-pane" id="draft">
     </div>
   </div>
 

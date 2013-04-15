@@ -7,6 +7,12 @@
   <title></title>
  <?php echo Asset::container('bootstrap')->styles();?>
   <?php echo Asset::container('header')->scripts();?>
+
+  <style>
+  #accountmenu{
+    height:135px;
+  }
+  </style>
 </head>
 
 <body>
@@ -26,12 +32,13 @@
 
                      echo "<li class='dropdown'>
   <a class='dropdown-toggle' data-toggle='dropdown' href='#'>" .$name. "<span class='caret'> </span></a>
-  <ul class='dropdown-menu' role= 'menu' aria-labelledby= 'dLabel'>
-                          <li> <a href = '#'> My Profile </a> </li>
-                          <li> <a href = '#'> Karma Points </a> </li>
+  <ul class='dropdown-menu' id= 'accountmenu' role= 'menu' aria-labelledby= 'dLabel'>
+                          <!--<li> <a href = '#'> My Profile </a> </li>
                           <li> <a href = '#'>History </a> </li>
+                          -->
                           <li> <a href = ".URL::to('settings').">Settings </a> </li>
                           <li> <a href = " . URL::to('user/accountselectioncontroller'). "  onclick = 'confirmAction()' >Accounts</a> </li>
+                          <li> <a href = ".URL::to('user/karma')."> Karma Points </a> </li>
                           <li> <a href = ". URL::to('createorg').">Add An Org</a> </li>
                           <li> <a href = " . URL::to('user/logout'). ">Logout </a> </li>
                           </ul>

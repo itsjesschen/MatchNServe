@@ -1,6 +1,6 @@
 window.onload = init;
 
-
+// VARIABLES AND EVENT LOADERS
 var eventArray = new Array();
 var resultsArray = [];
 var locationsFound =0 ;
@@ -12,6 +12,7 @@ var searchVars = {
         url: 'search/getprojects', 
         beforeSubmit: findZip,
         success: function(html) { // callback function for successful searches
+            console.log(html);
             var obj = jQuery.parseJSON(html);
             $searchcol = $("#search-results");
             if(obj.length == 0){
@@ -29,14 +30,33 @@ var searchVars = {
                 findDistance(curResult, i); //lists results in results div
             }
 
-            // if ($searchcol.find("p.projectPosition").length === 0){ // 
-            //     $searchcol.html("Sorry, there are no projects that are " + $('input[name="distance"]:checked')[0].nextSibling.nodeValue + " away from you. Projects are available at greater distances :)");
-            // }
+            if ($searchcol.find("p.projectPosition").length === 0){ // 
+                $searchcol.html("Sorry, there are no projects that are " + $('input[name="distance"]:checked')[0].nextSibling.nodeValue + " away from you. Projects are available at greater distances :)");
+            }
         } 
     }
 }
+function getImg(id){
+    switch(id){
+        case 3:
+            return "img/dwc.jpg";
+        case 4:
+            return "img/jericho.jpg";
+        case 5:
+            return "img/usc.jpg";
+        default:
+            return "img/icon.jpg";
+    }
+}
+
+
+
+
+/**************
+***ACTUAL CODE PORTION
+***/
 function init(){
-   // populateSearchOptions();//dynamically add in causes and skills
+    populateSearchOptions();//dynamically add in causes and skills
     initSearch();// init ajax search
     $('.dropdown-menu').on('click','input', function(){ //init filter click handlers
         if ( $(this).hasClass("filtered")){ //maps filter to element it points to
@@ -317,10 +337,10 @@ function initSearchResultListener(){
                             <div class='accordion-group'>\
                                 <div class='accordion-heading'>\
                                     <a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion" +i+"' href='#collapse" +i+"'>\
-                                        <img class='causeImage iconCause' src='img/dwc.JPG'/> \
+                                        <img class='causeImage iconCause' src='"+getImg(opportunity.orgid)+"'/> \
                                         <div class='leftHandSideStuff'>\
                                             <p class='projectPosition'>" +opportunity.name +"</p> \
-                                            <p class='projectOrg'>" +opportunity.Orgname+"</p> \
+                                            <p class='projectOrg'>" +opportunity.organization+"</p> \
                                             <p class='projectHeadline'>" +opportunity.headline +"</p> \
                                         </div> \
                                         <div class='rightHandSideStuff'> \
@@ -340,7 +360,7 @@ function initSearchResultListener(){
                                             <p class='accordionTitle'>ADDRESS</p> \
                                             <p class='projectLocation'>"+opportunity.location+"</p> \
                                             <p class='accordionTitle'>POSTED BY</p> \
-                                            <p class='projectContact'>"+opportunity.user+"</p> \
+                                            <p class='projectContact'>"+opportunity.firstnameadmin+ " " + opportunity.lastnameadmin+"</p> \
                                             <p class='accordionTitle'>SKILLS NEEDED</p> \
                                             <p class='projectSkills'>"+opportunity.skills+"</p> \
                                             <p class='accordionTitle'>ASSOCIATED CAUSES</p> \
@@ -420,8 +440,8 @@ function signUpForProject(event, id){
     }
 }
 function createMask(){
-    // Getting the variable's value from a link 
-            var loginBox = "#login-box";
+
+             var loginBox = "#login-box";
 
             //Fade in the Popup and add close button
             $(loginBox).fadeIn(300);
@@ -437,7 +457,7 @@ function createMask(){
             
             // Add the mask to body
             $('body').append('<div id="mask"></div>');
-            $('#mask').fadeIn(300);   
+            $('#mask').fadeIn(300);    
 }
 function signUpAndLoggedIn(username, project){
     console.log("Signing up for project # "+project.pid+"under name: "+username);
@@ -497,6 +517,8 @@ function initSignup(){
 function signUp(){
     
 }
+
+
 //removed requirements stuff 
  //<p class='reqsMsg requirementsWarning'>This project contains requirements</p> \
                                             // <p class='accordionTitle'>REQUIREMENTS NEEDED</p> \

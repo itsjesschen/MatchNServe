@@ -5,6 +5,7 @@ var counter = 1;
 var temp1 = new Date();
 var curDate = Date.parse(temp1);
 var otherDate;
+var userprojectmap = {};
 
 function init(){
     getOrgProjects();//adds in all the projects to the projects page on load
@@ -18,8 +19,27 @@ function preventDropdownToggle() {
   });
 }
 
+function test() {
+
+}
+
 //loads up all the projects from the DB and places them on the left side of dashboardorg
 function getOrgProjects(){
+$.ajax({//populate admins
+    type:"GET",
+    url:"upcomingprojectsorg/getUserProjects", 
+    data:{
+        table : "userproject"
+    }
+}).done(function(html){
+    var mapobj = jQuery.parseJSON(html);
+    console.log(mapobj);
+    for(var i= 0; i < mapobj.length; i++)
+    {
+        userprojectmap[mapobj[i].projectid] = parseInt(mapobj[i].usercount);
+    }
+});
+
 $.ajax({//populate projects
         type:"GET",
         url:"upcomingprojectsorg/getProjects", 
@@ -48,7 +68,7 @@ $.ajax({//populate projects
                         <div id='projecttitle'>" + obj[i].projectname + "</div>\
                         <div id='orgname'>" + obj[i].orgname + "</div>\
                         <div id='times'>" + getTime(obj[i].starttime) + " - " + getTime(obj[i].endtime) + "</div>\
-                        <div class='progress progress-info' id='progressbar'><div class='bar' style='width: 80%'></div></div>\
+                        <div class='progress progress-info' id='progressbar'><div class='bar' style='width: " + (userprojectmap[obj[i].projectid]/parseInt(obj[i].spots) * 100) + "%'></div></div>\
                     </div></a>\
                 </li>");
             }
@@ -65,7 +85,7 @@ $.ajax({//populate projects
                         <div id='projecttitle'>" + obj[i].projectname + "</div>\
                         <div id='orgname'>" + obj[i].orgname + "</div>\
                         <div id='times'>" + getTime(obj[i].starttime) + " - " + getTime(obj[i].endtime) + "</div>\
-                        <div class='progress progress-info' id='progressbar'><div class='bar' style='width: 80%'></div></div>\
+                        <div class='progress progress-info' id='progressbar'><div class='bar' style='width: " + (userprojectmap[obj[i].projectid]/parseInt(obj[i].spots) * 100) + "%'></div></div>\
                     </div></a>\
                 </li>");
             }
@@ -152,7 +172,7 @@ $.ajax({//populate projects
             }
         }
     });
-    setTimeout(function(){getSchedule()},100);;//populates both schedule and pending tabs for projects
+    setTimeout(function(){getSchedule()},100);//populates both schedule and pending tabs for projects
 }
 
 function getSchedule(){
@@ -164,6 +184,7 @@ $.ajax({
         }
     }).done(function(html){
         var obj = jQuery.parseJSON(html);
+        console.log(obj);
         for(var i= 0; i < projectlistid.length; i++)
         {
             counter = 1;
@@ -175,18 +196,31 @@ $.ajax({
                     {
                         $options4 = $("#schedule" + obj[j].projectid);
                         $options4.append("<p>" + counter + ". "+  obj[j].firstname + " " + obj[j].lastname + "</p>\ ");
+
+                        if(obj[j].checkedin == "0")
+                        {
+                            $options5 = $("#checkinvolunteers" + obj[j].projectid);
+                            $options5.append("<p>Check in<a href='#' onclick='checkInUser(\"" + obj[j].userid + "\",\"" + obj[j].projectid + "\")'> " +  obj[j].firstname + " " + obj[j].lastname + " </a>  </p>\ ");
+                        }
                         counter++;
                     }
                     else
                     {
-                        $options5 = $("#pendingvolunteers" + obj[j].projectid);
-                        $options5.append("<p>Are you sure you want to <a href='#' onclick='approveUser(\"" + obj[j].userid + "\",\"" + obj[j].projectid + "\")'>approve </a> " +  obj[j].firstname + " " + obj[j].lastname + " ?</p>\ ");
+                        $options6 = $("#pendingvolunteers" + obj[j].projectid);
+                        $options6.append("<p>Are you sure you want to <a href='#' onclick='approveUser(\"" + obj[j].userid + "\",\"" + obj[j].projectid + "\")'>approve </a> " +  obj[j].firstname + " " + obj[j].lastname + " ?</p>\ ");
                     }
                 }
             }
         }
     });
 }
+
+function checkInUser(userID, projectID) {
+  $.get('upcomingprojectsorg/checkInUser?user=' + userID + '&project=' + projectID, function(response) {
+    window.location.reload();
+  });
+}
+
 
 function approveUser(userID, projectID) {
   $.get('upcomingprojectsorg/approveUser?user=' + userID + '&project=' + projectID, function(response) {

@@ -30,13 +30,24 @@
 	#projectDescription{
 		height:150px;
 	}
-	#stufftobeplacedonleft,
+	#stufftobeplacedonleft{
+		float:left;
+		width:500px;
+		margin-left:150px;
+	}
 	#stufftobeplacedonright{
 		float:left;
 		width:500px;
-		text-align: center;
+		position:absolute;
+		margin-left:525px;
 	}
-
+	li{
+		list-style: none;
+	}
+	.dropdown-menu{
+		height:200px;
+		overflow: auto;
+	}
 	</style>
 </head>
 
@@ -50,9 +61,9 @@
 		</br></br>
 		<input id="projectDetails" type="text" name="projectDetails" value="Give us the full project description" defaultValue = "Give us the full project description" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 	</br></br>
-	<p> LOCATION: 	
-		<input id="projectLocationONLINE" type="radio" name="projectLocation" value="1"> ONLINE
-		<input id="projectLocationONSITE" type="radio" name="projectLocation" value="2"> ONSITE
+	<p>LOCATION: 	
+		<input id="projectLocationONLINE" type="radio" name="projectLocation" value="1"/> ONLINE
+		<input id="projectLocationONSITE" type="radio" name="projectLocation" value="2"/> ONSITE
 	</p>
 	<input id="projectAddress" type="text" name="projectAddress" value="If ONSITE, please give full address." defaultValue = "If ONSITE, please give full address." onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 </br></br>
@@ -64,8 +75,7 @@
 	<div id="project-creation-admin-dropdown">
 		<li class="dropdown">
 			<a class="projectAdminSelector dropdown-toggle" data-toggle="dropdown" href="#">Primary Contact<span class="caret"></span></a>
-			<ul class = "dropdown-menu">
-			</ul>
+			<ul class = "dropdown-menu"></ul>
 		</li>
 	</br></br>
 </div>
@@ -77,8 +87,7 @@
 		<a class="projectSkillSelector dropdown-toggle" data-toggle="dropdown" href="#">Skills Required 
 			<span class="caret"></span>
 		</a>
-		<ul class = "dropdown-menu">
-		</ul>
+		<ul class = "dropdown-menu"></ul>
 	</li>
 </br></br>
 </div>
@@ -87,17 +96,16 @@
 		<a class="projectGoodForList dropdown-toggle" data-toggle="dropdown" href="#">Who is this good for? 
 			<span class="caret"></span>
 		</a>
-		<ul class = "dropdown-menu">
-		</ul>
+		<ul class = "dropdown-menu"></ul>
 	</li>
 </br></br>
 </div>
 <input id="projectRequirements" type="text" name="projectRequirements" value="Any requirements?" defaultValue = "Any requirements?" onclick="fieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)" class="inputBox"/>
 </br></br>
-</div> 
 <input type="submit" name="FinishButton" class="btn" value="Finish"/>
+
+</div> 
 </br>
-</div>
 </form>
 </body>
 </html>
