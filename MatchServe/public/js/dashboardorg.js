@@ -36,6 +36,19 @@ $.ajax({//populate projects
             var temp2 = obj[i].endtime;
             //alert("temp2 is : " + temp2);
             otherDate = stringToDate(temp2);
+
+            var startdate = new Date(Date.parse(obj[i].starttime));
+            var startday=startdate.toLocaleDateString();
+            var starttime=startdate.toLocaleTimeString();
+            var enddate = new Date(Date.parse(obj[i].endtime));
+            var endday=enddate.toLocaleDateString();
+            var endtime=enddate.toLocaleTimeString();
+
+            if(starttime === endtime){
+                var times = "All Day";
+            }else{
+                var times = starttime + " - " + endtime;
+            }
             //alert("otherDate is : " + otherDate);
             if(dates.compare(curDate, otherDate) < 1)
             {
@@ -49,7 +62,7 @@ $.ajax({//populate projects
                     <div class='infosection'>\
                         <div id='projecttitle'>" + obj[i].projectname + "</div>\
                         <div id='orgname'>" + obj[i].orgname + "</div>\
-                        <div id='times'>" + getTime(obj[i].starttime) + " - " + getTime(obj[i].endtime) + "</div>\
+                        <div id='times'>"+times+"</div>\
                         <div class='progress progress-info' id='progressbar'><div class='bar' style='width: " + (userprojectmap[obj[i].projectid]/parseInt(obj[i].spots) * 100) + "%'></div></div>\
                     </div></a>\
                 </li>");
@@ -66,7 +79,7 @@ $.ajax({//populate projects
                     <div class='infosection'>\
                         <div id='projecttitle'>" + obj[i].projectname + "</div>\
                         <div id='orgname'>" + obj[i].orgname + "</div>\
-                        <div id='times'>" + getTime(obj[i].starttime) + " - " + getTime(obj[i].endtime) + "</div>\
+                        <div id='times'>"+times+ "</div>\
                         <div class='progress progress-info' id='progressbar'><div class='bar' style='width: " + (userprojectmap[obj[i].projectid]/parseInt(obj[i].spots) * 100) + "%'></div></div>\
                     </div></a>\
                 </li>");
@@ -80,6 +93,13 @@ $.ajax({//populate projects
             //if the end date has not passed, add the project to the list
             var temp2 = obj[i].endtime;
             otherDate = Date.parse(temp2);
+            var startdate = new Date(Date.parse(obj[i].starttime));
+            var startday=startdate.toLocaleDateString();
+            var starttime=startdate.toLocaleTimeString();
+            var enddate = new Date(Date.parse(obj[i].endtime));
+            var endday=enddate.toLocaleDateString();
+            var endtime=enddate.toLocaleTimeString();
+
             if((curDate - otherDate) < 1)
             {
                 //see if requirements is null
@@ -104,8 +124,8 @@ $.ajax({//populate projects
                                     <p> <b>Details:</b> " + obj[i].details + "</p>\
                                     <p> <b>Headline:</b> " + obj[i].headline + "</p>\
                                     <p> <b>Address:</b> " + obj[i].address + "</p>\
-                                    <p> <b>Start Time:</b> " + obj[i].starttime + "</p>\
-                                    <p> <b>End Time:</b> " + obj[i].endtime + "</p>\
+                                    <p> <b>Start Time:</b> " + startday +" at " +starttime +"</p>\
+                                    <p> <b>End Time:</b> " + endday +" at " +endtime +"</p>\
                                     <p> <b>Total Spots:</b> " + obj[i].spots + "</p>\
                                     <p> <b>Requirements:</b> " + req + "</p>\
                                 </div>\
@@ -140,8 +160,8 @@ $.ajax({//populate projects
                                     <p> <b>Details:</b> " + obj[i].details + "</p>\
                                     <p> <b>Headline:</b> " + obj[i].headline + "</p>\
                                     <p> <b>Address:</b> " + obj[i].address + "</p>\
-                                    <p> <b>Start Time:</b> " + obj[i].starttime + "</p>\
-                                    <p> <b>End Time:</b> " + obj[i].endtime + "</p>\
+                                    <p> <b>Start Time:</b> " + startday +" at " +starttime +"</p>\
+                                    <p> <b>End Time:</b> "+ endday +" at " +endtime +"</p>\
                                     <p> <b>Total Spots:</b> " + obj[i].spots + "</p>\
                                     <p> <b>Requirements:</b> " + req + "</p>\
                                 </div>\

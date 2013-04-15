@@ -482,6 +482,7 @@ function signUpAndLoggedIn(username, project){
     }).done(function(html) {
         if (html !== 0){
 
+
             if(html === "false"){
                 document.getElementById("signUpConfirmation-container").innerHTML= "<p style='color: white;'> You already signed up for the " + project.name+" project!</p>\
                 <button type = 'button' class='closewindow button'> Return to Search</button>";
@@ -497,6 +498,19 @@ function signUpAndLoggedIn(username, project){
 
                 return false;
             });
+
+            //recenter
+             var loginBox = "#login-box";
+            
+            //Set the center alignment padding + border
+            var popMargTop = ($(loginBox).height() + 24) / 2; 
+            var popMargLeft = ($(loginBox).width() + 24) / 2; 
+            
+            $(loginBox).css({ 
+                'margin-top' : -popMargTop,
+                'margin-left' : -popMargLeft
+            });
+
             document.getElementById("signUpConfirmation-container").style.display = ''; //show afterwards
             console.log(html);
         }else{
