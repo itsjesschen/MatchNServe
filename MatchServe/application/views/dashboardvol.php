@@ -261,7 +261,13 @@
                 checkinString += ', ';
               //alert(checkinString);
             }
-            
+
+            var startdate = new Date(Date.parse(r.StartTime ));
+            var startday=startdate.toLocaleDateString();
+            var starttime=startdate.toLocaleTimeString();
+            var enddate = new Date(Date.parse(r.EndTime));
+            var endday=enddate.toLocaleDateString();
+            var endtime=enddate.toLocaleTimeString();
             // Now take care of the tab content
             if(i == 0) {
               $('.tab-content-special').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
@@ -274,15 +280,15 @@
                 //'</div>' +
                 '<div id="content" class="tab-content">'+
                 '<div class="tab-pane active" id="moreinfo">' + 
-                '<p> <b>Project Name:</b>' + r.ProjectName + '</p>' +
-                '<p> <b>Details:</b>' + r.Details + '</p>' +
-                '<p> <b>Headline:</b>' + r.Headline + '</p>' +
-                '<p> <b>Address:</b>' + r.Address + '</p>' +
-                '<p> <b>Start Time:</b>' + r.StartTime + '</p>' +
-                '<p> <b>End Time:</b>' + r.EndTime + '</p>' +
-                '<p> <b>Total Spots:</b>' + r.Spots + '</p>' +
-                '<p> <b>Requirements:</b>' + r.Requirements + '</p>' +
-                '<p> <b>Skills Needed:</b>' + skillsString + '</p>' + 
+                '<p> <b>Project Name: </b>' + r.ProjectName + '</p>' +
+                '<p> <b>Details: </b>' + r.Details + '</p>' +
+                '<p> <b>Headline: </b>' + r.Headline + '</p>' +
+                '<p> <b>Address: </b>' + r.Address + '</p>' +
+                '<p> <b>Start Time: </b>' + startday +' at ' +starttime +'</p>' +
+                '<p> <b>End Time: </b>'+ endday +' at ' +endtime + '</p>' +
+                '<p> <b>Total Spots: </b>' + r.Spots + '</p>' +
+                '<p> <b>Requirements: </b>' + r.Requirements + '</p>' +
+                '<p> <b>Skills Needed: </b>' + skillsString + '</p>' + 
                 '</div>' + 
                 '<div class="tab-pane" id="roster">' + checkinString + '</div>'+
                 '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
@@ -299,15 +305,15 @@
                             //'</div>'+
                             '<div id="content" class="tab-content">'+
                             '<div class="tab-pane active" id="moreinfo'+i+'">'+
-                            '<p> <b>Project Name:</b>' + r.ProjectName + '</p>' +
-                            '<p> <b>Details:</b>' + r.Details + '</p>' +
-                            '<p> <b>Headline:</b>' + r.Headline + '</p>' +
-                            '<p> <b>Address:</b>' + r.Address + '</p>' +
-                            '<p> <b>Start Time:</b>' + r.StartTime + '</p>' +
-                            '<p> <b>End Time:</b>' + r.EndTime + '</p>' +
-                            '<p> <b>Total Spots:</b>' + r.Spots + '</p>' +
-                            '<p> <b>Requirements:</b>' + r.Requirements + '</p>' +
-                            '<p> <b>Skills Needed:</b>' + skillsString + '</p>' + 
+                            '<p> <b>Project Name: </b>' + r.ProjectName + '</p>' +
+                            '<p> <b>Details: </b>' + r.Details + '</p>' +
+                            '<p> <b>Headline: </b>' + r.Headline + '</p>' +
+                            '<p> <b>Address: </b>' + r.Address + '</p>' +
+                            '<p> <b>Start Time: </b>' + startday +' at ' +starttime +'</p>' +
+                            '<p> <b>End Time: </b>'+ endday +' at ' +endtime + '</p>' +
+                            '<p> <b>Total Spots: </b>' + r.Spots + '</p>' +
+                            '<p> <b>Requirements: </b>' + r.Requirements + '</p>' +
+                            '<p> <b>Skills Needed: </b>' + skillsString + '</p>' + 
                             '</div>' + 
                             '<div class="tab-pane" id="roster'+i+'">' + checkinString + '</div>'+
                             '<div class="tab-pane" id="deleteproject'+i+'">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
