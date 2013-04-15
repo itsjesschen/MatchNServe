@@ -84,7 +84,7 @@ class Search_Controller extends Base_Controller{
 		//$causes = array(9,14);
 		 //DATABASE CALL that goes to models/Database.php
 		 $data = Database::getProjects($searchterm, $skills, $causes, $times);
-		 //$data = json_encode($data);
+		 $data = json_encode($data);
 		 return $data;	
 	}
 
