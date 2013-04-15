@@ -69,6 +69,18 @@
         margin-top:10px;
     }
     /* END HEADER*/
+    p.loader{
+        margin: 0 auto;
+        padding: 10px;
+        font-size: 20px;
+        text-align: center;
+    }
+    img.loader{
+        margin: 0 auto;
+        width:250px;
+        display:block;
+        padding: 10px;
+    }
     /*RESULTS*/
     #search-specifiers-container{
         margin-left:-155px;
@@ -86,10 +98,10 @@
     }
     /*    border-bottom:1px solid #EEEEEE;*/
     #map{ 
-        height: 300px;
-        width:300px;
+        height: 350px;
+        width:350px;
         float:right;
-        margin: 0 10px;
+        margin: 10px;
         display:inline-block;
     }
     .search-result-list{
@@ -227,7 +239,9 @@
     #search-results .accordion-toggle{
         width:560px;/*remove when bootstrap is fixed*/
     }
-
+    #search-results .accordion-heading{
+        background-color: #eeeeee;
+    }
     .reqsMsg{
         position:absolute;
         bottom:0;
@@ -239,15 +253,17 @@
         width:50%;
         display:inline-block;
         overflow: auto;
-        background-color: #eeeeee;
+        /*background-color: #eeeeee;*/
         margin-left:-15px;
+        padding: 0 0 0 10px;
     }
     .projectDescriptionTitle{
         width:100%;
         height:18px;
         font-size:.9em;
         font-color:#111111;
-        background-color: #cccccc;
+        border-bottom: 1px solid #CCCCCC;
+        /*background-color: #cccccc;*/
     }
     .additionalInfoBox{
         display: inline-block;
@@ -262,9 +278,12 @@
     .projectReqs{
     }
     .accordionTitle{
-        font-size:14px;
+        font-size: 14px;
+        font-color: #111111;
+        border-bottom: 1px solid #CCCCCC;
+/*        font-size:14px;
         font-color:#111111;
-        background-color: #cccccc;
+        background-color: #cccccc;*/
     }
     .dropdownTitle{
         margin-top:5px;
@@ -432,7 +451,7 @@ img.btn_close {
         <div id="search-container" class="dashboard">
             <input id="search-query" type="text" maxlength="30"name="searchterm" value="search for" defaultValue = "search for" onclick="searchFieldDisplay(this)" onfocus="focusedText(this)" onblur="blurText(this)"/>
             <input id="zip-code" type="text" name="zipcode" 
-            value="<?php if($zip_code != null){echo $zip_code;} else {echo "zip code";}?>" 
+            value="<?php if($zip_code != null){echo urldecode($zip_code);} else {echo "zip code";}?>" 
             onclick="searchFieldDisplay(this)" 
             onfocus="focusedText(this)" maxlength="5" defaultValue = "zip code" onblur="blurText(this)" />
             <button type="submit" id="SearchBttn" class="btn" >Search</button>

@@ -20,7 +20,7 @@ var searchVars = {
                 return;
             }       
             $searchcol.html('');//clears prior results 
-            document.getElementById("search-results").innerHTML = "<p> Loading search results near you ... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
+            document.getElementById("search-results").innerHTML = "<p class = 'loader'> Loading search results near you... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
             resultsArray.length = 0;//clears the array
             resultsArray.length = obj.length;//sets array to object's length
             locationsFound = 0; //clears number found
@@ -72,7 +72,7 @@ function init(){
 
 function onPageLoadSearch(){ //automatic search once page has loaded
     $('#searchForm').ajaxSubmit(searchVars.options); 
-    document.getElementById("search-results").innerHTML = "<p> Loading search results near you ... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
+    document.getElementById("search-results").innerHTML = "<p class = 'loader'> Loading search results near you... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
     return false;
 }
 
