@@ -72,7 +72,7 @@ class CreateOrg_Controller extends Base_Controller
     	}
     	
     	echo "<script> alert('Your Information has been succesfully stored!');
-    		window.location.href = \"../dashboardvol\";</script>";
+    		window.location.href = \"../user/accountselection\";</script>";
     	
 }
 }

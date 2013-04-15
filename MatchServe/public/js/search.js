@@ -71,7 +71,7 @@ function init(){
 }
 
 function onPageLoadSearch(){ //automatic search once page has loaded
-   // $('#searchForm').ajaxSubmit(searchVars.options); 
+    $('#searchForm').ajaxSubmit(searchVars.options); 
     document.getElementById("search-results").innerHTML = "<p> Loading search results near you ... </p><img class = 'loader' src = img/ajax-loader.gif></img>";
     return false;
 }
