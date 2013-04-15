@@ -12,7 +12,7 @@ function action_login(){
 
 function action_processlogin(){
 
- 	$dbLocalhost = mysql_connect("localhost", "root", "")
+ 	$dbLocalhost = mysql_connect("localhost", "root", "root")
  or die("Could not connect: " . mysql_error());
  mysql_select_db("matchserve", $dbLocalhost)
  or die("Could not find database: " . mysql_error());
