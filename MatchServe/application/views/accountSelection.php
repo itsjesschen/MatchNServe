@@ -12,7 +12,8 @@
 		padding-right:60px;
 		padding-left:60px;
 		cursor: pointer;
-		background-color: #777777;
+		background-color: #333333;
+		border-bottom: 1px solid #EEEEEE;
 		color:white;
 		margin:0 auto;
 	}
@@ -26,6 +27,7 @@
 	.subDashboard p{
 		text-align: center;
 		margin-top:10px;
+		margin: 4px;
 	}
 	table{
 		margin: 0 auto;

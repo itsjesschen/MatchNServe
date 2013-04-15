@@ -31,6 +31,7 @@
   }
   #content{
     height:400px;
+    border-bottom: 1px solid #333333;
   }
   .iconCause{
     float:left;
@@ -119,7 +120,12 @@
   #rightsideinfo{
     width:690px;
   }
-
+    img.loader{
+        margin: 0 auto;
+        width:250px;
+        display:block;
+        padding: 10px;
+    }
   /* end css from form login*/
   </style>
 
@@ -149,7 +155,8 @@
 
   $(document).ready(function() {
 
-    $('#projectlist').append('<?php echo HTML::image('img/ajax-loader.gif'); ?>');
+$('#projectlist').append("<img class = 'loader' src = img/ajax-loader.gif></img>");
+    //$('#projectlist').append('<?php echo HTML::image('img/ajax-loader.gif'); ?>');
     
     $.get('dashboardvol/getrecentprojects', function(response) {
       console.log("Upcoming Projects:" + response);

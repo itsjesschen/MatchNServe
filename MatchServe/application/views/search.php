@@ -200,7 +200,7 @@
         height:75px;
     }
     .projectPosition{
-        font-size: 25px;
+        font-size: 20px;
         margin-left:10px;
         padding:0;
         text-transform: uppercase;

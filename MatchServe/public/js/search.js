@@ -12,7 +12,7 @@ var searchVars = {
         url: 'search/getprojects', 
         beforeSubmit: findZip,
         success: function(html) { // callback function for successful searches
-            console.log(html);
+            //console.log(html);
             var obj = jQuery.parseJSON(html);
             $searchcol = $("#search-results");
             if(obj.length == 0){
@@ -425,7 +425,8 @@ function signUpForProject(event, id){
                         search : "true"
                     }
                 }).done(function(html){
-                    console.log(html);
+                    //console.log(html);
+
                     signUpAndLoggedIn(html,project);//signup for project
                 });
                 return false;
@@ -465,7 +466,7 @@ function createMask(){
             $('#mask').fadeIn(300);    
 }
 function signUpAndLoggedIn(username, project){
-    console.log("Signing up for project # "+project.pid+"under name: "+username);
+   // console.log("Signing up for project # "+project.pid+"under name: "+username);
     //hide current elements
     //document.getElementById("signUpConfirmation-container").style.display = 'none';
     document.getElementById("signUpConfirmation-container").innerHTML = " <p style = 'color: white;'> Signing up for project... <p><img class = 'loader' src = img/ajax-loader.gif></img>";
@@ -512,7 +513,7 @@ function signUpAndLoggedIn(username, project){
             });
 
             document.getElementById("signUpConfirmation-container").style.display = ''; //show afterwards
-            console.log(html);
+           // console.log(html);
         }else{
             alert("Error Signing Up");
         }
