@@ -95,7 +95,7 @@ class DashboardVol_Controller extends Base_Controller{
 	}
 	
 	public function action_getskills() {
-		$dbLocalhost = mysql_connect("localhost", "root", "root")
+		$dbLocalhost = mysql_connect("localhost", "root", "")
 		or die("Could not connect: " . mysql_error());
 		mysql_selectdb("matchserve", $dbLocalhost)
 		or die("Couild not find database: " . mysql_error());

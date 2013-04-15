@@ -149,6 +149,8 @@
 
   $(document).ready(function() {
 
+    $('#projectlist').append('<?php echo HTML::image('img/ajax-loader.gif'); ?>');
+    
     $.get('dashboardvol/getrecentprojects', function(response) {
       console.log("Upcoming Projects:" + response);
       response = $.parseJSON(response);
@@ -285,35 +287,37 @@
                 '<div class="tab-pane" id="roster">' + checkinString + '</div>'+
                 '<div class="tab-pane" id="deleteproject">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
                 '</div>');
-}
-else{
-  $('.tab-content-special').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
-    '<div style="width: 700px" class="tabbable tabs-left" id="rightsideinfo">'+
-    '<ul class="nav nav-tabs">'+
-    '<li class="active"><a href="#moreinfo'+i+'" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
-    '<li><a href="#roster'+i+'" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
-    '<li><a href="#deleteproject'+i+'" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
-    '</ul>'+
-                //'</div>'+
-                '<div id="content" class="tab-content">'+
-                '<div class="tab-pane active" id="moreinfo'+i+'">'+
-                '<p> <b>Project Name:</b>' + r.ProjectName + '</p>' +
-                '<p> <b>Details:</b>' + r.Details + '</p>' +
-                '<p> <b>Headline:</b>' + r.Headline + '</p>' +
-                '<p> <b>Address:</b>' + r.Address + '</p>' +
-                '<p> <b>Start Time:</b>' + r.StartTime + '</p>' +
-                '<p> <b>End Time:</b>' + r.EndTime + '</p>' +
-                '<p> <b>Total Spots:</b>' + r.Spots + '</p>' +
-                '<p> <b>Requirements:</b>' + r.Requirements + '</p>' +
-                '<p> <b>Skills Needed:</b>' + skillsString + '</p>' + 
-                '</div>' + 
-                '<div class="tab-pane" id="roster'+i+'">' + checkinString + '</div>'+
-                '<div class="tab-pane" id="deleteproject'+i+'">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
-                '</div>');
-}
-}
-});
-
+            }
+            else{
+              $('.tab-content-special').append('<div class="tab-pane active" id="project'+r.ProjectID+'">'+
+                '<div style="width: 700px" class="tabbable tabs-left" id="rightsideinfo">'+
+                '<ul class="nav nav-tabs">'+
+                '<li class="active"><a href="#moreinfo'+i+'" data-toggle="tab"><?php echo HTML::image("img/PendingGray.png") ?></br>More Info</a></li>'+
+                '<li><a href="#roster'+i+'" data-toggle="tab"><?php echo HTML::image("img/User.png") ?></br>Roster</a></li>'+
+                '<li><a href="#deleteproject'+i+'" data-toggle="tab"><?php echo HTML::image("img/DeleteGray.png") ?></br>Delete Project</a></li>'+
+                '</ul>'+
+                            //'</div>'+
+                            '<div id="content" class="tab-content">'+
+                            '<div class="tab-pane active" id="moreinfo'+i+'">'+
+                            '<p> <b>Project Name:</b>' + r.ProjectName + '</p>' +
+                            '<p> <b>Details:</b>' + r.Details + '</p>' +
+                            '<p> <b>Headline:</b>' + r.Headline + '</p>' +
+                            '<p> <b>Address:</b>' + r.Address + '</p>' +
+                            '<p> <b>Start Time:</b>' + r.StartTime + '</p>' +
+                            '<p> <b>End Time:</b>' + r.EndTime + '</p>' +
+                            '<p> <b>Total Spots:</b>' + r.Spots + '</p>' +
+                            '<p> <b>Requirements:</b>' + r.Requirements + '</p>' +
+                            '<p> <b>Skills Needed:</b>' + skillsString + '</p>' + 
+                            '</div>' + 
+                            '<div class="tab-pane" id="roster'+i+'">' + checkinString + '</div>'+
+                            '<div class="tab-pane" id="deleteproject'+i+'">Are you sure you want to <a href="#" onclick="deleteProject(\''+r.ProjectID+'\')">delete</a> this project?</div>'+
+                            '</div>');
+            }
+        }
+        
+        $('#projectlist:first-child').children("img").remove();
+    });
+    
       $.ajax({//populate skills
         type:"GET",
         url:"dashboardvol/initoptions",
